@@ -23,6 +23,7 @@
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "sugaming-site:build",
+        "port": 4200,
         "dev": true
       },
       "configurations": {
