@@ -1,6 +1,12 @@
 {
   "extends": ["plugin:cypress/recommended", "../../.eslintrc.json"],
   "ignorePatterns": ["!**/*"],
+  "parserOptions": {
+    "project": [
+      "apps/sugaming-site/tsconfig.*?.json",
+      "apps/sugaming-site-e2e/tsconfig.json"
+    ]
+  },
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],

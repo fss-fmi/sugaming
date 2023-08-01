@@ -5,6 +5,9 @@
   "ignorePatterns": [
     "!**/*"
   ],
+  "parserOptions": {
+    "project": "apps/sugaming-api/tsconfig.*?.json"
+  },
   "overrides": [
     {
       "files": [
