@@ -5,9 +5,12 @@
     "next/core-web-vitals",
     "../../.eslintrc.json"
   ],
-  "ignorePatterns": ["!**/*", ".next/**/*"],
+  "ignorePatterns": ["!**/*", ".next/**/*", "next.config.js", "jest.config.ts"],
   "parserOptions": {
-    "project": "apps/sugaming-site/tsconfig.*?.json"
+    "project": [
+      "apps/sugaming-site/tsconfig.json",
+      "apps/sugaming-site/tsconfig.spec.json"
+    ]
   },
   "overrides": [
     {
