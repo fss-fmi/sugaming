@@ -20,7 +20,8 @@
           "apps/sugaming-api/src/assets"
         ],
         "isolatedConfig": true,
-        "webpackConfig": "apps/sugaming-api/webpack.config.js"
+        "webpackConfig": "apps/sugaming-api/webpack.config.js",
+        "generatePackageJson": true
       },
       "configurations": {
         "development": {},
@@ -66,6 +67,28 @@
         "ci": {
           "ci": true,
           "codeCoverage": true
+        }
+      }
+    },
+    "container": {
+      "executor": "@nx-tools/nx-container:build",
+      "dependsOn": [
+        "build"
+      ],
+      "options": {
+        "engine": "docker",
+        "metadata": {
+          "images": [
+            "sugaming/sugaming-api"
+          ],
+          "load": true,
+          "tags": [
+            "type=schedule",
+            "type=ref,event=branch",
+            "type=ref,event=tag",
+            "type=ref,event=pr",
+            "type=sha,prefix=sha-"
+          ]
         }
       }
     }

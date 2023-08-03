@@ -19,6 +19,8 @@
   "devDependencies": {
     "@nestjs/schematics": "^10.0.1",
     "@nestjs/testing": "^10.0.2",
+    "@nx-tools/container-metadata": "^5.0.2",
+    "@nx-tools/nx-container": "^5.0.2",
     "@nx/cypress": "16.5.5",
     "@nx/eslint-plugin": "16.5.5",
     "@nx/jest": "16.5.5",
