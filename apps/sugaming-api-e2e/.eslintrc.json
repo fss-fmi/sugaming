@@ -1,0 +1,25 @@
+{
+  "extends": [
+    "../../.eslintrc.json"
+  ],
+  "ignorePatterns": [
+    "!**/*"
+  ],
+  "parserOptions": {
+    "project": [
+      "apps/sugaming-api/tsconfig.*?.json",
+      "apps/sugaming-api-e2e/tsconfig.*?.json"
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.ts",
+        "*.tsx",
+        "*.js",
+        "*.jsx"
+      ],
+      "rules": {}
+    }
+  ]
+}
