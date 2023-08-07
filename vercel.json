@@ -6,10 +6,10 @@
       "use": "@vercel/node"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/(.*)",
-      "dest": "main.js"
+      "source": "/(.*)",
+      "destination": "/apps/sugaming-api/src/main.ts"
     }
   ]
 }
