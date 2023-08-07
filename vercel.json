@@ -8,7 +8,7 @@
   ],
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/api/(.*)",
       "destination": "/apps/sugaming-api/src/main.ts"
     }
   ]
