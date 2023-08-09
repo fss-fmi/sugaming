@@ -9,7 +9,7 @@ env:
   TF_CLOUD_ORGANIZATION: "fss-fmi"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
   TF_WORKSPACE: "sugaming"
-  CONFIG_DIRECTORY: "./terraform"
+  CONFIG_DIRECTORY: "./"
 
 jobs:
   terraform:
