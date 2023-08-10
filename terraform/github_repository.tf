@@ -4,8 +4,8 @@ resource "github_repository" "github_repository" {
 
   visibility = "public"
 
-  has_issues = true
-  has_projects = true
-  has_wiki = true
+  has_issues      = true
+  has_projects    = true
+  has_wiki        = true
   has_discussions = false
 }
