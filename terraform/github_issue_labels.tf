@@ -9,7 +9,7 @@ resource "github_issue_label" "bug_label" {
   repository  = github_repository.github_repository.name
   name        = "bug"
   description = "Something isn't working"
-  color       = "FF0000"
+  color       = "D73A4A"
 }
 
 resource "github_issue_label" "deployment_label" {
@@ -30,7 +30,7 @@ resource "github_issue_label" "question_label" {
   repository  = github_repository.github_repository.name
   name        = "question"
   description = "Further information is requested"
-  color       = "FFA500"
+  color       = "D876E3"
 }
 
 resource "github_issue_label" "documentation_label" {
