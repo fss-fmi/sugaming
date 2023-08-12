@@ -1,7 +1,7 @@
 ---
 name: "❓ Question"
 about: "A general question about this project."
-title: "[Question] "
+title: "question: "
 labels: "question"
 assignees: ""
 

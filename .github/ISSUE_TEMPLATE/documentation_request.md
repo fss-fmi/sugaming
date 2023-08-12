@@ -1,7 +1,7 @@
 ---
 name: "📄 Documentation request"
 about: "Request a project documentation change to be made."
-title: "[Docs] "
+title: "docs: "
 labels: documentation
 assignees: ""
 
