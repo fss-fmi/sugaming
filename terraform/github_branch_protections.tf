@@ -6,7 +6,6 @@ resource "github_branch_protection_v3" "main_branch_protection" {
   required_status_checks {
     strict = true
     checks = [
-      "Terraform Plan:15368",
       "Vercel – sugaming-api:8329",
       "Vercel – sugaming-site:8329",
       "Vercel – sugaming-admin:8329"
