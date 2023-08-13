@@ -1,7 +1,7 @@
 ---
 name: "📦 CI/CD request"
 about: "Suggest a change in the project pipelines."
-title: "[Deploy] "
+title: "ci: "
 labels: deployment
 assignees: ""
 

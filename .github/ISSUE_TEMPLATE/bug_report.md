@@ -1,7 +1,7 @@
 ---
 name: "🐛 Bug report"
 about: "Report a software bug or regression."
-title: "[Bug] "
+title: "bug: "
 labels: "bug"
 assignees: ""
 

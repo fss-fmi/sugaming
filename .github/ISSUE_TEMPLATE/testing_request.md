@@ -1,7 +1,7 @@
 ---
 name: "🧪 Testing request"
 about: "Suggest a test case to be implemented for this project."
-title: "[Test] "
+title: "test: "
 labels: "test"
 assignees: ""
 
