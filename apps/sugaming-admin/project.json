@@ -81,7 +81,7 @@
         "engine": "docker",
         "metadata": {
           "images": [
-            "fss-fmi/sugaming-admin",
+            "fssfmi/sugaming-admin",
             "ghcr.io/fss-fmi/sugaming-admin"
           ],
           "load": true,

@@ -79,7 +79,7 @@
         "engine": "docker",
         "metadata": {
           "images": [
-            "fss-fmi/sugaming-api",
+            "fssfmi/sugaming-api",
             "ghcr.io/fss-fmi/sugaming-api"
           ],
           "load": true,
