@@ -10,6 +10,6 @@ resource "vercel_project" "vercel_admin" {
 
   build_command    = "yarn nx build sugaming-admin --prod"
   output_directory = "../../dist/apps/sugaming-admin/.next"
-  install_command  = "yarn install"
+  install_command  = "yarn install --production"
   root_directory   = "apps/sugaming-admin"
 }
