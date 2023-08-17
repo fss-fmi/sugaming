@@ -10,6 +10,6 @@ resource "vercel_project" "vercel_site" {
 
   build_command    = "yarn nx build sugaming-site --prod"
   output_directory = "../../dist/apps/sugaming-site/.next"
-  install_command  = "yarn install --production"
+  install_command  = "yarn install"
   root_directory   = "apps/sugaming-site"
 }
