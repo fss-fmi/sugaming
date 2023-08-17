@@ -1,0 +1,86 @@
+name: 'Release'
+
+on:
+  push:
+    tags:
+      - v*
+
+
+jobs:
+  vercel-deploy:
+    name: 'Deploy ${{ matrix.NAME }} to Vercel'
+    runs-on: ubuntu-latest
+
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets[matrix.PROJECT_ID_VARIABLE] }}
+
+    strategy:
+      matrix:
+        include:
+          - NAME: 'sugaming-api'
+            PROJECT_ID_VARIABLE: 'VERCEL_PROJECT_API_ID'
+          - NAME: 'sugaming-site'
+            PROJECT_ID_VARIABLE: 'VERCEL_PROJECT_SITE_ID'
+          - NAME: 'sugaming-admin'
+            PROJECT_ID_VARIABLE: 'VERCEL_PROJECT_ADMIN_ID'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Vercel CLI
+        run: yarn global add vercel@latest
+
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_API_TOKEN }}
+
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_API_TOKEN }}
+
+      - name: Deploy Project Artifacts to Vercel
+        run: |
+          DEPLOYMENT_URL=$(vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_API_TOKEN }})
+          echo "DEPLOYMENT_URL=$DEPLOYMENT_URL" >> $GITHUB_ENV
+
+      - name: Output Preview URL
+        id: output-preview-url
+        uses: cloudposse/github-action-matrix-outputs-write@main
+        with:
+          matrix-step-name: ${{ github.job }}
+          matrix-key: ${{ matrix.NAME }}
+          outputs: |-
+            preview-url: ${{ env.DEPLOYMENT_URL }}
+
+
+  read-preview-urls:
+    name: "Read Preview URLs"
+    runs-on: ubuntu-latest
+    needs: vercel-deploy
+
+    steps:
+      - uses: cloudposse/github-action-matrix-outputs-read@main
+        id: read
+        with:
+          matrix-step-name: vercel-deploy
+
+    outputs:
+      result: "${{ steps.read.outputs.result }}"
+
+
+  create-release:
+    name: "Create Release"
+    runs-on: ubuntu-latest
+    needs: read-preview-urls
+    permissions:
+      contents: write
+
+    steps:
+      - uses: ncipollo/release-action@v1
+        with:
+          generateReleaseNotes: true
+          body: |-
+            ## Environments
+            **sugaming-api**: ${{ fromJson(needs.read-preview-urls.outputs.result).preview-url.sugaming-api }}
+            **sugaming-site**: ${{ fromJson(needs.read-preview-urls.outputs.result).preview-url.sugaming-site }}
+            **sugaming-admin**: ${{ fromJson(needs.read-preview-urls.outputs.result).preview-url.sugaming-admin }}

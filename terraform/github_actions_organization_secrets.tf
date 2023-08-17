@@ -15,3 +15,15 @@ resource "github_actions_organization_secret" "docker_password_secret" {
   visibility      = "all"
   plaintext_value = var.docker_password
 }
+
+resource "github_actions_organization_secret" "vercel_token_secret" {
+  secret_name     = "VERCEL_API_TOKEN"
+  visibility      = "all"
+  plaintext_value = var.vercel_api_token
+}
+
+resource "github_actions_organization_secret" "vercel_org_id_secret" {
+  secret_name     = "VERCEL_ORG_ID"
+  visibility      = "all"
+  plaintext_value = var.vercel_org_id
+}

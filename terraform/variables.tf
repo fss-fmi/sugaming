@@ -15,3 +15,33 @@ variable "docker_password" {
   type        = string
   sensitive   = true
 }
+
+variable "vercel_api_token" {
+  description = "Vercel API token"
+  type        = string
+  sensitive   = true
+}
+
+variable "vercel_org_id" {
+  description = "Vercel organization ID"
+  type        = string
+  sensitive   = false
+}
+
+variable "vercel_project_api_id" {
+  description = "Vercel sugaming-api project ID"
+  type        = string
+  sensitive   = false
+}
+
+variable "vercel_project_site_id" {
+  description = "Vercel sugaming-site project ID"
+  type        = string
+  sensitive   = false
+}
+
+variable "vercel_project_admin_id" {
+  description = "Vercel sugaming-admin project ID"
+  type        = string
+  sensitive   = false
+}
