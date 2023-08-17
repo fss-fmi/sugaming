@@ -11,6 +11,10 @@ jobs:
     name: 'Deploy ${{ matrix.NAME }} to Vercel'
     runs-on: ubuntu-latest
 
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets[matrix.PROJECT_ID_VARIABLE] }}
+
     strategy:
       matrix:
         include:
@@ -25,15 +29,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Deploy to Vercel
-        id: deploy
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: "UmPPRfc8536Xu2pgURZ7KZnW"
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets[matrix.PROJECT_ID_VARIABLE] }}
-          vercel-args: '--prod'
-          github-comment: false
+      - name: Install Vercel CLI
+        run: yarn global add vercel@latest
+
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_API_TOKEN }}
+
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_API_TOKEN }}
+
+      - name: Deploy Project Artifacts to Vercel
+        run: |
+          DEPLOYMENT_URL=$(vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_API_TOKEN }})
+          echo "DEPLOYMENT_URL=$DEPLOYMENT_URL" >> $GITHUB_ENV
 
       - name: Output Preview URL
         id: output-preview-url
@@ -42,7 +50,7 @@ jobs:
           matrix-step-name: ${{ github.job }}
           matrix-key: ${{ matrix.NAME }}
           outputs: |-
-            preview-url: ${{ steps.deploy.outputs.preview-url }}
+            preview-url: ${{ env.DEPLOYMENT_URL }}
 
 
   read-preview-urls:
