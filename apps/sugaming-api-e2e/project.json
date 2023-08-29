@@ -6,6 +6,16 @@
   ],
   "targets": {
     "e2e": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "start-server-and-test \"nx serve sugaming-api:serve\" \"3000/api\" \"nx _e2e sugaming-api-e2e\""
+          }
+        ]
+      }
+    },
+    "_e2e": {
       "executor": "@nx/jest:jest",
       "outputs": [
         "{workspaceRoot}/coverage/{e2eProjectRoot}"
