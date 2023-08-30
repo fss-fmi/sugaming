@@ -5,7 +5,6 @@ on:
     tags:
       - v*
 
-
 jobs:
   vercel-deploy:
     name: 'Deploy ${{ matrix.NAME }} to Vercel'
@@ -52,9 +51,8 @@ jobs:
           outputs: |-
             preview-url: ${{ env.DEPLOYMENT_URL }}
 
-
   read-preview-urls:
-    name: "Read Preview URLs"
+    name: 'Read Preview URLs'
     runs-on: ubuntu-latest
     needs: vercel-deploy
 
@@ -65,11 +63,10 @@ jobs:
           matrix-step-name: vercel-deploy
 
     outputs:
-      result: "${{ steps.read.outputs.result }}"
-
+      result: '${{ steps.read.outputs.result }}'
 
   create-release:
-    name: "Create Release"
+    name: 'Create Release'
     runs-on: ubuntu-latest
     needs: read-preview-urls
     permissions:

@@ -12,11 +12,11 @@ describe('PrismaService', () => {
     service = module.get<PrismaService>(PrismaService);
   });
 
-  it('should be defined', () => {
+  it('should be defined', (): void => {
     expect(service).toBeDefined();
   });
 
-  it('should call $connect on initialization', async () => {
+  it('should call $connect on initialization', async (): Promise<void> => {
     // Arrange
     const spy = jest
       .spyOn(service, '$connect')

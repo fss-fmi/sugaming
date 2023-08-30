@@ -9,6 +9,7 @@ on:
 
 jobs:
   build-and-publish-container-images:
+    name: 'Build and Publish container images'
     runs-on: ubuntu-latest
 
     permissions:

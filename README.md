@@ -16,7 +16,6 @@
 
 To start the development server run `nx run-many --all --target=serve`. Happy coding!
 
-
 ## Generate code
 
 If you happen to use Nx plugins, you can leverage code generators that might come with it.
@@ -64,6 +63,7 @@ Nx comes with local caching already built-in (check your `nx.json`). On CI you m
 - [Learn more how to setup CI](https://nx.dev/recipes/ci)
 
 ## Contributions
+
 1. Fork it (<https://github.com/fss-fmi/sugaming/fork>)
 2. Create your feature branch (`git checkout -b feature/fooBar`)
 3. Commit your changes (`git commit -a`)
@@ -71,6 +71,6 @@ Nx comes with local caching already built-in (check your `nx.json`). On CI you m
 5. Create a new Pull Request
 6. Upon review, it will be merged.
 
-
 ## License
+
 Distributed under the BSD-3 Cause license. See [LICENSE](LICENSE) for more information.

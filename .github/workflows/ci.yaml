@@ -1,0 +1,39 @@
+name: 'Continuous Integration'
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  ci:
+    name: 'Continuous Integration'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v3
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Check formatting
+        run: yarn nx format:check
+
+      - name: Check linting
+        run: yarn nx affected -t lint --parallel
+
+      - name: Test
+        run: yarn nx affected -t test --parallel --configuration=ci
+
+      - name: Build
+        run: yarn nx affected -t build --parallel
+
+      - name: E2E
+        run: yarn nx affected -t e2e --parallel=false

@@ -1,15 +1,21 @@
 {
   "name": "sugaming-api-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "implicitDependencies": [
-    "sugaming-api"
-  ],
+  "implicitDependencies": ["sugaming-api"],
   "targets": {
     "e2e": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "start-server-and-test \"nx serve sugaming-api:serve\" \"3000/api\" \"nx _e2e sugaming-api-e2e\""
+          }
+        ]
+      }
+    },
+    "_e2e": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{e2eProjectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{e2eProjectRoot}"],
       "options": {
         "jestConfig": "apps/sugaming-api-e2e/jest.config.ts",
         "passWithNoTests": true
@@ -17,13 +23,9 @@
     },
     "lint": {
       "executor": "@nx/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "apps/sugaming-api-e2e/**/*.{js,ts}"
-        ]
+        "lintFilePatterns": ["apps/sugaming-api-e2e/**/*.{js,ts}"]
       }
     }
   }
