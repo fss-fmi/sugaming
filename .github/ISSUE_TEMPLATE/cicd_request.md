@@ -1,10 +1,9 @@
 ---
-name: "📦 CI/CD request"
-about: "Suggest a change in the project pipelines."
-title: "ci: "
+name: '📦 CI/CD request'
+about: 'Suggest a change in the project pipelines.'
+title: 'ci: '
 labels: deployment
-assignees: ""
-
+assignees: ''
 ---
 
 **Describe the CI/CD change you'd like**

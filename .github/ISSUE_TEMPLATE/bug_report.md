@@ -1,14 +1,14 @@
 ---
-name: "🐛 Bug report"
-about: "Report a software bug or regression."
-title: "bug: "
-labels: "bug"
-assignees: ""
-
+name: '🐛 Bug report'
+about: 'Report a software bug or regression.'
+title: 'bug: '
+labels: 'bug'
+assignees: ''
 ---
 
 **Issue type**
 I'm submitting a ...
+
 - [x] bug report
 - [ ] feature request
 - [ ] testing request
@@ -21,6 +21,7 @@ A clear and concise description of what the bug is.
 
 **Steps to reproduce**
 Steps to reproduce the behavior:
+
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'

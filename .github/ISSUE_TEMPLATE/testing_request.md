@@ -1,14 +1,14 @@
 ---
-name: "🧪 Testing request"
-about: "Suggest a test case to be implemented for this project."
-title: "test: "
-labels: "test"
-assignees: ""
-
+name: '🧪 Testing request'
+about: 'Suggest a test case to be implemented for this project.'
+title: 'test: '
+labels: 'test'
+assignees: ''
 ---
 
 **Issue type**
 I'm submitting a ...
+
 - [ ] 🐛 bug report
 - [ ] 🆕 feature request
 - [x] 🧪 testing request

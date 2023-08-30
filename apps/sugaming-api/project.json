@@ -6,9 +6,7 @@
   "targets": {
     "build": {
       "executor": "@nx/webpack:webpack",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
         "target": "node",
@@ -16,9 +14,7 @@
         "outputPath": "dist/apps/sugaming-api",
         "main": "apps/sugaming-api/src/main.ts",
         "tsConfig": "apps/sugaming-api/tsconfig.app.json",
-        "assets": [
-          "apps/sugaming-api/src/assets"
-        ],
+        "assets": ["apps/sugaming-api/src/assets"],
         "isolatedConfig": true,
         "webpackConfig": "apps/sugaming-api/webpack.config.js",
         "generatePackageJson": true
@@ -45,20 +41,14 @@
     },
     "lint": {
       "executor": "@nx/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "apps/sugaming-api/**/*.ts"
-        ]
+        "lintFilePatterns": ["apps/sugaming-api/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/sugaming-api/jest.config.ts",
         "passWithNoTests": true
@@ -72,16 +62,11 @@
     },
     "container": {
       "executor": "@nx-tools/nx-container:build",
-      "dependsOn": [
-        "build"
-      ],
+      "dependsOn": ["build"],
       "options": {
         "engine": "docker",
         "metadata": {
-          "images": [
-            "fssfmi/sugaming-api",
-            "ghcr.io/fss-fmi/sugaming-api"
-          ],
+          "images": ["fssfmi/sugaming-api", "ghcr.io/fss-fmi/sugaming-api"],
           "load": true,
           "tags": [
             "type=schedule",

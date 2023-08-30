@@ -1,13 +1,14 @@
 ---
-name: "❓ Question"
-about: "A general question about this project."
-title: "question: "
-labels: "question"
-assignees: ""
-
+name: '❓ Question'
+about: 'A general question about this project.'
+title: 'question: '
+labels: 'question'
+assignees: ''
 ---
+
 **Issue type**
 I'm submitting a ...
+
 - [ ] 🐛 bug report
 - [ ] 🆕 feature request
 - [ ] 🧪 testing request
