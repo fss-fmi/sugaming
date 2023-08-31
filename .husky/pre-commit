@@ -1,0 +1,20 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Prettier formatting
+yarn nx format
+
+# ESLint
+yarn nx affected:lint --fix
+
+# Terraform formatting
+if command -v terraform > /dev/null
+then
+  terraform fmt ./terraform
+else
+  echo "Terraform could not be found in the system binaries!"
+  echo "Please make sure it's setup properly an the 'terraform' command is available in the path."
+fi
+
+# Add changes to commit
+git add -u
