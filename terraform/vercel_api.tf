@@ -7,5 +7,5 @@ resource "vercel_project" "vercel_api" {
     production_branch = "release-placeholder"
   }
 
-  root_directory   = "apps/sugaming-api"
+  root_directory = "apps/sugaming-api"
 }
