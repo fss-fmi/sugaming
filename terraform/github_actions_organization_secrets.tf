@@ -27,3 +27,9 @@ resource "github_actions_organization_secret" "vercel_org_id_secret" {
   visibility      = "all"
   plaintext_value = var.vercel_org_id
 }
+
+resource "github_actions_organization_secret" "documentation_sync_github_token_secret" {
+  secret_name     = "DOCUMENTATION_SYNC_GITHUB_TOKEN"
+  visibility      = "all"
+  plaintext_value = var.documentation_sync_github_token
+}
