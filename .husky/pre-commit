@@ -2,7 +2,7 @@
 . "$(dirname "$0")/_/husky.sh"
 
 # Prettier formatting
-yarn nx format
+yarn prettier . --write
 
 # ESLint
 yarn nx affected:lint --fix
@@ -16,5 +16,6 @@ else
   >&2 echo "$(tput setaf 1)Please make sure it's setup properly an the 'terraform' command is available in the path.$(tput sgr0)"
 fi
 
-# Add changes to commit
-git add -u
+# Add changes to the current commit
+# This only re-adds files that were already staged
+git diff --name-only --cached | xargs git add
