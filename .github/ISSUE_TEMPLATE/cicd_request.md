@@ -6,6 +6,16 @@ labels: deployment
 assignees: ''
 ---
 
+**Issue type**
+I'm submitting a ...
+
+- [ ] bug report
+- [ ] feature request
+- [ ] testing request
+- [ ] documentation request
+- [x] CI/CD request
+- [ ] question
+
 **Describe the CI/CD change you'd like**
 A clear and concise description of what change you want.
 

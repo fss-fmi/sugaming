@@ -6,6 +6,16 @@ labels: documentation
 assignees: ''
 ---
 
+**Issue type**
+I'm submitting a ...
+
+- [ ] bug report
+- [ ] feature request
+- [ ] testing request
+- [x] documentation request
+- [ ] CI/CD request
+- [ ] question
+
 **Describe the documentation change you'd like**
 A clear and concise description of what change you want.
 
