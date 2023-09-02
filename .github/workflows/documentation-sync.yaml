@@ -24,6 +24,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Set Commit Message
+        run: |
+          # Only use the heading of the commit
+          echo COMMIT_MESSAGE="${{ github.event.head_commit.message }}" | cut -d$'\n' -f1 >> $GITHUB_ENV
+
       - name: Sync docs to wiki
         uses: newrelic/wiki-sync-action@main
         with:
@@ -33,9 +38,7 @@ jobs:
           gitAuthorName: ${{ env.GIT_AUTHOR_NAME }}
           gitAuthorEmail: ${{ env.GIT_AUTHOR_EMAIL }}
           commitMessage: |-
-            ${{ github.event.head_commit.message }}
-
-            This commit was automatically generated to sync wiki pages from the repository to the GitHub wiki.
+            ${{ env.COMMIT_MESSAGE }}
 
   sync-wiki-to-repository:
     name: 'Sync wiki to repository'
