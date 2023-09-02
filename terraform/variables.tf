@@ -45,3 +45,9 @@ variable "vercel_project_admin_id" {
   type        = string
   sensitive   = false
 }
+
+variable "documentation_sync_github_token" {
+  description = "GitHub access token for pushing documentation pages"
+  type        = string
+  sensitive   = true
+}
