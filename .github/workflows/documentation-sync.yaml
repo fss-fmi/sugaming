@@ -54,13 +54,12 @@ jobs:
 
       - name: Set Commit Message
         run: |
-          if [[ "${{ github.event.pages[0].summary }}" != "" ]]; then
-            echo "COMMIT_MESSAGE=${{ github.event.pages[0].summary }}" >> $GITHUB_ENV
-          else
-            echo "COMMIT_MESSAGE=docs: sync wiki pages to the repository" >> $GITHUB_ENV
+          if [ ${{ github.event.pages[0].summary }} ];
+          then echo COMMIT_MESSAGE="${{ github.event.pages[0].summary }}" >> $GITHUB_ENV;
+          else echo COMMIT_MESSAGE="docs: sync wiki pages to the repository" >> $GITHUB_ENV;
           fi
 
-      - name: Sync Wiki to Docs
+      - name: Sync wiki to docs
         uses: newrelic/wiki-sync-action@main
         with:
           source: wiki
