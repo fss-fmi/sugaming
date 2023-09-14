@@ -17,7 +17,7 @@ export class HealthController {
 
   @Get()
   @HealthCheck()
-  async check(): Promise<HealthCheckResult> {
+  get(): Promise<HealthCheckResult> {
     return this.health.check([
       () => this.prismaHealth.pingCheck('prisma', this.prismaService),
     ]);
