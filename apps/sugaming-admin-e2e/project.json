@@ -9,7 +9,7 @@
       "options": {
         "commands": [
           {
-            "command": "start-server-and-test \"nx serve sugaming-api:serve\" \"3000/api\" \"nx _e2e sugaming-admin-e2e\""
+            "command": "start-server-and-test \"nx serve sugaming-api:serve\" \"3000/api/health\" \"nx _e2e sugaming-admin-e2e\""
           }
         ]
       }

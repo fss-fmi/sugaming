@@ -1,10 +1,14 @@
-import axios from 'axios';
+import axios, { HttpStatusCode } from 'axios';
 
-describe('GET /api', () => {
-  it('should return a message', async () => {
-    const res = await axios.get(`/api`);
+describe('GET /api/health', () => {
+  it('should return status OK', async () => {
+    const res = await axios.get('/api/health');
 
-    expect(res.status).toBe(200);
-    expect(res.data).toEqual({ message: 'Hello API' });
+    // Verify the API is up
+    expect(res.status).toBe(HttpStatusCode.Ok);
+    expect(res.data).toHaveProperty('status', 'ok');
+
+    // Verify the database is up
+    expect(res.data).toHaveProperty('info', { prisma: { status: 'up' } });
   });
 });
