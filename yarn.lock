@@ -9497,6 +9497,13 @@ process@^0.11.10:
   resolved "https://registry.yarnpkg.com/process/-/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
   integrity sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==
 
+project-version@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/project-version/-/project-version-2.0.0.tgz#b0f69c7f03c26d9f53b310611ea09164f37975c3"
+  integrity sha512-84DPurbgO8uKocH8uoFV6rkkRRfuY+Qz9EAQFHhDlXK93ecnFSMNxzuuB+eYK23jwHtYKsg33USxjvh+zSUyog==
+  dependencies:
+    read-pkg "^5.2.0"
+
 prompts@^2.0.1:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/prompts/-/prompts-2.4.2.tgz#7b57e73b3a48029ad10ebd44f74b01722a4cb069"

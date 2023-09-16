@@ -2,6 +2,7 @@ import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import version from 'project-version';
 import { AppModule } from './app/app.module';
 
 export default async function bootstrap() {
@@ -17,6 +18,7 @@ export default async function bootstrap() {
     .setDescription(
       'SUGAMING API for the Sofia University gaming club tournament and event platform.',
     )
+    .setVersion(version)
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup(globalPrefix, app, document);
