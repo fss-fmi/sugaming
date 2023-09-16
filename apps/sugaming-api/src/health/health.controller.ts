@@ -19,7 +19,10 @@ export class HealthController {
   @HealthCheck()
   get(): Promise<HealthCheckResult> {
     return this.health.check([
-      () => this.prismaHealth.pingCheck('prisma', this.prismaService),
+      () =>
+        this.prismaHealth.pingCheck('prisma', this.prismaService, {
+          timeout: 10000,
+        }),
     ]);
   }
 }
