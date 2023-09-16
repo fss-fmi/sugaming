@@ -1,7 +1,7 @@
 import axios, { HttpStatusCode } from 'axios';
 
-describe('GET /api/health', () => {
-  it('should return status OK', async () => {
+describe('HealthController', () => {
+  it('GET /api/health should return status OK', async () => {
     const res = await axios.get('/api/health');
 
     // Verify the API is up
