@@ -37,7 +37,7 @@ jobs:
 
       - name: Get environment file
         run: |
-          curl -H "Authorization: token ${TOKEN}" https://raw.githubusercontent.com/fss-fmi/secrets/main/sugaming/.env.preview
+          curl -H "Authorization: token ${TOKEN}" https://raw.githubusercontent.com/fss-fmi/secrets/main/sugaming/.env.preview > .env
         env:
           TOKEN: ${{ secrets.DOCUMENTATION_SYNC_GITHUB_TOKEN }}
 
