@@ -2,6 +2,12 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.0.2](https://github.com/fss-fmi/sugaming/compare/v0.0.1...v0.0.2) (2023-09-26)
+
+### Features
+
+- **#27:** API healthcheck ([#28](https://github.com/fss-fmi/sugaming/issues/28)) ([e074aea](https://github.com/fss-fmi/sugaming/commit/e074aea5d679b80d0a21efb8e10758002fa64d8c)), closes [#27](https://github.com/fss-fmi/sugaming/issues/27)
+
 ## 0.0.1 (2023-08-17)
 
 ### Features
