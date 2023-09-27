@@ -5,7 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import version from 'project-version';
 import { AppModule } from './app/app.module';
 
-export default async function bootstrap() {
+async function bootstrap() {
   // API setup
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
