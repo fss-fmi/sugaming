@@ -8,7 +8,7 @@ resource "vercel_project" "vercel_site" {
     production_branch = "release-placeholder"
   }
 
-  build_command    = "yarn nx build sugaming-site --prod"
+  build_command    = "yarn prisma generate && yarn nx build sugaming-site --prod"
   output_directory = "../../dist/apps/sugaming-site/.next"
   install_command  = "yarn install"
   root_directory   = "apps/sugaming-site"
