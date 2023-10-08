@@ -14,7 +14,7 @@ resource "github_repository" "github_secrets_repository" {
   name        = "secrets"
   description = "FSS of FMI Organizational Secrets"
 
-  visibility = "public"
+  visibility = "private"
 
   has_issues      = false
   has_projects    = false
