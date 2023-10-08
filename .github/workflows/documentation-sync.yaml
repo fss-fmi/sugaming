@@ -34,7 +34,7 @@ jobs:
         with:
           source: docs/wiki
           destination: wiki
-          token: ${{ secrets.DOCUMENTATION_SYNC_GITHUB_TOKEN }}
+          token: ${{ secrets.FSS_FMI_GITHUB_TOKEN }}
           gitAuthorName: ${{ env.GIT_AUTHOR_NAME }}
           gitAuthorEmail: ${{ env.GIT_AUTHOR_EMAIL }}
           commitMessage: |-

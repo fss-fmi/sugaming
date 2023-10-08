@@ -46,8 +46,8 @@ variable "vercel_project_admin_id" {
   sensitive   = false
 }
 
-variable "documentation_sync_github_token" {
-  description = "GitHub access token for pushing documentation pages"
+variable "fss_fmi_github_token" {
+  description = "GitHub API token for the fss-fmi-admin account"
   type        = string
   sensitive   = true
 }
