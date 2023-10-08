@@ -6,7 +6,6 @@
       "src": "src/main.ts",
       "use": "@vercel/node",
       "config": {
-        "zeroConfig": true,
         "buildCommand": "yarn prisma generate && yarn nx build sugaming-api --prod",
         "outputDirectory": "../../dist/apps/sugaming-api"
       }
