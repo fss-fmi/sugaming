@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "vercel-build": "yarn prisma generate && yarn nx build sugaming-api --prod"
+  }
+}
