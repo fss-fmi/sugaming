@@ -28,8 +28,8 @@ resource "github_actions_organization_secret" "vercel_org_id_secret" {
   plaintext_value = var.vercel_org_id
 }
 
-resource "github_actions_organization_secret" "documentation_sync_github_token_secret" {
-  secret_name     = "DOCUMENTATION_SYNC_GITHUB_TOKEN"
+resource "github_actions_organization_secret" "fss_github_token_secret" {
+  secret_name     = "FSS_FMI_GITHUB_TOKEN"
   visibility      = "all"
-  plaintext_value = var.documentation_sync_github_token
+  plaintext_value = var.fss_fmi_github_token
 }
