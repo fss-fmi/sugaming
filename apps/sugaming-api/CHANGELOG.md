@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.0.3](https://github.com/fss-fmi/sugaming/compare/v0.0.2...v0.0.3) (2023-10-16)
+
+### Bug Fixes
+
+- **#31:** API deployment adjustments for Vercel ([#34](https://github.com/fss-fmi/sugaming/issues/34)) ([6991cc5](https://github.com/fss-fmi/sugaming/commit/6991cc58c0fbe8e4c41e5e74cf20e97add95955a)), closes [#31](https://github.com/fss-fmi/sugaming/issues/31)
+- **#31:** API deployment runtime error fix ([#32](https://github.com/fss-fmi/sugaming/issues/32)) ([f6491c7](https://github.com/fss-fmi/sugaming/commit/f6491c7d4b54fabd0dc15133b72017f4dc5614a4))
+
 ## [0.0.2](https://github.com/fss-fmi/sugaming/compare/v0.0.1...v0.0.2) (2023-09-26)
 
 ### Features
