@@ -11,6 +11,18 @@ datasource db {
   directUrl = env("DATABASE_DIRECT_URL")
 }
 
-model Placeholder {
-  id Int @id @default(autoincrement())
+model Users {
+  // Login information
+  id           String  @id @default(uuid())
+  email        String? @unique
+  passwordHash String? @map("password_hash")
+
+  // Personal information
+  firstName String? @map("first_name")
+  lastName  String? @map("last_name")
+  nickname  String?
+
+  // Row timestamps
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
 }
