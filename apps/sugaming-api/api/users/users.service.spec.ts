@@ -21,7 +21,7 @@ describe('UsersService', () => {
     expect(service).toBeDefined();
   });
 
-  describe('getOne()', () => {
+  describe('getByEmail()', () => {
     it('should return user information without the password hash', async () => {
       // Act
       const actual = await service.getByEmail('gosho@losho.com');
@@ -41,6 +41,41 @@ describe('UsersService', () => {
 
       // Assert
       expect(actual).toEqual(null);
+    });
+  });
+
+  describe('verifyCredentials()', () => {
+    it('should return true if the email and password are correct', async () => {
+      // Act
+      const actual = await service.verifyCredentials(
+        'gosho@losho.com',
+        'GoshoLoshoTestPassword',
+      );
+
+      // Assert
+      expect(actual).toBe(true);
+    });
+
+    it('should return false if the email is nonexistent', async () => {
+      // Act
+      const actual = await service.verifyCredentials(
+        'invalid@email.com',
+        'GoshoLoshoTestPassword',
+      );
+
+      // Assert
+      expect(actual).toBe(false);
+    });
+
+    it('should return false if the password is incorrect', async () => {
+      // Act
+      const actual = await service.verifyCredentials(
+        'gosho@losho.com',
+        'WrongPassword',
+      );
+
+      // Assert
+      expect(actual).toBe(false);
     });
   });
 });

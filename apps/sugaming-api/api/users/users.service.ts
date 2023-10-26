@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -6,18 +7,33 @@ export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
   async getByEmail(email: string) {
+    // Get user information from the database
     const user = await this.prisma.users.findUnique({
       where: {
         email,
       },
     });
 
+    // Return null if the user does not exist
     if (!user) {
       return null;
     }
 
+    // Remove the password hash and return the user
     const { passwordHash, ...userWithoutPassword } = user;
     return userWithoutPassword;
+  }
+
+  async verifyCredentials(email: string, password: string) {
+    // Get user information from the database
+    const user = await this.prisma.users.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    // Validate that the user exists and that the passwords are matching
+    return user != null && (await bcrypt.compare(password, user.passwordHash));
   }
 }
 
