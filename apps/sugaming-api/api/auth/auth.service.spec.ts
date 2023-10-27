@@ -11,7 +11,7 @@ describe('AuthService', () => {
     email: 'gosho@losho.com',
   };
 
-  const usersServiceMock = {
+  const mockUsersService = {
     verifyCredentials: jest.fn(),
     getByEmail: jest.fn().mockReturnValue(exampleUserInformation),
   };
@@ -22,7 +22,7 @@ describe('AuthService', () => {
       providers: [AuthService],
     })
       .overrideProvider(UsersService)
-      .useValue(usersServiceMock)
+      .useValue(mockUsersService)
       .compile();
 
     service = module.get<AuthService>(AuthService);
@@ -35,7 +35,7 @@ describe('AuthService', () => {
   describe('validateUser()', () => {
     it('should return user information if the credentials are correct', async () => {
       // Arrange
-      usersServiceMock.verifyCredentials.mockReturnValue(true);
+      mockUsersService.verifyCredentials.mockReturnValue(true);
 
       // Act
       const result = await service.validateUser(
@@ -50,7 +50,7 @@ describe('AuthService', () => {
 
     it('should return null if the credentials are incorrect', async () => {
       // Arrange
-      usersServiceMock.verifyCredentials.mockReturnValue(false);
+      mockUsersService.verifyCredentials.mockReturnValue(false);
 
       // Act
       const result = await service.validateUser(
