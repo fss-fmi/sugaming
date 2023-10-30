@@ -1,11 +1,15 @@
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import {
+  DocumentBuilder,
+  SwaggerDocumentOptions,
+  SwaggerModule,
+} from '@nestjs/swagger';
 import version from 'project-version';
 import { AppModule } from './app/app.module';
 
-async function bootstrap() {
+export async function bootstrap() {
   // API setup
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
@@ -16,11 +20,25 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('sugaming-api')
     .setDescription(
-      'SUGAMING API for the Sofia University gaming club tournament and event platform.',
+      'API for the Sofia University gaming club tournament and event platform.',
     )
     .setVersion(version)
+    .setLicense(
+      'License',
+      'https://github.com/fss-fmi/sugaming/blob/main/LICENSE',
+    )
+    .setExternalDoc(
+      'Developer Wiki',
+      'https://github.com/fss-fmi/sugaming/wiki',
+    )
+    .setContact(
+      'SUGAMING',
+      'https://sugaming-site.vercel.app/',
+      'all@fss.fmi.uni-sofia.bg',
+    )
     .build();
-  const document = SwaggerModule.createDocument(app, config);
+  const options: SwaggerDocumentOptions = {};
+  const document = SwaggerModule.createDocument(app, config, options);
   SwaggerModule.setup(globalPrefix, app, document);
 
   // Start the API
@@ -31,3 +49,5 @@ async function bootstrap() {
 }
 
 bootstrap();
+
+export default bootstrap;
