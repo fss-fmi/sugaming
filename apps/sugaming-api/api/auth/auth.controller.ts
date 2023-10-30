@@ -1,6 +1,35 @@
-import { Controller } from '@nestjs/common';
+import {
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
+import {
+  ApiBody,
+  ApiOkResponse,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
+import { LocalAuthGuard } from './guards/local.guard';
+import { AuthService } from './auth.service';
+import { CredentialsDto } from './dto/credentials.dto';
 
 @Controller('auth')
-export class AuthController {}
+@ApiTags('AuthController')
+export class AuthController {
+  constructor(private readonly authService: AuthService) {}
+
+  @Post('login')
+  @UseGuards(LocalAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @ApiBody({ type: CredentialsDto })
+  @ApiOkResponse({ description: 'User logged in.' })
+  @ApiUnauthorizedResponse({ description: 'Invalid user credentials.' })
+  async login(@Req() req: any) {
+    return this.authService.login(req.user);
+  }
+}
 
 export default AuthController;

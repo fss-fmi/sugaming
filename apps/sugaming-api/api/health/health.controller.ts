@@ -9,7 +9,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Controller('health')
-@ApiTags('Health')
+@ApiTags('HealthController')
 export class HealthController {
   constructor(
     private readonly health: HealthCheckService,
