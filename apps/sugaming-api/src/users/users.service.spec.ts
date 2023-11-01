@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from './users.service';
 import { PrismaService } from '../prisma/prisma.service';
 import prismaServiceMock from '../prisma/prisma.service.mock';
+import { exampleUser, exampleUserCredentials } from './users.mock';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -24,15 +25,15 @@ describe('UsersService', () => {
   describe('getByEmail()', () => {
     it('should return user information without the password hash', async () => {
       // Act
-      const actual = await service.getByEmail('gosho@losho.com');
+      const actual = await service.getByEmail(exampleUser.email);
 
       // Assert
       // Should not contain password
       expect(actual).not.toHaveProperty('passwordHash');
 
       // Should contain other user information
-      expect(actual.id).toEqual('4b259124-6c9a-454c-b1eb-9aa4716136bb');
-      expect(actual.email).toEqual('gosho@losho.com');
+      expect(actual.id).toEqual(exampleUser.id);
+      expect(actual.email).toEqual(exampleUser.email);
     });
 
     it('should return null when no such user exists', async () => {
@@ -48,8 +49,8 @@ describe('UsersService', () => {
     it('should return true if the email and password are correct', async () => {
       // Act
       const actual = await service.verifyCredentials(
-        'gosho@losho.com',
-        'GoshoLoshoTestPassword',
+        exampleUserCredentials.email,
+        exampleUserCredentials.password,
       );
 
       // Assert
@@ -60,7 +61,7 @@ describe('UsersService', () => {
       // Act
       const actual = await service.verifyCredentials(
         'invalid@email.com',
-        'GoshoLoshoTestPassword',
+        exampleUserCredentials.password,
       );
 
       // Assert
@@ -70,7 +71,7 @@ describe('UsersService', () => {
     it('should return false if the password is incorrect', async () => {
       // Act
       const actual = await service.verifyCredentials(
-        'gosho@losho.com',
+        exampleUserCredentials.email,
         'WrongPassword',
       );
 

@@ -4,24 +4,15 @@ import { isJWT } from 'class-validator';
 import { AuthService } from './auth.service';
 import { UsersModule } from '../users/users.module';
 import { UsersService } from '../users/users.service';
+import { exampleUser, exampleUserWithoutPassword } from '../users/users.mock';
 
 describe('AuthService', () => {
   let service: AuthService;
   let jwtService: JwtService;
 
-  const exampleUserInformation = {
-    id: '4b259124-6c9a-454c-b1eb-9aa4716136bb',
-    email: 'gosho@losho.com',
-    firstName: 'Gosho',
-    lastName: 'Losho',
-    nickname: 'Reomak',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  };
-
   const mockUsersService = {
     verifyCredentials: jest.fn(),
-    getByEmail: jest.fn().mockReturnValue(exampleUserInformation),
+    getByEmail: jest.fn().mockReturnValue(exampleUserWithoutPassword),
   };
 
   beforeEach(async () => {
@@ -60,7 +51,7 @@ describe('AuthService', () => {
 
       // Assert
       expect(result).toBeTruthy();
-      expect(result).toEqual(exampleUserInformation);
+      expect(result).toEqual(exampleUserWithoutPassword);
     });
 
     it('should return null if the credentials are incorrect', async () => {
@@ -81,15 +72,15 @@ describe('AuthService', () => {
   describe('login()', () => {
     it('should create a valid JWT token with the user email and id', async () => {
       // Act
-      const actual = await service.login(exampleUserInformation);
+      const actual = await service.login(exampleUserWithoutPassword);
 
       // Assert
       expect(isJWT(actual.access_token)).toBe(true);
       expect(() => jwtService.verify(actual.access_token)).not.toThrow();
 
       const tokenInformation = jwtService.verify(actual.access_token);
-      expect(tokenInformation.email).toBe(exampleUserInformation.email);
-      expect(tokenInformation.sub).toBe(exampleUserInformation.id);
+      expect(tokenInformation.email).toBe(exampleUser.email);
+      expect(tokenInformation.sub).toBe(exampleUser.id);
     });
   });
 });

@@ -1,18 +1,12 @@
 import { UnauthorizedException } from '@nestjs/common';
 import { LocalStrategy } from './local.strategy';
 import { AuthService } from '../auth.service';
+import {
+  exampleUserCredentials,
+  exampleUserWithoutPassword,
+} from '../../users/users.mock';
 
 describe('LocalStrategy', () => {
-  const exampleUserInformation = {
-    id: '4b259124-6c9a-454c-b1eb-9aa4716136bb',
-    email: 'gosho@losho.com',
-    firstName: 'Gosho',
-    lastName: 'Losho',
-    nickname: 'Reomak',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  };
-
   jest.mock('../auth.service');
   const mockAuthService: jest.Mocked<AuthService> =
     jest.requireMock('../auth.service');
@@ -28,17 +22,17 @@ describe('LocalStrategy', () => {
       // Arrange
       mockAuthService.validateUser = jest
         .fn()
-        .mockImplementation(async () => exampleUserInformation);
+        .mockImplementation(async () => exampleUserWithoutPassword);
 
       // Act
       const actual = await strategy.validate(
-        'gosho@losho.com',
-        'GoshoLoshoTestPassword',
+        exampleUserCredentials.email,
+        exampleUserCredentials.password,
       );
 
       // Actual
       expect(mockAuthService.validateUser).toHaveBeenCalledTimes(1);
-      expect(actual).toEqual(exampleUserInformation);
+      expect(actual).toEqual(exampleUserWithoutPassword);
     });
 
     it('should throw UnauthorizedException when the credentials are incorrect', async () => {
