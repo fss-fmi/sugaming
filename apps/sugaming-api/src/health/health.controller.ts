@@ -1,11 +1,10 @@
 import { Controller, Get } from '@nestjs/common';
 import {
   HealthCheck,
-  HealthCheckResult,
   HealthCheckService,
   PrismaHealthIndicator,
 } from '@nestjs/terminus';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Controller('health')
@@ -19,7 +18,12 @@ export class HealthController {
 
   @Get()
   @HealthCheck()
-  get(): Promise<HealthCheckResult> {
+  @ApiOperation({
+    summary: 'Healthcheck',
+    description:
+      'Healthcheck endpoint, validating the correct operation of the API and its dependencies (such as prisma, external APIs, etc.)',
+  })
+  get() {
     return this.health.check([
       () =>
         this.prismaHealth.pingCheck('prisma', this.prismaService, {
