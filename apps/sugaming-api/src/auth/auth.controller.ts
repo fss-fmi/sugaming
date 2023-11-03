@@ -13,7 +13,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { Users } from '@prisma/client';
-import { LocalAuthGuard } from './guards/local.guard';
+import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthService } from './auth.service';
 import { CredentialsDto } from './dto/credentials.dto';
 import { User } from '../users/users.decorator';
