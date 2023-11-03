@@ -24,7 +24,7 @@ import { TokenDto } from './dto/token.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('login')
+  @Post()
   @UseGuards(LocalAuthGuard)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
@@ -38,7 +38,7 @@ export class AuthController {
     type: TokenDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid user credentials.' })
-  async login(@User() user: Omit<Users, 'passwordHash'>): Promise<TokenDto> {
+  async post(@User() user: Omit<Users, 'passwordHash'>): Promise<TokenDto> {
     return this.authService.login(user);
   }
 }
