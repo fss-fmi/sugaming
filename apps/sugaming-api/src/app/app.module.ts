@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import {
+  AcceptLanguageResolver,
   CookieResolver,
-  HeaderResolver,
   I18nModule,
   QueryResolver,
 } from 'nestjs-i18n';
@@ -22,9 +22,9 @@ import { AuthModule } from '../auth/auth.module';
         watch: true,
       },
       resolvers: [
-        new QueryResolver(['lang', 'l']),
-        new HeaderResolver(['x-lang']),
+        new QueryResolver(['lang']),
         new CookieResolver(),
+        AcceptLanguageResolver,
       ],
     }),
   ],

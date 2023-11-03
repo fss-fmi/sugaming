@@ -36,6 +36,30 @@ export async function bootstrap() {
       'https://sugaming-site.vercel.app/',
       'all@fss.fmi.uni-sofia.bg',
     )
+    .addGlobalParameters({
+      in: 'query',
+      required: false,
+      name: 'lang',
+      schema: {
+        type: 'string',
+        examples: ['bg', 'en'],
+      },
+    })
+    .addGlobalParameters({
+      in: 'header',
+      required: false,
+      name: 'Accept-Language',
+      schema: {
+        type: 'string',
+        examples: ['bg', 'bg-bg', 'en', 'en-us', 'en;q=0.9, bg;q=0.8, *;q=0.7'],
+        description: 'The natural language and locale that the client prefers',
+      },
+    })
+    .addGlobalParameters({
+      in: 'cookie',
+      required: false,
+      name: 'lang',
+    })
     .build();
   const options: SwaggerDocumentOptions = {};
   const document = SwaggerModule.createDocument(app, config, options);
