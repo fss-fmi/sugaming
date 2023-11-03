@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { UsersModule } from '../users/users.module';
 import { UsersService } from '../users/users.service';
 import { exampleUser, exampleUserWithoutPassword } from '../users/users.mock';
+import { appConfig } from '../app/app.config';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -17,13 +18,7 @@ describe('AuthService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        UsersModule,
-        JwtModule.register({
-          secret: process.env.JWT_SECRET,
-          signOptions: { expiresIn: '1d' },
-        }),
-      ],
+      imports: [UsersModule, JwtModule.register(appConfig.jwt)],
       providers: [AuthService],
     })
       .overrideProvider(UsersService)
@@ -75,10 +70,10 @@ describe('AuthService', () => {
       const actual = await service.login(exampleUserWithoutPassword);
 
       // Assert
-      expect(isJWT(actual.access_token)).toBe(true);
-      expect(() => jwtService.verify(actual.access_token)).not.toThrow();
+      expect(isJWT(actual.accessToken)).toBe(true);
+      expect(() => jwtService.verify(actual.accessToken)).not.toThrow();
 
-      const tokenInformation = jwtService.verify(actual.access_token);
+      const tokenInformation = jwtService.verify(actual.accessToken);
       expect(tokenInformation.email).toBe(exampleUser.email);
       expect(tokenInformation.sub).toBe(exampleUser.id);
     });

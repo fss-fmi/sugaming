@@ -8,12 +8,13 @@ import {
 } from '@nestjs/swagger';
 import version from 'project-version';
 import { AppModule } from './app/app.module';
+import { appConfig } from './app/app.config';
 
 export async function bootstrap() {
   // API setup
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
-  const port = process.env.PORT || 3000;
+  const { port } = appConfig;
   app.setGlobalPrefix(globalPrefix);
 
   // OpenAPI setup
