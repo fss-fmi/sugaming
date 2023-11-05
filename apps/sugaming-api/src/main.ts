@@ -37,6 +37,7 @@ export async function bootstrap() {
       'https://sugaming-site.vercel.app/',
       'all@fss.fmi.uni-sofia.bg',
     )
+    .addBearerAuth()
     .addGlobalParameters({
       in: 'query',
       required: false,
