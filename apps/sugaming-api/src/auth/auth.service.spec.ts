@@ -18,7 +18,7 @@ describe('AuthService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [UsersModule, JwtModule.register(appConfig.jwt)],
+      imports: [UsersModule, JwtModule.register(appConfig.jwtAccessToken)],
       providers: [AuthService],
     })
       .overrideProvider(UsersService)

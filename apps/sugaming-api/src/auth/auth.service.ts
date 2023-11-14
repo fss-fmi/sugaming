@@ -21,14 +21,12 @@ export class AuthService {
   async login(user: Omit<Users, 'passwordHash'>) {
     const payload = { email: user.email, sub: user.id };
     return {
-      user,
+      user: await this.usersService.getByEmail(user.email),
       accessToken: this.jwtService.sign(payload),
-      refreshToken: this.jwtService.sign(
-        payload,
-        appConfig.jwt.refreshSigningOptions,
-      ),
+      refreshToken: this.jwtService.sign(payload, appConfig.jwtRefreshToken),
       expiresIn: new Date().setTime(
-        new Date().getTime() + ms(appConfig.jwt.signOptions.expiresIn),
+        new Date().getTime() +
+          ms(appConfig.jwtAccessToken.signOptions.expiresIn),
       ),
     };
   }

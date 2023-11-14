@@ -8,7 +8,11 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { appConfig } from '../app/app.config';
 
 @Module({
-  imports: [UsersModule, PassportModule, JwtModule.register(appConfig.jwt)],
+  imports: [
+    UsersModule,
+    PassportModule,
+    JwtModule.register(appConfig.jwtAccessToken),
+  ],
   providers: [AuthService, LocalStrategy],
   controllers: [AuthController],
 })

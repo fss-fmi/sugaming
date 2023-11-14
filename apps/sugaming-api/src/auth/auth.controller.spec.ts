@@ -18,7 +18,7 @@ describe('AuthController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [UsersModule, JwtModule.register(appConfig.jwt)],
+      imports: [UsersModule, JwtModule.register(appConfig.jwtAccessToken)],
       providers: [AuthService],
       controllers: [AuthController],
     })
@@ -41,7 +41,7 @@ describe('AuthController', () => {
         .mockResolvedValue({ accessToken: exampleToken });
 
       // Act
-      const result = await controller.post(exampleUserWithoutPassword);
+      const result = await controller.postLogin(exampleUserWithoutPassword);
 
       // Assert
       expect(result.accessToken).toBe(exampleToken);

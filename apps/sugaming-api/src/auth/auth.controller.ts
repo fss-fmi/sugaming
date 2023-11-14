@@ -17,28 +17,49 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthService } from './auth.service';
 import { CredentialsDto } from './dto/credentials.dto';
 import { User } from '../users/users.decorator';
-import { TokenDto } from './dto/token.dto';
+import { LoginDto } from './dto/login.dto';
+import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 
-@Controller('auth')
+@Controller('v1/auth')
 @ApiTags('AuthController')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post()
+  @Post('login')
   @UseGuards(LocalAuthGuard)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
-    summary: 'Authenticate users using credentials',
+    summary: 'Authenticate user using credentials',
     description:
       'Endpoint for authenticating users using email and password credentials.',
   })
   @ApiBody({ type: CredentialsDto })
   @ApiOkResponse({
-    description: 'User logged in successfully and access token is returned.',
-    type: TokenDto,
+    description:
+      'User logged in successfully and access token and information is returned.',
+    type: LoginDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid user credentials.' })
-  async post(@User() user: Omit<Users, 'passwordHash'>): Promise<TokenDto> {
+  async postLogin(
+    @User() user: Omit<Users, 'passwordHash'>,
+  ): Promise<LoginDto> {
+    return this.authService.login(user);
+  }
+
+  @Post('refresh')
+  @UseGuards(JwtRefreshGuard)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Refresh an access token',
+    description: 'Endpoint for refreshing existing access tokens.',
+  })
+  @ApiBody({})
+  @ApiOkResponse({
+    description: 'A new access token is generated and returned.',
+    type: LoginDto,
+  })
+  @ApiUnauthorizedResponse({ description: 'Invalid refresh token.' })
+  async postRefresh(@User() user: Omit<Users, 'passwordHash'>) {
     return this.authService.login(user);
   }
 }
