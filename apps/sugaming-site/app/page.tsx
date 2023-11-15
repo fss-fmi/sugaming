@@ -1,7 +1,16 @@
-export default async function Index() {
+'use client';
+
+import { login, refreshAccessToken } from '@sugaming/sugaming-api-client';
+
+export default function Index() {
+  const handleClick = async () => {
+    await login('gosho@losho.com', 'GoshoLoshoTestPassword');
+    await refreshAccessToken();
+  };
+
   return (
-    <div>
-      <h1>Page</h1>
-    </div>
+    <button type="button" onClick={handleClick}>
+      execute server action
+    </button>
   );
 }

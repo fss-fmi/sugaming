@@ -24,5 +24,26 @@ export async function login(email: string, password: string) {
 }
 
 export async function refreshAccessToken() {
-  // TODO: implement
+  const cookieStore = cookies();
+  const refreshToken = cookieStore.get('refresh-token');
+
+  if (!refreshToken) {
+    return;
+  }
+
+  const res = await fetch(`${process.env['API_BASE']}/v1/auth/refresh`, {
+    method: 'POST',
+    headers: {
+      authorization: `Refresh ${refreshToken.value}`,
+    },
+  });
+
+  if (res.status !== HttpStatus.OK) {
+    return;
+  }
+
+  const response = await res.json();
+
+  cookieStore.set('access_token', response.accessToken);
+  cookieStore.set('refresh_token', response.refreshToken);
 }
