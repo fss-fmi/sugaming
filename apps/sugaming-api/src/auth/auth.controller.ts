@@ -21,7 +21,7 @@ import { User } from '../users/users.decorator';
 import { LoginDto } from './dto/login.dto';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 
-@Controller('v1/auth')
+@Controller('auth')
 @ApiTags('AuthController')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
