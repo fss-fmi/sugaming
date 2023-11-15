@@ -11,6 +11,8 @@ describe('AuthController', () => {
 
   const exampleToken =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imdvc2hvQGxvc2hvLmNvbSIsInN1YiI6IjRiMjU5MTI0LTZjOWEtNDU0Yy1iMWViLTlhYTQ3MTYxMzZiYiIsImlhdCI6MTY5ODk3NTc1NiwiZXhwIjoxNjk5MDYyMTU2fQ.OuKRAP5ofHRn6lJ9QW5me0Iei8zhxzPAnrOKwMorypA';
+  const exampleRefreshToken =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imdvc2hvQGxvc2hvLmNvbSIsInN1YiI6IjRiMjU5MTI0LTZjOWEtNDU0Yy1iMWViLTlhYTQ3MTYxMzZiYiIsImlhdCI6MTY5ODk3NTc1NiwiZXhwIjoxNjk5MDYyMTU2fQ.OuKRAP5ofHRn6lJ9QW5me0Iei8zhxzPAnrOKwMorypA';
 
   jest.mock('./auth.service');
   const mockAuthService: jest.Mocked<AuthService> =
@@ -33,18 +35,45 @@ describe('AuthController', () => {
     expect(controller).toBeDefined();
   });
 
-  describe('login()', () => {
+  describe('postLogin()', () => {
     it('should return access token on correct credentials', async () => {
       // Arrange
-      mockAuthService.login = jest
-        .fn()
-        .mockResolvedValue({ accessToken: exampleToken });
+      mockAuthService.login = jest.fn().mockResolvedValue({
+        user: exampleUserWithoutPassword,
+        accessToken: exampleToken,
+        refreshToken: exampleRefreshToken,
+        expiresIn: 9999999999,
+      });
 
       // Act
       const result = await controller.postLogin(exampleUserWithoutPassword);
 
       // Assert
+      expect(result.user).toBe(exampleToken);
       expect(result.accessToken).toBe(exampleToken);
+      expect(result.refreshToken).toBe(exampleRefreshToken);
+      expect(result.expiresIn).toBeTruthy();
+    });
+  });
+
+  describe('postRefresh()', () => {
+    it('should return a refreshed access token if refresh token is valid', async () => {
+      // Arrange
+      mockAuthService.login = jest.fn().mockResolvedValue({
+        user: exampleUserWithoutPassword,
+        accessToken: exampleToken,
+        refreshToken: exampleRefreshToken,
+        expiresIn: 9999999999,
+      });
+
+      // Act
+      const result = await controller.postRefresh(exampleUserWithoutPassword);
+
+      // Assert
+      expect(result.user).toBe(exampleToken);
+      expect(result.accessToken).toBe(exampleToken);
+      expect(result.refreshToken).toBe(exampleRefreshToken);
+      expect(result.expiresIn).toBeTruthy();
     });
   });
 });

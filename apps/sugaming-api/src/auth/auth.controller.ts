@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import {
   ApiBody,
+  ApiHeader,
   ApiOkResponse,
   ApiOperation,
   ApiTags,
@@ -53,7 +54,11 @@ export class AuthController {
     summary: 'Refresh an access token',
     description: 'Endpoint for refreshing existing access tokens.',
   })
-  @ApiBody({})
+  @ApiHeader({
+    name: 'Authorization',
+    description: 'User refresh token.',
+    example: 'Refresh <token>',
+  })
   @ApiOkResponse({
     description: 'A new access token is generated and returned.',
     type: LoginDto,
