@@ -70,12 +70,32 @@ describe('AuthService', () => {
       const actual = await service.login(exampleUserWithoutPassword);
 
       // Assert
+      // User validation
+      expect(actual.user).toBe(exampleUserWithoutPassword);
+
+      // Access token validation
       expect(isJWT(actual.accessToken)).toBe(true);
       expect(() => jwtService.verify(actual.accessToken)).not.toThrow();
 
-      const tokenInformation = jwtService.verify(actual.accessToken);
-      expect(tokenInformation.email).toBe(exampleUser.email);
-      expect(tokenInformation.sub).toBe(exampleUser.id);
+      const accessTokenInformation = jwtService.verify(actual.accessToken);
+      expect(accessTokenInformation.email).toBe(exampleUser.email);
+      expect(accessTokenInformation.sub).toBe(exampleUser.id);
+
+      expect(isJWT(actual.refreshToken)).toBe(true);
+      expect(() =>
+        jwtService.verify(actual.refreshToken, appConfig.jwtRefreshToken),
+      ).not.toThrow();
+
+      // Refresh token assert
+      const refreshTokenInformation = jwtService.verify(
+        actual.refreshToken,
+        appConfig.jwtRefreshToken,
+      );
+      expect(refreshTokenInformation.email).toBe(exampleUser.email);
+      expect(refreshTokenInformation.sub).toBe(exampleUser.id);
+
+      // Expires in assert
+      expect(refreshTokenInformation).toBeTruthy();
     });
   });
 });
