@@ -1,4 +1,5 @@
 import { UnauthorizedException } from '@nestjs/common';
+import { I18nContext } from 'nestjs-i18n';
 import { LocalStrategy } from './local.strategy';
 import { AuthService } from '../auth.service';
 import {
@@ -10,8 +11,12 @@ describe('LocalStrategy', () => {
   jest.mock('../auth.service');
   const mockAuthService: jest.Mocked<AuthService> =
     jest.requireMock('../auth.service');
-
   const strategy = new LocalStrategy(mockAuthService);
+
+  jest.mock('nestjs-i18n');
+  I18nContext.current = jest.fn().mockReturnValue({
+    t: () => jest.fn().mockReturnValue(''),
+  });
 
   it('should be defined', () => {
     expect(strategy).toBeDefined();

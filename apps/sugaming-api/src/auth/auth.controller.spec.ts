@@ -18,6 +18,13 @@ describe('AuthController', () => {
   const mockAuthService: jest.Mocked<AuthService> =
     jest.requireMock('./auth.service');
 
+  mockAuthService.login = jest.fn().mockResolvedValue({
+    user: exampleUserWithoutPassword,
+    accessToken: exampleToken,
+    refreshToken: exampleRefreshToken,
+    expiresIn: 9999999999,
+  });
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [UsersModule, JwtModule.register(appConfig.jwtAccessToken)],
@@ -37,19 +44,11 @@ describe('AuthController', () => {
 
   describe('postLogin()', () => {
     it('should return access token on correct credentials', async () => {
-      // Arrange
-      mockAuthService.login = jest.fn().mockResolvedValue({
-        user: exampleUserWithoutPassword,
-        accessToken: exampleToken,
-        refreshToken: exampleRefreshToken,
-        expiresIn: 9999999999,
-      });
-
       // Act
       const result = await controller.postLogin(exampleUserWithoutPassword);
 
       // Assert
-      expect(result.user).toBe(exampleToken);
+      expect(result.user).toBe(exampleUserWithoutPassword);
       expect(result.accessToken).toBe(exampleToken);
       expect(result.refreshToken).toBe(exampleRefreshToken);
       expect(result.expiresIn).toBeTruthy();
@@ -58,19 +57,11 @@ describe('AuthController', () => {
 
   describe('postRefresh()', () => {
     it('should return a refreshed access token if refresh token is valid', async () => {
-      // Arrange
-      mockAuthService.login = jest.fn().mockResolvedValue({
-        user: exampleUserWithoutPassword,
-        accessToken: exampleToken,
-        refreshToken: exampleRefreshToken,
-        expiresIn: 9999999999,
-      });
-
       // Act
       const result = await controller.postRefresh(exampleUserWithoutPassword);
 
       // Assert
-      expect(result.user).toBe(exampleToken);
+      expect(result.user).toBe(exampleUserWithoutPassword);
       expect(result.accessToken).toBe(exampleToken);
       expect(result.refreshToken).toBe(exampleRefreshToken);
       expect(result.expiresIn).toBeTruthy();
