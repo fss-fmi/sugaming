@@ -12,8 +12,12 @@ export default function Index() {
   };
 
   return (
-    <button type="button" onClick={handleClick}>
-      execute server action
-    </button>
+    <>
+      <h1>Page</h1>
+
+      <button type="button" onClick={handleClick}>
+        execute server action
+      </button>
+    </>
   );
 }
