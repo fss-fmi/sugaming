@@ -53,6 +53,9 @@ jobs:
       - name: Get environment file
         run: |
           curl -H "Authorization: token ${TOKEN}" https://raw.githubusercontent.com/fss-fmi/secrets/main/sugaming/.env.development > .env
+          curl -H "Authorization: token ${TOKEN}" https://raw.githubusercontent.com/fss-fmi/secrets/main/sugaming/apps/sugaming-api/.env.development > ./apps/sugaming-api/.env
+          curl -H "Authorization: token ${TOKEN}" https://raw.githubusercontent.com/fss-fmi/secrets/main/sugaming/apps/sugaming-site/.env.development > ./apps/sugaming-api/.env
+          curl -H "Authorization: token ${TOKEN}" https://raw.githubusercontent.com/fss-fmi/secrets/main/sugaming/apps/sugaming-admin/.env.development > ./apps/sugaming-admin/.env
         env:
           TOKEN: ${{ secrets.FSS_FMI_GITHUB_TOKEN }}
 
