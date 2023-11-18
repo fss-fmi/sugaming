@@ -10,6 +10,8 @@ import { HealthModule } from '../health/health.module';
 import { UsersModule } from '../users/users.module';
 import { AuthModule } from '../auth/auth.module';
 
+console.log(`gosho${__dirname}`);
+
 @Module({
   imports: [
     HealthModule,
@@ -18,7 +20,13 @@ import { AuthModule } from '../auth/auth.module';
     I18nModule.forRoot({
       fallbackLanguage: 'en',
       loaderOptions: {
-        path: path.join(__dirname, '../i18n/'),
+        path: path.join(
+          process.cwd(),
+          'apps',
+          'sugaming-api',
+          'assets',
+          'i18n',
+        ),
         watch: true,
       },
       resolvers: [

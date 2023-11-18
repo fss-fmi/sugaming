@@ -1,7 +1,7 @@
 {
   "name": "sugaming-api",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/sugaming-api/src",
+  "sourceRoot": "apps/sugaming-api",
   "projectType": "application",
   "targets": {
     "build": {
@@ -14,10 +14,7 @@
         "outputPath": "dist/apps/sugaming-api",
         "main": "apps/sugaming-api/src/main.ts",
         "tsConfig": "apps/sugaming-api/tsconfig.app.json",
-        "assets": [
-          "apps/sugaming-api/src/assets",
-          "apps/sugaming-api/src/i18n"
-        ],
+        "assets": ["apps/sugaming-api/assets"],
         "isolatedConfig": true,
         "webpackConfig": "apps/sugaming-api/webpack.config.js",
         "generatePackageJson": true
