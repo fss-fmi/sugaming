@@ -14,7 +14,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@sugaming/sugaming-api-client": ["libs/sugaming-api-client/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

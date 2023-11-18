@@ -7,6 +7,9 @@ yarn prettier . --write
 # ESLint
 yarn nx affected:lint --fix
 
+# Prisma formatting
+yarn prisma format
+
 # Terraform formatting
 if command -v terraform > /dev/null
 then
