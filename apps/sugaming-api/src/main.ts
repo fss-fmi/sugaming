@@ -1,12 +1,12 @@
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-
 import {
   DocumentBuilder,
   SwaggerDocumentOptions,
   SwaggerModule,
 } from '@nestjs/swagger';
 import version from 'project-version';
+import { generate } from 'openapi-typescript-codegen';
 import { AppModule } from './app/app.module';
 import { appConfig } from './app/app.config';
 
@@ -80,6 +80,17 @@ export async function bootstrap() {
   Logger.log(
     `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`,
   );
+
+  // Generate API client
+  if (appConfig.env === 'development') {
+    const clientOutputDirectory = './libs/sugaming-api-client/src/client/src';
+    await generate({
+      input: `http://localhost:${port}/api-json`,
+      output: clientOutputDirectory,
+      useOptions: true,
+    });
+    Logger.log(`🧬 Generated API client in ${clientOutputDirectory}`);
+  }
 }
 
 bootstrap();
