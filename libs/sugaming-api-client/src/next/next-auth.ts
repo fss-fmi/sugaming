@@ -1,24 +1,16 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import { HttpStatus, UnauthorizedException } from '@nestjs/common';
 import { jwtDecode } from 'jwt-decode';
+import { ApiClient } from '../client';
 
 export async function login(email: string, password: string) {
-  const res = await fetch(`${process.env['API_BASE']}/auth/login`, {
-    method: 'POST',
-    body: JSON.stringify({ email, password }),
-    headers: {
-      'Content-Type': 'application/json',
+  const response = await ApiClient.AuthApiService.authControllerPostLogin({
+    requestBody: {
+      email,
+      password,
     },
-    cache: 'no-store',
   });
-
-  const response = await res.json();
-
-  if (res.status !== HttpStatus.OK) {
-    throw new UnauthorizedException(response);
-  }
 
   const { accessToken, refreshToken } = response;
   setTokens(accessToken, refreshToken);
@@ -32,20 +24,29 @@ export async function refreshTokens() {
     return;
   }
 
-  const res = await fetch(`${process.env['API_BASE']}/auth/refresh`, {
-    method: 'POST',
-    headers: {
-      authorization: `Refresh ${refreshToken.value}`,
-    },
-    cache: 'no-store',
+  const response = await ApiClient.AuthApiService.authControllerPostRefresh({
+    authorization: `Refresh ${refreshToken.value}`,
   });
 
-  if (res.status !== HttpStatus.OK) {
-    return;
+  setTokens(response.accessToken, response.refreshToken);
+}
+
+export async function getAuth() {
+  // Get access token from cookies
+  const cookieStore = cookies();
+  let accessToken = cookieStore.get('access_token');
+
+  // Refresh existing access and refresh tokens if the access token is expired
+  if (!accessToken) {
+    await refreshTokens();
+    accessToken = cookieStore.get('access_token');
   }
 
-  const response = await res.json();
-  setTokens(response.accessToken, response.refreshToken);
+  if (!accessToken) {
+    return undefined;
+  }
+
+  return `Bearer ${accessToken.value}`;
 }
 
 function setTokens(accessToken: string, refreshToken: string) {
