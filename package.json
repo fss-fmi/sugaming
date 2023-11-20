@@ -84,6 +84,8 @@
     "jest-environment-node": "^29.4.1",
     "jest-mock-extended": "^3.0.5",
     "nx": "17.1.2",
+    "openapi-typescript": "^6.7.1",
+    "openapi-typescript-codegen": "^0.25.0",
     "postcss": "8.4.21",
     "prettier": "^3.0.3",
     "prisma": "^5.1.1",

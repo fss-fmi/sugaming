@@ -12,7 +12,8 @@
         "main": "libs/sugaming-api-client/src/index.ts",
         "tsConfig": "libs/sugaming-api-client/tsconfig.lib.json",
         "assets": ["libs/sugaming-api-client/*.md"]
-      }
+      },
+      "dependsOn": ["generate"]
     },
     "lint": {
       "executor": "@nx/linter:eslint",
@@ -36,6 +37,16 @@
           "ci": true,
           "codeCoverage": true
         }
+      }
+    },
+    "generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "start-server-and-test \"nx serve sugaming-api:serve\" \"3000/api/health\" \"yarn openapi generate -i http://localhost:3000/api-json -o ./libs/sugaming-api-client/src/client/src --useOptions\""
+          }
+        ]
       }
     }
   },
