@@ -37,7 +37,23 @@ export async function bootstrap() {
       'https://sugaming-site.vercel.app/',
       'all@fss.fmi.uni-sofia.bg',
     )
-    .addBearerAuth()
+    .addBearerAuth({
+      type: 'http',
+      in: 'header',
+      name: 'Authorization',
+      description: 'Authorization bearer token',
+      scheme: 'Bearer',
+      bearerFormat: 'JWT',
+    })
+    .addGlobalParameters({
+      in: 'header',
+      required: false,
+      name: 'Authorization',
+      schema: {
+        type: 'string',
+        examples: ['Bearer <token>'],
+      },
+    })
     .addGlobalParameters({
       in: 'header',
       required: false,
