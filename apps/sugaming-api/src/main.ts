@@ -16,6 +16,7 @@ export async function bootstrap() {
   const globalPrefix = 'api';
   const { port } = appConfig;
   app.setGlobalPrefix(globalPrefix);
+  app.enableCors();
 
   // OpenAPI setup
   const config = new DocumentBuilder()
