@@ -22,7 +22,7 @@ import { LoginDto } from './dto/login.dto';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 
 @Controller('auth')
-@ApiTags('AuthController')
+@ApiTags('Auth API')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 

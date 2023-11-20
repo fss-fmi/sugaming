@@ -15,9 +15,10 @@ import {
 import { Users } from '@prisma/client';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { User } from './users.decorator';
+import { UserDto } from './dto/user.dto';
 
 @Controller('users')
-@ApiTags('UsersController')
+@ApiTags('Users API')
 export class UsersController {
   @Get('profile')
   @UseGuards(JwtAuthGuard)
@@ -29,6 +30,7 @@ export class UsersController {
   })
   @ApiOkResponse({
     description: 'The user is authenticated and user information is returned.',
+    type: UserDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid authentication token.' })
   getProfile(@User() user: Omit<Users, 'passwordHash'>) {
