@@ -12,7 +12,8 @@
         "main": "libs/sugaming-api-client/src/index.ts",
         "tsConfig": "libs/sugaming-api-client/tsconfig.lib.json",
         "assets": ["libs/sugaming-api-client/*.md"]
-      }
+      },
+      "dependsOn": ["generate"]
     },
     "lint": {
       "executor": "@nx/linter:eslint",
