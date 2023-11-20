@@ -10,8 +10,6 @@ import { HealthModule } from '../health/health.module';
 import { UsersModule } from '../users/users.module';
 import { AuthModule } from '../auth/auth.module';
 
-console.log(`gosho${__dirname}`);
-
 @Module({
   imports: [
     HealthModule,

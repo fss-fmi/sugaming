@@ -39,15 +39,6 @@ export async function bootstrap() {
     )
     .addBearerAuth()
     .addGlobalParameters({
-      in: 'query',
-      required: false,
-      name: 'lang',
-      schema: {
-        type: 'string',
-        examples: ['bg', 'en'],
-      },
-    })
-    .addGlobalParameters({
       in: 'header',
       required: false,
       name: 'Accept-Language',
