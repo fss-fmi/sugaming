@@ -20,6 +20,25 @@ An open issue is considered as a task to be completed - so whenever a task is co
 
 ## Project Boards
 
+GitHub has a project board feature called "GitHub Projects". It can be used to organize all the project issues and their statuses.
+
+To view the project board for SUGAMING - [go to this page](https://github.com/orgs/fss-fmi/projects/1).
+
+Whenever you open the project board, it will have the following 6 tabs:
+
+- `Personal Tasks` - Tasks assigned to you
+- `General` - General task, not related to the API, the site or the admin panel
+- `API` - Tasks regarding the API backend
+- `Site` - Tasks regarding the front-end client
+- `Admin` - Tasks regarding the admin panel
+- `All` - All project tasks
+
+Work is sorted in 5 columns: `🔙 Backlog`, `📌 Todo`, `🛠 In Progress`, `🧪 In Validation`, and `🎉 Done`.
+
+![Project board](./assets/from-a-task-to-a-feature-workflow-description/project-board.png)
+
+You can use the board to organize your personal work or overview tasks across the project.
+
 ## Git Branches
 
 ## Commit conventions
