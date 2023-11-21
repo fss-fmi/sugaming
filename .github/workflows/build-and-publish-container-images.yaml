@@ -52,6 +52,8 @@ jobs:
         run: |
           curl -H "Authorization: token ${TOKEN}" https://raw.githubusercontent.com/fss-fmi/secrets/main/sugaming/.env.preview > .env
           curl -H "Authorization: token ${TOKEN}" https://raw.githubusercontent.com/fss-fmi/secrets/main/sugaming/apps/sugaming-api/.env.preview > ./apps/sugaming-api/.env
+        env:
+          TOKEN: ${{ secrets.FSS_FMI_GITHUB_TOKEN }}
 
       - name: Build images
         run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} npx nx run-many --target=container --push
