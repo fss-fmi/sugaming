@@ -2,18 +2,18 @@
 
 This manual should walk you through the entire process of creating a task (issue), working on it, submitting a pull request, merging and deploying it. The guide will also outline several conventions that you should stick to in the process.
 
-## Table of contents
+### Table of contents
 
-1. [Issues](#issues)
-2. [Project Boards](#project-boards)
-3. [Git Branches](#git-branches)
-4. [Commit Conventions](#commit-conventions)
-5. [Pull Requests (PRs)](#pull-requests-prs)
-6. [Preview and Production deployments](#preview-and-production-deployments)
+1. [Issues](#-issues)
+2. [Project Boards](#-project-boards)
+3. [Git Branches](#-git-branches)
+4. [Commit Conventions](#-commit-conventions)
+5. [Pull Requests (PRs)](#-pull-requests-prs)
+6. [Preview and Production deployments](#-preview-and-production-deployments)
 
 ---
 
-## Issues
+## 🎟️ Issues
 
 Issues are a feature of GitHub that allows tracking, discussion, and prioritization of tasks, features, bug fixes, and other issues related to software projects. In this project it is used for task tracking, work assignment and team communication.
 
@@ -27,9 +27,9 @@ Whenever creating an issue, make sure to stick to the template and give as much 
 
 ![Example of an well documented issue](./assets/from-a-task-to-a-feature-workflow-description/example-issue.png)
 
-An open issue is considered as a task to be completed - so whenever a task is completed, make sure to close the issue, wether that will be via a comment or a [pull request](#pull-requests-prs).
+An open issue is considered as a task to be completed - so whenever a task is completed, make sure to close the issue, wether that will be via a comment or a [pull request](#-pull-requests-prs).
 
-## Project Boards
+## 📊 Project Boards
 
 GitHub has a project board feature called "GitHub Projects". It can be used to organize all the project issues and their statuses.
 
@@ -50,7 +50,7 @@ Work is sorted in 5 columns: `🔙 Backlog`, `📌 Todo`, `🛠 In Progress`, `�
 
 You can use the board to organize your personal work or overview tasks across the project.
 
-## Git Branches
+## 🌿 Git Branches
 
 Whenever you are working on a task, which requires changes to the project source code, you should create a git branch and make your changes in it. You can associate a GitHub issue with a branch by going to the issue page, and selecting the `Create a branch` button under `Development` in the right-hand side of the page.
 
@@ -58,10 +58,10 @@ When creating a branch, you should specify a name for it. I recommend you includ
 
 Before starting work on a feature, **always remember to `git checkout` your branch locally**. Direct pushes to the `main` branch are restricted.
 
-https://github.com/fss-fmi/sugaming/assets/26301867/a65d1e9d-1381-4fe0-945f-b053aef13cf5
+https://github.com/fss-fmi/sugaming/raw/SUG-36/docs/wiki/assets/from-a-task-to-a-feature-workflow-description/branch-creation.mp4
 
-## Commit Conventions
+## 🔬 Commit Conventions
 
-## Pull Requests (PRs)
+## 🏁 Pull Requests (PRs)
 
-## Preview and Production Deployments
+## 🚀 Preview and Production Deployments
