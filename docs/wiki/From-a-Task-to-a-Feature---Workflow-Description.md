@@ -47,7 +47,7 @@ When creating a branch, you should specify a name for it. I recommend you includ
 
 Before starting work on a feature, **always remember to `git checkout` your branch locally**. Direct pushes to the `main` branch are restricted.
 
-<video src="./assets/from-a-task-to-a-feature-workflow-description/branch-creation.mp4"></video>
+https://github.com/fss-fmi/sugaming/assets/26301867/a65d1e9d-1381-4fe0-945f-b053aef13cf5
 
 ## Commit conventions
 
