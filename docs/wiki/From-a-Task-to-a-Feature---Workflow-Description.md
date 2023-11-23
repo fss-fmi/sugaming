@@ -41,6 +41,14 @@ You can use the board to organize your personal work or overview tasks across th
 
 ## Git Branches
 
+Whenever you are working on a task, which requires changes to the project source code, you should create a git branch and make your changes in it. You can associate a GitHub issue with a branch by going to the issue page, and selecting the `Create a branch` button under `Development` in the right-hand side of the page.
+
+When creating a branch, you should specify a name for it. I recommend you including the GitHub issue number in the branch name. Personally, I name my branches `SUG-<ticket number>` (`SUG` is shortened from `SUGAMING`), but you can go with whatever suits you (including the default suggested by GitHub).
+
+Before starting work on a feature, **always remember to `git checkout` your branch locally**. Direct pushes to the `main` branch are restricted.
+
+<video src="./assets/from-a-task-to-a-feature-workflow-description/branch-creation.mp4"></video>
+
 ## Commit conventions
 
 ## Pull Requests (PRs)
