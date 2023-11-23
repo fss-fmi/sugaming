@@ -90,3 +90,4 @@ override.tf.json
 terraform.rc
 
 .vercel
+.nx
