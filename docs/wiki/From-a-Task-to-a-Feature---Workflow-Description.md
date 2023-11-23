@@ -2,6 +2,17 @@
 
 This manual should walk you through the entire process of creating a task (issue), working on it, submitting a pull request, merging and deploying it. The guide will also outline several conventions that you should stick to in the process.
 
+## Table of contents
+
+1. [Issues](#issues)
+2. [Project Boards](#project-boards)
+3. [Git Branches](#git-branches)
+4. [Commit Conventions](#commit-conventions)
+5. [Pull Requests (PRs)](#pull-requests-prs)
+6. [Preview and Production deployments](#preview-and-production-deployments)
+
+---
+
 ## Issues
 
 Issues are a feature of GitHub that allows tracking, discussion, and prioritization of tasks, features, bug fixes, and other issues related to software projects. In this project it is used for task tracking, work assignment and team communication.
@@ -49,8 +60,8 @@ Before starting work on a feature, **always remember to `git checkout` your bran
 
 https://github.com/fss-fmi/sugaming/assets/26301867/a65d1e9d-1381-4fe0-945f-b053aef13cf5
 
-## Commit conventions
+## Commit Conventions
 
 ## Pull Requests (PRs)
 
-## Preview and production deployments
+## Preview and Production Deployments
