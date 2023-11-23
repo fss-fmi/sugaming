@@ -29,7 +29,7 @@ To get started with development on this project, several tools need to be set up
 | yarn              | `yarn` is an open-source JavaScript package manager.<br>It is used for installing the project dependencies specified in `package.json` and `yarn.lock`.                                                          | On Linux, macOS and Windows:<br>`npm i -g yarn`                                                                                                                                                               |
 | terraform         | `terraform` is an infrastructure as a code tool that is used for provisioning and managing cloud infrastructure.<br>In this project, it is used for managing Vercel resources and the project GitHub repository. | On Linux, macOS, Windows:<br>https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli                                                                                                  |
 
-## 👨‍💻 Development Setup
+## 👨‍💻 Project Development Setup
 
 To setup the project for local development, complete the following steps:
 
@@ -57,3 +57,7 @@ If you wish to start all the mono-repo projects, run the following command:
 ```
 yarn nx run-many -t serve --all
 ```
+
+## ⌨️ IDE Setup
+
+TODO
