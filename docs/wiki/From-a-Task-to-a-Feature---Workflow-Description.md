@@ -100,8 +100,8 @@ To keep the project repository tidy and well-maintained, a few code checks are m
 
   - More detailed documentation about `Conventional Commits` can be found [here](https://www.conventionalcommits.org/en/v1.0.0/).
 
-> [!WARNING]
-> If the commit message does not comply with this ruleset, the commit is terminated.
+  > [!WARNING]
+  > If the commit message does not comply with this ruleset, the commit is terminated.
 
 - **Contents check**
 
@@ -113,8 +113,8 @@ To keep the project repository tidy and well-maintained, a few code checks are m
 
   - **Terraform formatting** - If the `terraform` command is available on the current machine, `.tf` files in the `terraform/` directory are checked and formatted.
 
-> [!WARNING]
-> If any of the aforementioned checks fails (returns a non-zero status), the commit is terminated.
+  > [!WARNING]
+  > If any of the aforementioned checks fails (returns a non-zero status), the commit is terminated.
 
 ---
 
@@ -152,7 +152,7 @@ Each PR deploys preview versions of the `sugaming-api`, `sugaming-site`, and `su
 
 ![Vercel PR comment](./assets/from-a-task-to-a-feature-workflow-description/vercel-pr-comment.png)
 
-> ![NOTE]
+> [!NOTE]
 > To inspect the builds, you need to be logged in to the organization's Vercel account. Refer to [the secrets repo](https://github.com/fss-fmi/secrets/blob/main/credentials.md) for account credentials.
 
 ---
@@ -161,7 +161,7 @@ In addition, if the PR has infrastructure changes (changes in the `terraform` di
 
 ![Terraform PR comment](./assets/from-a-task-to-a-feature-workflow-description/terraform-pr-comment.png)
 
-> ![NOTE]
+> [!NOTE]
 > To inspect the Terraform Cloud run, you need to be logged in to the organization's Vercel account. Refer to [the secrets repo](https://github.com/fss-fmi/secrets/blob/main/credentials.md) for account credentials.
 
 ---
