@@ -15,19 +15,19 @@ This manual should walk you through the entire process of creating a task (issue
 
 ## 🎟️ Issues
 
-Issues are a feature of GitHub that allows tracking, discussion, and prioritization of tasks, features, bug fixes, and other issues related to software projects. In this project it is used for task tracking, work assignment and team communication.
+Issues are a feature of GitHub that allows tracking, discussion, and prioritization of tasks, features, bug fixes, and other issues related to software projects. In this project, it is used for task tracking, work assignment, and team communication.
 
 To view all the open issues for SUGAMING - [go to this page](https://github.com/fss-fmi/sugaming/issues).
 
-To create an issue, select the `New issues` button and choose an appropriate template to the task you are assigning. In case you need to modify the issue templates, they are stored as markdown files in `.github/ISSUE_TEMPLATE`.
+To create an issue, select the `New issues` button and choose an appropriate template for the task you are assigning. In case you need to modify the issue templates, they are stored as markdown files in `.github/ISSUE_TEMPLATE`.
 
 ![Issue Templates](./assets/from-a-task-to-a-feature-workflow-description/issue-templates.png)
 
-Whenever creating an issue, make sure to stick to the template and give as much context as you currently have. Also, ensure that you have assigned the appropriate labels, project, milestone and assignee(s) in the right-side panel. It's not a problem if a request doesn't initially have an assignee - it can be assigned later.
+Whenever creating an issue, make sure to stick to the template and give as much context as you currently have. Also, ensure that you have assigned the appropriate labels, project, milestone, and assignee(s) in the right-side panel. It's not a problem if a request doesn't initially have an assignee - it can be assigned later.
 
 ![Example of an well documented issue](./assets/from-a-task-to-a-feature-workflow-description/example-issue.png)
 
-An open issue is considered as a task to be completed - so whenever a task is completed, make sure to close the issue, whether that will be via a comment or a [pull request](#-pull-requests-prs).
+An open issue is considered a task to be completed - so whenever a task is completed, close the issue, whether via a comment or a [pull request](#-pull-requests-prs).
 
 ## 📊 Project Boards
 
@@ -38,7 +38,7 @@ To view the project board for SUGAMING - [go to this page](https://github.com/or
 Whenever you open the project board, it will have the following 6 tabs:
 
 - `Personal Tasks` - Tasks assigned to you
-- `General` - General task, not related to the API, the site or the admin panel
+- `General` - General task, not related to the API, the site, or the admin panel
 - `API` - Tasks regarding the API backend
 - `Site` - Tasks regarding the front-end client
 - `Admin` - Tasks regarding the admin panel
@@ -52,9 +52,9 @@ You can use the board to organize your personal work or overview tasks across th
 
 ## 🌿 Git Branches
 
-Whenever you are working on a task, which requires changes to the project source code, you should create a git branch and make your changes in it. You can associate a GitHub issue with a branch by going to the issue page, and selecting the `Create a branch` button under `Development` in the right-hand side of the page.
+Whenever you are working on a task, that requires changes to the project source code, you should create a git branch and make your changes in it. You can associate a GitHub issue with a branch by going to the issue page, and selecting the `Create a branch` button under `Development` in the right-hand side of the page.
 
-When creating a branch, you should specify a name for it. I recommend you including the GitHub issue number in the branch name. Personally, I name my branches `SUG-<ticket number>` (`SUG` is shortened from `SUGAMING`), but you can go with whatever suits you (including the default suggested by GitHub).
+When creating a branch, you should specify a name for it. I recommend you include the GitHub issue number in the branch name. Personally, I name my branches `SUG-<ticket number>` (`SUG` is shortened from `SUGAMING`), but you can go with whatever suits you (including the default suggested by GitHub).
 
 Before starting work on a feature, **always remember to `git checkout` your branch locally**. Direct pushes to the `main` branch are restricted.
 
@@ -62,11 +62,11 @@ https://github.com/fss-fmi/sugaming/assets/26301867/a65d1e9d-1381-4fe0-945f-b053
 
 ## 🔬 Commit Conventions
 
-To keep the project repository tidy and well maintained, a few code checks are made when you make a git commit. Those check can be put into 2 categories:
+To keep the project repository tidy and well-maintained, a few code checks are made when you make a git commit. Those checks can be put into 2 categories:
 
 - **Commit message checks**
 
-  - Each commit message should consist of a `header`, a `body` and a `footer`. The `header` has a special format that includes a `type`, a `scope` and a `subject`:
+  - Each commit message should contain a `header`, a `body`, and a `footer`. The `header` has a special format that includes a `type`, a `scope`, and a `subject`:
 
     ```
     <type>(<scope>): <subject>
@@ -87,7 +87,7 @@ To keep the project repository tidy and well maintained, a few code checks are m
     - `perf` - when you introduce changes that improve the performance of the application.
     - `refactor` - when you are restructuring code without changing its external behavior.
     - `revert` - when reverting a previous commit. The commit being reverted should be referenced.
-    - `style` - when making changes that do not affect the meaning of the code, such as formatting, white-space, or code style adjustments.
+    - `style` - when making changes that do not affect the meaning of the code, such as formatting, white space, or code style adjustments.
     - `test` - when you are adding or modifying tests.
 
   - The `scope` in the header is optional and can be used to specify the module, component, or area of the project that the commit affects.
@@ -98,19 +98,19 @@ To keep the project repository tidy and well maintained, a few code checks are m
 
   - The `footer` is optional and can be used to reference issue tracker IDs or include breaking change notices.
 
-  - A more detailed documentation about `Conventional Commits` could be found [here](https://www.conventionalcommits.org/en/v1.0.0/).
+  - More detailed documentation about `Conventional Commits` can be found [here](https://www.conventionalcommits.org/en/v1.0.0/).
 
   - **Important:** If the commit message does not comply with this ruleset, the commit is terminated.
 
 - **Contents check**
 
-  - **Formatting using `prettier`** - Upon committing, a file formatting check is performed using `prettier`. If formatting error are found, `prettier` tries to resolve them. In case any errors cannot be resolved, the commit process is stopped.
+  - **Formatting using `prettier`** - Upon committing, a file formatting check is performed using `prettier`. If formatting errors are found, `prettier` tries to resolve them. In case any errors cannot be resolved, the commit process is stopped.
 
   - **Linting using `eslint`** - All `.ts` and `.tsx` files are linted using `eslint` on commit. If the linting process finds errors, `eslint` tries to fix them and if it fails to do so - the commit is terminated.
 
   - **Prisma formatting** - Whenever committing, the `prisma/scheme.prisma` schema file is checked and formatted.
 
-  - **Terraform formatting** - If the `terraform` command is available on the current machine, `.tf` files in the `terraform/` directory are check and formatted.
+  - **Terraform formatting** - If the `terraform` command is available on the current machine, `.tf` files in the `terraform/` directory are checked and formatted.
 
 ---
 
@@ -124,7 +124,7 @@ Whenever a task is completed, the changes from the task's git branch should be m
 
 To create a new PR, go to the `Pull requests` tab on GitHub and click `New pull request` (or click [here](https://github.com/fss-fmi/sugaming/compare)). Then select the branch you want to merge and click `Create pull request`.
 
-You will be presented with a PR template - make sure to stick to it and give as much information about your changes as you can. Also, ensure that you have assigned the appropriate labels, project, milestone and reviewers in the right-side panel.
+You will be presented with a PR template - make sure to stick to it and give as much information about your changes as you can. Also, ensure that you have assigned the appropriate project, milestone, labels, and reviewers in the right-side panel.
 
 The PR title must be in the following format:
 
@@ -144,11 +144,11 @@ Several good examples of good PR titles are `feat(#26): Credentials authenticati
 
 ---
 
-Each PR deploys preview versions of the `sugaming-api`, `sugaming-site` and `sugaming-admin` apps to Vercel. These previews can be inspected by following the links in the comment left by the Vercel bot in the pull request.
+Each PR deploys preview versions of the `sugaming-api`, `sugaming-site`, and `sugaming-admin` apps to Vercel. These previews can be inspected by following the links in the comment left by the Vercel bot in the pull request.
 
 ![Vercel PR comment](./assets/from-a-task-to-a-feature-workflow-description/vercel-pr-comment.png)
 
-**Note:** To inspect the builds, you need to be logged in the organization Vercel account. Refer to [the secrets repo](https://github.com/fss-fmi/secrets/blob/main/credentials.md) for account credentials.
+**Note:** To inspect the builds, you need to be logged in to the organization's Vercel account. Refer to [the secrets repo](https://github.com/fss-fmi/secrets/blob/main/credentials.md) for account credentials.
 
 ---
 
@@ -156,7 +156,7 @@ In addition, if the PR has infrastructure changes (changes in the `terraform` di
 
 ![Terraform PR comment](./assets/from-a-task-to-a-feature-workflow-description/terraform-pr-comment.png)
 
-**Note:** To inspect the Terraform Cloud run, you need to be logged in the organization Vercel account. Refer to [the secrets repo](https://github.com/fss-fmi/secrets/blob/main/credentials.md) for account credentials.
+**Note:** To inspect the Terraform Cloud run, you need to be logged in to the organization's Vercel account. Refer to [the secrets repo](https://github.com/fss-fmi/secrets/blob/main/credentials.md) for account credentials.
 
 ---
 
@@ -164,12 +164,12 @@ Before merging the PR, it should pass 2 checks:
 
 - **It must be reviewed and tested** by at least 1 team member.
 - **It must pass all automated checks.** The automated checks include:
-  - `Vercel – sugaming-api` - Preview deployment of `sugaming-api` has completed successfully.
-  - `Vercel – sugaming-site` - Preview deployment of `sugaming-site` has completed successfully.
-  - `Vercel – sugaming-admin` - Preview deployment of `sugaming-admin` has completed successfully.
+  - `Vercel – sugaming-api` - Preview deployment of `sugaming-api` has been completed successfully.
+  - `Vercel – sugaming-site` - Preview deployment of `sugaming-site` has been completed successfully.
+  - `Vercel – sugaming-admin` - Preview deployment of `sugaming-admin` has been completed successfully.
   - `Terraform Plan` has created an infrastructure change plan, if there are changes present in `terraform/`.
-  - `Continuous Integration` - The entire project builds successfully, passes formatting and linting checks, passes unit and E2E tests.
-  - `Build and Publish` - Container images of `sugaming-api`, `sugaming-site` and `sugaming-admin` have been built for and published to the [GitHub Packages Hub](https://github.com/orgs/fss-fmi/packages) and to the [Docker Hub](https://hub.docker.com/u/fssfmi).
+  - `Continuous Integration` - The entire project builds successfully, passes formatting and linting checks, and passes unit and E2E tests.
+  - `Build and Publish` - Container images of `sugaming-api`, `sugaming-site`, and `sugaming-admin` have been built for and published to the [GitHub Packages Hub](https://github.com/orgs/fss-fmi/packages) and to the [Docker Hub](https://hub.docker.com/u/fssfmi).
 
 ![PR checks](./assets/from-a-task-to-a-feature-workflow-description/pr-checks.png)
 
