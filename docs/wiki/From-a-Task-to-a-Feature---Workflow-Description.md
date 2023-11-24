@@ -1,6 +1,6 @@
 # From a Task to a Feature - Workflow Description
 
-This manual should walk you through the entire process of creating a task (issue), working on it, submitting a pull request, merging and deploying it. The guide will also outline several conventions that you should stick to in the process.
+This manual should walk you through the entire process of creating a task (issue), working on it, submitting a pull request, merging, and deploying it. The guide will also outline several conventions that you should stick to in the process.
 
 ### Table of contents
 
@@ -44,7 +44,7 @@ Whenever you open the project board, it will have the following 6 tabs:
 - `Admin` - Tasks regarding the admin panel
 - `All` - All project tasks
 
-Work is sorted in 5 columns: `🔙 Backlog`, `📌 Todo`, `🛠 In Progress`, `🧪 In Validation`, and `🎉 Done`.
+Work is sorted into 5 columns: `🔙 Backlog`, `📌 Todo`, `🛠 In Progress`, `🧪 In Validation`, and `🎉 Done`.
 
 ![Project board](./assets/from-a-task-to-a-feature-workflow-description/project-board.png)
 
@@ -52,7 +52,7 @@ You can use the board to organize your personal work or overview tasks across th
 
 ## 🌿 Git Branches
 
-Whenever you are working on a task, that requires changes to the project source code, you should create a git branch and make your changes in it. You can associate a GitHub issue with a branch by going to the issue page, and selecting the `Create a branch` button under `Development` in the right-hand side of the page.
+Whenever you are working on a task, that requires changes to the project source code, you should create a git branch and make your changes in it. You can associate a GitHub issue with a branch by going to the issue page and selecting the `Create a branch` button under `Development` on the right-hand side of the page.
 
 When creating a branch, you should specify a name for it. I recommend you include the GitHub issue number in the branch name. Personally, I name my branches `SUG-<ticket number>` (`SUG` is shortened from `SUGAMING`), but you can go with whatever suits you (including the default suggested by GitHub).
 
@@ -100,8 +100,8 @@ To keep the project repository tidy and well-maintained, a few code checks are m
 
   - More detailed documentation about `Conventional Commits` can be found [here](https://www.conventionalcommits.org/en/v1.0.0/).
 
-  > [!WARNING]
-  > If the commit message does not comply with this ruleset, the commit is terminated.
+> [!WARNING]
+> If the commit message does not comply with this ruleset, the commit is terminated.
 
 - **Contents check**
 
@@ -113,8 +113,8 @@ To keep the project repository tidy and well-maintained, a few code checks are m
 
   - **Terraform formatting** - If the `terraform` command is available on the current machine, `.tf` files in the `terraform/` directory are checked and formatted.
 
-  > [!WARNING]
-  > If any of the aforementioned checks fails (returns a non-zero status), the commit is terminated.
+> [!WARNING]
+> If any of the aforementioned checks fails (returns a non-zero status), the commit is terminated.
 
 ---
 
@@ -174,8 +174,8 @@ Before merging the PR, it should pass 2 checks:
   - `Vercel – sugaming-site` - Preview deployment of `sugaming-site` has been completed successfully.
   - `Vercel – sugaming-admin` - Preview deployment of `sugaming-admin` has been completed successfully.
   - `Terraform Plan` has created an infrastructure change plan, if there are changes present in `terraform/`.
-  - `Continuous Integration` - The entire project builds successfully, passes formatting and linting checks, and passes unit and E2E tests.
-  - `Build and Publish` - Container images of `sugaming-api`, `sugaming-site`, and `sugaming-admin` have been built for and published to the [GitHub Packages Hub](https://github.com/orgs/fss-fmi/packages) and to the [Docker Hub](https://hub.docker.com/u/fssfmi).
+  - `Continuous Integration` - The entire project builds successfully, passes formatting and linting checks and passes unit and E2E tests.
+  - `Build and Publish` - Container images of `sugaming-api`, `sugaming-site`, and `sugaming-admin` have been built for and published to the [GitHub Packages Hub](https://github.com/orgs/fss-fmi/packages) and the [Docker Hub](https://hub.docker.com/u/fssfmi).
 
 ![PR checks](./assets/from-a-task-to-a-feature-workflow-description/pr-checks.png)
 
@@ -183,7 +183,7 @@ After all that is complete, you can `Squash and merge` the PR into the `main` br
 
 ## 🚀 Preview and Production Deployments
 
-Congrats, you have merged you PR! 🎉 However, it is not available to the public yet. Merges to the `main` branch do not deploy to the `production` environment directly, but rather on a `preview` environment, which can be used for pre-release testing.
+Congrats, you have merged your PR! 🎉 However, it is not available to the public yet. Merges to the `main` branch do not deploy to the `production` environment directly, but rather on a `preview` environment, which can be used for pre-release testing.
 
 The `preview` environment URLs are the following:
 
@@ -193,10 +193,10 @@ The `preview` environment URLs are the following:
 
 ---
 
-To publish to the `production` environment, you will need to create a SemVer release. Semantic Versioning (SemVer) is a versioning scheme for software that uses a three-part number, major.minor.patch, to convey information about the nature of changes. In this project we use the [jscutlery/semver](https://github.com/jscutlery/semver) package for creating and managing workspace versions.
+To publish to the `production` environment, you will need to create a SemVer release. Semantic Versioning (SemVer) is a versioning scheme for software that uses a three-part number, major.minor.patch, to convey information about the nature of changes. In this project, we use the [jscutlery/semver](https://github.com/jscutlery/semver) package for creating and managing workspace versions.
 
 > [!IMPORTANT]
-> Note that everyone can create a SemVer release, but only code owners can push it to the repository.
+> Everyone can create SemVer releases, but only code owners can push them to the repository.
 
 To create a versioned release, first make sure you have changed the current branch to `main` and have pulled the latest changes from the remote repository:
 
@@ -206,7 +206,7 @@ git checkout main
 git pull
 ```
 
-Then run one of the following commands, depending on type of release you are targeting:
+Then run one of the following commands, depending on the type of release you are targeting:
 
 ```shell
 # Create a patch release; changes version from X.Y.Z to X.Y.Z+1
@@ -219,7 +219,7 @@ yarn nx run workspace:version --releaseAs=minor
 yarn nx run workspace:version --releaseAs=major
 ```
 
-After completion, you need to push the `main` branch changes and the new version tag to the remote repository.
+After completion, you have to push the `main` branch changes and the new version tag to the remote repository.
 
 ```shell
 # Push the main branch
