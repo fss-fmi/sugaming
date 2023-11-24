@@ -98,6 +98,8 @@ To keep the project repository tidy and well maintained, a few code checks are m
 
   - The `footer` is optional and can be used to reference issue tracker IDs or include breaking change notices.
 
+  - A more detailed documentation about `Conventional Commits` could be found [here](https://www.conventionalcommits.org/en/v1.0.0/).
+
   - **Important:** If the commit message does not comply with this ruleset, the commit is terminated.
 
 - **Contents check**
