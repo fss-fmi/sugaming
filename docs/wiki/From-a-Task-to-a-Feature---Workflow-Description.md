@@ -162,7 +162,7 @@ In addition, if the PR has infrastructure changes (changes in the `terraform` di
 ![Terraform PR comment](./assets/from-a-task-to-a-feature-workflow-description/terraform-pr-comment.png)
 
 > [!NOTE]
-> To inspect the Terraform Cloud run, you need to be logged in to the organization's Vercel account. Refer to [the secrets repo](https://github.com/fss-fmi/secrets/blob/main/credentials.md) for account credentials.
+> To inspect the Terraform Cloud run, you need to be logged in to the organization's Hashicorp account. Refer to [the secrets repo](https://github.com/fss-fmi/secrets/blob/main/credentials.md) for account credentials.
 
 ---
 
@@ -182,3 +182,59 @@ Before merging the PR, it should pass 2 checks:
 After all that is complete, you can `Squash and merge` the PR into the `main` branch. 🥳
 
 ## 🚀 Preview and Production Deployments
+
+Congrats, you have merged you PR! 🎉 However, it is not available to the public yet. Merges to the `main` branch do not deploy to the `production` environment directly, but rather on a `preview` environment, which can be used for pre-release testing.
+
+The `preview` environment URLs are the following:
+
+**sugaming-api**: https://sugaming-api-git-main-fss-fmi.vercel.app
+**sugaming-site**: https://sugaming-site-git-main-fss-fmi.vercel.app
+**sugaming-admin**: https://sugaming-admin-git-main-fss-fmi.vercel.app
+
+---
+
+To publish to the `production` environment, you will need to create a SemVer release. Semantic Versioning (SemVer) is a versioning scheme for software that uses a three-part number, major.minor.patch, to convey information about the nature of changes. In this project we use the [jscutlery/semver](https://github.com/jscutlery/semver) package for creating and managing workspace versions.
+
+> [!IMPORTANT]
+> Note that everyone can create a SemVer release, but only code owners can push it to the repository.
+
+To create a versioned release, first make sure you have changed the current branch to `main` and have pulled the latest changes from the remote repository:
+
+```shell
+git fetch
+git checkout main
+git pull
+```
+
+Then run one of the following commands, depending on type of release you are targeting:
+
+```shell
+# Create a patch release; changes version from X.Y.Z to X.Y.Z+1
+yarn nx run workspace:version --releaseAs=patch
+
+# Create a minor release; changes version from X.Y.Z to X.Y+1.0
+yarn nx run workspace:version --releaseAs=minor
+
+# Create a major release; changes version from X.Y.Z to X+1.0.0
+yarn nx run workspace:version --releaseAs=major
+```
+
+After completion, you need to push the `main` branch changes and the new version tag to the remote repository.
+
+```shell
+# Push the main branch
+git push origin main
+
+# Push the new version tag
+git push --tags
+```
+
+Afterward, an automatic release workflow will be triggered. When it completes (takes roughly about 3-4 minutes), the new release will be available under `Releases` on the main GitHub page (or by clicking [here](https://github.com/fss-fmi/sugaming/releases)). From the release page, you will be able to find the deployment URLs.
+
+![Releases](./assets/from-a-task-to-a-feature-workflow-description/releases.png)
+
+The latest production deployments can always be accessed by querying the following links:
+
+**sugaming-api**: https://sugaming-api-fss-fmi.vercel.app
+**sugaming-site**: https://sugaming-site-fss-fmi.vercel.app
+**sugaming-admin**: https://sugaming-admin-fss-fmi.vercel.app
