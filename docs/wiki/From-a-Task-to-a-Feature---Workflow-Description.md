@@ -102,17 +102,75 @@ To keep the project repository tidy and well maintained, a few code checks are m
 
 - **Contents check**
 
-  - **Formatting using Prettier** - Upon committing, a file formatting check is performed using `prettier`. If formatting error are found, `prettier` tries to resolve them. In case any errors cannot be resolved, the commit process is stopped.
+  - **Formatting using `prettier`** - Upon committing, a file formatting check is performed using `prettier`. If formatting error are found, `prettier` tries to resolve them. In case any errors cannot be resolved, the commit process is stopped.
 
   - **Linting using `eslint`** - All `.ts` and `.tsx` files are linted using `eslint` on commit. If the linting process finds errors, `eslint` tries to fix them and if it fails to do so - the commit is terminated.
+
   - **Prisma formatting** - Whenever committing, the `prisma/scheme.prisma` schema file is checked and formatted.
 
   - **Terraform formatting** - If the `terraform` command is available on the current machine, `.tf` files in the `terraform/` directory are check and formatted.
+
+---
 
 The checks are performed using the [husky](https://www.npmjs.com/package/husky) tool. This means that you should have installed the project dependencies beforehand. For an installation manual, please refer to the [Development Setup section in the Developer Onboarding guide](./Developer-Onboarding.md#-project-development-setup).
 
 Most of the aforementioned content checks can be displayed right in your IDE, while you are developing. For reference on how to set those checks up, refer to the [IDE Setup section in the Developer Onboarding guide](./Developer-Onboarding.md#-ide-setup).
 
-## 🏁 Pull Requests (PRs)
+## ⏩ Pull Requests (PRs)
+
+Whenever a task is completed, the changes from the task's git branch should be merged into the `main` branch. This is done via Pull Request (PRs).
+
+To create a new PR, go to the `Pull requests` tab on GitHub and click `New pull request` (or click [here](https://github.com/fss-fmi/sugaming/compare)). Then select the branch you want to merge and click `Create pull request`.
+
+You will be presented with a PR template - make sure to stick to it and give as much information about your changes as you can. Also, ensure that you have assigned the appropriate labels, project, milestone and reviewers in the right-side panel.
+
+The PR title must be in the following format:
+
+```
+<type>(<issue number>): <subject>
+```
+
+where:
+
+- `type` should usually the same as in the issue title, should be one of the following: `feat`, `fix`, `build`, `chore`, `ci`, `docs`, `perf`, `refactor`, `revert`, `style`, `test`.
+- `issue number` should be the number of the issue the PR is resolving (e.g. `#26`).
+- `subject` should be a concise and clear description of the changes introduced by the commit.
+
+Several good examples of good PR titles are `feat(#26): Credentials authentication`, `fix(#24): Documentation sync pipeline failure fix`, `docs(#36): Workflow description documentation`, etc.
+
+![Example pull request](./assets/from-a-task-to-a-feature-workflow-description/example-pull-request.png)
+
+---
+
+Each PR deploys preview versions of the `sugaming-api`, `sugaming-site` and `sugaming-admin` apps to Vercel. These previews can be inspected by following the links in the comment left by the Vercel bot in the pull request.
+
+![Vercel PR comment](./assets/from-a-task-to-a-feature-workflow-description/vercel-pr-comment.png)
+
+**Note:** To inspect the builds, you need to be logged in the organization Vercel account. Refer to [the secrets repo](https://github.com/fss-fmi/secrets/blob/main/credentials.md) for account credentials.
+
+---
+
+In addition, if the PR has infrastructure changes (changes in the `terraform` directory), a Terraform Plan will be created and linked as a comment.
+
+![Terraform PR comment](./assets/from-a-task-to-a-feature-workflow-description/terraform-pr-comment.png)
+
+**Note:** To inspect the Terraform Cloud run, you need to be logged in the organization Vercel account. Refer to [the secrets repo](https://github.com/fss-fmi/secrets/blob/main/credentials.md) for account credentials.
+
+---
+
+Before merging the PR, it should pass 2 checks:
+
+- **It must be reviewed and tested** by at least 1 team member.
+- **It must pass all automated checks.** The automated checks include:
+  - `Vercel – sugaming-api` - Preview deployment of `sugaming-api` has completed successfully.
+  - `Vercel – sugaming-site` - Preview deployment of `sugaming-site` has completed successfully.
+  - `Vercel – sugaming-admin` - Preview deployment of `sugaming-admin` has completed successfully.
+  - `Terraform Plan` has created an infrastructure change plan, if there are changes present in `terraform/`.
+  - `Continuous Integration` - The entire project builds successfully, passes formatting and linting checks, passes unit and E2E tests.
+  - `Build and Publish` - Container images of `sugaming-api`, `sugaming-site` and `sugaming-admin` have been built for and published to the [GitHub Packages Hub](https://github.com/orgs/fss-fmi/packages) and to the [Docker Hub](https://hub.docker.com/u/fssfmi).
+
+![PR checks](./assets/from-a-task-to-a-feature-workflow-description/pr-checks.png)
+
+After all that is complete, you can `Squash and merge` the PR into the `main` branch. 🥳
 
 ## 🚀 Preview and Production Deployments
