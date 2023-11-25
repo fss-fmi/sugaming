@@ -2,6 +2,16 @@
 
 This manual should serve you as a starting point for contributing to the SUGAMING platform. It showcases the general project structure, tools, and steps for setting up a local development environment, etc. Whether you are a seasoned developer of the platform or you are just poking around the codebase - your contributions are welcomed and appreciated! 💖
 
+### Table of contents
+
+1. [Project Overview](#-project-overview)
+2. [Environment Variables](#-environment-variables)
+3. [Tools Required](#-tools-required)
+4. [Development Setup](#-development-setup)
+5. [IDE Setup](#-ide-setup)
+
+---
+
 ## 🔎 Project Overview
 
 The project consists of 3 main components:
