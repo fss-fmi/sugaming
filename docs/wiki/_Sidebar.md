@@ -1,3 +1,4 @@
 - [[Introduction|Home]]
 - Developer Resources
-  - [[Onboarding|Developer Onboarding]]
+  - [[Developer Onboarding|Developer Onboarding]]
+  - [[From a Task to a Feature - Workflow Description|From a Task to a Feature - Workflow Description]]
