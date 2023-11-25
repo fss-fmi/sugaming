@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ExternalDependencies">
+    <plugin id="com.intellij.tailwindcss" />
     <plugin id="com.nekofar.milad.intellij.nestjs" />
     <plugin id="dev.nx.console" />
+    <plugin id="intellij.nextjs" />
     <plugin id="intellij.prettierJS" />
     <plugin id="org.intellij.plugins.hcl" />
     <plugin id="org.intellij.prisma" />
