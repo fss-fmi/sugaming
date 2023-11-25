@@ -10,6 +10,7 @@ This manual should walk you through the entire process of creating a task (issue
 4. [Commit Conventions](#-commit-conventions)
 5. [Pull Requests (PRs)](#-pull-requests-prs)
 6. [Preview and Production deployments](#-preview-and-production-deployments)
+7. [Closing Remarks](#-closing-remarks)
 
 ---
 
@@ -153,7 +154,7 @@ Each PR deploys preview versions of the `sugaming-api`, `sugaming-site`, and `su
 ![Vercel PR comment](./assets/from-a-task-to-a-feature-workflow-description/vercel-pr-comment.png)
 
 > [!NOTE]
-> To inspect the builds, you need to be logged in to the organization's Vercel account. Refer to [the secrets repo](https://github.com/fss-fmi/secrets/blob/main/credentials.md) for account credentials.
+> To inspect the builds, you need to be logged in to the organization's Vercel account. Refer to [the secrets repository](https://github.com/fss-fmi/secrets/blob/main/credentials.md) for account credentials.
 
 ---
 
@@ -162,7 +163,7 @@ In addition, if the PR has infrastructure changes (changes in the `terraform` di
 ![Terraform PR comment](./assets/from-a-task-to-a-feature-workflow-description/terraform-pr-comment.png)
 
 > [!NOTE]
-> To inspect the Terraform Cloud run, you need to be logged in to the organization's Hashicorp account. Refer to [the secrets repo](https://github.com/fss-fmi/secrets/blob/main/credentials.md) for account credentials.
+> To inspect the Terraform Cloud run, you need to be logged in to the organization's Hashicorp account. Refer to [the secrets repository](https://github.com/fss-fmi/secrets/blob/main/credentials.md) for account credentials.
 
 ---
 
@@ -187,9 +188,9 @@ Congrats, you have merged your PR! 🎉 However, it is not available to the publ
 
 The `preview` environment URLs are the following:
 
-**sugaming-api**: https://sugaming-api-git-main-fss-fmi.vercel.app
-**sugaming-site**: https://sugaming-site-git-main-fss-fmi.vercel.app
-**sugaming-admin**: https://sugaming-admin-git-main-fss-fmi.vercel.app
+- **sugaming-api**: https://sugaming-api-git-main-fss-fmi.vercel.app
+- **sugaming-site**: https://sugaming-site-git-main-fss-fmi.vercel.app
+- **sugaming-admin**: https://sugaming-admin-git-main-fss-fmi.vercel.app
 
 ---
 
@@ -235,6 +236,12 @@ Afterward, an automatic release workflow will be triggered. When it completes (t
 
 The latest production deployments can always be accessed by querying the following links:
 
-**sugaming-api**: https://sugaming-api-fss-fmi.vercel.app
-**sugaming-site**: https://sugaming-site-fss-fmi.vercel.app
-**sugaming-admin**: https://sugaming-admin-fss-fmi.vercel.app
+- **sugaming-api**: https://sugaming-api-fss-fmi.vercel.app
+- **sugaming-site**: https://sugaming-site-fss-fmi.vercel.app
+- **sugaming-admin**: https://sugaming-admin-fss-fmi.vercel.app
+
+## 🔚 Closing Remarks
+
+Congratulations on completing this lengthy guide. Now you should be familiar with how features are shipped in the SUGAMING project. If you have questions or need help, reach out to anyone in the team.
+
+Happy coding! ❤️
