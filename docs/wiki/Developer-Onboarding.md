@@ -1,5 +1,3 @@
-# Developer Onboarding
-
 This manual should serve you as a starting point for contributing to the SUGAMING platform. It showcases the general project structure, tools, and steps for setting up a local development environment, etc. Whether you are a seasoned developer of the platform or you are just poking around the codebase - your contributions are welcomed and appreciated! 💖
 
 ### Table of contents

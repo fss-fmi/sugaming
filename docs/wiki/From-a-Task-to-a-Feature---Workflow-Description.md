@@ -1,5 +1,3 @@
-# From a Task to a Feature - Workflow Description
-
 This manual should walk you through the entire process of creating a task (issue), working on it, submitting a pull request, merging, and deploying it. The guide will also outline several conventions that you should stick to in the process.
 
 ### Table of contents
