@@ -7,6 +7,7 @@ This manual should serve you as a starting point for contributing to the SUGAMIN
 3. [Tools Required](#-tools-required)
 4. [Development Setup](#-development-setup)
 5. [IDE Setup](#-ide-setup)
+6. [Closing Remarks](#-closing-remarks)
 
 ---
 
@@ -45,6 +46,7 @@ To set up the project for local development, complete the following steps:
 
 ```shell
 git clone https://github.com/fss-fmi/sugaming
+cd sugaming
 ```
 
 2. **Install the project dependencies.**
@@ -81,7 +83,7 @@ This can be accomplished in 2 ways:
 
   After this, the database should be up and running, and you should be able to connect to it.
 
-- **Via Postgres local installation**
+- **Via PostgreSQL local installation**
 
   Get the PostgreSQL database installer, by visiting the following [download page](https://www.postgresql.org/download/).
 
@@ -119,3 +121,23 @@ yarn nx run-many -t serve --all
 ```
 
 ## ⌨️ IDE Setup
+
+- **JetBrains Webstorm**
+
+  TODO
+
+  > [!NOTE]
+  > The instructions listed are applicable to WebStorm and other JetBrains IDEs
+
+- **Visual Studio Code**
+
+  TODO
+
+## 🔚 Closing Remarks
+
+Congratulations on completing this guide. Now you should have the SUGAMING project set up locally. If you have questions or need help, reach out to anyone in the team.
+
+> [!IMPORTANT]
+> If you experience any issues during the project setup, make sure to post them in the [Project Setup Q&A](https://github.com/fss-fmi/sugaming/discussions/categories/project-setup-q-a) discussions form and contact the project maintainers. This way we can both help you out and document the problem, in case anyone else comes across it.
+
+Happy coding! ❤️
