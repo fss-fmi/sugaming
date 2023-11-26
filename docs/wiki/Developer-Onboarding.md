@@ -53,15 +53,18 @@ git clone https://github.com/fss-fmi/sugaming
 yarn install
 ```
 
+> [!NOTE]
+> On Windows, if you are experiencing `module not found @nrwl\nx-win32-x64-msvc\nx.win32-x64-msvc.node` errors, during the dependencies installation, you can refer to [this comment](https://github.com/lerna/lerna/issues/3612#issuecomment-1495469808) for a solution.
+
 3. **Get environment files.**
 
-Make sure to set up `.env` environment files in the working project directory. For more information refer to the [Environment Variables](#-environment-variables) section.
+Make sure to set up `.env` environment files in the working project directory. For more information refer to the [Environment Variables section](#-environment-variables).
 
 4. **Set up local database instance.**
 
 This can be accomplished in 2 ways:
 
-- Via Docker
+- **Via Docker**
 
   If you don't have Docker installed on your machine, follow the instructions listed on the [official Docker documentation](https://docs.docker.com/engine/install/) site.
 
@@ -76,7 +79,9 @@ This can be accomplished in 2 ways:
   docker-compose up -d database
   ```
 
-- Via Postgres local installation
+  After this, the database should be up and running, and you should be able to connect to it.
+
+- **Via Postgres local installation**
 
   Get the PostgreSQL database installer, by visiting the following [download page](https://www.postgresql.org/download/).
 
@@ -92,10 +97,10 @@ This can be accomplished in 2 ways:
   - For Windows installations open `services.msc` (from the start menu or the `Win + R` run box), search for `postgresql-x64-xx` in the services list, right click it and select `Start`.
   - For Linux and macOS installations, refer to [this article](https://www.postgresql.org/docs/current/server-start.html).
 
-  Afterward, the database should be up and running, and you should be able to connect to the database.
+  Afterward, the database should be up and running, and you should be able to connect to it.
 
 > [!NOTE]
-> By default, new Postgres installation only have a default `postgres` database. The development environment file ... Make sure to either create an empty database with the name `sugaming` or modify the `DATABASE_URL` and `DATABASE_DIRECT_URL` variable values to have `postgres` as the database name.
+> By default, new Postgres installation only have a default `postgres` database. The development environment file specifies that the database name is `sugaming`. Make sure to either create an empty database with the name `sugaming` or modify the `DATABASE_URL` and `DATABASE_DIRECT_URL` variable values to have `postgres` as the database name.
 >
 > You can use the bundled `pgAdmin 4` or any compatible other database management tool (such as `DBeaver`) to create new or manage existing databases.
 
@@ -107,7 +112,7 @@ To start a specific application, run the following command:
 yarn nx serve <application name>
 ```
 
-If you wish to start all the mono-repo projects, run the following command:
+If you wish to start all the mono-repo projects, run this command:
 
 ```shell
 yarn nx run-many -t serve --all
