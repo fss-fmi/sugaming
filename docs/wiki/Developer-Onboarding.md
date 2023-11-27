@@ -56,11 +56,11 @@ yarn install
 ```
 
 > [!NOTE]
-> On Windows, if you are experiencing `module not found @nrwl\nx-win32-x64-msvc\nx.win32-x64-msvc.node` errors, during the dependencies installation, you can refer to [this comment](https://github.com/lerna/lerna/issues/3612#issuecomment-1495469808) for a solution.
+> On Windows, if you are experiencing `module not found @nrwl\nx-win32-x64-msvc\nx.win32-x64-msvc.node` errors during the dependencies installation, please refer to [this comment](https://github.com/lerna/lerna/issues/3612#issuecomment-1495469808) for a solution.
 
 3. **Get environment files.**
 
-Make sure to set up `.env` environment files in the working project directory. For more information refer to the [Environment Variables section](#-environment-variables).
+Make sure to set up the `.env` environment files in the working project directory. For more information, refer to the [Environment Variables section](#-environment-variables).
 
 4. **Set up the local database instance.**
 
@@ -68,7 +68,7 @@ This can be accomplished in 2 ways:
 
 - **Via Docker**
 
-  If you don't have Docker installed on your machine, follow the instructions listed on the [official Docker documentation](https://docs.docker.com/engine/install/) site.
+  If you don't have Docker installed on your machine, follow the instructions listed on the [official Docker documentation](https://docs.docker.com/engine/install/) website.
 
   Then make sure the Docker engine is started.
 
@@ -85,7 +85,7 @@ This can be accomplished in 2 ways:
 
 - **Via PostgreSQL local installation**
 
-  Get the PostgreSQL database installer, by visiting the following [download page](https://www.postgresql.org/download/).
+  If you have not installed it already, get the PostgreSQL database server installer, by visiting the following [download page](https://www.postgresql.org/download/).
 
   Then start the installation, using the files you downloaded. During the installation, you will have to configure a connection `password` and `port`. Use the ones listed in the `.env` file:
 
@@ -102,9 +102,9 @@ This can be accomplished in 2 ways:
   Afterward, the database should be up and running, and you should be able to connect to it.
 
 > [!NOTE]
-> By default, new Postgres installations only have a default `postgres` database. The development environment file specifies that the database name is `sugaming`. Make sure to either create an empty database with the name `sugaming` or modify the `DATABASE_URL` and `DATABASE_DIRECT_URL` variable values to have `postgres` as the database name.
+> By default, new PostgreSQL server installations only have a single, default database, called `postgres`. The development environment file - `.env` specifies that the database name is `sugaming`. Make sure to either create an empty database with the name `sugaming` or modify the `DATABASE_URL` and `DATABASE_DIRECT_URL` variable values to have `postgres` as the database name.
 >
-> You can use the bundled `pgAdmin 4` or any compatible other database management tool (such as `DBeaver`) to create new or manage existing databases.
+> You can use the bundled `pgAdmin4` or any compatible other database management tool (such as `DBeaver`) to create new or manage existing databases.
 
 5. **Start project applications locally.**
 
@@ -126,7 +126,7 @@ Development work on the SUGAMING project is easier in an IDE. In this part of th
 
 - **JetBrains WebStorm**
 
-  You can load the project repository as it is in WebStorm, however, several plugins are recommended to be installed, to make your developer experience smoother.
+  You can load the project repository just as it is in WebStorm, however, several plugins are recommended to be installed, in order to make your developer experience smoother.
 
   To set up the recommended plugins, first open the cloned project repository in WebStorm. A pop-up in the bottom-right corner stating that "Required plugins have not been loaded" should appear (if you miss it, you can still view it from the "Notifications" pane in the top-right corner). Select `Install required plugins` and then, in the new window that is opened, click `OK`. You may be prompted to accept the plugins' terms of service. Afterward, you should be all set!
 
