@@ -62,7 +62,7 @@ yarn install
 
 Make sure to set up `.env` environment files in the working project directory. For more information refer to the [Environment Variables section](#-environment-variables).
 
-4. **Set up local database instance.**
+4. **Set up the local database instance.**
 
 This can be accomplished in 2 ways:
 
@@ -96,13 +96,13 @@ This can be accomplished in 2 ways:
 
   After the installation completes, make sure you start the `postgresql` service on your machine.
 
-  - For Windows installations open `services.msc` (from the start menu or the `Win + R` run box), search for `postgresql-x64-xx` in the services list, right click it and select `Start`.
+  - For Windows installations open `services.msc` (from the start menu or the `Win + R` run box), search for `postgresql-x64-xx` in the services list, right-click it, and select `Start`.
   - For Linux and macOS installations, refer to [this article](https://www.postgresql.org/docs/current/server-start.html).
 
   Afterward, the database should be up and running, and you should be able to connect to it.
 
 > [!NOTE]
-> By default, new Postgres installation only have a default `postgres` database. The development environment file specifies that the database name is `sugaming`. Make sure to either create an empty database with the name `sugaming` or modify the `DATABASE_URL` and `DATABASE_DIRECT_URL` variable values to have `postgres` as the database name.
+> By default, new Postgres installations only have a default `postgres` database. The development environment file specifies that the database name is `sugaming`. Make sure to either create an empty database with the name `sugaming` or modify the `DATABASE_URL` and `DATABASE_DIRECT_URL` variable values to have `postgres` as the database name.
 >
 > You can use the bundled `pgAdmin 4` or any compatible other database management tool (such as `DBeaver`) to create new or manage existing databases.
 
@@ -126,24 +126,24 @@ Development work on the SUGAMING project is easier in an IDE. In this part of th
 
 - **JetBrains WebStorm**
 
-  You can load the project repository as it is in WebStorm, however, several plugins are recommended to be installed, in order to make your developer experience smoother.
+  You can load the project repository as it is in WebStorm, however, several plugins are recommended to be installed, to make your developer experience smoother.
 
-  To set up the recommended plugins, first open the cloned project repository in WebStorm. A pop-up in the bottom-right corner stating that "Required plugins have not been loaded" should appear (if you miss it, you can still view it from the "Notifications" pane in the top right corner). Select `Install requried plugins` and then, in the new windows that is opened, click `OK`. You may be prompted to accept the plugins terms of service. Afterward, you should be all set!
+  To set up the recommended plugins, first open the cloned project repository in WebStorm. A pop-up in the bottom-right corner stating that "Required plugins have not been loaded" should appear (if you miss it, you can still view it from the "Notifications" pane in the top-right corner). Select `Install required plugins` and then, in the new window that is opened, click `OK`. You may be prompted to accept the plugins' terms of service. Afterward, you should be all set!
 
 https://github.com/fss-fmi/sugaming/assets/26301867/8d65307a-22f4-475c-9506-1a10ac317e98
 
-  If you wish to run any of the project targets (for ex. serving the `sugaming-api` application) you can do so from the Nx Console, located on the left pane of WebStorm. From there find the project target that you wish to run and double click it.
+  If you wish to run any of the project targets (for ex. serving the `sugaming-api` application) you can do so from the Nx Console, located on the left pane of WebStorm. From there find the project target that you wish to run and double-click it.
 
   After the first run, the target will be added to your "Run / Debug Configurations" list (in the top pane). This means that in the future, you can start/stop/debug it without going to the Nx Console.
 
 https://github.com/fss-fmi/sugaming/assets/26301867/00b10ba7-e630-422d-9c06-baa7ff5a966e
 
 > [!NOTE]
-> The instructions listed are applicable to WebStorm and other JetBrains IDEs
+> The instructions listed are applicable to WebStorm and other JetBrains IDEs.
 
 - **Visual Studio Code**
 
-  To set up the recommended plugins, first open the cloned project repository in Visual Studio Code and when a pop-up in the bottom-right corner suggesting the installation of recommended plugins, click on `Install`. After the installation completes, you should be ready to go!
+  To set up the recommended plugins, first open the cloned project repository in Visual Studio Code and when a pop-up in the bottom-right corner suggests the installation of recommended plugins, click on `Install`. After the installation is completed, you should be ready to go!
 
 https://github.com/fss-fmi/sugaming/assets/26301867/24bc8c06-61d5-4738-bf88-e1bbeb527f0d
 
@@ -153,7 +153,7 @@ https://github.com/fss-fmi/sugaming/assets/26301867/41182689-3685-4a3f-8885-9685
 
 ## 🔚 Closing Remarks
 
-Congratulations on completing this guide. Now you should have the SUGAMING project set up locally. If you have questions or need help, reach out to anyone in the team.
+Congratulations on completing this guide. Now you should have the SUGAMING project set up locally. If you have questions or need help, reach out to anyone on the team.
 
 > [!IMPORTANT]
 > If you experience any issues during the project setup, make sure to post them in the [Project Setup Q&A](https://github.com/fss-fmi/sugaming/discussions/categories/project-setup-q-a) discussions form and contact the project maintainers. This way we can both help you out and document the problem, in case anyone else comes across it.
