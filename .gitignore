@@ -9,7 +9,6 @@ tmp
 node_modules
 
 # IDEs and editors
-/.idea
 .project
 .classpath
 .c9/
@@ -89,5 +88,24 @@ override.tf.json
 .terraformrc
 terraform.rc
 
+### Vercel ###
 .vercel
+
+### Nx ###
 .nx
+
+### WebStorm ###
+# User-specific stuff
+.idea/*
+
+!.idea/prettier.xml
+!.idea/*.iml
+!.idea/externalDependencies.xml
+!.idea/modules.xml
+!.idea/vcs.xml
+
+!.idea/jsLinters
+!.idea/codeStyles
+!.idea/inspectionProfiles
+
+!.idea/.gitignore

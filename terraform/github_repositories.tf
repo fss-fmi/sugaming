@@ -7,7 +7,7 @@ resource "github_repository" "github_repository" {
   has_issues      = true
   has_projects    = true
   has_wiki        = true
-  has_discussions = false
+  has_discussions = true
 
   allow_merge_commit = false
   allow_squash_merge = true

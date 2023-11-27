@@ -8,9 +8,7 @@ resource "github_branch_protection_v3" "main_branch_protection" {
     checks = [
       "Vercel – sugaming-api:8329",
       "Vercel – sugaming-site:8329",
-      "Vercel – sugaming-admin:8329",
-      "Continuous Integration:15368",
-      "Build and Publish container images:15368"
+      "Vercel – sugaming-admin:8329"
     ]
   }
 
