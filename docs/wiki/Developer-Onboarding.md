@@ -122,12 +122,24 @@ yarn nx run-many -t serve --all
 
 ## ⌨️ IDE Setup
 
-- **JetBrains Webstorm**
+Development work on the SUGAMING project is easier in an IDE. In this part of the guide, the setup steps for 2 popular IDEs will be provided - JetBrains WebStorm and Visual Studio Code.
 
-  TODO
+- **JetBrains WebStorm**
 
-  > [!NOTE]
-  > The instructions listed are applicable to WebStorm and other JetBrains IDEs
+  You can load the project repository as it is in WebStorm, however, several plugins are recommended to be installed, in order to make your developer experience smoother.
+
+  To set up the recommended plugins, first open the cloned project repository in WebStorm. A pop-up in the bottom-right corner stating that "Required plugins have not been loaded" should appear (if you miss it, you can still view it from the "Notifications" pane in the top right corner). Select `Install requried plugins` and then, in the new windows that is opened, click `OK`. You may be prompted to accept the plugins terms of service. Afterward, you should be all set!
+
+  -- TODO: add webstorm-plugins-install video here
+
+  If you wish to run any of the project targets (for ex. serving the `sugaming-api` application) you can do so from the Nx Console, located on the left pane of WebStorm. From there find the project target that you wish to run and double click it.
+
+  After the first run, the target will be added to your "Run / Debug Configurations" list (in the top pane). This means that in the future, you can start/stop/debug it without going to the Nx Console.
+
+  -- TODO: add webstorm-start-app video here
+
+> [!NOTE]
+> The instructions listed are applicable to WebStorm and other JetBrains IDEs
 
 - **Visual Studio Code**
 
