@@ -143,7 +143,13 @@ Development work on the SUGAMING project is easier in an IDE. In this part of th
 
 - **Visual Studio Code**
 
-  TODO
+  To set up the recommended plugins, first open the cloned project repository in Visual Studio Code and when a pop-up in the bottom-right corner suggesting the installation of recommended plugins, click on `Install`. After the installation completes, you should be ready to go!
+
+  -- TODO: add webstorm-plugins-install video here
+
+  If you wish to run any of the project targets (for ex. serving the `sugaming-api` application) you can do so from the Nx Console, located on the left pane. From there find the project target that you wish to run and click on `Execute task`.
+
+  -- TODO: add vscode-start-app video here
 
 ## 🔚 Closing Remarks
 
