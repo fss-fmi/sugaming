@@ -130,13 +130,13 @@ Development work on the SUGAMING project is easier in an IDE. In this part of th
 
   To set up the recommended plugins, first open the cloned project repository in WebStorm. A pop-up in the bottom-right corner stating that "Required plugins have not been loaded" should appear (if you miss it, you can still view it from the "Notifications" pane in the top-right corner). Select `Install required plugins` and then, in the new window that is opened, click `OK`. You may be prompted to accept the plugins' terms of service. Afterward, you should be all set!
 
-https://github.com/fss-fmi/sugaming/assets/26301867/8d65307a-22f4-475c-9506-1a10ac317e98
+  https://github.com/fss-fmi/sugaming/assets/26301867/8d65307a-22f4-475c-9506-1a10ac317e98
 
   If you wish to run any of the project targets (for ex. serving the `sugaming-api` application) you can do so from the Nx Console, located on the left pane of WebStorm. From there find the project target that you wish to run and double-click it.
 
   After the first run, the target will be added to your "Run / Debug Configurations" list (in the top pane). This means that in the future, you can start/stop/debug it without going to the Nx Console.
 
-https://github.com/fss-fmi/sugaming/assets/26301867/00b10ba7-e630-422d-9c06-baa7ff5a966e
+  https://github.com/fss-fmi/sugaming/assets/26301867/00b10ba7-e630-422d-9c06-baa7ff5a966e
 
 > [!NOTE]
 > The instructions listed are applicable to WebStorm and other JetBrains IDEs.
@@ -145,11 +145,11 @@ https://github.com/fss-fmi/sugaming/assets/26301867/00b10ba7-e630-422d-9c06-baa7
 
   To set up the recommended plugins, first open the cloned project repository in Visual Studio Code and when a pop-up in the bottom-right corner suggests the installation of recommended plugins, click on `Install`. After the installation is completed, you should be ready to go!
 
-https://github.com/fss-fmi/sugaming/assets/26301867/24bc8c06-61d5-4738-bf88-e1bbeb527f0d
+  https://github.com/fss-fmi/sugaming/assets/26301867/24bc8c06-61d5-4738-bf88-e1bbeb527f0d
 
   If you wish to run any of the project targets (for ex. serving the `sugaming-api` application) you can do so from the Nx Console, located on the left pane. From there find the project target that you wish to run and click on `Execute task`.
 
-https://github.com/fss-fmi/sugaming/assets/26301867/41182689-3685-4a3f-8885-9685cdfc913f
+  https://github.com/fss-fmi/sugaming/assets/26301867/41182689-3685-4a3f-8885-9685cdfc913f
 
 ## 🔚 Closing Remarks
 
