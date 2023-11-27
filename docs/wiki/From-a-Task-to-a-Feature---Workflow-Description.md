@@ -91,7 +91,7 @@ To keep the project repository tidy and well-maintained, a few code checks are m
 
   - The `scope` in the header is optional and can be used to specify the module, component, or area of the project that the commit affects.
 
-  - The `subject` in the header should be a concise and clear description of the changes introduced by the commit.
+  - The `subject` in the header should be a concise and clear description of the changes introduced by the commit. It should contain only lowercase letters.
 
   - The `body` is optional (but highly recommended) and can provide additional details about the changes, providing context or explaining the reasoning behind the commit.
 
