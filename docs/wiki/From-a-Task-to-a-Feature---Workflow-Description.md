@@ -57,7 +57,7 @@ When creating a branch, you should specify a name for it. I recommend you includ
 
 Before starting work on a feature, **always remember to `git checkout` your branch locally**. Direct pushes to the `main` branch are restricted.
 
-https://github.com/fss-fmi/sugaming/assets/26301867/a65d1e9d-1381-4fe0-945f-b053aef13cf5
+https://github.com/fss-fmi/sugaming/assets/26301867/c594ab74-96f7-4b49-9c78-212ad4e99f26
 
 ## 🔬 Commit Conventions
 
@@ -117,7 +117,7 @@ To keep the project repository tidy and well-maintained, a few code checks are m
 
 ---
 
-The checks are performed using the [husky](https://www.npmjs.com/package/husky) tool. This means that you should have installed the project dependencies beforehand. For an installation manual, please refer to the [Development Setup section in the Developer Onboarding guide](./Developer-Onboarding.md#-project-development-setup).
+The checks are performed using the [husky](https://www.npmjs.com/package/husky) tool. This means that you should have installed the project dependencies beforehand. For an installation manual, please refer to the [Development Setup section in the Developer Onboarding guide](./Developer-Onboarding.md#-development-setup).
 
 Most of the aforementioned content checks can be displayed right in your IDE, while you are developing. For reference on how to set those checks up, refer to the [IDE Setup section in the Developer Onboarding guide](./Developer-Onboarding.md#-ide-setup).
 
@@ -172,7 +172,7 @@ Before merging the PR, it should pass 2 checks:
   - `Vercel – sugaming-api` - Preview deployment of `sugaming-api` has been completed successfully.
   - `Vercel – sugaming-site` - Preview deployment of `sugaming-site` has been completed successfully.
   - `Vercel – sugaming-admin` - Preview deployment of `sugaming-admin` has been completed successfully.
-  - `Terraform Plan` has created an infrastructure change plan, if there are changes present in `terraform/`.
+  - `Terraform Plan` has created an infrastructure change plan, if there are changes in `terraform/`.
   - `Continuous Integration` - The entire project builds successfully, passes formatting and linting checks and passes unit and E2E tests.
   - `Build and Publish` - Container images of `sugaming-api`, `sugaming-site`, and `sugaming-admin` have been built for and published to the [GitHub Packages Hub](https://github.com/orgs/fss-fmi/packages) and the [Docker Hub](https://hub.docker.com/u/fssfmi).
 
@@ -218,7 +218,7 @@ yarn nx run workspace:version --releaseAs=minor
 yarn nx run workspace:version --releaseAs=major
 ```
 
-After completion, you have to push the `main` branch changes and the new version tag to the remote repository.
+After completion, you must push the `main` branch changes and the new version tag to the remote repository.
 
 ```shell
 # Push the main branch
@@ -240,6 +240,6 @@ The latest production deployments can always be accessed by querying the followi
 
 ## 🔚 Closing Remarks
 
-Congratulations on completing this lengthy guide. Now you should be familiar with how features are shipped in the SUGAMING project. If you have questions or need help, reach out to anyone in the team.
+Congratulations on completing this lengthy guide. Now you should be familiar with how features are shipped in the SUGAMING project. If you have questions or need help, reach out to anyone on the team.
 
-Happy coding! ❤️
+Thank you so much for contributing! Happy coding! ❤️
