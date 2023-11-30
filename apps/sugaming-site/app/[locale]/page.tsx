@@ -1,9 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { ApiClient } from '@sugaming/sugaming-api-client/client';
 import { getAuth, login } from '@sugaming/sugaming-api-client/next';
 import { useTranslations } from 'next-intl';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@sugaming/sugaming-ui/components/card';
 
 export default function Index() {
   const t = useTranslations('Index');
@@ -26,6 +34,18 @@ export default function Index() {
       </button>
 
       <p>{userInfo?.firstName}</p>
+      <Card>
+        <CardHeader>
+          <CardTitle>Card Title</CardTitle>
+          <CardDescription>Card Description</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p>Card Content</p>
+        </CardContent>
+        <CardFooter>
+          <p>Card Footer</p>
+        </CardFooter>
+      </Card>
     </>
   );
 }

@@ -1,4 +1,6 @@
 import '../global.css';
+import '@sugaming/sugaming-ui/global.css';
+
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider, useMessages } from 'next-intl';

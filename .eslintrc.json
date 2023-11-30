@@ -52,7 +52,8 @@
         "react/react-in-jsx-scope": "off",
         "import/no-extraneous-dependencies": "off",
         "class-methods-use-this": "off",
-        "import/prefer-default-export": "off"
+        "import/prefer-default-export": "off",
+        "react/jsx-props-no-spreading": "off"
       }
     },
     {

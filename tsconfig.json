@@ -20,7 +20,9 @@
       ],
       "@sugaming/sugaming-api-client/next": [
         "libs/sugaming-api-client/src/next"
-      ]
+      ],
+      "@sugaming/sugaming-ui": ["libs/sugaming-ui/src/index.ts"],
+      "@sugaming/sugaming-ui/*": ["libs/sugaming-ui/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
