@@ -7,9 +7,16 @@ module.exports = {
   content: [
     join(
       __dirname,
-      '{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}',
+      'apps/sugaming-site/{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}',
     ),
-    ...createGlobPatternsForDependencies(__dirname),
+    join(
+      __dirname,
+      'apps/sugaming-admin/{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}',
+    ),
+    ...createGlobPatternsForDependencies(join(__dirname, 'apps/sugaming-site')),
+    ...createGlobPatternsForDependencies(
+      join(__dirname, 'apps/sugaming-admin'),
+    ),
   ],
   theme: {
     container: {
