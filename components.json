@@ -5,7 +5,7 @@
   "tsx": true,
   "tailwind": {
     "config": "apps/sugaming-admin/tailwind.config.js",
-    "css": "apps/sugaming-admin/app/global.css",
+    "css": "libs/sugaming-ui/src/global.css",
     "baseColor": "slate",
     "cssVariables": false
   },
