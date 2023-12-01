@@ -6,7 +6,7 @@
     "allowSyntheticDefaultImports": true,
     "strict": true
   },
-  "files": [],
+  "files": ["postcss.config.js"],
   "include": [],
   "references": [
     {
@@ -14,6 +14,9 @@
     },
     {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.storybook.json"
     }
   ],
   "extends": "../../tsconfig.json"
