@@ -4,7 +4,7 @@ import '@sugaming/sugaming-ui/global.css';
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
-import { ThemeProvider } from '@sugaming/sugaming-ui/providers/theme-provider';
+import { ThemeProvider } from '@sugaming/sugaming-ui/lib/providers/theme-provider';
 import { locales } from '../i18n';
 
 export const metadata = {

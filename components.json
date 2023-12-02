@@ -10,7 +10,7 @@
     "cssVariables": false
   },
   "aliases": {
-    "components": "@sugaming/sugaming-ui/components",
+    "components": "@sugaming/sugaming-ui/lib/components",
     "utils": "@sugaming/sugaming-ui/utils.ts"
   }
 }
