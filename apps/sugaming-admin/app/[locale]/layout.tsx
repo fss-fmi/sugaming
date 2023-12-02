@@ -4,6 +4,7 @@ import '@sugaming/sugaming-ui/global.css';
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
+import { ThemeProvider } from '@sugaming/sugaming-ui/providers/theme-provider';
 import { locales } from '../i18n';
 
 export const metadata = {
@@ -26,7 +27,11 @@ export default function RootLayout({
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
       <html lang={locale}>
-        <body>{children}</body>
+        <body>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            {children}
+          </ThemeProvider>
+        </body>
       </html>
     </NextIntlClientProvider>
   );
