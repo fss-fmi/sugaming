@@ -7,7 +7,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@sugaming/sugaming-ui/components/card';
+} from '@sugaming/sugaming-ui/components/common';
 
 export default function Index() {
   const t = useTranslations('Index');

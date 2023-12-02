@@ -25,5 +25,10 @@
       "@sugaming/sugaming-ui/*": ["libs/sugaming-ui/src/*"]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": ["node_modules", "tmp"],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  }
 }

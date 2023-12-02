@@ -2,7 +2,7 @@
   "extends": ["plugin:@nx/react", "../../.eslintrc.json"],
   "ignorePatterns": ["!**/*"],
   "parserOptions": {
-    "project": "libs/sugaming-ui/tsconfig.*?.json"
+    "project": ["libs/sugaming-ui/tsconfig.*?.json"]
   },
   "overrides": [
     {

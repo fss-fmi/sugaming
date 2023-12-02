@@ -13,10 +13,15 @@ module.exports = {
       __dirname,
       'apps/sugaming-admin/{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}',
     ),
+    join(
+      __dirname,
+      'libs/sugaming-ui/{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}',
+    ),
     ...createGlobPatternsForDependencies(join(__dirname, 'apps/sugaming-site')),
     ...createGlobPatternsForDependencies(
       join(__dirname, 'apps/sugaming-admin'),
     ),
+    ...createGlobPatternsForDependencies(join(__dirname, 'libs/sugaming-ui')),
   ],
   theme: {
     container: {
