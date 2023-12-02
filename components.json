@@ -11,6 +11,6 @@
   },
   "aliases": {
     "components": "@sugaming/sugaming-ui/components",
-    "utils": "@sugaming/sugaming-ui/utils"
+    "utils": "@sugaming/sugaming-ui/utils.ts"
   }
 }
