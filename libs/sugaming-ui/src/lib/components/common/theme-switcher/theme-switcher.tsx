@@ -2,10 +2,12 @@
 
 import { useTheme } from 'next-themes';
 import * as React from 'react';
+import { useTranslations } from 'next-intl';
 import { cn } from '../../../utils';
 
 export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
+  const t = useTranslations('Common.ThemeSwitcher');
 
   return (
     <div className="relative inline-block pb-5">
@@ -15,7 +17,9 @@ export function ThemeSwitcher() {
           className="h-6 pr-5 z-10 relative flex"
           htmlFor="theme-switcher-light"
         >
-          <span className="uppercase cursor-pointer w-fit">🌞 Light</span>
+          <span className="uppercase cursor-pointer w-fit">
+            🌞 {t('light')}
+          </span>
           <input
             id="theme-switcher-light"
             value="light"
@@ -23,6 +27,7 @@ export function ThemeSwitcher() {
             checked={theme === 'light'}
             className="opacity-0 absolute block w-full h-full inset-0 cursor-pointer"
             onClick={() => setTheme('light')}
+            onChange={() => {}}
           />
         </label>
 
@@ -42,7 +47,7 @@ export function ThemeSwitcher() {
         {/* System mode section */}
         <label className="w-4 h-6 z-10 relative" htmlFor="theme-switcher-auto">
           <span className="flex relative justify-center top-5 transform uppercase cursor-pointer">
-            System
+            {t('system')}
           </span>
           <input
             id="theme-switcher-auto"
@@ -51,6 +56,7 @@ export function ThemeSwitcher() {
             checked={theme === 'system'}
             className="opacity-0 absolute block w-full h-full inset-0 cursor-pointer"
             onClick={() => setTheme('system')}
+            onChange={() => {}}
           />
         </label>
 
@@ -59,7 +65,7 @@ export function ThemeSwitcher() {
           className="h-6 pl-5 relative flex items-center"
           htmlFor="theme-switcher-dark"
         >
-          <span className="uppercase cursor-pointer w-fit">Dark 🌚</span>
+          <span className="uppercase cursor-pointer w-fit">{t('dark')} 🌚</span>
           <input
             id="theme-switcher-dark"
             value="dark"
@@ -67,6 +73,7 @@ export function ThemeSwitcher() {
             checked={theme === 'dark'}
             className="opacity-0 absolute block w-full h-full inset-0 cursor-pointer"
             onClick={() => setTheme('dark')}
+            onChange={() => {}}
           />
         </label>
       </div>

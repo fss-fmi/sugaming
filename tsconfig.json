@@ -23,7 +23,8 @@
       ],
       "@sugaming/sugaming-ui": ["libs/sugaming-ui/src/index.ts"],
       "@sugaming/sugaming-ui/*": ["libs/sugaming-ui/src/*"]
-    }
+    },
+    "jsx": "react"
   },
   "exclude": ["node_modules", "tmp"],
   "ts-node": {
