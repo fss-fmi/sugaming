@@ -8,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@sugaming/sugaming-ui/lib/components/common';
-import { ThemeSwitcher } from '@sugaming/sugaming-ui/lib/components/common/theme-switcher/theme-switcher';
 
 export default function Index() {
   const t = useTranslations('Index');
@@ -25,7 +24,6 @@ export default function Index() {
         </CardHeader>
         <CardContent>
           <p>Card Content</p>
-          <ThemeSwitcher />
         </CardContent>
         <CardFooter>
           <p>Card Footer</p>
