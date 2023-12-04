@@ -4,6 +4,7 @@ import { useTheme } from 'next-themes';
 import * as React from 'react';
 import { useTranslations } from 'next-intl';
 import { cn } from '../../../utils';
+import { Label } from '../label/label';
 
 export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
@@ -13,13 +14,11 @@ export function ThemeSwitcher() {
     <div className="relative inline-block pb-5">
       <div className="relative flex items-center h-4">
         {/* Light mode section */}
-        <label
-          className="h-6 pr-5 z-10 relative flex"
+        <Label
+          className="pr-5 z-10 relative flex uppercase"
           htmlFor="theme-switcher-light"
         >
-          <span className="uppercase cursor-pointer w-fit">
-            🌞 {t('light')}
-          </span>
+          🌞 {t('light')}
           <input
             id="theme-switcher-light"
             value="light"
@@ -29,7 +28,7 @@ export function ThemeSwitcher() {
             onClick={() => setTheme('light')}
             onChange={() => {}}
           />
-        </label>
+        </Label>
 
         {/* Slider */}
         <div className="relative top-0 w-0 -left-4">
@@ -45,8 +44,11 @@ export function ThemeSwitcher() {
         </div>
 
         {/* System mode section */}
-        <label className="w-4 h-6 z-10 relative" htmlFor="theme-switcher-auto">
-          <span className="flex relative justify-center top-5 transform uppercase cursor-pointer">
+        <Label
+          className="w-4 z-10 relative uppercase"
+          htmlFor="theme-switcher-auto"
+        >
+          <span className="flex relative justify-center top-5 transform cursor-pointer">
             {t('system')}
           </span>
           <input
@@ -58,14 +60,14 @@ export function ThemeSwitcher() {
             onClick={() => setTheme('system')}
             onChange={() => {}}
           />
-        </label>
+        </Label>
 
         {/* Dark mode section */}
-        <label
-          className="h-6 pl-5 relative flex items-center"
+        <Label
+          className="pl-5 relative flex items-center uppercase"
           htmlFor="theme-switcher-dark"
         >
-          <span className="uppercase cursor-pointer w-fit">{t('dark')} 🌚</span>
+          {t('dark')} 🌚
           <input
             id="theme-switcher-dark"
             value="dark"
@@ -75,7 +77,7 @@ export function ThemeSwitcher() {
             onClick={() => setTheme('dark')}
             onChange={() => {}}
           />
-        </label>
+        </Label>
       </div>
     </div>
   );
