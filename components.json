@@ -6,11 +6,11 @@
   "tailwind": {
     "config": "tailwind.config.js",
     "css": "libs/sugaming-ui/src/global.css",
-    "baseColor": "slate",
+    "baseColor": "zinc",
     "cssVariables": false
   },
   "aliases": {
     "components": "@sugaming/sugaming-ui/lib/components",
-    "utils": "@sugaming/sugaming-ui/utils.ts"
+    "utils": "@sugaming/sugaming-ui/utils"
   }
 }
