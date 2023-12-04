@@ -5,12 +5,18 @@ import { ApiClient } from '@sugaming/sugaming-api-client/client';
 import { getAuth, login } from '@sugaming/sugaming-api-client/next';
 import { useTranslations } from 'next-intl';
 import {
+  Button,
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
+  Label,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  ThemeSwitcher,
 } from '@sugaming/sugaming-ui/lib/components/common';
 
 export default function Index() {
@@ -32,6 +38,18 @@ export default function Index() {
       <button type="button" onClick={handleClick}>
         execute server action
       </button>
+
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button variant="outline">Open popover</Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-70">
+          <Label>Theme</Label>
+          <div className="flex w-full justify-center p-2">
+            <ThemeSwitcher />
+          </div>
+        </PopoverContent>
+      </Popover>
 
       <p>{userInfo?.firstName}</p>
       <Card>
