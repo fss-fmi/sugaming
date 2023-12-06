@@ -38,7 +38,7 @@ PopoverContentExample.args = {
 
 type Story = StoryObj<typeof Popover>;
 export const PopoverExample: Story = {
-  render: (args) => (
+  render: () => (
     <Popover>
       <PopoverTrigger {...PopoverTriggerExample.args}>
         <Button>Popover trigger</Button>
