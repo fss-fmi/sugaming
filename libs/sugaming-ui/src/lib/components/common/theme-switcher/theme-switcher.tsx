@@ -40,7 +40,7 @@ export function ThemeSwitcher() {
           />
           <div
             className={cn(
-              'transition-all duration-300 ease-in-out absolute top-0.5 left-4 w-4 h-4 bg-white dark:bg-zinc-950 ring-0 shadow-lg rounded-full',
+              'transition-all duration-300 ease-in-out absolute top-0.5 left-4 w-4 h-4 bg-zinc-950 dark:bg-white ring-0 shadow-lg rounded-full',
               theme === 'light' ? 'left-1' : '',
               theme === 'system' ? 'left-6' : '',
               theme === 'dark' ? 'left-11' : '',
