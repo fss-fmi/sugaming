@@ -18,6 +18,7 @@ import {
   PopoverTrigger,
   ThemeSwitcher,
 } from '@sugaming/sugaming-ui/lib/components/common';
+import { GearIcon } from '@radix-ui/react-icons';
 
 export default function Index() {
   const t = useTranslations('Index');
@@ -35,15 +36,17 @@ export default function Index() {
     <>
       <h1>{t('title')}</h1>
 
-      <button type="button" onClick={handleClick}>
+      <Button variant="default" onClick={handleClick}>
         execute server action
-      </button>
+      </Button>
 
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant="outline">Open popover</Button>
+          <Button variant="ghost" size="icon">
+            <GearIcon />
+          </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-70">
+        <PopoverContent className="w-screen sm:w-80">
           <Label>Theme</Label>
           <div className="flex w-full justify-center p-2">
             <ThemeSwitcher />

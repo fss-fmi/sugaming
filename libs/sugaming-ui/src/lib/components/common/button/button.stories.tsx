@@ -49,6 +49,10 @@ const meta: Meta<typeof Button> = {
         type: 'select',
       },
     },
+    onClick: {
+      action: 'clicked',
+      description: 'Button click handler',
+    },
   },
 };
 
