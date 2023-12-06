@@ -13,12 +13,14 @@ import {
   CardHeader,
   CardTitle,
   Label,
+  ThemeSwitcher,
+} from '@sugaming/sugaming-ui/lib/components/common/server';
+import { GearIcon } from '@radix-ui/react-icons';
+import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-  ThemeSwitcher,
-} from '@sugaming/sugaming-ui/lib/components/common';
-import { GearIcon } from '@radix-ui/react-icons';
+} from '@sugaming/sugaming-ui/lib/components/common/client';
 
 export default function Index() {
   const t = useTranslations('Index');
