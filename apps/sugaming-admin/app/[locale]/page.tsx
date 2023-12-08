@@ -7,7 +7,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@sugaming/sugaming-ui/components/common';
+  Switch,
+} from '@sugaming/sugaming-ui/lib/components/common/server';
 
 export default function Index() {
   const t = useTranslations('Index');
@@ -24,6 +25,8 @@ export default function Index() {
         </CardHeader>
         <CardContent>
           <p>Card Content</p>
+          <Switch />
+          {/* <ThemeSwitcher /> */}
         </CardContent>
         <CardFooter>
           <p>Card Footer</p>

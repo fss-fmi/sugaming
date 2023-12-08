@@ -5,13 +5,22 @@ import { ApiClient } from '@sugaming/sugaming-api-client/client';
 import { getAuth, login } from '@sugaming/sugaming-api-client/next';
 import { useTranslations } from 'next-intl';
 import {
+  Button,
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@sugaming/sugaming-ui/components/common';
+  Label,
+  ThemeSwitcher,
+} from '@sugaming/sugaming-ui/lib/components/common/server';
+import { GearIcon } from '@radix-ui/react-icons';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@sugaming/sugaming-ui/lib/components/common/client';
 
 export default function Index() {
   const t = useTranslations('Index');
@@ -29,9 +38,23 @@ export default function Index() {
     <>
       <h1>{t('title')}</h1>
 
-      <button type="button" onClick={handleClick}>
+      <Button variant="default" onClick={handleClick}>
         execute server action
-      </button>
+      </Button>
+
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button variant="ghost" size="icon">
+            <GearIcon />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-screen sm:w-80">
+          <Label>Theme</Label>
+          <div className="flex w-full justify-center p-2">
+            <ThemeSwitcher />
+          </div>
+        </PopoverContent>
+      </Popover>
 
       <p>{userInfo?.firstName}</p>
       <Card>

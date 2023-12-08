@@ -1,0 +1,9 @@
+{
+  "Common": {
+    "ThemeSwitcher": {
+      "light": "Light",
+      "system": "System",
+      "dark": "Dark"
+    }
+  }
+}
