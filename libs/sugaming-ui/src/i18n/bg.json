@@ -40,7 +40,12 @@
           "name": "Ранглиста",
           "description": "Ранглиста на всички League of Legends отбори."
         }
-      }
+      },
+      "valorant": {
+        "name": "Valorant",
+        "coming-soon": "Очаквайте скоро"
+      },
+      "game-dev": "Разработка на игри"
     }
   }
 }

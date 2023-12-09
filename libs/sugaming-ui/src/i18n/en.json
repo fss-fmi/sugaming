@@ -40,7 +40,12 @@
           "name": "Ranking",
           "description": "Competitive ranking of all the League of Legends teams."
         }
-      }
+      },
+      "valorant": {
+        "name": "Valorant",
+        "coming-soon": "Очаквайте скоро"
+      },
+      "game-dev": "Game Development"
     }
   }
 }

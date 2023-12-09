@@ -139,9 +139,9 @@ export function NavbarLinks() {
           <Link href={`/${locale}/valorant`} legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               <span>
-                Valorant{' '}
+                {`${t('valorant.name')} `}
                 <Badge variant="secondaryStatic" className="ml-1.5">
-                  Coming soon
+                  {t('valorant.coming-soon')}
                 </Badge>
               </span>
             </NavigationMenuLink>
@@ -151,7 +151,7 @@ export function NavbarLinks() {
         <NavigationMenuItem>
           <Link href={`/${locale}/game-dev`} legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              <span>Game Development</span>
+              <span>{t('game-dev')}</span>
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
