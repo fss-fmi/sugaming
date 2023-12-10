@@ -1,3 +1,5 @@
+'use client';
+
 export * from './components/navigation-menu';
 export * from './components/navigation-menu-content';
 export * from './components/navigation-menu-indicator';

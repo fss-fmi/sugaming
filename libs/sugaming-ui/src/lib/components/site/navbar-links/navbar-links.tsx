@@ -16,7 +16,7 @@ import {
 } from '../../common/client';
 
 interface NavbarLinksProps {
-  className?: string;
+  className: string;
 }
 
 export function NavbarLinks({ className = '' }: NavbarLinksProps) {
@@ -163,9 +163,6 @@ export function NavbarLinks({ className = '' }: NavbarLinksProps) {
     </NavigationMenu>
   );
 }
-NavbarLinks.defaultProps = {
-  className: '',
-};
 
 const ListItem = React.forwardRef<
   React.ElementRef<'a'>,

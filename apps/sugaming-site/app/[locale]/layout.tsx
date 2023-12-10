@@ -30,21 +30,21 @@ export default function RootLayout({
 
   const messages = useMessages();
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
-      <html lang={locale}>
-        <body>
+    <html lang={locale} suppressHydrationWarning>
+      <body>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <Navbar>
               <div className="w-1/4">
                 <span>SU Gaming</span>
               </div>
               <NavbarLinks className="w-1/2 flex justify-center" />
-              <NavbarUserControls className="w-1/4" />
+              <NavbarUserControls className="" />
             </Navbar>
             {children}
           </ThemeProvider>
-        </body>
-      </html>
-    </NextIntlClientProvider>
+        </NextIntlClientProvider>
+      </body>
+    </html>
   );
 }

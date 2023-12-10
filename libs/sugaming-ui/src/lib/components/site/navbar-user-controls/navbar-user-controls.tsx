@@ -9,7 +9,7 @@ import { Button, Label, ThemeSwitcher } from '../../common/server';
 import { Popover, PopoverContent, PopoverTrigger } from '../../common/client';
 
 interface NavbarUserControlsProps {
-  className?: string;
+  className: string;
 }
 
 export function NavbarUserControls({
@@ -45,6 +45,3 @@ export function NavbarUserControls({
     </div>
   );
 }
-NavbarUserControls.defaultProps = {
-  className: '',
-};
