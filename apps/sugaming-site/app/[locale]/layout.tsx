@@ -5,8 +5,11 @@ import React from 'react';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { ThemeProvider } from '@sugaming/sugaming-ui/lib/providers/theme-provider';
-import { NavbarLinks } from '@sugaming/sugaming-ui/lib/components/site/navbar-links/navbar-links';
 import { Navbar } from '@sugaming/sugaming-ui/lib/components/common/server';
+import {
+  NavbarLinks,
+  NavbarUserControls,
+} from '@sugaming/sugaming-ui/lib/components/site/client';
 import { locales } from '../i18n';
 
 export const metadata = {
@@ -32,9 +35,11 @@ export default function RootLayout({
         <body>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <Navbar>
-              gosho
-              <NavbarLinks />
-              gosho
+              <div className="w-1/4">
+                <span>SU Gaming</span>
+              </div>
+              <NavbarLinks className="w-1/2 flex justify-center" />
+              <NavbarUserControls className="w-1/4" />
             </Navbar>
             {children}
           </ThemeProvider>
