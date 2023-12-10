@@ -15,9 +15,13 @@ import {
   navigationMenuTriggerStyle,
 } from '../../common/client';
 
-export function NavbarLinks() {
+interface NavbarLinksProps {
+  className?: string;
+}
+
+export function NavbarLinks({ className = '' }: NavbarLinksProps) {
   const locale = useLocale();
-  const t = useTranslations('Site.NavbarLinks');
+  const t = useTranslations('site.navbar-links');
 
   const popoverLinks = {
     league: [
@@ -57,7 +61,7 @@ export function NavbarLinks() {
   };
 
   return (
-    <NavigationMenu>
+    <NavigationMenu className={className}>
       <NavigationMenuList>
         <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>
@@ -159,6 +163,9 @@ export function NavbarLinks() {
     </NavigationMenu>
   );
 }
+NavbarLinks.defaultProps = {
+  className: '',
+};
 
 const ListItem = React.forwardRef<
   React.ElementRef<'a'>,

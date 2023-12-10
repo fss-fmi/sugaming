@@ -1,13 +1,13 @@
 {
-  "Common": {
-    "ThemeSwitcher": {
+  "common": {
+    "theme-switcher": {
       "light": "Светла",
       "system": "Системна",
       "dark": "Тъмна"
     }
   },
-  "Site": {
-    "NavbarLinks": {
+  "site": {
+    "navbar-links": {
       "home": "Начало",
       "cs2": {
         "name": "Counter-Strike 2",
@@ -46,6 +46,13 @@
         "coming-soon": "Очаквайте скоро"
       },
       "game-dev": "Разработка на игри"
+    },
+    "navbar-user-controls": {
+      "preferences-popover": {
+        "theme": "Тема"
+      },
+      "login": "Вход",
+      "signup": "Регистрация"
     }
   }
 }
