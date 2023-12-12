@@ -43,12 +43,13 @@
       },
       "valorant": {
         "name": "Valorant",
-        "coming-soon": "Очаквайте скоро"
+        "coming-soon": "Coming soon"
       },
       "game-dev": "Game Development"
     },
     "navbar-user-controls": {
       "preferences-popover": {
+        "get-started": "Get started",
         "theme": "Theme"
       },
       "login": "Log in",

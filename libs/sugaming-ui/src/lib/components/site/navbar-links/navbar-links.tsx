@@ -64,14 +64,6 @@ export function NavbarLinks({ className = '' }: NavbarLinksProps) {
     <NavigationMenu className={className}>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <Link href="/" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              {t('home')}
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-
-        <NavigationMenuItem>
           <Link href={`/${locale}/league`}>
             <NavigationMenuTrigger>{t('league.name')}</NavigationMenuTrigger>
           </Link>

@@ -49,6 +49,7 @@
     },
     "navbar-user-controls": {
       "preferences-popover": {
+        "get-started": "Начало",
         "theme": "Тема"
       },
       "login": "Вход",
