@@ -42,11 +42,30 @@ export async function getAuth() {
     accessToken = cookieStore.get('access_token');
   }
 
+  return accessToken;
+}
+
+export async function getBearerToken() {
+  const accessToken = await getAuth();
+
   if (!accessToken) {
     return undefined;
   }
 
   return `Bearer ${accessToken.value}`;
+}
+
+export async function getUser() {
+  // Get current authentication
+  const bearerToken = await getBearerToken();
+
+  try {
+    return await ApiClient.UsersApiService.usersControllerGetProfile({
+      authorization: bearerToken,
+    });
+  } catch (ApiError) {
+    return undefined;
+  }
 }
 
 function setTokens(accessToken: string, refreshToken: string) {
