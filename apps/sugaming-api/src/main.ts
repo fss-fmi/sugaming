@@ -66,6 +66,17 @@ export async function bootstrap() {
       },
     })
     .addGlobalParameters({
+      in: 'header',
+      required: false,
+      name: 'Cache-Control',
+      schema: {
+        type: 'string',
+        examples: ['no-cache'],
+        description:
+          'Used to specify directives that must be obeyed by all caching mechanisms along the request-response chain',
+      },
+    })
+    .addGlobalParameters({
       in: 'cookie',
       required: false,
       name: 'lang',

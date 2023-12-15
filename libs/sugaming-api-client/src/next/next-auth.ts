@@ -2,6 +2,7 @@
 
 import { cookies } from 'next/headers';
 import { jwtDecode } from 'jwt-decode';
+import { ResponseCookies } from 'next/dist/compiled/@edge-runtime/cookies';
 import { ApiClient } from '../client';
 
 export async function login(email: string, password: string) {
@@ -10,25 +11,37 @@ export async function login(email: string, password: string) {
       email,
       password,
     },
+    cacheControl: 'no-cache',
   });
 
   const { accessToken, refreshToken } = response;
-  setTokens(accessToken, refreshToken);
+  const cookieStore = cookies();
+  setTokens(cookieStore, accessToken, refreshToken);
 }
 
-export async function refreshTokens() {
+export async function getRefreshedTokens() {
   const cookieStore = cookies();
   const refreshToken = cookieStore.get('refresh_token');
 
   if (!refreshToken) {
-    return;
+    return null;
   }
 
-  const response = await ApiClient.AuthApiService.authControllerPostRefresh({
+  return ApiClient.AuthApiService.authControllerPostRefresh({
     authorization: `Refresh ${refreshToken.value}`,
+    cacheControl: 'no-cache',
   });
+}
 
-  setTokens(response.accessToken, response.refreshToken);
+export async function refreshTokens(cookieStore: ResponseCookies) {
+  const refreshedTokens = await getRefreshedTokens();
+  if (refreshedTokens) {
+    setTokens(
+      cookieStore,
+      refreshedTokens.accessToken,
+      refreshedTokens.refreshToken,
+    );
+  }
 }
 
 export async function getAuth() {
@@ -38,7 +51,7 @@ export async function getAuth() {
 
   // Refresh existing access and refresh tokens if the access token is expired
   if (!accessToken) {
-    await refreshTokens();
+    // await refreshTokens();
     accessToken = cookieStore.get('access_token');
   }
 
@@ -68,14 +81,17 @@ export async function getUser() {
   }
 }
 
-function setTokens(accessToken: string, refreshToken: string) {
+function setTokens(
+  cookieStore: ResponseCookies,
+  accessToken: string,
+  refreshToken: string,
+) {
   const decodedAccessToken = jwtDecode(accessToken);
   const accessTokenExp = decodedAccessToken.exp;
 
   const decodedRefreshToken = jwtDecode(refreshToken);
   const refreshTokenExp = decodedRefreshToken.exp;
 
-  const cookieStore = cookies();
   cookieStore.set('access_token', accessToken, {
     expires: accessTokenExp ? accessTokenExp * 1000 : undefined,
   });

@@ -12,6 +12,8 @@ import {
 } from '@sugaming/sugaming-ui/lib/components/site/client';
 import { getUser } from '@sugaming/sugaming-api-client/next';
 import { getMessages } from 'next-intl/server';
+import Link from 'next/link';
+import { SquareIcon } from '@radix-ui/react-icons';
 import { locales } from '../i18n';
 
 export const metadata = {
@@ -38,11 +40,15 @@ export default async function RootLayout({
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <Navbar>
-              <div className="w-1/4">
-                <span>SU Gaming</span>
-              </div>
-              <NavbarLinks className="w-1/2 flex justify-center" />
-              <NavbarUserControls user={user} className="w-1/4" />
+              <NavbarUserControls user={user} className="flex xl:hidden" />
+              <Link href={`/${locale}`}>
+                <span className="font-bold capitalize">
+                  <SquareIcon className="inline h-8" />
+                  SU GAMING
+                </span>
+              </Link>
+              <NavbarLinks className="hidden xl:flex justify-center" />
+              <NavbarUserControls user={user} className="" />
             </Navbar>
             {children}
           </ThemeProvider>
