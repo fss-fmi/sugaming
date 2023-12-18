@@ -70,6 +70,7 @@ export function NavbarLinks({ className }: NavbarLinksProps) {
     {
       title: t('valorant.name'),
       href: `/${locale}/valorant`,
+      badge: t('valorant.coming-soon'),
     },
     {
       title: t('game-dev'),
@@ -92,11 +93,9 @@ export function NavbarLinks({ className }: NavbarLinksProps) {
                 className={navigationMenuTriggerStyle()}
               >
                 {link.title}
-
-                {/* TODO: This is a hack to display the Valorant badge, fix it */}
-                {link.title === 'Valorant' && (
+                {link.badge && (
                   <Badge variant="secondaryStatic" className="ml-1.5">
-                    {t('valorant.coming-soon')}
+                    {link.badge}
                   </Badge>
                 )}
               </NavigationMenuLink>
