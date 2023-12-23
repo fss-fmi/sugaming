@@ -40,14 +40,20 @@ export default async function RootLayout({
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <Navbar>
-              <NavbarUserControls user={user} className="flex xl:hidden" />
+              <NavbarLinks className="block xl:hidden" variant="mobile" />
+
               <Link href={`/${locale}`}>
                 <span className="font-bold capitalize">
                   <SquareIcon className="inline h-8" />
-                  SU GAMING
+                  SUGAMING
                 </span>
               </Link>
-              <NavbarLinks className="hidden xl:flex justify-center" />
+
+              <NavbarLinks
+                className="hidden xl:flex justify-center"
+                variant="desktop"
+              />
+
               <NavbarUserControls user={user} className="" />
             </Navbar>
             {children}

@@ -11,7 +11,7 @@
       "home": "Home",
       "cs2": {
         "name": "Counter-Strike 2",
-        "description": "Home page of the SU Gaming Counter-Strike hub.",
+        "description": "Home page of the SUGAMING Counter-Strike hub.",
         "tournaments": {
           "name": "Tournaments",
           "description": "Discover past, on-going, and future Counter-Strike competitive events."
@@ -27,7 +27,7 @@
       },
       "league": {
         "name": "League of Legends",
-        "description": "Home page of the SU Gaming League of Legends hub.",
+        "description": "Home page of the SUGAMING League of Legends hub.",
         "tournaments": {
           "name": "Tournaments",
           "description": "Discover past, on-going, and future League of Legends competitive events."
