@@ -5,7 +5,7 @@ type SheetHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
   className?: string;
 };
 
-export function SheetHeader({ className, ...props }: SheetHeaderProps) {
+export function SheetHeader({ className = '', ...props }: SheetHeaderProps) {
   return (
     <div
       className={cn(
@@ -17,6 +17,3 @@ export function SheetHeader({ className, ...props }: SheetHeaderProps) {
   );
 }
 SheetHeader.displayName = 'SheetHeader';
-SheetHeader.defaultProps = {
-  className: '',
-};

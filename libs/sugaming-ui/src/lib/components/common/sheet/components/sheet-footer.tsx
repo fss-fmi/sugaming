@@ -5,7 +5,7 @@ type SheetFooterProps = React.HTMLAttributes<HTMLDivElement> & {
   className?: string;
 };
 
-export function SheetFooter({ className, ...props }: SheetFooterProps) {
+export function SheetFooter({ className = '', ...props }: SheetFooterProps) {
   return (
     <div
       className={cn(
@@ -17,6 +17,3 @@ export function SheetFooter({ className, ...props }: SheetFooterProps) {
   );
 }
 SheetFooter.displayName = 'SheetFooter';
-SheetFooter.defaultProps = {
-  className: '',
-};
