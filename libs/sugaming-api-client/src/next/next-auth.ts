@@ -10,8 +10,11 @@ export async function login(email: string, password: string) {
     requestBody: {
       email,
       password,
+      ...{ date: new Date().toDateString() }, // TODO: this is a hacky fix for disabling caching; find a better way to implement this
     },
     cacheControl: 'no-cache',
+    pragma: 'no-cache',
+    expires: '0',
   });
 
   const { accessToken, refreshToken } = response;
@@ -30,6 +33,8 @@ export async function getRefreshedTokens() {
   return ApiClient.AuthApiService.authControllerPostRefresh({
     authorization: `Refresh ${refreshToken.value}`,
     cacheControl: 'no-cache',
+    pragma: 'no-cache',
+    expires: '0',
   });
 }
 
