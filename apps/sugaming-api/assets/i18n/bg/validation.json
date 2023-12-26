@@ -1,7 +1,7 @@
 {
   "isNotEmpty": "Полето '{property}' е задължително.",
   "isString": "Полето '{property}' трябва да е символен низ.",
+  "isEnum": "Полето '{property}' със стойност: '{value}', трябва да е една от следните стойности: {enum}.",
   "minLength": "Полето '{property}' със стойност: '{value}', трябва да е поне {constraints.0} символа.",
-  "maxLength": "Полето '{property}' със стойност: '{value}', трябва да не е по-дълго от {constraints.0} символа.",
-  "isEnum": "Полето '{property}' със стойност: '{value}', трябва да е една от следните стойности: {constraints.0}."
+  "maxLength": "Полето '{property}' със стойност: '{value}', трябва да не е по-дълго от {constraints.0} символа."
 }
