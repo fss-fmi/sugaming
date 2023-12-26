@@ -11,6 +11,12 @@ export const appConfig = {
     secret: process.env.JWT_REFRESH_SECRET || 'refresh-secret',
     expiresIn: '7d',
   },
+  team: {
+    name: {
+      minLength: 3,
+      maxLength: 25,
+    },
+  },
 };
 
 export default appConfig;
