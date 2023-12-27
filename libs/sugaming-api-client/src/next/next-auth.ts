@@ -5,7 +5,7 @@ import { jwtDecode } from 'jwt-decode';
 import { ApiClient } from '../client';
 
 export async function login(email: string, password: string) {
-  const response = await ApiClient.AuthApiService.authControllerPostLogin({
+  const response = await ApiClient.AuthApiService.authControllerPostLoginV1({
     requestBody: {
       email,
       password,
@@ -24,7 +24,7 @@ export async function refreshTokens() {
     return;
   }
 
-  const response = await ApiClient.AuthApiService.authControllerPostRefresh({
+  const response = await ApiClient.AuthApiService.authControllerPostRefreshV1({
     authorization: `Refresh ${refreshToken.value}`,
   });
 

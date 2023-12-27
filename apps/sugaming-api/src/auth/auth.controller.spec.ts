@@ -42,10 +42,10 @@ describe('AuthController', () => {
     expect(controller).toBeDefined();
   });
 
-  describe('postLogin()', () => {
+  describe('postLoginV1()', () => {
     it('should return access token on correct credentials', async () => {
       // Act
-      const result = await controller.postLogin(exampleUserWithoutPassword);
+      const result = await controller.postLoginV1(exampleUserWithoutPassword);
 
       // Assert
       expect(result.user).toBe(exampleUserWithoutPassword);
@@ -55,10 +55,10 @@ describe('AuthController', () => {
     });
   });
 
-  describe('postRefresh()', () => {
+  describe('postRefreshV1()', () => {
     it('should return a refreshed access token if refresh token is valid', async () => {
       // Act
-      const result = await controller.postRefresh(exampleUserWithoutPassword);
+      const result = await controller.postRefreshV1(exampleUserWithoutPassword);
 
       // Assert
       expect(result.user).toBe(exampleUserWithoutPassword);

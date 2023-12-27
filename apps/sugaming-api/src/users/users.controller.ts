@@ -4,6 +4,7 @@ import {
   HttpCode,
   HttpStatus,
   UseGuards,
+  Version,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -21,6 +22,7 @@ import { UserDto } from './dto/user.dto';
 @ApiTags('Users API')
 export class UsersController {
   @Get('profile')
+  @Version(['1'])
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
   @ApiBearerAuth()
@@ -33,7 +35,7 @@ export class UsersController {
     type: UserDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid authentication token.' })
-  getProfile(@User() user: Omit<Users, 'passwordHash'>) {
+  getProfileV1(@User() user: Omit<Users, 'passwordHash'>) {
     return user;
   }
 }
