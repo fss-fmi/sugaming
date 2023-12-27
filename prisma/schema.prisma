@@ -22,7 +22,50 @@ model Users {
   lastName  String? @map("last_name")
   nickname  String?
 
+  // CS2 Team
+  cs2TeamId      Int?      @map("cs2_team_id")
+  cs2Teams       Cs2Teams? @relation(name: "CS2TeamMembers", fields: [cs2TeamId], references: [id])
+  cs2TeamCaptain Cs2Teams? @relation(name: "CS2TeamCaptain")
+
   // Row timestamps
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+}
+
+model Cs2Teams {
+  id Int @id @default(autoincrement())
+
+  // Team information
+  name  String
+  color Color
+
+  // Team members
+  members Users[] @relation("CS2TeamMembers")
+
+  // Team captain
+  capitanId String? @unique @map("capitan_id")
+  capitan   Users?  @relation("CS2TeamCaptain", fields: [capitanId], references: [id])
+
+  // Row timestamps
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+}
+
+enum Color {
+  RED
+  ORANGE
+  YELLOW
+  GREEN
+  BLUE
+  PURPLE
+  PINK
+  BROWN
+  NAVY
+  VIOLET
+  CYAN
+  MAGENTA
+  LIME
+  TEAL
+  INDIGO
+  CORAL
 }

@@ -7,6 +7,7 @@ import {
 } from '@nestjs/swagger';
 import version from 'project-version';
 import { generate } from 'openapi-typescript-codegen';
+import { I18nValidationExceptionFilter, I18nValidationPipe } from 'nestjs-i18n';
 import { AppModule } from './app/app.module';
 import { appConfig } from './app/app.config';
 
@@ -17,6 +18,10 @@ export async function bootstrap() {
   const { port } = appConfig;
   app.setGlobalPrefix(globalPrefix);
   app.enableCors();
+
+  // Validation setup
+  app.useGlobalPipes(new I18nValidationPipe());
+  app.useGlobalFilters(new I18nValidationExceptionFilter());
 
   // OpenAPI setup
   const config = new DocumentBuilder()

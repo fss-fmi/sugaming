@@ -1,5 +1,11 @@
 {
   "auth": {
     "unauthorized": "You are not authorized to access this resource."
+  },
+  "cs2": {
+    "teams": {
+      "nameAlreadyExists": "A team with the same name already exists.",
+      "alreadyInTeam": "You are already a member of a different team."
+    }
   }
 }
