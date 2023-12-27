@@ -35,10 +35,10 @@ describe('Cs2TeamsController', () => {
     expect(controller).toBeDefined();
   });
 
-  describe('post', () => {
+  describe('postV1', () => {
     it('should return a new CS2 team on correct information', async () => {
       // Act
-      const result = await controller.post(
+      const result = await controller.postV1(
         exampleCs2NonexistentTeamCreateDto,
         exampleUserWithoutPassword3,
       );

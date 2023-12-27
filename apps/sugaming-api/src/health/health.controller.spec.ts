@@ -32,14 +32,14 @@ describe('HealthController', () => {
     jest.resetAllMocks();
   });
 
-  describe('get()', () => {
+  describe('getV1()', () => {
     it('should be defined', () => {
       expect(controller).toBeDefined();
     });
 
     it('should return status ok when everything is operational', async () => {
       // Act
-      const result = await controller.get();
+      const result = await controller.getV1();
 
       // Assert
       expect(result).toHaveProperty('status', 'ok');
@@ -58,7 +58,7 @@ describe('HealthController', () => {
       // Act
       let error: ServiceUnavailableException | undefined;
       try {
-        await controller.get();
+        await controller.getV1();
       } catch (e) {
         error = e;
       }

@@ -5,6 +5,7 @@ import {
   HttpStatus,
   Post,
   UseGuards,
+  Version,
 } from '@nestjs/common';
 import {
   ApiBody,
@@ -25,6 +26,7 @@ export class Cs2TeamsController {
   constructor(private readonly cs2TeamsService: Cs2TeamsService) {}
 
   @Post()
+  @Version(['1'])
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({
@@ -36,7 +38,7 @@ export class Cs2TeamsController {
     description: 'CS2 team created successfully.',
   })
   @ApiUnauthorizedResponse({ description: 'Invalid user credentials.' })
-  async post(
+  async postV1(
     @Body() createTeamDto: CreateTeamDto,
     @User() user: Omit<Users, 'passwordHash'>,
   ) {

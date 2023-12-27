@@ -4,6 +4,7 @@ import {
   HttpStatus,
   Post,
   UseGuards,
+  Version,
 } from '@nestjs/common';
 import {
   ApiBody,
@@ -21,12 +22,13 @@ import { User } from '../users/users.decorator';
 import { LoginDto } from './dto/login.dto';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 
-@Controller('auth')
+@Controller({ path: 'auth' })
 @ApiTags('Auth API')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('login')
+  @Version(['1'])
   @UseGuards(LocalAuthGuard)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
@@ -41,13 +43,14 @@ export class AuthController {
     type: LoginDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid user credentials.' })
-  async postLogin(
+  async postLoginV1(
     @User() user: Omit<Users, 'passwordHash'>,
   ): Promise<LoginDto> {
     return this.authService.login(user);
   }
 
   @Post('refresh')
+  @Version(['1'])
   @UseGuards(JwtRefreshGuard)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
@@ -64,7 +67,7 @@ export class AuthController {
     type: LoginDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid refresh token.' })
-  async postRefresh(@User() user: Omit<Users, 'passwordHash'>) {
+  async postRefreshV1(@User() user: Omit<Users, 'passwordHash'>) {
     return this.authService.login(user);
   }
 }

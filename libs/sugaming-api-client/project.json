@@ -44,7 +44,7 @@
       "options": {
         "commands": [
           {
-            "command": "start-server-and-test \"nx serve sugaming-api:serve\" \"3000/api/health\" \"yarn openapi generate -i http://localhost:3000/api-json -o ./libs/sugaming-api-client/src/client/src --useOptions\""
+            "command": "start-server-and-test \"nx serve sugaming-api:serve\" \"3000/api/v1/health\" \"yarn openapi generate -i http://localhost:3000/api-json -o ./libs/sugaming-api-client/src/client/src --useOptions\""
           }
         ]
       }

@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Version } from '@nestjs/common';
 import {
   HealthCheck,
   HealthCheckService,
@@ -17,13 +17,14 @@ export class HealthController {
   ) {}
 
   @Get()
+  @Version(['1'])
   @HealthCheck()
   @ApiOperation({
     summary: 'Healthcheck',
     description:
       'Healthcheck endpoint, validating the correct operation of the API and its dependencies (such as prisma, external APIs, etc.)',
   })
-  get() {
+  getV1() {
     return this.health.check([
       () =>
         this.prismaHealth.pingCheck('prisma', this.prismaService, {

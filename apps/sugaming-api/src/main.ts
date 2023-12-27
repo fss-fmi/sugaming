@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common';
+import { Logger, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import {
   DocumentBuilder,
@@ -22,6 +22,11 @@ export async function bootstrap() {
   // Validation setup
   app.useGlobalPipes(new I18nValidationPipe());
   app.useGlobalFilters(new I18nValidationExceptionFilter());
+
+  // Enable Versioning
+  app.enableVersioning({
+    type: VersioningType.URI,
+  });
 
   // OpenAPI setup
   const config = new DocumentBuilder()
