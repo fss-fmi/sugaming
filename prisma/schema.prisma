@@ -23,9 +23,11 @@ model Users {
   nickname  String?
 
   // CS2 Team
-  cs2TeamId      Int?      @map("cs2_team_id")
-  cs2Teams       Cs2Teams? @relation(name: "CS2TeamMembers", fields: [cs2TeamId], references: [id])
-  cs2TeamCaptain Cs2Teams? @relation(name: "CS2TeamCaptain")
+  cs2TeamId          Int?                @map("cs2_team_id")
+  cs2Team            Cs2Teams?           @relation(name: "CS2TeamMembers", fields: [cs2TeamId], references: [id], onDelete: SetNull)
+  cs2TeamCaptain     Cs2Teams?           @relation(name: "CS2TeamCaptain")
+  cs2TeamInvitations Cs2TeamInvitation[] // The teams the user was invited to join
+  cs2TeamRequests    Cs2TeamRequest[] // The teams the user requested to join
 
   // Row timestamps
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
@@ -33,6 +35,7 @@ model Users {
 }
 
 model Cs2Teams {
+  // Primary key
   id Int @id @default(autoincrement())
 
   // Team information
@@ -44,11 +47,53 @@ model Cs2Teams {
 
   // Team captain
   capitanId String? @unique @map("capitan_id")
-  capitan   Users?  @relation("CS2TeamCaptain", fields: [capitanId], references: [id])
+  capitan   Users?  @relation("CS2TeamCaptain", fields: [capitanId], references: [id], onDelete: Restrict)
+
+  // Team invitations (invitations, send to players, from team capitans, asking them to join)
+  teamInvitations Cs2TeamInvitation[]
+
+  // Team requests (invitations, send to teams, from players, asking them to join)
+  teamRequests Cs2TeamRequest[]
 
   // Row timestamps
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+}
+
+model Cs2TeamInvitation {
+  // Primary key
+  id Int @id @default(autoincrement())
+
+  // Team relation
+  cs2TeamId Int      @map("cs2_team_id")
+  cs2Team   Cs2Teams @relation(fields: [cs2TeamId], references: [id], onDelete: Cascade)
+
+  // User relation
+  userId String @map("user_id")
+  user   Users  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Row timestamps
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  @@map("cs2_teams_invitations")
+}
+
+model Cs2TeamRequest {
+  // Primary key
+  id Int @id @default(autoincrement())
+
+  // Team relation
+  cs2TeamId Int      @map("cs2_team_id")
+  cs2Team   Cs2Teams @relation(fields: [cs2TeamId], references: [id], onDelete: Cascade)
+
+  // User relation
+  userId String @map("user_id")
+  user   Users  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Row timestamps
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  @@map("cs2_team_requests")
 }
 
 enum Color {
