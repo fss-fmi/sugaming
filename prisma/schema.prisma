@@ -65,8 +65,8 @@ model Cs2TeamInvitation {
   id Int @id @default(autoincrement())
 
   // Team relation
-  cs2TeamId Int      @map("cs2_team_id")
-  cs2Team   Cs2Teams @relation(fields: [cs2TeamId], references: [id], onDelete: Cascade)
+  teamId Int      @map("cs2_team_id")
+  team   Cs2Teams @relation(fields: [teamId], references: [id], onDelete: Cascade)
 
   // User relation
   userId String @map("user_id")
@@ -83,8 +83,8 @@ model Cs2TeamRequest {
   id Int @id @default(autoincrement())
 
   // Team relation
-  cs2TeamId Int      @map("cs2_team_id")
-  cs2Team   Cs2Teams @relation(fields: [cs2TeamId], references: [id], onDelete: Cascade)
+  teamId Int      @map("cs2_team_id")
+  team   Cs2Teams @relation(fields: [teamId], references: [id], onDelete: Cascade)
 
   // User relation
   userId String @map("user_id")
