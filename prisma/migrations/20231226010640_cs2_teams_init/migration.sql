@@ -17,6 +17,9 @@ CREATE TABLE "Cs2Teams" (
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Cs2Teams_name_key" ON "Cs2Teams"("name");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Cs2Teams_capitan_id_key" ON "Cs2Teams"("capitan_id");
 
 -- AddForeignKey

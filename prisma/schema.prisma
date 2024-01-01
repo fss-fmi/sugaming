@@ -20,7 +20,7 @@ model Users {
   // Personal information
   firstName String? @map("first_name")
   lastName  String? @map("last_name")
-  nickname  String?
+  nickname  String? @unique
 
   // CS2 Team
   cs2TeamId          Int?                @map("cs2_team_id")
@@ -39,7 +39,7 @@ model Cs2Teams {
   id Int @id @default(autoincrement())
 
   // Team information
-  name  String
+  name  String @unique
   color Color
 
   // Team members
