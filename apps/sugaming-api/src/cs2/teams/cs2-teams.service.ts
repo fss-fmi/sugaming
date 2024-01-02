@@ -84,13 +84,20 @@ export class Cs2TeamsService {
       throw new Cs2TeamsNotCapitanException();
     }
 
-    // Get the requests, join with the user table
+    // Get the requests
     return this.prisma.cs2TeamRequest.findMany({
       where: {
         teamId,
       },
       include: {
-        user: true,
+        user: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            nickname: true,
+          },
+        },
       },
     });
   }
