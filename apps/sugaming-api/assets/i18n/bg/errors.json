@@ -2,12 +2,20 @@
   "auth": {
     "unauthorized": "Нямате достъп до този ресурс."
   },
+  "users": {
+    "noSuchUser": "Не съществува такъв потребител.",
+    "cannotInviteSelf": "Не можете да поканите себе си.",
+    "notMemberOfTeam": "Не сте член на отбор.",
+    "onlyCaptainCanInvite": "Само капитанът може да покани нови членове.",
+    "inviteAlreadyPending": "Вече има покана за този играч.",
+    "alreadyInvitedToTeamException": "Вече има покана за този играч."
+  },
   "cs2": {
     "teams": {
       "noSuchTeam": "Не съществува такъв отбор.",
       "nameAlreadyExists": "Отбор със същото име вече съществува.",
-      "alreadyInTeam": "Вече сте член на друг отбор."
       "alreadyInTeam": "Вече сте член на друг отбор.",
+      "alreadyRequestedToJoinTeam": "Вече сте изпратили заявка за присъединяване в този отбор."
     }
   }
 }

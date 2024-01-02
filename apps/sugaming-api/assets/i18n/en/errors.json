@@ -2,6 +2,14 @@
   "auth": {
     "unauthorized": "You are not authorized to access this resource."
   },
+  "users": {
+    "noSuchUser": "No such user exists.",
+    "cannotInviteSelf": "You cannot invite yourself.",
+    "notMemberOfTeam": "You are not a member of a team.",
+    "onlyCaptainCanInvite": "Only the team captain can invite new members.",
+    "inviteAlreadyPending": "An invitation to this user is already pending.",
+    "alreadyInvitedToTeamException": "This user is already invited to a team."
+  },
   "cs2": {
     "teams": {
       "noSuchTeam": "No such team exists.",
