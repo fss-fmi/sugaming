@@ -192,4 +192,40 @@ export class Cs2TeamsService {
       },
     });
   }
+
+  async declineJoinRequest(
+    teamId: number,
+    requestId: number,
+    user: Omit<Users, 'passwordHash'>,
+  ) {
+    // TODO: There is a lot of code duplication with the acceptJoinRequest method, refactor
+    // Validate that the user exists
+    await this.usersService.getByIdOrThrow(user.id);
+
+    // Validate that the team exists
+    const team = await this.getByIdOrThrow(teamId);
+
+    // Validate that the user is the captain of the team
+    if (team.capitanId !== user.id) {
+      throw new Cs2TeamsNotCapitanException();
+    }
+
+    // Validate that the request exists/request is for the specified team
+    const request = await this.prisma.cs2TeamRequest.findFirst({
+      where: {
+        id: requestId,
+      },
+    });
+
+    if (!request || request.teamId !== teamId) {
+      throw new Cs2TeamsNoSuchJoinRequestException();
+    }
+
+    // Delete the request
+    return this.prisma.cs2TeamRequest.delete({
+      where: {
+        id: requestId,
+      },
+    });
+  }
 }

@@ -26,6 +26,7 @@ import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { PostTeamDto } from './dto/post-team.dto';
 import { User } from '../../users/users.decorator';
 import { PostTeamJoinRequestDto } from './dto/post-team-join-request.dto';
+import { PostTeamJoinRequestDeclineRequestDto } from './dto/post-team-join-request-decline-request.dto';
 
 @Controller('cs2/teams')
 @ApiTags('CS2 Teams API')
@@ -64,6 +65,36 @@ export class Cs2TeamsController {
     return this.cs2TeamsService.create(createTeamDto, user.id);
   }
 
+  @Get(':id/join-requests')
+  @Version(['1'])
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Get all CS2 team join requests',
+    description: 'Endpoint for team captains to get all join requests.',
+  })
+  @ApiOkResponse({
+    description: 'CS2 team join requests retrieved successfully.',
+  })
+  @ApiUnauthorizedResponse({ description: 'Invalid user credentials.' })
+  @ApiNotFoundResponse({
+    schema: {
+      anyOf: [
+        { description: 'The user no longer exists.' },
+        { description: 'The team specified does not exist.' },
+      ],
+    },
+  })
+  @ApiForbiddenResponse({
+    description: 'The user is not the captain of the team.',
+  })
+  async getTeamJoinRequestsV1(
+    @Param('id') teamId: number,
+    @User() user: Omit<Users, 'passwordHash'>,
+  ) {
+    return this.cs2TeamsService.getJoinRequests(teamId, user);
+  }
+
   @Post(':id/join-requests')
   @Version(['1'])
   @UseGuards(JwtAuthGuard)
@@ -95,36 +126,6 @@ export class Cs2TeamsController {
     return this.cs2TeamsService.createJoinRequest(teamId, user);
   }
 
-  @Get(':id/join-requests')
-  @Version(['1'])
-  @UseGuards(JwtAuthGuard)
-  @HttpCode(HttpStatus.OK)
-  @ApiOperation({
-    summary: 'Get all CS2 team join requests',
-    description: 'Endpoint for team captains to get all join requests.',
-  })
-  @ApiOkResponse({
-    description: 'CS2 team join requests retrieved successfully.',
-  })
-  @ApiUnauthorizedResponse({ description: 'Invalid user credentials.' })
-  @ApiNotFoundResponse({
-    schema: {
-      anyOf: [
-        { description: 'The user no longer exists.' },
-        { description: 'The team specified does not exist.' },
-      ],
-    },
-  })
-  @ApiForbiddenResponse({
-    description: 'The user is not the captain of the team.',
-  })
-  async getTeamJoinRequestsV1(
-    @Param('id') teamId: number,
-    @User() user: Omit<Users, 'passwordHash'>,
-  ) {
-    return this.cs2TeamsService.getJoinRequests(teamId, user);
-  }
-
   @Post(':id/join-requests/:requestId/accept')
   @Version(['1'])
   @UseGuards(JwtAuthGuard)
@@ -150,11 +151,44 @@ export class Cs2TeamsController {
   @ApiConflictResponse({
     description: 'The user is already part of a team.',
   })
-  async acceptTeamJoinRequestV1(
+  async postTeamJoinRequestAcceptV1(
     @Param('id') teamId: number,
     @Param('requestId') requestId: number,
     @User() user: Omit<Users, 'passwordHash'>,
   ) {
     return this.cs2TeamsService.acceptJoinRequest(teamId, requestId, user);
+  }
+
+  @Post(':id/join-requests/:requestId/decline')
+  @Version(['1'])
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Decline a CS2 team join request',
+    description: 'Endpoint for team captains to decline join requests.',
+  })
+  @ApiBody({ type: PostTeamJoinRequestDeclineRequestDto })
+  @ApiOkResponse({
+    description: 'CS2 team join request declined successfully.',
+  })
+  @ApiUnauthorizedResponse({ description: 'Invalid user credentials.' })
+  @ApiNotFoundResponse({
+    schema: {
+      anyOf: [
+        { description: 'The user no longer exists.' },
+        { description: 'The team specified does not exist.' },
+        { description: 'The join request specified does not exist.' },
+      ],
+    },
+  })
+  @ApiForbiddenResponse({
+    description: 'The user is not the captain of the team.',
+  })
+  async postTeamJoinRequestDeclineV1(
+    @Param('id') teamId: number,
+    @Param('requestId') requestId: number,
+    @User() user: Omit<Users, 'passwordHash'>,
+  ) {
+    return this.cs2TeamsService.declineJoinRequest(teamId, requestId, user);
   }
 }
