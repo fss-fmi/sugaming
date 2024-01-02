@@ -18,9 +18,7 @@ export class Cs2TeamsService {
     });
 
     if (teamNameExists) {
-      throw new BadRequestException(
-        i18n.t('errors.cs2.teams.nameAlreadyExists'),
-      );
+      throw new Cs2TeamsNameAlreadyExistsException();
     }
 
     // Check if user is already in a team
@@ -31,7 +29,7 @@ export class Cs2TeamsService {
     });
 
     if (teamsCaptainIsPartOf.length > 0) {
-      throw new BadRequestException(i18n.t('errors.cs2.teams.alreadyInTeam'));
+      throw new Cs2TeamsAlreadyInTeamException();
     }
 
     // Create the team
