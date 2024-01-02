@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Param,
@@ -12,6 +13,7 @@ import {
   ApiBody,
   ApiConflictResponse,
   ApiCreatedResponse,
+  ApiForbiddenResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
@@ -93,13 +95,43 @@ export class Cs2TeamsController {
     return this.cs2TeamsService.createJoinRequest(teamId, user);
   }
 
+  @Get(':id/join-requests')
+  @Version(['1'])
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Get all CS2 team join requests',
+    description: 'Endpoint for team captains to get all join requests.',
+  })
+  @ApiOkResponse({
+    description: 'CS2 team join requests retrieved successfully.',
+  })
+  @ApiUnauthorizedResponse({ description: 'Invalid user credentials.' })
+  @ApiNotFoundResponse({
+    schema: {
+      anyOf: [
+        { description: 'The user no longer exists.' },
+        { description: 'The team specified does not exist.' },
+      ],
+    },
+  })
+  @ApiForbiddenResponse({
+    description: 'The user is not the captain of the team.',
+  })
+  async getTeamJoinRequestsV1(
+    @Param('id') teamId: number,
+    @User() user: Omit<Users, 'passwordHash'>,
+  ) {
+    return this.cs2TeamsService.getJoinRequests(teamId, user);
+  }
+
   @Post(':id/join-requests/:requestId/accept')
   @Version(['1'])
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary: 'Accept a CS2 team join request',
-    description: 'Endpoint for team leaders to accept join requests.',
+    description: 'Endpoint for team captains to accept join requests.',
   })
   @ApiBody({ type: PostTeamJoinRequestDto })
   @ApiOkResponse({
