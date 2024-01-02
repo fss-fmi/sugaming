@@ -15,7 +15,8 @@
       "noSuchTeam": "No such team exists.",
       "nameAlreadyExists": "A team with the same name already exists.",
       "alreadyInTeam": "You are already a member of a different team.",
-      "alreadyRequestedToJoinTeam": "You have already requested to join this team."
+      "alreadyRequestedToJoinTeam": "You have already requested to join this team.",
+      "noJoinRequest": "No such requested to join this team."
     }
   }
 }

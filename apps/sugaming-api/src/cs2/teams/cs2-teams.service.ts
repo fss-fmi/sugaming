@@ -7,6 +7,8 @@ import { Cs2TeamsAlreadyInTeamException } from './exceptions/cs2-teams-already-i
 import { UsersService } from '../../users/users.service';
 import { Cs2TeamsNoSuchTeamException } from './exceptions/cs2-teams-no-such-team.exception';
 import { Cs2TeamsAlreadyRequestedToJoinTeamException } from './exceptions/cs2-teams-already-requested-to-join-team.exception';
+import { Cs2TeamsNotCapitanException } from './exceptions/cs2-teams-not-capitan.exception';
+import { Cs2TeamsNoSuchJoinRequestException } from './exceptions/cs2-teams-no-such-join-request.exception';
 
 @Injectable()
 export class Cs2TeamsService {
@@ -105,6 +107,66 @@ export class Cs2TeamsService {
       data: {
         teamId,
         userId: user.id,
+      },
+    });
+  }
+
+  async acceptJoinRequest(
+    teamId: number,
+    requestId: number,
+    user: Omit<Users, 'passwordHash'>,
+  ) {
+    // Validate that the user exists
+    await this.usersService.getByIdOrThrow(user.id);
+
+    // Validate that the team exists
+    const team = await this.getByIdOrThrow(teamId);
+
+    // Validate that the user is the captain of the team
+    if (team.capitanId !== user.id) {
+      throw new Cs2TeamsNotCapitanException();
+    }
+
+    // Validate that the request exists/request is for the specified team
+    const request = await this.prisma.cs2TeamRequest.findFirst({
+      where: {
+        id: requestId,
+      },
+    });
+
+    if (!request || request.teamId !== teamId) {
+      throw new Cs2TeamsNoSuchJoinRequestException();
+    }
+
+    // Validate that the user is not already a part of the team
+    const existingTeam = await this.prisma.cs2Teams.findFirst({
+      where: {
+        members: { some: { id: request.userId } },
+      },
+    });
+
+    if (existingTeam) {
+      throw new Cs2TeamsAlreadyInTeamException();
+    }
+
+    // Delete the request
+    await this.prisma.cs2TeamRequest.delete({
+      where: {
+        id: requestId,
+      },
+    });
+
+    // Add the user to the team
+    return this.prisma.cs2Teams.update({
+      where: {
+        id: teamId,
+      },
+      data: {
+        members: {
+          connect: {
+            id: user.id,
+          },
+        },
       },
     });
   }

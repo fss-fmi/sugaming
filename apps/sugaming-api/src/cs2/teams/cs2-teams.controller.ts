@@ -13,6 +13,7 @@ import {
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiNotFoundResponse,
+  ApiOkResponse,
   ApiOperation,
   ApiTags,
   ApiUnauthorizedResponse,
@@ -90,5 +91,38 @@ export class Cs2TeamsController {
     @User() user: Omit<Users, 'passwordHash'>,
   ) {
     return this.cs2TeamsService.createJoinRequest(teamId, user);
+  }
+
+  @Post(':id/join-requests/:requestId/accept')
+  @Version(['1'])
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Accept a CS2 team join request',
+    description: 'Endpoint for team leaders to accept join requests.',
+  })
+  @ApiBody({ type: PostTeamJoinRequestDto })
+  @ApiOkResponse({
+    description: 'CS2 team join request accepted successfully.',
+  })
+  @ApiUnauthorizedResponse({ description: 'Invalid user credentials.' })
+  @ApiNotFoundResponse({
+    schema: {
+      anyOf: [
+        { description: 'The user no longer exists.' },
+        { description: 'The team specified does not exist.' },
+        { description: 'The join request specified does not exist.' },
+      ],
+    },
+  })
+  @ApiConflictResponse({
+    description: 'The user is already part of a team.',
+  })
+  async acceptTeamJoinRequestV1(
+    @Param('id') teamId: number,
+    @Param('requestId') requestId: number,
+    @User() user: Omit<Users, 'passwordHash'>,
+  ) {
+    return this.cs2TeamsService.acceptJoinRequest(teamId, requestId, user);
   }
 }
