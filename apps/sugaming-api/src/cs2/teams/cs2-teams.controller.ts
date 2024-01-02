@@ -10,6 +10,7 @@ import {
   Version,
 } from '@nestjs/common';
 import {
+  ApiBearerAuth,
   ApiBody,
   ApiConflictResponse,
   ApiCreatedResponse,
@@ -37,6 +38,7 @@ export class Cs2TeamsController {
   @Version(['1'])
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.CREATED)
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Create a new CS2 team',
     description: 'Endpoint for creating new CS2 teams.',
@@ -69,6 +71,7 @@ export class Cs2TeamsController {
   @Version(['1'])
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Get all CS2 team join requests',
     description: 'Endpoint for team captains to get all join requests.',
@@ -99,6 +102,7 @@ export class Cs2TeamsController {
   @Version(['1'])
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.CREATED)
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Create a new CS2 team join request',
     description: 'Endpoint for users to request to join a specific team.',
@@ -130,6 +134,7 @@ export class Cs2TeamsController {
   @Version(['1'])
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Accept a CS2 team join request',
     description: 'Endpoint for team captains to accept join requests.',
@@ -163,6 +168,7 @@ export class Cs2TeamsController {
   @Version(['1'])
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Decline a CS2 team join request',
     description: 'Endpoint for team captains to decline join requests.',
