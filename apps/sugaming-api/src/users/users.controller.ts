@@ -47,7 +47,27 @@ export class UsersController {
     return user;
   }
 
-  @Post(':id/cs2-team-invites')
+  @Get('cs2-team-invites')
+  @Version(['1'])
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Get user CS2 team invitations',
+    description: 'Endpoint for getting user CS2 team invitations.',
+  })
+  @ApiOkResponse({
+    description: 'User CS2 team invitations returned successfully.',
+  })
+  @ApiUnauthorizedResponse({ description: 'Invalid authentication token.' })
+  @ApiNotFoundResponse({
+    description: 'The user does not exist.',
+  })
+  getUserCs2TeamInvitesV1(@User() user: Omit<Users, 'passwordHash'>) {
+    return this.usersService.getUserCs2TeamInvites(user);
+  }
+
+  @Post(':userId/cs2-team-invites')
   @Version(['1'])
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.CREATED)

@@ -80,6 +80,35 @@ export class UsersService {
     return user != null && (await bcrypt.compare(password, user.passwordHash));
   }
 
+  async getUserCs2TeamInvites(user: Omit<Users, 'passwordHash'>) {
+    // Validate that the user exists
+    await this.getByIdOrThrow(user.id);
+
+    // Get all the team invitations for the user
+    return this.prisma.cs2TeamInvitation.findMany({
+      where: {
+        userId: user.id,
+      },
+      include: {
+        team: {
+          select: {
+            id: true,
+            name: true,
+            capitanId: true,
+            members: {
+              select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+                nickname: true,
+              },
+            },
+          },
+        },
+      },
+    });
+  }
+
   async createCs2TeamInvitation(
     inviter: Omit<Users, 'passwordHash'>,
     inviteeId: string,
