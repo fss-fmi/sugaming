@@ -130,52 +130,19 @@ export class Cs2TeamsController {
     return this.cs2TeamsService.createJoinRequest(teamId, user);
   }
 
-  @Post(':id/join-requests/:requestId/accept')
+  @Post(':teamId/join-requests/:requestId/respond')
   @Version(['1'])
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
   @ApiBearerAuth()
   @ApiOperation({
-    summary: 'Accept a CS2 team join request',
-    description: 'Endpoint for team captains to accept join requests.',
+    summary: 'Respond to a CS2 team join request',
+    description:
+      'Endpoint for team captains to accept or decline join requests.',
   })
-  @ApiBody({ type: PostTeamJoinRequestDto })
+  @ApiBody({ type: PostTeamJoinRequestRespondRequestBodyDto })
   @ApiOkResponse({
-    description: 'CS2 team join request accepted successfully.',
-  })
-  @ApiUnauthorizedResponse({ description: 'Invalid user credentials.' })
-  @ApiNotFoundResponse({
-    schema: {
-      anyOf: [
-        { description: 'The user no longer exists.' },
-        { description: 'The team specified does not exist.' },
-        { description: 'The join request specified does not exist.' },
-      ],
-    },
-  })
-  @ApiConflictResponse({
-    description: 'The user is already part of a team.',
-  })
-  async postTeamJoinRequestAcceptV1(
-    @Param('id') teamId: number,
-    @Param('requestId') requestId: number,
-    @User() user: Omit<Users, 'passwordHash'>,
-  ) {
-    return this.cs2TeamsService.acceptJoinRequest(teamId, requestId, user);
-  }
-
-  @Post(':id/join-requests/:requestId/decline')
-  @Version(['1'])
-  @UseGuards(JwtAuthGuard)
-  @HttpCode(HttpStatus.OK)
-  @ApiBearerAuth()
-  @ApiOperation({
-    summary: 'Decline a CS2 team join request',
-    description: 'Endpoint for team captains to decline join requests.',
-  })
-  @ApiBody({ type: PostTeamJoinRequestDeclineRequestDto })
-  @ApiOkResponse({
-    description: 'CS2 team join request declined successfully.',
+    description: 'CS2 team join request accepted or declined successfully.',
   })
   @ApiUnauthorizedResponse({ description: 'Invalid user credentials.' })
   @ApiNotFoundResponse({
@@ -190,11 +157,19 @@ export class Cs2TeamsController {
   @ApiForbiddenResponse({
     description: 'The user is not the captain of the team.',
   })
-  async postTeamJoinRequestDeclineV1(
-    @Param('id') teamId: number,
-    @Param('requestId') requestId: number,
+  @ApiConflictResponse({
+    description: 'The user, you are trying to add, is already part of a team.',
+  })
+  async postTeamJoinRequestRespondV1(
+    @Param() params: PostTeamJoinRequestRespondParamsDto,
+    @Body() requestBody: PostTeamJoinRequestRespondRequestBodyDto,
     @User() user: Omit<Users, 'passwordHash'>,
   ) {
-    return this.cs2TeamsService.declineJoinRequest(teamId, requestId, user);
+    return this.cs2TeamsService.respondToJoinRequest(
+      requestBody.response,
+      params.teamId,
+      params.requestId,
+      user,
+    );
   }
 }

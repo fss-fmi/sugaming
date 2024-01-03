@@ -140,7 +140,8 @@ export class Cs2TeamsService {
     });
   }
 
-  async acceptJoinRequest(
+  async respondToJoinRequest(
+    response: 'ACCEPT' | 'DECLINE',
     teamId: number,
     requestId: number,
     user: Omit<Users, 'passwordHash'>,
@@ -167,23 +168,33 @@ export class Cs2TeamsService {
       throw new Cs2TeamsNoSuchJoinRequestException();
     }
 
-    // Validate that the user is not already a part of the team
-    const existingTeam = await this.prisma.cs2Teams.findFirst({
-      where: {
-        members: { some: { id: request.userId } },
-      },
-    });
+    // Validate that the requesting user exists
+    const requestUser = await this.usersService.getByIdOrThrow(request.userId);
 
-    if (existingTeam) {
-      throw new Cs2TeamsAlreadyInTeamException();
+    // On accept, validate that the user is not already a part of the team
+    if (response === 'ACCEPT') {
+      const existingTeam = await this.prisma.cs2Teams.findFirst({
+        where: {
+          members: { some: { id: request.userId } },
+        },
+      });
+
+      if (existingTeam) {
+        throw new Cs2TeamsAlreadyInTeamException();
+      }
     }
 
     // Delete the request
-    await this.prisma.cs2TeamRequest.delete({
+    const deletedRequest = await this.prisma.cs2TeamRequest.delete({
       where: {
         id: requestId,
       },
     });
+
+    // On decline, return early
+    if (response === 'DECLINE') {
+      return deletedRequest;
+    }
 
     // Add the user to the team
     return this.prisma.cs2Teams.update({
@@ -193,45 +204,9 @@ export class Cs2TeamsService {
       data: {
         members: {
           connect: {
-            id: user.id,
+            id: requestUser.id,
           },
         },
-      },
-    });
-  }
-
-  async declineJoinRequest(
-    teamId: number,
-    requestId: number,
-    user: Omit<Users, 'passwordHash'>,
-  ) {
-    // TODO: There is a lot of code duplication with the acceptJoinRequest method, refactor
-    // Validate that the user exists
-    await this.usersService.getByIdOrThrow(user.id);
-
-    // Validate that the team exists
-    const team = await this.getByIdOrThrow(teamId);
-
-    // Validate that the user is the captain of the team
-    if (team.capitanId !== user.id) {
-      throw new Cs2TeamsNotCapitanException();
-    }
-
-    // Validate that the request exists/request is for the specified team
-    const request = await this.prisma.cs2TeamRequest.findFirst({
-      where: {
-        id: requestId,
-      },
-    });
-
-    if (!request || request.teamId !== teamId) {
-      throw new Cs2TeamsNoSuchJoinRequestException();
-    }
-
-    // Delete the request
-    return this.prisma.cs2TeamRequest.delete({
-      where: {
-        id: requestId,
       },
     });
   }
