@@ -75,7 +75,7 @@ model Cs2TeamInvitation {
   // Row timestamps
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
 
-  @@map("cs2_teams_invitations")
+  @@map("cs2_team_invitations")
 }
 
 model Cs2TeamRequest {
