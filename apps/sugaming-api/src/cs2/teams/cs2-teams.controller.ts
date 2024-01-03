@@ -24,13 +24,13 @@ import {
 import { Users } from '@prisma/client';
 import { Cs2TeamsService } from './cs2-teams.service';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
-import { PostTeamDto } from './dto/post-team.dto';
+import { Cs2TeamsPostDto } from './dto/cs2-teams-post.dto';
 import { User } from '../../users/users.decorator';
-import { PostTeamJoinRequestDto } from './dto/post-team-join-request.dto';
-import { PostTeamJoinRequestRespondRequestBodyDto } from './dto/post-team-join-request-respond-request-body.dto';
-import { PostTeamJoinRequestRespondParamsDto } from './dto/post-team-join-request-respond-params.dto';
-import { PostTeamJoinRequestParamsDto } from './dto/post-team-join-request-params.dto';
-import { GetTeamJoinRequestParamsDto } from './dto/get-team-join-request-params.dto';
+import { Cs2TeamsPostJoinRequestsDto } from './dto/cs2-teams-post-join-requests.dto';
+import { Cs2TeamsPostJoinRequestsRespondRequestBodyDto } from './dto/cs2-teams-post-join-requests-respond-request-body.dto';
+import { Cs2TeamsPostJoinRequestsRespondParamsDto } from './dto/cs2-teams-post-join-requests-respond-params.dto';
+import { Cs2TeamsPostJoinRequestsParamsDto } from './dto/cs2-teams-post-join-requests-params.dto';
+import { Cs2TeamsGetJoinRequestsParamsDto } from './dto/cs2-teams-get-join-requests-params.dto';
 
 @Controller('cs2/teams')
 @ApiTags('CS2 Teams API')
@@ -46,7 +46,7 @@ export class Cs2TeamsController {
     summary: 'Create a new CS2 team',
     description: 'Endpoint for creating new CS2 teams.',
   })
-  @ApiBody({ type: PostTeamDto })
+  @ApiBody({ type: Cs2TeamsPostDto })
   @ApiCreatedResponse({
     description: 'CS2 team created successfully.',
   })
@@ -64,7 +64,7 @@ export class Cs2TeamsController {
     },
   })
   async postV1(
-    @Body() createTeamDto: PostTeamDto,
+    @Body() createTeamDto: Cs2TeamsPostDto,
     @User() user: Omit<Users, 'passwordHash'>,
   ) {
     return this.cs2TeamsService.create(createTeamDto, user.id);
@@ -94,8 +94,8 @@ export class Cs2TeamsController {
   @ApiForbiddenResponse({
     description: 'The user is not the captain of the team.',
   })
-  async getTeamJoinRequestsV1(
-    @Param() params: GetTeamJoinRequestParamsDto,
+  async getJoinRequestsV1(
+    @Param() params: Cs2TeamsGetJoinRequestsParamsDto,
     @User() user: Omit<Users, 'passwordHash'>,
   ) {
     return this.cs2TeamsService.getJoinRequests(params.teamId, user);
@@ -110,7 +110,7 @@ export class Cs2TeamsController {
     summary: 'Create a new CS2 team join request',
     description: 'Endpoint for users to request to join a specific team.',
   })
-  @ApiBody({ type: PostTeamJoinRequestDto })
+  @ApiBody({ type: Cs2TeamsPostJoinRequestsDto })
   @ApiCreatedResponse({
     description: 'CS2 team join request created successfully.',
   })
@@ -126,8 +126,8 @@ export class Cs2TeamsController {
   @ApiConflictResponse({
     description: 'The user is already part of the specified team.',
   })
-  async postTeamJoinRequestV1(
-    @Param() params: PostTeamJoinRequestParamsDto,
+  async postJoinRequestV1(
+    @Param() params: Cs2TeamsPostJoinRequestsParamsDto,
     @User() user: Omit<Users, 'passwordHash'>,
   ) {
     return this.cs2TeamsService.createJoinRequest(params.teamId, user);
@@ -143,7 +143,7 @@ export class Cs2TeamsController {
     description:
       'Endpoint for team captains to accept or decline join requests.',
   })
-  @ApiBody({ type: PostTeamJoinRequestRespondRequestBodyDto })
+  @ApiBody({ type: Cs2TeamsPostJoinRequestsRespondRequestBodyDto })
   @ApiOkResponse({
     description: 'CS2 team join request accepted or declined successfully.',
   })
@@ -163,9 +163,9 @@ export class Cs2TeamsController {
   @ApiConflictResponse({
     description: 'The user, you are trying to add, is already part of a team.',
   })
-  async postTeamJoinRequestRespondV1(
-    @Param() params: PostTeamJoinRequestRespondParamsDto,
-    @Body() requestBody: PostTeamJoinRequestRespondRequestBodyDto,
+  async postJoinRequestsRespondV1(
+    @Param() params: Cs2TeamsPostJoinRequestsRespondParamsDto,
+    @Body() requestBody: Cs2TeamsPostJoinRequestsRespondRequestBodyDto,
     @User() user: Omit<Users, 'passwordHash'>,
   ) {
     return this.cs2TeamsService.respondToJoinRequest(

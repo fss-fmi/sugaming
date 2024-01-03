@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Users } from '@prisma/client';
-import { PostTeamDto } from './dto/post-team.dto';
+import { Cs2TeamsPostDto } from './dto/cs2-teams-post.dto';
 import { PrismaService } from '../../prisma/prisma.service';
 import { Cs2TeamsNameAlreadyExistsException } from './exceptions/cs2-teams-name-already-exists.exception';
 import { Cs2TeamsAlreadyInTeamException } from './exceptions/cs2-teams-already-in-team.exception';
@@ -35,7 +35,7 @@ export class Cs2TeamsService {
     return team;
   }
 
-  async create(createTeamDto: PostTeamDto, capitanId: string) {
+  async create(createTeamDto: Cs2TeamsPostDto, capitanId: string) {
     // Check if team name is already taken
     const teamNameExists = await this.prisma.cs2Teams.findFirst({
       where: {
