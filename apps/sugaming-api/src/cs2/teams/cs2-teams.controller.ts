@@ -27,7 +27,10 @@ import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { PostTeamDto } from './dto/post-team.dto';
 import { User } from '../../users/users.decorator';
 import { PostTeamJoinRequestDto } from './dto/post-team-join-request.dto';
-import { PostTeamJoinRequestDeclineRequestDto } from './dto/post-team-join-request-decline-request.dto';
+import { PostTeamJoinRequestRespondRequestBodyDto } from './dto/post-team-join-request-respond-request-body.dto';
+import { PostTeamJoinRequestRespondParamsDto } from './dto/post-team-join-request-respond-params.dto';
+import { PostTeamJoinRequestParamsDto } from './dto/post-team-join-request-params.dto';
+import { GetTeamJoinRequestParamsDto } from './dto/get-team-join-request-params.dto';
 
 @Controller('cs2/teams')
 @ApiTags('CS2 Teams API')
@@ -67,7 +70,7 @@ export class Cs2TeamsController {
     return this.cs2TeamsService.create(createTeamDto, user.id);
   }
 
-  @Get(':id/join-requests')
+  @Get(':teamId/join-requests')
   @Version(['1'])
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
@@ -92,13 +95,13 @@ export class Cs2TeamsController {
     description: 'The user is not the captain of the team.',
   })
   async getTeamJoinRequestsV1(
-    @Param('id') teamId: number,
+    @Param() params: GetTeamJoinRequestParamsDto,
     @User() user: Omit<Users, 'passwordHash'>,
   ) {
-    return this.cs2TeamsService.getJoinRequests(teamId, user);
+    return this.cs2TeamsService.getJoinRequests(params.teamId, user);
   }
 
-  @Post(':id/join-requests')
+  @Post(':teamId/join-requests')
   @Version(['1'])
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.CREATED)
@@ -124,10 +127,10 @@ export class Cs2TeamsController {
     description: 'The user is already part of the specified team.',
   })
   async postTeamJoinRequestV1(
-    @Param('id') teamId: number,
+    @Param() params: PostTeamJoinRequestParamsDto,
     @User() user: Omit<Users, 'passwordHash'>,
   ) {
-    return this.cs2TeamsService.createJoinRequest(teamId, user);
+    return this.cs2TeamsService.createJoinRequest(params.teamId, user);
   }
 
   @Post(':teamId/join-requests/:requestId/respond')
