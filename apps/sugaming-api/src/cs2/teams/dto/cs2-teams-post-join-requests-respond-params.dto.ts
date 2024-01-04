@@ -8,4 +8,10 @@ export class Cs2TeamsPostJoinRequestsRespondParamsDto {
   })
   @Type(() => Number)
   teamId: number;
+
+  @IsInt({
+    message: i18nValidationMessage('validation.isInt'),
+  })
+  @Type(() => Number)
+  requestId: number;
 }

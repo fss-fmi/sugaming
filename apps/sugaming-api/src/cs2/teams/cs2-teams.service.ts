@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Users } from '@prisma/client';
+import { I18nContext } from 'nestjs-i18n';
 import { Cs2TeamsPostDto } from './dto/cs2-teams-post.dto';
 import { PrismaService } from '../../prisma/prisma.service';
 import { Cs2TeamsNameAlreadyExistsException } from './exceptions/cs2-teams-name-already-exists.exception';
@@ -185,19 +186,20 @@ export class Cs2TeamsService {
     }
 
     // Delete the request
-    const deletedRequest = await this.prisma.cs2TeamRequest.delete({
+    await this.prisma.cs2TeamRequest.delete({
       where: {
         id: requestId,
       },
     });
 
     // On decline, return early
+    const i18n = I18nContext.current();
     if (response === 'DECLINE') {
-      return deletedRequest;
+      return { message: i18n.t('responses.cs2.teams.joinRequestDeclined') };
     }
 
     // Add the user to the team
-    return this.prisma.cs2Teams.update({
+    await this.prisma.cs2Teams.update({
       where: {
         id: teamId,
       },
@@ -209,5 +211,7 @@ export class Cs2TeamsService {
         },
       },
     });
+
+    return { message: i18n.t('responses.cs2.teams.joinRequestAccepted') };
   }
 }
