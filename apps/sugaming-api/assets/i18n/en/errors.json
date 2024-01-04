@@ -4,11 +4,14 @@
   },
   "users": {
     "noSuchUser": "No such user exists.",
+    "noSuchTeam": "No such team exists.",
+    "noSuchInvite": "No such invite exists.",
     "cannotInviteSelf": "You cannot invite yourself.",
     "notMemberOfTeam": "You are not a member of a team.",
     "onlyCaptainCanInvite": "Only the team captain can invite new members.",
     "inviteAlreadyPending": "An invitation to this user is already pending.",
-    "alreadyInvitedToTeamException": "This user is already invited to a team."
+    "alreadyInTeam": "You are already a member of a different team.",
+    "notInviteeOfInvite": "You are not the invitee of this invite."
   },
   "cs2": {
     "teams": {

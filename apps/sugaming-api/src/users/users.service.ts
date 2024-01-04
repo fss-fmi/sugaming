@@ -1,13 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import { Users } from '@prisma/client';
+import { I18nContext } from 'nestjs-i18n';
 import { PrismaService } from '../prisma/prisma.service';
 import { UsersCannotInviteSelfException } from './exceptions/users-cannot-invite-self.exception';
 import { UsersNotMemberOfCs2TeamException } from './exceptions/users-not-member-of-cs2-team.exception';
 import { UsersOnlyCaptainCanInviteException } from './exceptions/users-only-captain-can-invite.exception';
 import { UsersNoSuchUserException } from './exceptions/users-no-such-user.exception';
-import { UsersAlreadyInvitedToTeamException } from './exceptions/users-already-invited-to-team.exception';
 import { UsersInviteAlreadyPendingException } from './exceptions/users-invite-already-pending.exception';
+import { UsersNoSuchTeamException } from './exceptions/users-no-such-team.exception';
+import { UsersNoSuchInviteException } from './exceptions/users-no-such-invite.exception';
+import { UsersAlreadyInTeamException } from './exceptions/users-already-in-team.exception';
+import { UsersNotInviteeOfInviteException } from './exceptions/users-not-invitee-of-invite.exception';
 
 @Injectable()
 export class UsersService {
@@ -163,6 +167,82 @@ export class UsersService {
         userId: invitee.id,
       },
     });
+  }
+
+  async respondToCs2TeamInvite(
+    response: 'ACCEPT' | 'DECLINE',
+    inviteId: number,
+    user: Omit<Users, 'passwordHash'>,
+  ) {
+    // Validate that the user exists
+    await this.getByIdOrThrow(user.id);
+
+    // Validate that the invite exists
+    const invite = await this.prisma.cs2TeamInvitation.findUnique({
+      where: {
+        id: inviteId,
+      },
+    });
+
+    if (!invite) {
+      throw new UsersNoSuchInviteException();
+    }
+
+    // Validate that the team exists
+    const team = await this.prisma.cs2Teams.findUnique({
+      where: {
+        id: invite.teamId,
+      },
+    });
+
+    if (!team) {
+      throw new UsersNoSuchTeamException();
+    }
+
+    // Validate that the user is the invitee of the invite
+    if (invite.userId !== user.id) {
+      throw new UsersNotInviteeOfInviteException();
+    }
+
+    // On accept, validate that the user is not already part of a team
+    const existingTeam = await this.prisma.cs2Teams.findFirst({
+      where: {
+        members: { some: { id: user.id } },
+      },
+    });
+
+    if (existingTeam && response === 'ACCEPT') {
+      throw new UsersAlreadyInTeamException();
+    }
+
+    // Delete the invitation
+    await this.prisma.cs2TeamInvitation.delete({
+      where: {
+        id: inviteId,
+      },
+    });
+
+    // On decline, return early
+    const i18n = I18nContext.current();
+    if (response === 'DECLINE') {
+      return { message: i18n.t('responses.users.cs2TeamInviteDeclined') };
+    }
+
+    // Add the user to the team
+    await this.prisma.cs2Teams.update({
+      where: {
+        id: team.id,
+      },
+      data: {
+        members: {
+          connect: {
+            id: user.id,
+          },
+        },
+      },
+    });
+
+    return { message: i18n.t('responses.users.cs2TeamInviteAccepted') };
   }
 }
 

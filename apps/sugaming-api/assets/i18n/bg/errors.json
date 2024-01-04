@@ -4,11 +4,14 @@
   },
   "users": {
     "noSuchUser": "Не съществува такъв потребител.",
+    "noSuchTeam": "Не съществува такъв отбор.",
+    "noSuchInvite": "Не съществува такава покана.",
     "cannotInviteSelf": "Не можете да поканите себе си.",
     "notMemberOfTeam": "Не сте член на отбор.",
     "onlyCaptainCanInvite": "Само капитанът може да покани нови членове.",
     "inviteAlreadyPending": "Вече има покана за този играч.",
-    "alreadyInvitedToTeamException": "Вече има покана за този играч."
+    "alreadyInTeam": "Вече сте член на друг отбор.",
+    "notInviteeOfInvite": "Тази покана е се отнася за друг потребител."
   },
   "cs2": {
     "teams": {
