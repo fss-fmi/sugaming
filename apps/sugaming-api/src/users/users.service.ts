@@ -7,6 +7,7 @@ import { UsersNotMemberOfCs2TeamException } from './exceptions/users-not-member-
 import { UsersOnlyCaptainCanInviteException } from './exceptions/users-only-captain-can-invite.exception';
 import { UsersNoSuchUserException } from './exceptions/users-no-such-user.exception';
 import { UsersAlreadyInvitedToTeamException } from './exceptions/users-already-invited-to-team.exception';
+import { UsersInviteAlreadyPendingException } from './exceptions/users-invite-already-pending.exception';
 
 @Injectable()
 export class UsersService {
@@ -152,7 +153,7 @@ export class UsersService {
       },
     });
     if (existingInvitation) {
-      throw new UsersAlreadyInvitedToTeamException();
+      throw new UsersInviteAlreadyPendingException();
     }
 
     // Create the invitation
