@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { I18nContext } from 'nestjs-i18n';
-import { BadRequestException } from '@nestjs/common';
 import { Cs2TeamsService } from './cs2-teams.service';
 import { PrismaService } from '../../prisma/prisma.service';
 import prismaServiceMock from '../../prisma/prisma.service.mock';
@@ -10,6 +9,8 @@ import {
   exampleCs2TeamCreateDto,
 } from './cs2-teams.mock';
 import { exampleUser, exampleUser3 } from '../../users/users.mock';
+import { Cs2TeamsNameAlreadyExistsException } from './exceptions/cs2-teams-name-already-exists.exception';
+import { UsersService } from '../../users/users.service';
 
 describe('Cs2TeamsService', () => {
   let service: Cs2TeamsService;
@@ -21,7 +22,7 @@ describe('Cs2TeamsService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [Cs2TeamsService, PrismaService],
+      providers: [Cs2TeamsService, PrismaService, UsersService],
     })
       .overrideProvider(PrismaService)
       .useValue(prismaServiceMock)
@@ -60,14 +61,14 @@ describe('Cs2TeamsService', () => {
       // Act + Assert
       await expect(
         service.create(exampleCs2TeamCreateDto, exampleUser3.id),
-      ).rejects.toThrow(BadRequestException);
+      ).rejects.toThrow(Cs2TeamsNameAlreadyExistsException);
     });
 
     it('should throw an BadRequestException when the user is already in a team', async () => {
       // Act + Assert
       await expect(
         service.create(exampleCs2NonexistentTeamCreateDto, exampleUser.id),
-      ).rejects.toThrow(BadRequestException);
+      ).rejects.toThrow(Cs2TeamsNameAlreadyExistsException);
     });
   });
 });

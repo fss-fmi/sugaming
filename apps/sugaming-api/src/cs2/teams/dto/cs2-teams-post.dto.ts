@@ -10,7 +10,7 @@ import { Color } from '@prisma/client';
 import { i18nValidationMessage } from 'nestjs-i18n';
 import { appConfig } from '../../../app/app.config';
 
-export class CreateTeamDto {
+export class Cs2TeamsPostDto {
   @ApiProperty({
     description: 'Team name.',
     example: 'Example Team Name',
@@ -21,10 +21,10 @@ export class CreateTeamDto {
   @IsString({
     message: i18nValidationMessage('validation.isString'),
   })
-  @MinLength(appConfig.team.name.minLength, {
+  @MinLength(appConfig.cs2Team.name.minLength, {
     message: i18nValidationMessage('validation.minLength'),
   })
-  @MaxLength(appConfig.team.name.maxLength, {
+  @MaxLength(appConfig.cs2Team.name.maxLength, {
     message: i18nValidationMessage('validation.maxLength'),
   })
   name: string;

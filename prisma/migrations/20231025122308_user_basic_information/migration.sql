@@ -14,3 +14,6 @@ CREATE TABLE "Users" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Users_email_key" ON "Users"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Users_nickname_key" ON "Users"("nickname");
