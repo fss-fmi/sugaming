@@ -10,6 +10,7 @@ import {
 } from './cs2-teams.mock';
 import { exampleUser, exampleUser3 } from '../../users/users.mock';
 import { Cs2TeamsNameAlreadyExistsException } from './exceptions/cs2-teams-name-already-exists.exception';
+import { UsersService } from '../../users/users.service';
 
 describe('Cs2TeamsService', () => {
   let service: Cs2TeamsService;
@@ -21,7 +22,7 @@ describe('Cs2TeamsService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [Cs2TeamsService, PrismaService],
+      providers: [Cs2TeamsService, PrismaService, UsersService],
     })
       .overrideProvider(PrismaService)
       .useValue(prismaServiceMock)
