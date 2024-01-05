@@ -10,6 +10,8 @@ import { Cs2TeamsNoSuchTeamException } from './exceptions/cs2-teams-no-such-team
 import { Cs2TeamsAlreadyRequestedToJoinTeamException } from './exceptions/cs2-teams-already-requested-to-join-team.exception';
 import { Cs2TeamsNotCapitanException } from './exceptions/cs2-teams-not-capitan.exception';
 import { Cs2TeamsNoSuchJoinRequestException } from './exceptions/cs2-teams-no-such-join-request.exception';
+import { appConfig } from '../../app/app.config';
+import { Cs2TeamsTeamIsFullException } from './exceptions/cs2-teams-team-is-full.exception';
 
 @Injectable()
 export class Cs2TeamsService {
@@ -22,6 +24,16 @@ export class Cs2TeamsService {
     return this.prisma.cs2Teams.findUnique({
       where: {
         id,
+      },
+      include: {
+        members: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            nickname: true,
+          },
+        },
       },
     });
   }
@@ -196,6 +208,11 @@ export class Cs2TeamsService {
     const i18n = I18nContext.current();
     if (response === 'DECLINE') {
       return { message: i18n.t('responses.cs2.teams.joinRequestDeclined') };
+    }
+
+    // Validate that the team is not full
+    if (team.members.length >= appConfig.cs2Team.members.max) {
+      throw new Cs2TeamsTeamIsFullException();
     }
 
     // Add the user to the team

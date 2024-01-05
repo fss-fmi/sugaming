@@ -21,10 +21,10 @@ export class Cs2TeamsPostDto {
   @IsString({
     message: i18nValidationMessage('validation.isString'),
   })
-  @MinLength(appConfig.team.name.minLength, {
+  @MinLength(appConfig.cs2Team.name.minLength, {
     message: i18nValidationMessage('validation.minLength'),
   })
-  @MaxLength(appConfig.team.name.maxLength, {
+  @MaxLength(appConfig.cs2Team.name.maxLength, {
     message: i18nValidationMessage('validation.maxLength'),
   })
   name: string;

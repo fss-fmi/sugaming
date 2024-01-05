@@ -12,6 +12,8 @@ import { UsersNoSuchTeamException } from './exceptions/users-no-such-team.except
 import { UsersNoSuchInviteException } from './exceptions/users-no-such-invite.exception';
 import { UsersAlreadyInTeamException } from './exceptions/users-already-in-team.exception';
 import { UsersNotInviteeOfInviteException } from './exceptions/users-not-invitee-of-invite.exception';
+import { appConfig } from '../app/app.config';
+import { UsersTeamIsFullException } from './exceptions/users-team-is-full.exception';
 
 @Injectable()
 export class UsersService {
@@ -193,6 +195,9 @@ export class UsersService {
       where: {
         id: invite.teamId,
       },
+      include: {
+        members: true,
+      },
     });
 
     if (!team) {
@@ -226,6 +231,11 @@ export class UsersService {
     const i18n = I18nContext.current();
     if (response === 'DECLINE') {
       return { message: i18n.t('responses.users.cs2TeamInviteDeclined') };
+    }
+
+    // Validate that the team is not full
+    if (team.members.length >= appConfig.cs2Team.members.max) {
+      throw new UsersTeamIsFullException();
     }
 
     // Add the user to the team
