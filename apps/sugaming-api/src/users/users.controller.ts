@@ -21,9 +21,9 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { Users } from '@prisma/client';
+import { User } from '@prisma/client';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { User } from './users.decorator';
+import { UserAuth } from './users.decorator';
 import { UserDto } from './dto/user.dto';
 import { UsersService } from './users.service';
 import { UsersPostCurrentCs2TeamInvitesRespondRequestBodyDto } from './dto/users-post-current-cs2-team-invites-respond-request-body.dto';
@@ -48,7 +48,7 @@ export class UsersController {
     type: UserDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid authentication token.' })
-  getCurrentV1(@User() user: Omit<Users, 'passwordHash'>) {
+  getCurrentV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
     return user;
   }
 
@@ -68,7 +68,7 @@ export class UsersController {
   @ApiNotFoundResponse({
     description: 'The user does not exist.',
   })
-  getUserCs2TeamInvitesV1(@User() user: Omit<Users, 'passwordHash'>) {
+  getUserCs2TeamInvitesV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
     return this.usersService.getUserCs2TeamInvites(user);
   }
 
@@ -105,7 +105,7 @@ export class UsersController {
   })
   postCs2TeamInviteV1(
     @Param('id') inviteeId: string,
-    @User() user: Omit<Users, 'passwordHash'>,
+    @UserAuth() user: Omit<User, 'passwordHash'>,
   ) {
     return this.usersService.createCs2TeamInvitation(user, inviteeId);
   }
@@ -141,7 +141,7 @@ export class UsersController {
   })
   async postCurrentCs2TeamInvitesRespondV1(
     @Param() params: UsersPostCurrentCs2TeamInvitesRespondParamsDto,
-    @User() user: Omit<Users, 'passwordHash'>,
+    @UserAuth() user: Omit<User, 'passwordHash'>,
     @Body() requestBody: UsersPostCurrentCs2TeamInvitesRespondRequestBodyDto,
   ) {
     return this.usersService.respondToCs2TeamInvite(

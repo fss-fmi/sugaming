@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Users } from '@prisma/client';
 import { I18nContext } from 'nestjs-i18n';
+import { User } from '@prisma/client';
 import { Cs2TeamsPostDto } from './dto/cs2-teams-post.dto';
 import { PrismaService } from '../../prisma/prisma.service';
 import { Cs2TeamsNameAlreadyExistsException } from './exceptions/cs2-teams-name-already-exists.exception';
@@ -21,7 +21,7 @@ export class Cs2TeamsService {
   ) {}
 
   async getById(id: number) {
-    return this.prisma.cs2Teams.findUnique({
+    return this.prisma.cs2Team.findUnique({
       where: {
         id,
       },
@@ -50,7 +50,7 @@ export class Cs2TeamsService {
 
   async create(createTeamDto: Cs2TeamsPostDto, capitanId: string) {
     // Check if team name is already taken
-    const teamNameExists = await this.prisma.cs2Teams.findFirst({
+    const teamNameExists = await this.prisma.cs2Team.findFirst({
       where: {
         name: createTeamDto.name,
       },
@@ -61,7 +61,7 @@ export class Cs2TeamsService {
     }
 
     // Check if user is already in a team
-    const teamsCaptainIsPartOf = await this.prisma.cs2Teams.findMany({
+    const teamsCaptainIsPartOf = await this.prisma.cs2Team.findMany({
       where: {
         OR: [{ capitanId }, { members: { some: { id: capitanId } } }],
       },
@@ -72,7 +72,7 @@ export class Cs2TeamsService {
     }
 
     // Create the team
-    return this.prisma.cs2Teams.create({
+    return this.prisma.cs2Team.create({
       data: {
         name: createTeamDto.name,
         color: createTeamDto.color,
@@ -86,7 +86,7 @@ export class Cs2TeamsService {
     });
   }
 
-  async getJoinRequests(teamId: number, user: Omit<Users, 'passwordHash'>) {
+  async getJoinRequests(teamId: number, user: Omit<User, 'passwordHash'>) {
     // Validate that the user exists
     await this.usersService.getByIdOrThrow(user.id);
 
@@ -115,7 +115,7 @@ export class Cs2TeamsService {
     });
   }
 
-  async createJoinRequest(teamId: number, user: Omit<Users, 'passwordHash'>) {
+  async createJoinRequest(teamId: number, user: Omit<User, 'passwordHash'>) {
     // Validate that the user exists
     await this.usersService.getByIdOrThrow(user.id);
 
@@ -123,7 +123,7 @@ export class Cs2TeamsService {
     await this.getByIdOrThrow(teamId);
 
     // Validate that the user is not already a part of the team
-    const existingTeam = await this.prisma.cs2Teams.findFirst({
+    const existingTeam = await this.prisma.cs2Team.findFirst({
       where: {
         members: { some: { id: user.id } },
       },
@@ -157,7 +157,7 @@ export class Cs2TeamsService {
     response: 'ACCEPT' | 'DECLINE',
     teamId: number,
     requestId: number,
-    user: Omit<Users, 'passwordHash'>,
+    user: Omit<User, 'passwordHash'>,
   ) {
     // Validate that the user exists
     await this.usersService.getByIdOrThrow(user.id);
@@ -186,7 +186,7 @@ export class Cs2TeamsService {
 
     // On accept, validate that the user is not already a part of the team
     if (response === 'ACCEPT') {
-      const existingTeam = await this.prisma.cs2Teams.findFirst({
+      const existingTeam = await this.prisma.cs2Team.findFirst({
         where: {
           members: { some: { id: request.userId } },
         },
@@ -216,7 +216,7 @@ export class Cs2TeamsService {
     }
 
     // Add the user to the team
-    await this.prisma.cs2Teams.update({
+    await this.prisma.cs2Team.update({
       where: {
         id: teamId,
       },
