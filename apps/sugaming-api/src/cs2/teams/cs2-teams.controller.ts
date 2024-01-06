@@ -21,11 +21,11 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { Users } from '@prisma/client';
+import { User } from '@prisma/client';
 import { Cs2TeamsService } from './cs2-teams.service';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { Cs2TeamsPostDto } from './dto/cs2-teams-post.dto';
-import { User } from '../../users/users.decorator';
+import { UserAuth } from '../../users/users.decorator';
 import { Cs2TeamsPostJoinRequestsDto } from './dto/cs2-teams-post-join-requests.dto';
 import { Cs2TeamsPostJoinRequestsRespondRequestBodyDto } from './dto/cs2-teams-post-join-requests-respond-request-body.dto';
 import { Cs2TeamsPostJoinRequestsRespondParamsDto } from './dto/cs2-teams-post-join-requests-respond-params.dto';
@@ -65,7 +65,7 @@ export class Cs2TeamsController {
   })
   async postV1(
     @Body() createTeamDto: Cs2TeamsPostDto,
-    @User() user: Omit<Users, 'passwordHash'>,
+    @UserAuth() user: Omit<User, 'passwordHash'>,
   ) {
     return this.cs2TeamsService.create(createTeamDto, user.id);
   }
@@ -96,7 +96,7 @@ export class Cs2TeamsController {
   })
   async getJoinRequestsV1(
     @Param() params: Cs2TeamsGetJoinRequestsParamsDto,
-    @User() user: Omit<Users, 'passwordHash'>,
+    @UserAuth() user: Omit<User, 'passwordHash'>,
   ) {
     return this.cs2TeamsService.getJoinRequests(params.teamId, user);
   }
@@ -128,7 +128,7 @@ export class Cs2TeamsController {
   })
   async postJoinRequestV1(
     @Param() params: Cs2TeamsPostJoinRequestsParamsDto,
-    @User() user: Omit<Users, 'passwordHash'>,
+    @UserAuth() user: Omit<User, 'passwordHash'>,
   ) {
     return this.cs2TeamsService.createJoinRequest(params.teamId, user);
   }
@@ -166,7 +166,7 @@ export class Cs2TeamsController {
   async postJoinRequestsRespondV1(
     @Param() params: Cs2TeamsPostJoinRequestsRespondParamsDto,
     @Body() requestBody: Cs2TeamsPostJoinRequestsRespondRequestBodyDto,
-    @User() user: Omit<Users, 'passwordHash'>,
+    @UserAuth() user: Omit<User, 'passwordHash'>,
   ) {
     return this.cs2TeamsService.respondToJoinRequest(
       requestBody.response,

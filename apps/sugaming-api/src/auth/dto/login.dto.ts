@@ -1,11 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Users } from '@prisma/client';
+import { User } from '@prisma/client';
 
 export class LoginDto {
   @ApiProperty({
     description: 'Current user information.',
   })
-  user: Omit<Users, 'passwordHash'>;
+  user: Omit<User, 'passwordHash'>;
 
   @ApiProperty({
     description: 'Access token for authenticating users across the platform.',

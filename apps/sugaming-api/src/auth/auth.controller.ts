@@ -14,11 +14,11 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { Users } from '@prisma/client';
+import { User } from '@prisma/client';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthService } from './auth.service';
 import { CredentialsDto } from './dto/credentials.dto';
-import { User } from '../users/users.decorator';
+import { UserAuth } from '../users/users.decorator';
 import { LoginDto } from './dto/login.dto';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 
@@ -44,7 +44,7 @@ export class AuthController {
   })
   @ApiUnauthorizedResponse({ description: 'Invalid user credentials.' })
   async postLoginV1(
-    @User() user: Omit<Users, 'passwordHash'>,
+    @UserAuth() user: Omit<User, 'passwordHash'>,
   ): Promise<LoginDto> {
     return this.authService.login(user);
   }
@@ -67,7 +67,7 @@ export class AuthController {
     type: LoginDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid refresh token.' })
-  async postRefreshV1(@User() user: Omit<Users, 'passwordHash'>) {
+  async postRefreshV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
     return this.authService.login(user);
   }
 }

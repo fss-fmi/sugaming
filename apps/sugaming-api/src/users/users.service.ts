@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
-import { Users } from '@prisma/client';
 import { I18nContext } from 'nestjs-i18n';
+import { User } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { UsersCannotInviteSelfException } from './exceptions/users-cannot-invite-self.exception';
 import { UsersNotMemberOfCs2TeamException } from './exceptions/users-not-member-of-cs2-team.exception';
@@ -21,7 +21,7 @@ export class UsersService {
 
   async getById(id: string) {
     // Get user information from the database
-    const user = await this.prisma.users.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: {
         id,
       },
@@ -49,7 +49,7 @@ export class UsersService {
 
   async getByEmail(email: string) {
     // Get user information from the database
-    const user = await this.prisma.users.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: {
         email,
       },
@@ -77,7 +77,7 @@ export class UsersService {
 
   async verifyCredentials(email: string, password: string) {
     // Get user information from the database
-    const user = await this.prisma.users.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: {
         email,
       },
@@ -87,7 +87,7 @@ export class UsersService {
     return user != null && (await bcrypt.compare(password, user.passwordHash));
   }
 
-  async getUserCs2TeamInvites(user: Omit<Users, 'passwordHash'>) {
+  async getUserCs2TeamInvites(user: Omit<User, 'passwordHash'>) {
     // Validate that the user exists
     await this.getByIdOrThrow(user.id);
 
@@ -117,7 +117,7 @@ export class UsersService {
   }
 
   async createCs2TeamInvitation(
-    inviter: Omit<Users, 'passwordHash'>,
+    inviter: Omit<User, 'passwordHash'>,
     inviteeId: string,
   ) {
     // Check if the inviter is the same as the invitee
@@ -126,7 +126,7 @@ export class UsersService {
     }
 
     // Check if the inviter is a member of a CS2 team
-    const inviterTeam = await this.prisma.cs2Teams.findFirst({
+    const inviterTeam = await this.prisma.cs2Team.findFirst({
       where: {
         members: { some: { id: inviter.id } },
       },
@@ -142,7 +142,7 @@ export class UsersService {
     }
 
     // Check if the invitee exists
-    const invitee = await this.prisma.users.findUnique({
+    const invitee = await this.prisma.user.findUnique({
       where: {
         id: inviteeId,
       },
@@ -174,7 +174,7 @@ export class UsersService {
   async respondToCs2TeamInvite(
     response: 'ACCEPT' | 'DECLINE',
     inviteId: number,
-    user: Omit<Users, 'passwordHash'>,
+    user: Omit<User, 'passwordHash'>,
   ) {
     // Validate that the user exists
     await this.getByIdOrThrow(user.id);
@@ -191,7 +191,7 @@ export class UsersService {
     }
 
     // Validate that the team exists
-    const team = await this.prisma.cs2Teams.findUnique({
+    const team = await this.prisma.cs2Team.findUnique({
       where: {
         id: invite.teamId,
       },
@@ -210,7 +210,7 @@ export class UsersService {
     }
 
     // On accept, validate that the user is not already part of a team
-    const existingTeam = await this.prisma.cs2Teams.findFirst({
+    const existingTeam = await this.prisma.cs2Team.findFirst({
       where: {
         members: { some: { id: user.id } },
       },
@@ -239,7 +239,7 @@ export class UsersService {
     }
 
     // Add the user to the team
-    await this.prisma.cs2Teams.update({
+    await this.prisma.cs2Team.update({
       where: {
         id: team.id,
       },
