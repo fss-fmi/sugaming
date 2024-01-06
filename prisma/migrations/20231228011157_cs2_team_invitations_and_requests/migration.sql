@@ -1,5 +1,5 @@
 -- DropForeignKey
-ALTER TABLE "Cs2Teams" DROP CONSTRAINT "Cs2Teams_capitan_id_fkey";
+ALTER TABLE "cs2_teams" DROP CONSTRAINT "cs2_teams_capitan_id_fkey";
 
 -- CreateTable
 CREATE TABLE "cs2_team_invitations" (

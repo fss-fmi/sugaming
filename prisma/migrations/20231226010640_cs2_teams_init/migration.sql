@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "color" AS ENUM ('RED', 'ORANGE', 'YELLOW', 'GREEN', 'BLUE', 'PURPLE', 'PINK', 'BROWN', 'NAVY', 'VIOLET', 'CYAN', 'MAGENTA', 'LIME', 'TEAL', 'INDIGO', 'CORAL');
+CREATE TYPE "colors" AS ENUM ('RED', 'ORANGE', 'YELLOW', 'GREEN', 'BLUE', 'PURPLE', 'PINK', 'BROWN', 'NAVY', 'VIOLET', 'CYAN', 'MAGENTA', 'LIME', 'TEAL', 'INDIGO', 'CORAL');
 
 -- AlterTable
 ALTER TABLE "users" ADD COLUMN "cs2_team_id" INTEGER;
@@ -8,7 +8,7 @@ ALTER TABLE "users" ADD COLUMN "cs2_team_id" INTEGER;
 CREATE TABLE "cs2_teams" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
-    "color" "color" NOT NULL,
+    "color" "colors" NOT NULL,
     "capitan_id" TEXT,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMPTZ NOT NULL,
