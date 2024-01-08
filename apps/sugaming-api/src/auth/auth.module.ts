@@ -6,6 +6,7 @@ import { UsersModule } from '../users/users.module';
 import { AuthController } from './auth.controller';
 import { LocalStrategy } from './strategies/local.strategy';
 import { appConfig } from '../app/app.config';
+import { DiscordStrategy } from './strategies/discord.strategy';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { appConfig } from '../app/app.config';
     PassportModule,
     JwtModule.register(appConfig.jwtAccessToken),
   ],
-  providers: [AuthService, LocalStrategy],
+  providers: [AuthService, LocalStrategy, DiscordStrategy],
   controllers: [AuthController],
 })
 export class AuthModule {}

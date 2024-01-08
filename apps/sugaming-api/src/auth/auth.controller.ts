@@ -1,5 +1,6 @@
 import {
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -15,12 +16,13 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { User } from '@prisma/client';
-import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthService } from './auth.service';
 import { CredentialsDto } from './dto/credentials.dto';
 import { UserAuth } from '../users/users.decorator';
 import { LoginDto } from './dto/login.dto';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
+import { LocalAuthGuard } from './guards/local-auth.guard';
+import { DiscordAuthGuard } from './guards/discord-auth.guard';
 
 @Controller({ path: 'auth' })
 @ApiTags('Auth API')
@@ -47,6 +49,18 @@ export class AuthController {
     @UserAuth() user: Omit<User, 'passwordHash'>,
   ): Promise<LoginDto> {
     return this.authService.login(user);
+  }
+
+  @Get('login/discord')
+  @Version(['1'])
+  @UseGuards(DiscordAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Authenticate user using Discord',
+    description: 'Endpoint for authenticating users using Discord.',
+  })
+  async postLoginDiscordV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
+    return { message: 'OK' };
   }
 
   @Post('refresh')
