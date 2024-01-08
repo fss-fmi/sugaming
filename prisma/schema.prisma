@@ -22,6 +22,9 @@ model User {
   lastName  String? @map("last_name")
   nickname  String? @unique
 
+  // External accounts information
+  discord DiscordAccount?
+
   // CS2 Team
   cs2TeamId          Int?                @map("cs2_team_id")
   cs2Team            Cs2Team?            @relation(name: "CS2TeamMembers", fields: [cs2TeamId], references: [id], onDelete: SetNull)
@@ -34,6 +37,26 @@ model User {
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
 
   @@map("users")
+}
+
+model DiscordAccount {
+  // Primary key
+  id Int @id @default(autoincrement())
+
+  // User information
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  // Discord information
+  discordId    String @unique @map("discord_id")
+  accessToken  String @unique @map("access_token")
+  refreshToken String @unique @map("refresh_token")
+
+  // Row timestamps
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+
+  @@map("discord_accounts")
 }
 
 model Cs2Team {
