@@ -15020,6 +15020,13 @@ pascal-case@^3.1.2:
     no-case "^3.0.4"
     tslib "^2.0.3"
 
+passport-anonymous@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/passport-anonymous/-/passport-anonymous-1.0.1.tgz#241e37274ec44dfb7f6cad234b41c438386bc117"
+  integrity sha512-Mk2dls97nLTzHpsWCYQ54IVGucWaiWSHHr3+IhWYAebg4dRgRQIfyoeYrixoxB2z2z4+EM7p9yjC+a3yMB5z5A==
+  dependencies:
+    passport-strategy "1.x.x"
+
 passport-discord@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/passport-discord/-/passport-discord-0.1.4.tgz#9265be11952cdd54d77c47eaae352834444cf0f6"
