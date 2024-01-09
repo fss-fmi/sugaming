@@ -24,7 +24,7 @@ export const appConfig = {
   discord: {
     clientID: process.env.DISCORD_CLIENT_ID,
     clientSecret: process.env.DISCORD_CLIENT_SECRET,
-    callbackApi: process.env.DISCORD_CALLBACK_API,
+    callbackURL: process.env.DISCORD_CALLBACK_API,
     scope: ['identify'],
   },
 };

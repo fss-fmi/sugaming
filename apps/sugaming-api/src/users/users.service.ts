@@ -14,6 +14,7 @@ import { UsersAlreadyInTeamException } from './exceptions/users-already-in-team.
 import { UsersNotInviteeOfInviteException } from './exceptions/users-not-invitee-of-invite.exception';
 import { appConfig } from '../app/app.config';
 import { UsersTeamIsFullException } from './exceptions/users-team-is-full.exception';
+import { UsersDiscordAccountAlreadyLinkedException } from './exceptions/users-discord-account-already-linked.exception';
 
 @Injectable()
 export class UsersService {
@@ -24,6 +25,9 @@ export class UsersService {
     const user = await this.prisma.user.findUnique({
       where: {
         id,
+      },
+      include: {
+        discord: true,
       },
     });
 
@@ -53,6 +57,9 @@ export class UsersService {
       where: {
         email,
       },
+      include: {
+        discord: true,
+      },
     });
 
     // Return null if the user does not exist
@@ -73,6 +80,81 @@ export class UsersService {
     }
 
     return user;
+  }
+
+  async getByDiscordId(discordId: string) {
+    // Get user information from the database
+    const user = await this.prisma.user.findFirst({
+      where: {
+        discord: {
+          discordId,
+        },
+      },
+      include: {
+        discord: true,
+      },
+    });
+
+    // Return null if the user does not exist
+    if (!user) {
+      return null;
+    }
+
+    // Remove the password hash and return the user
+    const { passwordHash, ...userWithoutPassword } = user;
+    return userWithoutPassword;
+  }
+
+  async getByDiscordIdOrThrow(discordId: string) {
+    const user = await this.getByDiscordId(discordId);
+
+    if (!user) {
+      throw new UsersNoSuchUserException();
+    }
+
+    return user;
+  }
+
+  async linkDiscordAccount(
+    userId: string,
+    discordId: string,
+    accessToken: string,
+    refreshToken: string,
+  ) {
+    // Validate that the user exists
+    const user = await this.getByIdOrThrow(userId);
+
+    // Check if the user already has a discord account linked or the discord account is already linked to another user
+    const existingDiscordAccount = await this.prisma.discordAccount.findFirst({
+      where: {
+        OR: [
+          {
+            userId: user.id,
+          },
+          {
+            discordId,
+          },
+        ],
+      },
+    });
+
+    if (existingDiscordAccount) {
+      throw new UsersDiscordAccountAlreadyLinkedException();
+    }
+
+    // Create the discord account
+    return this.prisma.discordAccount.create({
+      data: {
+        discordId,
+        accessToken,
+        refreshToken,
+        user: {
+          connect: {
+            id: user.id,
+          },
+        },
+      },
+    });
   }
 
   async verifyCredentials(email: string, password: string) {

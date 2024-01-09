@@ -22,6 +22,7 @@ import { UserAuth } from '../users/users.decorator';
 import { LoginDto } from './dto/login.dto';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
+import { OptionalJwtAuthGuard } from './guards/optional-jwt-auth.guard';
 import { DiscordAuthGuard } from './guards/discord-auth.guard';
 
 @Controller({ path: 'auth' })
@@ -53,14 +54,14 @@ export class AuthController {
 
   @Get('login/discord')
   @Version(['1'])
-  @UseGuards(DiscordAuthGuard)
+  @UseGuards(OptionalJwtAuthGuard, DiscordAuthGuard)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary: 'Authenticate user using Discord',
     description: 'Endpoint for authenticating users using Discord.',
   })
   async postLoginDiscordV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
-    return { message: 'OK' };
+    return this.authService.login(user);
   }
 
   @Post('refresh')
