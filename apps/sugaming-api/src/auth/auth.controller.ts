@@ -9,7 +9,9 @@ import {
 } from '@nestjs/common';
 import {
   ApiBody,
+  ApiConflictResponse,
   ApiHeader,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiTags,
@@ -61,6 +63,18 @@ export class AuthController {
     summary: 'Authenticate user using Discord',
     description: 'Endpoint for authenticating users using Discord.',
   })
+  @ApiOkResponse({
+    description:
+      'User logged in successfully / Account linked successfully and access token and information is returned.',
+    type: LoginDto,
+  })
+  @ApiUnauthorizedResponse({ description: 'Invalid Discord token.' })
+  @ApiNotFoundResponse({
+    description: 'No user is linked to this Discord account.',
+  })
+  @ApiConflictResponse({
+    description: 'Discord account already linked to an user.',
+  })
   async postLoginDiscordV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
     return this.authService.login(user);
   }
@@ -72,6 +86,18 @@ export class AuthController {
   @ApiOperation({
     summary: 'Authenticate user using Steam',
     description: 'Endpoint for authenticating users using Steam.',
+  })
+  @ApiOkResponse({
+    description:
+      'User logged in successfully / Account linked successfully and access token and information is returned.',
+    type: LoginDto,
+  })
+  @ApiUnauthorizedResponse({ description: 'Invalid Steam token.' })
+  @ApiNotFoundResponse({
+    description: 'No user is linked to this Steam account.',
+  })
+  @ApiConflictResponse({
+    description: 'Steam account already linked to an user.',
   })
   async postLoginSteamV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
     return this.authService.login(user);
