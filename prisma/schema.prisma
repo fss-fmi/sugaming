@@ -24,6 +24,7 @@ model User {
 
   // External accounts information
   discord DiscordAccount?
+  steam   SteamAccount?
 
   // CS2 Team
   cs2TeamId          Int?                @map("cs2_team_id")
@@ -57,6 +58,24 @@ model DiscordAccount {
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
 
   @@map("discord_accounts")
+}
+
+model SteamAccount {
+  // Primary key
+  id Int @id @default(autoincrement())
+
+  // User information
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  // Steam information
+  steamId String @unique @map("steam_id")
+
+  // Row timestamps
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+
+  @@map("steam_accounts")
 }
 
 model Cs2Team {

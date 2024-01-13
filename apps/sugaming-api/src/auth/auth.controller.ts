@@ -24,6 +24,7 @@ import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { OptionalJwtAuthGuard } from './guards/optional-jwt-auth.guard';
 import { DiscordAuthGuard } from './guards/discord-auth.guard';
+import { SteamAuthGuard } from './guards/steam-auth.guard';
 
 @Controller({ path: 'auth' })
 @ApiTags('Auth API')
@@ -61,6 +62,18 @@ export class AuthController {
     description: 'Endpoint for authenticating users using Discord.',
   })
   async postLoginDiscordV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
+    return this.authService.login(user);
+  }
+
+  @Get('login/steam')
+  @Version(['1'])
+  @UseGuards(OptionalJwtAuthGuard, SteamAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Authenticate user using Steam',
+    description: 'Endpoint for authenticating users using Steam.',
+  })
+  async postLoginSteamV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
     return this.authService.login(user);
   }
 
