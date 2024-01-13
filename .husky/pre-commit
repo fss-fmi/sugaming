@@ -21,9 +21,9 @@ fi
 
 # Add changes to the current commit
 # This only re-adds files that were already staged
-#git diff --name-only --cached | while IFS= read -r filename; do
-#  # Check if the file exists
-#  if [ -e "$filename" ]; then
-#    git add "$filename"
-#  fi
-#done
+git diff --name-only --cached | while IFS= read -r filename; do
+  # Check if the file exists
+  if [ -e "$filename" ]; then
+    git add "$filename"
+  fi
+done
