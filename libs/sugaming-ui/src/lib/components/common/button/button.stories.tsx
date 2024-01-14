@@ -59,8 +59,65 @@ const meta: Meta<typeof Button> = {
 export default meta;
 
 type Story = StoryObj<typeof Button>;
-export const ButtonExample: Story = {
+
+export const DefaultButton: Story = {
   args: {
-    children: 'Button',
+    children: 'Default Button',
+  },
+};
+
+export const DestructiveButton: Story = {
+  args: {
+    children: 'Destructive Button',
+    variant: 'destructive',
+  },
+};
+
+export const OutlineButton: Story = {
+  args: {
+    children: 'Outline Button',
+    variant: 'outline',
+  },
+};
+
+export const SecondaryButton: Story = {
+  args: {
+    children: 'Secondary Button',
+    variant: 'secondary',
+  },
+};
+
+export const GhostButton: Story = {
+  args: {
+    children: 'Ghost Button',
+    variant: 'ghost',
+  },
+};
+
+export const LinkButton: Story = {
+  args: {
+    children: 'Link Button',
+    variant: 'link',
+  },
+};
+
+export const SmallButton: Story = {
+  args: {
+    children: 'Small Button',
+    size: 'sm',
+  },
+};
+
+export const LargeButton: Story = {
+  args: {
+    children: 'Large Button',
+    size: 'lg',
+  },
+};
+
+export const IconButton: Story = {
+  args: {
+    children: 'Icon Button',
+    size: 'icon',
   },
 };
