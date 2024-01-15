@@ -1,22 +1,22 @@
-import { UnauthorizedException } from '@nestjs/common';
 import { I18nContext } from 'nestjs-i18n';
 import { LocalStrategy } from './local.strategy';
-import { AuthService } from '../auth.service';
 import {
   exampleUserCredentials,
   exampleUserWithoutPassword,
 } from '../../users/users.mock';
+import { AuthUnauthorizedException } from '../exceptions/auth-unauthorized.exception';
 
 describe('LocalStrategy', () => {
-  jest.mock('../auth.service');
-  const mockAuthService: jest.Mocked<AuthService> =
-    jest.requireMock('../auth.service');
-  const strategy = new LocalStrategy(mockAuthService);
-
   jest.mock('nestjs-i18n');
   I18nContext.current = jest.fn().mockReturnValue({
     t: () => jest.fn().mockReturnValue(''),
   });
+
+  const mockAuthService = {
+    validateUser: jest.fn(),
+  };
+
+  const strategy = new LocalStrategy(mockAuthService as never);
 
   it('should be defined', () => {
     expect(strategy).toBeDefined();
@@ -49,7 +49,7 @@ describe('LocalStrategy', () => {
       // Act + Assert
       await expect(
         strategy.validate('invalid@example.com', 'WrongPassword'),
-      ).rejects.toThrow(UnauthorizedException);
+      ).rejects.toThrow(AuthUnauthorizedException);
       expect(mockAuthService.validateUser).toHaveBeenCalledTimes(1);
     });
   });

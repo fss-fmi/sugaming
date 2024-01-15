@@ -1,0 +1,8 @@
+{
+  "isNotEmpty": "The field '{property}' is required.",
+  "isInt": "The field '{property}' should be an integer.",
+  "isString": "The field '{property}' should be a string.",
+  "isEnum": "The field '{property}' with value: '{value}', must be one of the following values: {enum}.",
+  "minLength": "The field '{property}' with value: '{value}', must be at least {constraints.0} characters.",
+  "maxLength": "The field '{property}' with value: '{value}', must be at most {constraints.0} characters."
+}

@@ -20,8 +20,8 @@ export default function Index() {
 
   const handleClick = async () => {
     await login('gosho@losho.com', 'GoshoLoshoTestPassword');
-    const res = await ApiClient.UsersApiService.usersControllerGetProfile({
-      authorization: await getBearerToken(),
+    const res = await ApiClient.UsersApiService.usersControllerGetCurrentV1({
+      authorization: await getAuth(),
     });
     setUserInfo(res);
   };

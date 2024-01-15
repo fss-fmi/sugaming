@@ -1,5 +1,28 @@
 {
   "auth": {
     "unauthorized": "You are not authorized to access this resource."
+  },
+  "users": {
+    "noSuchUser": "No such user exists.",
+    "noSuchTeam": "No such team exists.",
+    "noSuchInvite": "No such invite exists.",
+    "cannotInviteSelf": "You cannot invite yourself.",
+    "notMemberOfTeam": "You are not a member of a team.",
+    "onlyCaptainCanInvite": "Only the team captain can invite new members.",
+    "inviteAlreadyPending": "An invitation to this user is already pending.",
+    "alreadyInTeam": "You are already a member of a different team.",
+    "notInviteeOfInvite": "You are not the invitee of this invite.",
+    "teamIsFull": "The team is already full."
+  },
+  "cs2": {
+    "teams": {
+      "noSuchTeam": "No such team exists.",
+      "nameAlreadyExists": "A team with the same name already exists.",
+      "notCaptain": "You are not the captain of this team.",
+      "alreadyInTeam": "You are already a member of a different team.",
+      "alreadyRequestedToJoinTeam": "You have already requested to join this team.",
+      "noJoinRequest": "No such requested to join this team.",
+      "teamIsFull": "The team is already full."
+    }
   }
 }

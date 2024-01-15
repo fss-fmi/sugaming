@@ -1,0 +1,12 @@
+{
+  "users": {
+    "cs2TeamInviteAccepted": "CS2 team invitation accepted successfully.",
+    "cs2TeamInviteDeclined": "CS2 team invitation declined successfully."
+  },
+  "cs2": {
+    "teams": {
+      "joinRequestAccepted": "The join request has been accepted successfully.",
+      "joinRequestDeclined": "The join request has been declined successfully."
+    }
+  }
+}

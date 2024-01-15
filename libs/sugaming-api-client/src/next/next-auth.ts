@@ -6,7 +6,7 @@ import { ResponseCookies } from 'next/dist/compiled/@edge-runtime/cookies';
 import { ApiClient } from '../client';
 
 export async function login(email: string, password: string) {
-  const response = await ApiClient.AuthApiService.authControllerPostLogin({
+  const response = await ApiClient.AuthApiService.authControllerPostLoginV1({
     requestBody: {
       email,
       password,
@@ -30,7 +30,7 @@ export async function getRefreshedTokens() {
     return null;
   }
 
-  return ApiClient.AuthApiService.authControllerPostRefresh({
+  return ApiClient.AuthApiService.authControllerPostRefreshV1({
     authorization: `Refresh ${refreshToken.value}`,
     cacheControl: 'no-cache',
     pragma: 'no-cache',

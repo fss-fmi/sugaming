@@ -1,0 +1,12 @@
+{
+  "users": {
+    "cs2TeamInviteAccepted": "Поканата за CS2 отбор е приета успешно.",
+    "cs2TeamInviteDeclined": "Поканата за CS2 отбор е отказана успешно."
+  },
+  "cs2": {
+    "teams": {
+      "joinRequestAccepted": "Заявката за присъединяване е приета успешно.",
+      "joinRequestDeclined": "Заявката за присъединяване е отказана успешно."
+    }
+  }
+}

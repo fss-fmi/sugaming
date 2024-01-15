@@ -9,12 +9,14 @@ import * as path from 'path';
 import { HealthModule } from '../health/health.module';
 import { UsersModule } from '../users/users.module';
 import { AuthModule } from '../auth/auth.module';
+import { Cs2TeamsModule } from '../cs2/teams/cs2-teams.module';
 
 @Module({
   imports: [
     HealthModule,
     UsersModule,
     AuthModule,
+    Cs2TeamsModule,
     I18nModule.forRoot({
       fallbackLanguage: 'en',
       loaderOptions: {
