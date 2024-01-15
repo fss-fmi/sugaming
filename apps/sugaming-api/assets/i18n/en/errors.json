@@ -12,7 +12,9 @@
     "inviteAlreadyPending": "An invitation to this user is already pending.",
     "alreadyInTeam": "You are already a member of a different team.",
     "notInviteeOfInvite": "You are not the invitee of this invite.",
-    "teamIsFull": "The team is already full."
+    "teamIsFull": "The team is already full.",
+    "emailAlreadyInUse": "The email is already in use.",
+    "nicknameAlreadyInUse": "The nickname is already in use."
   },
   "cs2": {
     "teams": {

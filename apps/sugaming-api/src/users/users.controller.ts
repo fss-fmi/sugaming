@@ -150,6 +150,32 @@ export class UsersController {
       user,
     );
   }
+
+  @Post()
+  @Version(['1'])
+  @HttpCode(HttpStatus.CREATED)
+  @ApiOperation({
+    summary: 'Register a new user',
+    description: 'Endpoint for registering a new user.',
+  })
+  @ApiCreatedResponse({
+    description: 'User registered successfully.',
+  })
+  @ApiForbiddenResponse({
+    schema: {
+      anyOf: [
+        {
+          description: 'The email is already in use.',
+        },
+        {
+          description: 'The nickname is already in use.',
+        },
+      ],
+    },
+  })
+  async registerUserV1(@Body() user: UserDto) {
+    return this.usersService.registerUser(user);
+  }
 }
 
 export default UsersController;

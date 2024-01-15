@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import { I18nContext } from 'nestjs-i18n';
 import { User } from '@prisma/client';
+import { UserDto } from './dto/user.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { UsersCannotInviteSelfException } from './exceptions/users-cannot-invite-self.exception';
 import { UsersNotMemberOfCs2TeamException } from './exceptions/users-not-member-of-cs2-team.exception';
@@ -12,8 +13,10 @@ import { UsersNoSuchTeamException } from './exceptions/users-no-such-team.except
 import { UsersNoSuchInviteException } from './exceptions/users-no-such-invite.exception';
 import { UsersAlreadyInTeamException } from './exceptions/users-already-in-team.exception';
 import { UsersNotInviteeOfInviteException } from './exceptions/users-not-invitee-of-invite.exception';
-import { appConfig } from '../app/app.config';
+import { UserEmailAlreadyInUseException } from './exceptions/users-email-already-in-use.exception';
+import { UserNicknameAlreadyInUseException } from './exceptions/users-nickname-already-in-use.exception';
 import { UsersTeamIsFullException } from './exceptions/users-team-is-full.exception';
+import { appConfig } from '../app/app.config';
 
 @Injectable()
 export class UsersService {
@@ -253,6 +256,45 @@ export class UsersService {
     });
 
     return { message: i18n.t('responses.users.cs2TeamInviteAccepted') };
+  }
+
+  async registerUser(userToBeCreated: UserDto) {
+    // Check if the email is already in use
+    const existingUser = await this.prisma.user.findUnique({
+      where: { email: userToBeCreated.email },
+    });
+
+    if (existingUser) {
+      throw new UserEmailAlreadyInUseException();
+    }
+
+    // Check if nickname is already in use
+    const existingNickname = await this.prisma.user.findUnique({
+      where: { nickname: userToBeCreated.nickname },
+    });
+
+    if (existingNickname) {
+      throw new UserNicknameAlreadyInUseException();
+    }
+
+    // Hash the password before storing it in the database
+    const hashedPassword = await bcrypt.hash(userToBeCreated.password, 10);
+
+    // Create the new user
+    const newUser = await this.prisma.user.create({
+      data: {
+        id: userToBeCreated.id,
+        email: userToBeCreated.email,
+        passwordHash: hashedPassword,
+        firstName: userToBeCreated.firstName,
+        lastName: userToBeCreated.lastName,
+        nickname: userToBeCreated.nickname,
+      },
+    });
+
+    // Remove the password hash and return the user
+    const { passwordHash, ...userWithoutPassword } = newUser;
+    return userWithoutPassword;
   }
 }
 
