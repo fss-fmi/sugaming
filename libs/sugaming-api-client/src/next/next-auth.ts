@@ -78,7 +78,7 @@ export async function getUser() {
   const bearerToken = await getBearerToken();
 
   try {
-    return await ApiClient.UsersApiService.usersControllerGetProfile({
+    return await ApiClient.UsersApiService.usersControllerGetCurrentV1({
       authorization: bearerToken,
     });
   } catch (ApiError) {

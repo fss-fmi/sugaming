@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { ApiClient } from '@sugaming/sugaming-api-client/client';
-import { getBearerToken, login } from '@sugaming/sugaming-api-client/next';
+import { login } from '@sugaming/sugaming-api-client/next';
 import { useTranslations } from 'next-intl';
 import {
   Button,
@@ -20,9 +20,7 @@ export default function Index() {
 
   const handleClick = async () => {
     await login('gosho@losho.com', 'GoshoLoshoTestPassword');
-    const res = await ApiClient.UsersApiService.usersControllerGetCurrentV1({
-      authorization: await getAuth(),
-    });
+    const res = await ApiClient.UsersApiService.usersControllerGetCurrentV1({});
     setUserInfo(res);
   };
 
