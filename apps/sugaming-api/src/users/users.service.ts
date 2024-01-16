@@ -15,6 +15,8 @@ import { UsersNotInviteeOfInviteException } from './exceptions/users-not-invitee
 import { UsersEmailAlreadyInUseException } from './exceptions/users-email-already-in-use.exception';
 import { UsersNicknameAlreadyInUseException } from './exceptions/users-nickname-already-in-use.exception';
 import { UsersTeamIsFullException } from './exceptions/users-team-is-full.exception';
+import { UsersDiscordAccountAlreadyLinkedException } from './exceptions/users-discord-account-already-linked.exception';
+import { UsersSteamAccountAlreadyLinkedException } from './exceptions/users-steam-account-already-linked.exception';
 import { appConfig } from '../app/app.config';
 import { UserRequestBodyDto } from './dto/user-request-body.dto';
 
@@ -27,6 +29,10 @@ export class UsersService {
     const user = await this.prisma.user.findUnique({
       where: {
         id,
+      },
+      include: {
+        discord: true,
+        steam: true,
       },
     });
 
@@ -56,6 +62,10 @@ export class UsersService {
       where: {
         email,
       },
+      include: {
+        discord: true,
+        steam: true,
+      },
     });
 
     // Return null if the user does not exist
@@ -76,6 +86,151 @@ export class UsersService {
     }
 
     return user;
+  }
+
+  async getByDiscordId(discordId: string) {
+    // Get user information from the database
+    const user = await this.prisma.user.findFirst({
+      where: {
+        discord: {
+          discordId,
+        },
+      },
+      include: {
+        discord: true,
+        steam: true,
+      },
+    });
+
+    // Return null if the user does not exist
+    if (!user) {
+      return null;
+    }
+
+    // Remove the password hash and return the user
+    const { passwordHash, ...userWithoutPassword } = user;
+    return userWithoutPassword;
+  }
+
+  async getByDiscordIdOrThrow(discordId: string) {
+    const user = await this.getByDiscordId(discordId);
+
+    if (!user) {
+      throw new UsersNoSuchUserException();
+    }
+
+    return user;
+  }
+
+  async getBySteamId(steamId: string) {
+    // Get user information from the database
+    const user = await this.prisma.user.findFirst({
+      where: {
+        steam: {
+          steamId,
+        },
+      },
+      include: {
+        discord: true,
+        steam: true,
+      },
+    });
+
+    // Return null if the user does not exist
+    if (!user) {
+      return null;
+    }
+
+    // Remove the password hash and return the user
+    const { passwordHash, ...userWithoutPassword } = user;
+    return userWithoutPassword;
+  }
+
+  async getBySteamIdOrThrow(steamId: string) {
+    const user = await this.getBySteamId(steamId);
+
+    if (!user) {
+      throw new UsersNoSuchUserException();
+    }
+
+    return user;
+  }
+
+  async linkDiscordAccount(
+    userId: string,
+    discordId: string,
+    accessToken: string,
+    refreshToken: string,
+  ) {
+    // Validate that the user exists
+    const user = await this.getByIdOrThrow(userId);
+
+    // Check if the user already has a discord account linked or the discord account is already linked to another user
+    const existingDiscordAccount = await this.prisma.discordAccount.findFirst({
+      where: {
+        OR: [
+          {
+            userId: user.id,
+          },
+          {
+            discordId,
+          },
+        ],
+      },
+    });
+
+    if (existingDiscordAccount) {
+      throw new UsersDiscordAccountAlreadyLinkedException();
+    }
+
+    // Create the discord account
+    return this.prisma.discordAccount.create({
+      data: {
+        discordId,
+        accessToken,
+        refreshToken,
+        user: {
+          connect: {
+            id: user.id,
+          },
+        },
+      },
+    });
+  }
+
+  async linkSteamAccount(userId: string, steamId: string) {
+    // Validate that the user exists
+    const user = await this.getByIdOrThrow(userId);
+
+    // Check if the user already has a steam account linked or the steam account is already linked to another user
+    const existingSteamAccount = await this.prisma.steamAccount.findFirst({
+      where: {
+        OR: [
+          {
+            userId: user.id,
+          },
+          {
+            steamId,
+          },
+        ],
+      },
+    });
+
+    if (existingSteamAccount) {
+      throw new UsersSteamAccountAlreadyLinkedException();
+    }
+
+    // Create the steam account
+    return this.prisma.steamAccount.create({
+      data: {
+        steamId,
+        user: {
+          connect: {
+            id: user.id,
+          },
+        },
+      },
+    });
   }
 
   async verifyCredentials(email: string, password: string) {
