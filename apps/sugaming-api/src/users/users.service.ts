@@ -13,8 +13,8 @@ import { UsersNoSuchTeamException } from './exceptions/users-no-such-team.except
 import { UsersNoSuchInviteException } from './exceptions/users-no-such-invite.exception';
 import { UsersAlreadyInTeamException } from './exceptions/users-already-in-team.exception';
 import { UsersNotInviteeOfInviteException } from './exceptions/users-not-invitee-of-invite.exception';
-import { UserEmailAlreadyInUseException } from './exceptions/users-email-already-in-use.exception';
-import { UserNicknameAlreadyInUseException } from './exceptions/users-nickname-already-in-use.exception';
+import { UsersEmailAlreadyInUseException } from './exceptions/users-email-already-in-use.exception';
+import { UsersNicknameAlreadyInUseException } from './exceptions/users-nickname-already-in-use.exception';
 import { UsersTeamIsFullException } from './exceptions/users-team-is-full.exception';
 import { appConfig } from '../app/app.config';
 
@@ -265,7 +265,7 @@ export class UsersService {
     });
 
     if (existingUser) {
-      throw new UserEmailAlreadyInUseException();
+      throw new UsersEmailAlreadyInUseException();
     }
 
     // Check if nickname is already in use
@@ -274,7 +274,7 @@ export class UsersService {
     });
 
     if (existingNickname) {
-      throw new UserNicknameAlreadyInUseException();
+      throw new UsersNicknameAlreadyInUseException();
     }
 
     // Hash the password before storing it in the database
