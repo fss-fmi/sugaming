@@ -6,6 +6,7 @@ import {
 } from '@nestjs/terminus';
 import { ServiceUnavailableException } from '@nestjs/common';
 import { HttpStatusCode } from 'axios';
+import { HttpModule } from '@nestjs/axios';
 import { HealthController } from './health.controller';
 import { PrismaService } from '../prisma/prisma.service';
 
@@ -20,7 +21,7 @@ describe('HealthController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [TerminusModule],
+      imports: [TerminusModule, HttpModule],
       providers: [PrismaService],
       controllers: [HealthController],
     }).compile();
@@ -43,7 +44,11 @@ describe('HealthController', () => {
 
       // Assert
       expect(result).toHaveProperty('status', 'ok');
-      expect(result).toHaveProperty('info', { prisma: { status: 'up' } });
+      expect(result).toHaveProperty('info', {
+        prisma: { status: 'up' },
+        discord: { status: 'up' },
+        steam: { status: 'up' },
+      });
     });
 
     it('should return an error when the database is down', async () => {
