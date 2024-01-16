@@ -2,6 +2,7 @@ import { Controller, Get, Version } from '@nestjs/common';
 import {
   HealthCheck,
   HealthCheckService,
+  HttpHealthIndicator,
   PrismaHealthIndicator,
 } from '@nestjs/terminus';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -14,6 +15,7 @@ export class HealthController {
     private readonly health: HealthCheckService,
     private readonly prismaHealth: PrismaHealthIndicator,
     private readonly prismaService: PrismaService,
+    private readonly http: HttpHealthIndicator,
   ) {}
 
   @Get()
@@ -30,6 +32,8 @@ export class HealthController {
         this.prismaHealth.pingCheck('prisma', this.prismaService, {
           timeout: 10000,
         }),
+      () => this.http.pingCheck('discord', 'https://discord.com'),
+      () => this.http.pingCheck('steam', 'https://steamcommunity.com/openid'),
     ]);
   }
 }

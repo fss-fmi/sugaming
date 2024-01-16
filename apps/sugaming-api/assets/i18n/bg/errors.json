@@ -12,7 +12,9 @@
     "inviteAlreadyPending": "Вече има покана за този играч.",
     "alreadyInTeam": "Вече сте член на друг отбор.",
     "notInviteeOfInvite": "Тази покана е се отнася за друг потребител.",
-    "teamIsFull": "Отборът няма свободни места."
+    "teamIsFull": "Отборът няма свободни места.",
+    "discordAccountAlreadyLinked": "Този Discord акаунт вече е свързан с потребител.",
+    "steamAccountAlreadyLinked": "Този Steam акаунт вече е свързан с потребител."
   },
   "cs2": {
     "teams": {

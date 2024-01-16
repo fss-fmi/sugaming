@@ -1,5 +1,6 @@
 import {
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -8,19 +9,24 @@ import {
 } from '@nestjs/common';
 import {
   ApiBody,
+  ApiConflictResponse,
   ApiHeader,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { User } from '@prisma/client';
-import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthService } from './auth.service';
 import { CredentialsDto } from './dto/credentials.dto';
 import { UserAuth } from '../users/users.decorator';
 import { LoginDto } from './dto/login.dto';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
+import { LocalAuthGuard } from './guards/local-auth.guard';
+import { OptionalJwtAuthGuard } from './guards/optional-jwt-auth.guard';
+import { DiscordAuthGuard } from './guards/discord-auth.guard';
+import { SteamAuthGuard } from './guards/steam-auth.guard';
 
 @Controller({ path: 'auth' })
 @ApiTags('Auth API')
@@ -46,6 +52,54 @@ export class AuthController {
   async postLoginV1(
     @UserAuth() user: Omit<User, 'passwordHash'>,
   ): Promise<LoginDto> {
+    return this.authService.login(user);
+  }
+
+  @Get('login/discord')
+  @Version(['1'])
+  @UseGuards(OptionalJwtAuthGuard, DiscordAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Authenticate user using Discord',
+    description: 'Endpoint for authenticating users using Discord.',
+  })
+  @ApiOkResponse({
+    description:
+      'User logged in successfully / Account linked successfully and access token and information is returned.',
+    type: LoginDto,
+  })
+  @ApiUnauthorizedResponse({ description: 'Invalid Discord token.' })
+  @ApiNotFoundResponse({
+    description: 'No user is linked to this Discord account.',
+  })
+  @ApiConflictResponse({
+    description: 'Discord account already linked to an user.',
+  })
+  async postLoginDiscordV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
+    return this.authService.login(user);
+  }
+
+  @Get('login/steam')
+  @Version(['1'])
+  @UseGuards(OptionalJwtAuthGuard, SteamAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Authenticate user using Steam',
+    description: 'Endpoint for authenticating users using Steam.',
+  })
+  @ApiOkResponse({
+    description:
+      'User logged in successfully / Account linked successfully and access token and information is returned.',
+    type: LoginDto,
+  })
+  @ApiUnauthorizedResponse({ description: 'Invalid Steam token.' })
+  @ApiNotFoundResponse({
+    description: 'No user is linked to this Steam account.',
+  })
+  @ApiConflictResponse({
+    description: 'Steam account already linked to an user.',
+  })
+  async postLoginSteamV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
     return this.authService.login(user);
   }
 
