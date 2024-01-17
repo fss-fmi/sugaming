@@ -24,7 +24,7 @@ export default meta;
 
 type Story = StoryObj<typeof Navbar>;
 
-export const DefaultNavbar: Story = {
+export const NavbarExample: Story = {
   args: {
     children: (
       <>
