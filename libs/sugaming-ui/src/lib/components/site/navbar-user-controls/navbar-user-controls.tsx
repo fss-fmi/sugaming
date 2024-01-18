@@ -17,7 +17,7 @@ import {
 } from '../../common/client';
 
 interface NavbarUserControlsProps {
-  user: ApiClient.UserDto | undefined;
+  user: ApiClient.UserResponseBodyDto | undefined;
   className: string;
 }
 
