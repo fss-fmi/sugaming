@@ -14,7 +14,9 @@
     "notInviteeOfInvite": "Тази покана е се отнася за друг потребител.",
     "teamIsFull": "Отборът няма свободни места.",
     "discordAccountAlreadyLinked": "Този Discord акаунт вече е свързан с потребител.",
-    "steamAccountAlreadyLinked": "Този Steam акаунт вече е свързан с потребител."
+    "steamAccountAlreadyLinked": "Този Steam акаунт вече е свързан с потребител.",
+    "emailAlreadyInUse": "Имейлът вече е използван.",
+    "nicknameAlreadyInUse": "Името вече е използвано от друг потребител."
   },
   "cs2": {
     "teams": {

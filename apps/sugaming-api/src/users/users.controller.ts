@@ -24,15 +24,43 @@ import {
 import { User } from '@prisma/client';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { UserAuth } from './users.decorator';
-import { UserDto } from './dto/user.dto';
 import { UsersService } from './users.service';
 import { UsersPostCurrentCs2TeamInvitesRespondRequestBodyDto } from './dto/users-post-current-cs2-team-invites-respond-request-body.dto';
 import { UsersPostCurrentCs2TeamInvitesRespondParamsDto } from './dto/users-post-current-cs2-team-invites-respond-params.dto';
+import { UserResponseBodyDto } from './dto/user-response-body.dto';
+import { UserRequestBodyDto } from './dto/user-request-body.dto';
 
 @Controller('users')
 @ApiTags('Users API')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
+
+  @Post()
+  @Version(['1'])
+  @HttpCode(HttpStatus.CREATED)
+  @ApiOperation({
+    summary: 'Register a new user',
+    description: 'Endpoint for registering a new user.',
+  })
+  @ApiBody({ type: UserRequestBodyDto })
+  @ApiCreatedResponse({
+    description: 'User registered successfully.',
+  })
+  @ApiConflictResponse({
+    schema: {
+      anyOf: [
+        {
+          description: 'The email is already in use.',
+        },
+        {
+          description: 'The nickname is already in use.',
+        },
+      ],
+    },
+  })
+  async postUsersV1(@Body() user: UserRequestBodyDto) {
+    return this.usersService.registerUser(user);
+  }
 
   @Get('current')
   @Version(['1'])
@@ -45,7 +73,7 @@ export class UsersController {
   })
   @ApiOkResponse({
     description: 'The user is authenticated and user information is returned.',
-    type: UserDto,
+    type: UserResponseBodyDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid authentication token.' })
   getCurrentV1(@UserAuth() user: Omit<User, 'passwordHash'>) {

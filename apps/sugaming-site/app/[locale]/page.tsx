@@ -24,7 +24,7 @@ import {
 
 export default function Index() {
   const t = useTranslations('Index');
-  const [userInfo, setUserInfo] = useState<ApiClient.UserDto>();
+  const [userInfo, setUserInfo] = useState<ApiClient.UserResponseBodyDto>();
 
   const handleClick = async () => {
     await login('gosho@losho.com', 'GoshoLoshoTestPassword');
