@@ -1,9 +1,59 @@
 {
-  "Common": {
-    "ThemeSwitcher": {
+  "common": {
+    "theme-switcher": {
       "light": "Light",
       "system": "System",
       "dark": "Dark"
+    }
+  },
+  "site": {
+    "navbar-links": {
+      "home": "Home",
+      "cs2": {
+        "name": "Counter-Strike 2",
+        "description": "Home page of the SUGAMING Counter-Strike hub.",
+        "tournaments": {
+          "name": "Tournaments",
+          "description": "Discover past, on-going, and future Counter-Strike competitive events."
+        },
+        "matches": {
+          "name": "Matches",
+          "description": "All current and upcoming competitive matches."
+        },
+        "ranking": {
+          "name": "Ranking",
+          "description": "Competitive ranking of all the Counter-Strike teams."
+        }
+      },
+      "league": {
+        "name": "League of Legends",
+        "description": "Home page of the SUGAMING League of Legends hub.",
+        "tournaments": {
+          "name": "Tournaments",
+          "description": "Discover past, on-going, and future League of Legends competitive events."
+        },
+        "matches": {
+          "name": "Matches",
+          "description": "All current and upcoming competitive matches."
+        },
+        "ranking": {
+          "name": "Ranking",
+          "description": "Competitive ranking of all the League of Legends teams."
+        }
+      },
+      "valorant": {
+        "name": "Valorant",
+        "coming-soon": "Coming soon"
+      },
+      "game-dev": "Game Development"
+    },
+    "navbar-user-controls": {
+      "preferences-popover": {
+        "get-started": "Get started",
+        "theme": "Theme"
+      },
+      "login": "Log in",
+      "signup": "Sign up"
     }
   }
 }

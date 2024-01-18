@@ -9,7 +9,7 @@ import { Label } from '../label/label';
 
 export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
-  const t = useTranslations('Common.ThemeSwitcher');
+  const t = useTranslations('common.theme-switcher');
 
   return (
     <div className="relative inline-block pb-5">

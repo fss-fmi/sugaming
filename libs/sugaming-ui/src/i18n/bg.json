@@ -1,9 +1,59 @@
 {
-  "Common": {
-    "ThemeSwitcher": {
+  "common": {
+    "theme-switcher": {
       "light": "Светла",
       "system": "Системна",
       "dark": "Тъмна"
+    }
+  },
+  "site": {
+    "navbar-links": {
+      "home": "Начало",
+      "cs2": {
+        "name": "Counter-Strike 2",
+        "description": "Начална страница на SUGAMING Counter-Strike девизията.",
+        "tournaments": {
+          "name": "Турнири",
+          "description": "Открий минали, настоящи и бъдещи Counter-Strike събития."
+        },
+        "matches": {
+          "name": "Мачове",
+          "description": "Всички настоящи и бъдещи съревнователни мачове."
+        },
+        "ranking": {
+          "name": "Ранглиста",
+          "description": "Ранглиста на всички Counter-Strike отбори."
+        }
+      },
+      "league": {
+        "name": "League of Legends",
+        "description": "Начална страница на SUGAMING League of Legends девизията",
+        "tournaments": {
+          "name": "Турнири",
+          "description": "Открий минали, настоящи и бъдещи League of Legends събития."
+        },
+        "matches": {
+          "name": "Мачове",
+          "description": "Всички настоящи и бъдещи съревнователни мачове."
+        },
+        "ranking": {
+          "name": "Ранглиста",
+          "description": "Ранглиста на всички League of Legends отбори."
+        }
+      },
+      "valorant": {
+        "name": "Valorant",
+        "coming-soon": "Очаквайте скоро"
+      },
+      "game-dev": "Разработка на игри"
+    },
+    "navbar-user-controls": {
+      "preferences-popover": {
+        "get-started": "Начало",
+        "theme": "Тема"
+      },
+      "login": "Вход",
+      "signup": "Регистрация"
     }
   }
 }

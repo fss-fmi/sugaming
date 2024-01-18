@@ -76,6 +76,39 @@ export async function bootstrap() {
       },
     })
     .addGlobalParameters({
+      in: 'header',
+      required: false,
+      name: 'Cache-Control',
+      schema: {
+        type: 'string',
+        examples: ['no-cache'],
+        description:
+          'Used to specify directives that must be obeyed by all caching mechanisms along the request-response chain',
+      },
+    })
+    .addGlobalParameters({
+      in: 'header',
+      required: false,
+      name: 'Pragma',
+      schema: {
+        type: 'string',
+        examples: ['no-cache'],
+        description:
+          'Implementation-specific fields that may have various effects anywhere along the request-response chain',
+      },
+    })
+    .addGlobalParameters({
+      in: 'header',
+      required: false,
+      name: 'Expires',
+      schema: {
+        type: 'string',
+        examples: ['0'],
+        description:
+          'The date/time after which the response is considered stale',
+      },
+    })
+    .addGlobalParameters({
       in: 'cookie',
       required: false,
       name: 'lang',
