@@ -12,10 +12,13 @@ import { UsersNoSuchTeamException } from './exceptions/users-no-such-team.except
 import { UsersNoSuchInviteException } from './exceptions/users-no-such-invite.exception';
 import { UsersAlreadyInTeamException } from './exceptions/users-already-in-team.exception';
 import { UsersNotInviteeOfInviteException } from './exceptions/users-not-invitee-of-invite.exception';
-import { appConfig } from '../app/app.config';
+import { UsersEmailAlreadyInUseException } from './exceptions/users-email-already-in-use.exception';
+import { UsersNicknameAlreadyInUseException } from './exceptions/users-nickname-already-in-use.exception';
 import { UsersTeamIsFullException } from './exceptions/users-team-is-full.exception';
 import { UsersDiscordAccountAlreadyLinkedException } from './exceptions/users-discord-account-already-linked.exception';
 import { UsersSteamAccountAlreadyLinkedException } from './exceptions/users-steam-account-already-linked.exception';
+import { appConfig } from '../app/app.config';
+import { UserRequestBodyDto } from './dto/user-request-body.dto';
 
 @Injectable()
 export class UsersService {
@@ -408,6 +411,42 @@ export class UsersService {
     });
 
     return { message: i18n.t('responses.users.cs2TeamInviteAccepted') };
+  }
+
+  async registerUser(userToBeCreated: UserRequestBodyDto) {
+    // Check if the email is already in use
+    const existingUser = await this.prisma.user.findUnique({
+      where: { email: userToBeCreated.email },
+    });
+
+    if (existingUser) {
+      throw new UsersEmailAlreadyInUseException();
+    }
+
+    // Check if nickname is already in use
+    const existingNickname = await this.prisma.user.findUnique({
+      where: { nickname: userToBeCreated.nickname },
+    });
+
+    if (existingNickname) {
+      throw new UsersNicknameAlreadyInUseException();
+    }
+
+    // Hash the password before storing it in the database
+    const hashedPassword = await bcrypt.hash(userToBeCreated.password, 10);
+
+    // Create the user
+    const { password, ...userToBeCreatedWithoutPassword } = userToBeCreated;
+    const newUser = await this.prisma.user.create({
+      data: {
+        passwordHash: hashedPassword,
+        ...userToBeCreatedWithoutPassword,
+      },
+    });
+
+    // Remove the password hash and return the user
+    const { passwordHash, ...userWithoutPassword } = newUser;
+    return userWithoutPassword;
   }
 }
 
