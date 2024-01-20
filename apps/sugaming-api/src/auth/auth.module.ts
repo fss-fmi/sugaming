@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { AuthService } from './auth.service';
-import { UsersModule } from '../users/users.module';
-import { AuthController } from './auth.controller';
-import { LocalStrategy } from './strategies/local.strategy';
+import { AuthService } from '@sugaming/sugaming-services/auth/auth.service';
+import { LocalStrategy } from '@sugaming/sugaming-services/auth/strategies/local.strategy';
+import { AnonymousStrategy } from '@sugaming/sugaming-services/auth/strategies/anonymous.strategy';
+import { DiscordStrategy } from '@sugaming/sugaming-services/auth/strategies/discord.strategy';
+import { SteamStrategy } from '@sugaming/sugaming-services/auth/strategies/steam.strategy';
 import { appConfig } from '../app/app.config';
-import { DiscordStrategy } from './strategies/discord.strategy';
-import { AnonymousStrategy } from './strategies/anonymous.strategy';
-import { SteamStrategy } from './strategies/steam.strategy';
+import { AuthController } from './auth.controller';
+import { UsersModule } from '../users/users.module';
 
 @Module({
   imports: [

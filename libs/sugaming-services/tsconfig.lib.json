@@ -6,6 +6,7 @@
     "types": ["node"],
     "target": "es2021",
     "strictNullChecks": true,
+    "emitDecoratorMetadata": true,
     "noImplicitAny": true,
     "strictBindCallApply": true,
     "forceConsistentCasingInFileNames": true,

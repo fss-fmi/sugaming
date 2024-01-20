@@ -21,7 +21,7 @@
       "@sugaming/sugaming-api-client/next": [
         "libs/sugaming-api-client/src/next"
       ],
-      "@sugaming/sugaming-services": ["libs/sugaming-services/src/index.ts"],
+      "@sugaming/sugaming-services/*": ["libs/sugaming-services/src/*"],
       "@sugaming/sugaming-ui": ["libs/sugaming-ui/src/index.ts"],
       "@sugaming/sugaming-ui/*": ["libs/sugaming-ui/src/*"]
     },

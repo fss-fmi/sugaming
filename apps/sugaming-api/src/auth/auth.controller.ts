@@ -18,15 +18,15 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { User } from '@prisma/client';
-import { AuthService } from './auth.service';
-import { CredentialsDto } from './dto/credentials.dto';
-import { UserAuth } from '../users/users.decorator';
-import { LoginDto } from './dto/login.dto';
-import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
-import { LocalAuthGuard } from './guards/local-auth.guard';
-import { OptionalJwtAuthGuard } from './guards/optional-jwt-auth.guard';
-import { DiscordAuthGuard } from './guards/discord-auth.guard';
-import { SteamAuthGuard } from './guards/steam-auth.guard';
+import { AuthService } from '@sugaming/sugaming-services/auth/auth.service';
+import { CredentialsDto } from '@sugaming/sugaming-services/auth/dto/credentials.dto';
+import { LocalAuthGuard } from '@sugaming/sugaming-services/auth/guards/local-auth.guard';
+import { LoginDto } from '@sugaming/sugaming-services/auth/dto/login.dto';
+import { OptionalJwtAuthGuard } from '@sugaming/sugaming-services/auth/guards/optional-jwt-auth.guard';
+import { DiscordAuthGuard } from '@sugaming/sugaming-services/auth/guards/discord-auth.guard';
+import { SteamAuthGuard } from '@sugaming/sugaming-services/auth/guards/steam-auth.guard';
+import { JwtRefreshGuard } from '@sugaming/sugaming-services/auth/guards/jwt-refresh.guard';
+import { UserAuth } from '../users/user-auth.decorator';
 
 @Controller({ path: 'auth' })
 @ApiTags('Auth API')

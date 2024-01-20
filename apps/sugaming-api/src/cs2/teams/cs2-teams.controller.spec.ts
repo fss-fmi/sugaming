@@ -1,18 +1,18 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { Cs2TeamsController } from './cs2-teams.controller';
-import { Cs2TeamsService } from './cs2-teams.service';
-import { exampleUserWithoutPassword3 } from '../../users/users.mock';
 import {
   exampleCs2NonexistentTeam,
   exampleCs2NonexistentTeamCreateDto,
-} from './cs2-teams.mock';
+} from '@sugaming/sugaming-services/cs2/teams/cs2-teams.mock';
+import { Cs2TeamsService } from '@sugaming/sugaming-services/cs2/teams/cs2-teams.service';
+import { exampleUserWithoutPassword3 } from '@sugaming/sugaming-services/users/users.mock';
+import { Cs2TeamsController } from './cs2-teams.controller';
 
 describe('Cs2TeamsController', () => {
   let controller: Cs2TeamsController;
 
-  jest.mock('./cs2-teams.service');
+  jest.mock('@sugaming/sugaming-services/cs2/teams/cs2-teams.service');
   const mockCs2TeamsService: jest.Mocked<Cs2TeamsService> = jest.requireMock(
-    './cs2-teams.service',
+    '@sugaming/sugaming-services/cs2/teams/cs2-teams.service',
   );
 
   mockCs2TeamsService.create = jest

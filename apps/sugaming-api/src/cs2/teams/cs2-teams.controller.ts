@@ -22,15 +22,15 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { User } from '@prisma/client';
-import { Cs2TeamsService } from './cs2-teams.service';
-import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
-import { Cs2TeamsPostDto } from './dto/cs2-teams-post.dto';
-import { UserAuth } from '../../users/users.decorator';
-import { Cs2TeamsPostJoinRequestsDto } from './dto/cs2-teams-post-join-requests.dto';
-import { Cs2TeamsPostJoinRequestsRespondRequestBodyDto } from './dto/cs2-teams-post-join-requests-respond-request-body.dto';
-import { Cs2TeamsPostJoinRequestsRespondParamsDto } from './dto/cs2-teams-post-join-requests-respond-params.dto';
-import { Cs2TeamsPostJoinRequestsParamsDto } from './dto/cs2-teams-post-join-requests-params.dto';
-import { Cs2TeamsGetJoinRequestsParamsDto } from './dto/cs2-teams-get-join-requests-params.dto';
+import { Cs2TeamsService } from '@sugaming/sugaming-services/cs2/teams/cs2-teams.service';
+import { JwtAuthGuard } from '@sugaming/sugaming-services/auth/guards/jwt-auth.guard';
+import { Cs2TeamsPostDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-post.dto';
+import { Cs2TeamsPostJoinRequestsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-post-join-requests.dto';
+import { Cs2TeamsPostJoinRequestsRespondRequestBodyDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-post-join-requests-respond-request-body.dto';
+import { Cs2TeamsPostJoinRequestsRespondParamsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-post-join-requests-respond-params.dto';
+import { Cs2TeamsPostJoinRequestsParamsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-post-join-requests-params.dto';
+import { Cs2TeamsGetJoinRequestsParamsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-get-join-requests-params.dto';
+import { UserAuth } from '../../users/user-auth.decorator';
 
 @Controller('cs2/teams')
 @ApiTags('CS2 Teams API')
