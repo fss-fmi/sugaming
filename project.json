@@ -8,6 +8,18 @@
         "syncVersions": true,
         "preset": "conventional"
       }
+    },
+    "prisma": {
+      "command": "prisma",
+      "options": {
+        "cwd": "./prisma"
+      }
+    },
+    "prisma-generate": {
+      "command": "prisma generate",
+      "options": {
+        "cwd": "./prisma"
+      }
     }
   }
 }
