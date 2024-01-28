@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Command, Handler } from '@discord-nestjs/core';
 import { CommandInteraction } from 'discord.js';
+import { EnableMethodLoggerDecorator } from '../../decorators/enable-method-logger.decorator';
 
 @Injectable()
 @Command({
@@ -9,7 +10,10 @@ import { CommandInteraction } from 'discord.js';
 })
 export class PingCommand {
   @Handler()
+  @EnableMethodLoggerDecorator()
   async handler(interaction: CommandInteraction): Promise<string> {
-    return 'pong';
+    return `🏓 Pong! ${Math.round(
+      Date.now() - interaction.createdTimestamp,
+    )}ms`;
   }
 }
