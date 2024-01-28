@@ -12856,6 +12856,13 @@ jest-message-util@^29.7.0:
     slash "^3.0.0"
     stack-utils "^2.0.3"
 
+jest-mock-extended@^2.0.4:
+  version "2.0.9"
+  resolved "https://registry.yarnpkg.com/jest-mock-extended/-/jest-mock-extended-2.0.9.tgz#bc0e4a269cdb6047d7cc086e1d9722f7215ca795"
+  integrity sha512-eRZq7/FgwHbxOMm3Lo4DpQX6S2zi4OvwMVFHEb3FgDLp0Xy3P1WARkF93xxO5uD4nAHiEPYHZ25qVU9mAVxoLQ==
+  dependencies:
+    ts-essentials "^7.0.3"
+
 jest-mock-extended@^3.0.5:
   version "3.0.5"
   resolved "https://registry.yarnpkg.com/jest-mock-extended/-/jest-mock-extended-3.0.5.tgz#ebf208e363f4f1db603b81fb005c4055b7c1c8b7"
@@ -15834,6 +15841,13 @@ pretty-hrtime@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/pretty-hrtime/-/pretty-hrtime-1.0.3.tgz#b7e3ea42435a4c9b2759d99e0f201eb195802ee1"
   integrity sha512-66hKPCr+72mlfiSjlEB1+45IjXSqvVAIy6mocupoww4tBFE9R9IhwwUGoI4G++Tc9Aq+2rxOt0RFU6gPcrte0A==
+
+prisma-mock@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/prisma-mock/-/prisma-mock-0.10.0.tgz#e961bbaf02aeb6aa72a113a4fcd5c6e3bb8072aa"
+  integrity sha512-Sm+geIOkZOrRy8GZr+57TGhH8OXke9mb8CH1xyQmICgmwT4bz9qeKqj9531DgyHErXGGpWHdh8s8HEghrFn8FQ==
+  dependencies:
+    jest-mock-extended "^2.0.4"
 
 prisma@^5.8.1:
   version "5.8.1"
