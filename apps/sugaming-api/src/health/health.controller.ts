@@ -6,7 +6,7 @@ import {
   PrismaHealthIndicator,
 } from '@nestjs/terminus';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from '@sugaming/sugaming-services/prisma/prisma.service';
 
 @Controller('health')
 @ApiTags('Health API')

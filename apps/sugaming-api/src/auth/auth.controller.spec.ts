@@ -1,10 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { JwtModule } from '@nestjs/jwt';
+import { AuthService } from '@sugaming/sugaming-services/auth/auth.service';
+import { exampleUserWithoutPassword } from '@sugaming/sugaming-services/users/users.mock';
 import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
-import { UsersModule } from '../users/users.module';
 import { appConfig } from '../app/app.config';
-import { exampleUserWithoutPassword } from '../users/users.mock';
 
 describe('AuthController', () => {
   let controller: AuthController;
@@ -14,9 +13,10 @@ describe('AuthController', () => {
   const exampleRefreshToken =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imdvc2hvQGxvc2hvLmNvbSIsInN1YiI6IjRiMjU5MTI0LTZjOWEtNDU0Yy1iMWViLTlhYTQ3MTYxMzZiYiIsImlhdCI6MTY5ODk3NTc1NiwiZXhwIjoxNjk5MDYyMTU2fQ.OuKRAP5ofHRn6lJ9QW5me0Iei8zhxzPAnrOKwMorypA';
 
-  jest.mock('./auth.service');
-  const mockAuthService: jest.Mocked<AuthService> =
-    jest.requireMock('./auth.service');
+  jest.mock('@sugaming/sugaming-services/auth/auth.service');
+  const mockAuthService: jest.Mocked<AuthService> = jest.requireMock(
+    '@sugaming/sugaming-services/auth/auth.service',
+  );
 
   mockAuthService.login = jest.fn().mockResolvedValue({
     user: exampleUserWithoutPassword,
@@ -27,7 +27,7 @@ describe('AuthController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [UsersModule, JwtModule.register(appConfig.jwtAccessToken)],
+      imports: [JwtModule.register(appConfig.jwtAccessToken)],
       providers: [AuthService],
       controllers: [AuthController],
     })

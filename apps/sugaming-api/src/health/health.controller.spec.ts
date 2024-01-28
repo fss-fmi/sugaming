@@ -7,8 +7,8 @@ import {
 import { ServiceUnavailableException } from '@nestjs/common';
 import { HttpStatusCode } from 'axios';
 import { HttpModule } from '@nestjs/axios';
+import { PrismaService } from '@sugaming/sugaming-services/prisma/prisma.service';
 import { HealthController } from './health.controller';
-import { PrismaService } from '../prisma/prisma.service';
 
 describe('HealthController', () => {
   let controller: HealthController;

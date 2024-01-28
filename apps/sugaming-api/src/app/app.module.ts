@@ -20,13 +20,7 @@ import { Cs2TeamsModule } from '../cs2/teams/cs2-teams.module';
     I18nModule.forRoot({
       fallbackLanguage: 'en',
       loaderOptions: {
-        path: path.join(
-          process.cwd(),
-          'apps',
-          'sugaming-api',
-          'assets',
-          'i18n',
-        ),
+        path: path.join(__dirname, 'assets', 'i18n'),
         watch: true,
       },
       resolvers: [

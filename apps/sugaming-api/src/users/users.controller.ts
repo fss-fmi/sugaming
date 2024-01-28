@@ -22,13 +22,13 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { User } from '@prisma/client';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { UserAuth } from './users.decorator';
-import { UsersService } from './users.service';
-import { UsersPostCurrentCs2TeamInvitesRespondRequestBodyDto } from './dto/users-post-current-cs2-team-invites-respond-request-body.dto';
-import { UsersPostCurrentCs2TeamInvitesRespondParamsDto } from './dto/users-post-current-cs2-team-invites-respond-params.dto';
-import { UserResponseBodyDto } from './dto/user-response-body.dto';
-import { UserRequestBodyDto } from './dto/user-request-body.dto';
+import { UserRequestBodyDto } from '@sugaming/sugaming-services/users/dto/user-request-body.dto';
+import { UsersService } from '@sugaming/sugaming-services/users/users.service';
+import { JwtAuthGuard } from '@sugaming/sugaming-services/auth/guards/jwt-auth.guard';
+import { UserResponseBodyDto } from '@sugaming/sugaming-services/users/dto/user-response-body.dto';
+import { UsersPostCurrentCs2TeamInvitesRespondRequestBodyDto } from '@sugaming/sugaming-services/users/dto/users-post-current-cs2-team-invites-respond-request-body.dto';
+import { UsersPostCurrentCs2TeamInvitesRespondParamsDto } from '@sugaming/sugaming-services/users/dto/users-post-current-cs2-team-invites-respond-params.dto';
+import { UserAuth } from './user-auth.decorator';
 
 @Controller('users')
 @ApiTags('Users API')

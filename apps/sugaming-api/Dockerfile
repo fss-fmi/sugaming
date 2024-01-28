@@ -6,7 +6,9 @@ RUN apk add --no-cache yarn
 WORKDIR /usr/src/app
 COPY dist/apps/sugaming-api/package.json ./
 COPY dist/apps/sugaming-api/yarn.lock ./
+COPY prisma ./
 RUN yarn install --frozen-lockfile --production
+RUN npx prisma generate
 
 # Production image, copy all the files and run nest
 FROM docker.io/node:lts-alpine as runner
