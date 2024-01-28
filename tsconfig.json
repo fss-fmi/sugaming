@@ -25,7 +25,17 @@
       "@sugaming/sugaming-ui": ["libs/sugaming-ui/src/index.ts"],
       "@sugaming/sugaming-ui/*": ["libs/sugaming-ui/src/*"]
     },
-    "jsx": "react"
+    "jsx": "react",
+    "removeComments": true,
+    "allowSyntheticDefaultImports": true,
+    "outDir": "./dist",
+    "incremental": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "useDefineForClassFields": true
   },
   "exclude": ["node_modules", "tmp"],
   "ts-node": {
