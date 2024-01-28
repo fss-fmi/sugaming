@@ -68,11 +68,10 @@
     },
     "container": {
       "executor": "@nx-tools/nx-container:build",
-      "dependsOn": ["build"],
       "options": {
         "engine": "docker",
         "metadata": {
-          "images": ["fssfmi/sugaming-api", "ghcr.io/fss-fmi/sugaming-api"],
+          "images": ["sugaming-api"],
           "load": true,
           "tags": [
             "type=schedule",
