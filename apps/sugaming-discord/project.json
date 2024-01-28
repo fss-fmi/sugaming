@@ -1,7 +1,7 @@
 {
   "name": "sugaming-discord",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/sugaming-discord/src",
+  "sourceRoot": "apps/sugaming-discord",
   "projectType": "application",
   "targets": {
     "build": {
@@ -14,7 +14,7 @@
         "outputPath": "dist/apps/sugaming-discord",
         "main": "apps/sugaming-discord/src/main.ts",
         "tsConfig": "apps/sugaming-discord/tsconfig.app.json",
-        "assets": ["apps/sugaming-discord/src/assets"],
+        "assets": ["apps/sugaming-discord/assets"],
         "isolatedConfig": true,
         "webpackConfig": "apps/sugaming-discord/webpack.config.js"
       },

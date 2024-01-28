@@ -1,11 +1,15 @@
 import { Module } from '@nestjs/common';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { DiscordModule } from '@discord-nestjs/core';
+import { appConfig } from './app.config';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    DiscordModule.forRootAsync({
+      useFactory: () => appConfig.discord,
+    }),
+  ],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
