@@ -40,8 +40,9 @@ export const libConfig = {
   discord: {
     clientID: process.env['DISCORD_CLIENT_ID'],
     clientSecret: process.env['DISCORD_CLIENT_SECRET'],
-    callbackURL: process.env['DISCORD_CALLBACK_API'],
-    scope: ['identify'],
+    callbackURL: process.env['DISCORD_CALLBACK_URL'],
+    scope: ['identify', 'guilds.join'],
+    guildId: process.env['DISCORD_GUILD_ID'] || '0',
   },
   steam: {
     apiKey: process.env['STEAM_API_KEY'],
