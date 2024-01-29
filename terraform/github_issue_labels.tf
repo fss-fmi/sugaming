@@ -5,6 +5,14 @@ resource "github_issue_label" "feature_label" {
   color       = "A2EEEF"
 }
 
+
+resource "github_issue_label" "refactor_label" {
+  repository  = github_repository.github_repository.name
+  name        = "refactor"
+  description = "Refactor of existing code"
+  color       = "0093B8"
+}
+
 resource "github_issue_label" "bug_label" {
   repository  = github_repository.github_repository.name
   name        = "bug"
@@ -59,4 +67,11 @@ resource "github_issue_label" "admin_label" {
   name        = "admin"
   description = "Tasks regarding the admin panel"
   color       = "FFA500"
+}
+
+resource "github_issue_label" "discord_label" {
+  repository  = github_repository.github_repository.name
+  name        = "discord"
+  description = "Tasks regarding the Discord bot"
+  color       = "5562F5"
 }
