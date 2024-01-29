@@ -15,8 +15,8 @@ export class PingCommand {
   async pingCommandHandler(interaction: CommandInteraction) {
     const i18n = I18nContext.current();
 
-    return `🏓 ${i18n.t('management.messages.pong')} ${Math.round(
-      Date.now() - interaction.createdTimestamp,
-    )}ms`;
+    return `🏓 ${i18n.t('management.messages.pong')} (${
+      interaction.client.ws.ping
+    } ms)`;
   }
 }
