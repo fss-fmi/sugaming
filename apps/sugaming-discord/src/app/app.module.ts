@@ -7,6 +7,7 @@ import { appConfig } from './app.config';
 import { BotModule } from '../bot/bot.module';
 import { ManagementModule } from '../management/management.module';
 import { DiscordI18nResolver } from '../resolvers/discord-i18n.resolver';
+import { UsersModule } from '../users/users.module';
 
 @Module({
   imports: [
@@ -23,8 +24,7 @@ import { DiscordI18nResolver } from '../resolvers/discord-i18n.resolver';
     }),
     BotModule,
     ManagementModule,
+    UsersModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}
