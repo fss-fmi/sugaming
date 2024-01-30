@@ -12,6 +12,7 @@
     "inviteAlreadyPending": "An invitation to this user is already pending.",
     "alreadyInTeam": "You are already a member of a team.",
     "notInviteeOfInvite": "You are not the invitee of this invite.",
+    "noDiscordAccountLinked": "You have not linked your Discord account.",
     "teamIsFull": "The team is already full.",
     "discordAccountAlreadyLinked": "Your Discord account is already linked to an user.",
     "steamAccountAlreadyLinked": "Your Steam account is already linked to an user.",

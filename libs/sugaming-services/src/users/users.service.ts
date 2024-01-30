@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import { I18nContext } from 'nestjs-i18n';
 import { User } from '@prisma/client';
+import { Client } from 'discord.js';
 import { PrismaService } from '../prisma/prisma.service';
 import { UsersCannotInviteSelfException } from './exceptions/users-cannot-invite-self.exception';
 import { UsersNotMemberOfCs2TeamException } from './exceptions/users-not-member-of-cs2-team.exception';
@@ -19,6 +20,7 @@ import { UsersDiscordAccountAlreadyLinkedException } from './exceptions/users-di
 import { UsersSteamAccountAlreadyLinkedException } from './exceptions/users-steam-account-already-linked.exception';
 import { UserRequestBodyDto } from './dto/user-request-body.dto';
 import { libConfig } from '../config/lib.config';
+import { UsersNoDiscordAccountLinkedException } from './exceptions/users-no-discord-account-linked.exception';
 
 @Injectable()
 export class UsersService {
@@ -230,6 +232,32 @@ export class UsersService {
           },
         },
       },
+    });
+  }
+
+  async joinDiscordServer(
+    client: Client,
+    userId: string,
+    discordGuildId: string,
+  ) {
+    // Validate that the user exists
+    const user = await this.getByIdOrThrow(userId);
+
+    // Validate that the user has a discord account linked
+    if (!user.discord) {
+      throw new UsersNoDiscordAccountLinkedException();
+    }
+
+    // Get the discord user and their access token
+    const { accessToken } = user.discord;
+    const discordUser = await client.users.fetch(user.discord.discordId);
+
+    // Get the discord guild
+    const guild = await client.guilds.fetch(discordGuildId);
+
+    // Add the user to the guild
+    return guild.members.add(discordUser, {
+      accessToken,
     });
   }
 
