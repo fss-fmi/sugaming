@@ -12,6 +12,7 @@
     "inviteAlreadyPending": "Вече има покана за този играч.",
     "alreadyInTeam": "Вече сте член на отбор.",
     "notInviteeOfInvite": "Тази покана е се отнася за друг потребител.",
+    "noDiscordAccountLinked": "Не сте свързали Discord акаунт.",
     "teamIsFull": "Отборът няма свободни места.",
     "discordAccountAlreadyLinked": "Този Discord акаунт вече е свързан с потребител.",
     "steamAccountAlreadyLinked": "Този Steam акаунт вече е свързан с потребител.",
