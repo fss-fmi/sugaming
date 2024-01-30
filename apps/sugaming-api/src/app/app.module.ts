@@ -6,7 +6,7 @@ import {
   QueryResolver,
 } from 'nestjs-i18n';
 import * as path from 'path';
-import { RedisModule } from '@liaoliaots/nestjs-redis';
+import { RedisModule } from '@songkeys/nestjs-redis';
 import { HealthModule } from '../health/health.module';
 import { UsersModule } from '../users/users.module';
 import { AuthModule } from '../auth/auth.module';

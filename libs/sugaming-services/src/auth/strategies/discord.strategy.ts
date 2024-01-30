@@ -3,7 +3,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 import Redis from 'ioredis';
-import { InjectRedis } from '@liaoliaots/nestjs-redis';
+import { InjectRedis } from '@songkeys/nestjs-redis';
 import { libConfig } from '../../config/lib.config';
 import { UsersService } from '../../users/users.service';
 

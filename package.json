@@ -9,7 +9,6 @@
   "dependencies": {
     "@discord-nestjs/common": "^5.2.10",
     "@discord-nestjs/core": "^5.3.12",
-    "@liaoliaots/nestjs-redis": "^9.0.5",
     "@nestjs/axios": "^3.0.1",
     "@nestjs/common": "^10.0.2",
     "@nestjs/config": "^3.1.1",
@@ -31,6 +30,7 @@
     "@radix-ui/react-scroll-area": "^1.0.5",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
+    "@songkeys/nestjs-redis": "^10.0.0",
     "@swc/helpers": "~0.5.2",
     "axios": "^1.0.0",
     "bcryptjs": "^2.4.3",
