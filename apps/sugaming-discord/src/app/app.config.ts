@@ -23,6 +23,7 @@ export const appConfig = {
       Partials.User,
       Partials.GuildMember,
     ],
+    guildId: process.env.DISCORD_GUILD_ID,
   },
   redis: {
     host: process.env.REDIS_HOST,

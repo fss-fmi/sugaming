@@ -36,8 +36,8 @@ export class DiscordStrategy extends PassportStrategy(Strategy) {
 
       // Notify the discord microservice
       await this.redis.publish(
-        'users:discord_account_link',
-        discordAccount.discordId,
+        'users:discord_account_linked',
+        JSON.stringify(discordAccount),
       );
     }
 
