@@ -6,6 +6,8 @@
     "noSuchUser": "No such user exists.",
     "noSuchTeam": "No such team exists.",
     "noSuchInvite": "No such invite exists.",
+    "noSuchDiscordGuild": "No such Discord server exists.",
+    "noSuchMemberOfDiscordGuild": "No such member of the Discord server exists.",
     "cannotInviteSelf": "You cannot invite yourself.",
     "notMemberOfTeam": "You are not a member of a team.",
     "onlyCaptainCanInvite": "Only the team captain can invite new members.",

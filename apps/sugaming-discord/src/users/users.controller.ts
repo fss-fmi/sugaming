@@ -28,5 +28,12 @@ export class UsersController {
       user.id,
       appConfig.discord.guildId,
     );
+
+    // Update the user's server nickname
+    await this.usersService.updateDiscordServerNickname(
+      this.discordClient,
+      user.id,
+      appConfig.discord.guildId,
+    );
   }
 }

@@ -3,6 +3,8 @@ import * as bcrypt from 'bcryptjs';
 import { I18nContext } from 'nestjs-i18n';
 import { User } from '@prisma/client';
 import { Client } from 'discord.js';
+import { UsersNoSuchDiscordGuildException } from './exceptions/users-no-such-discord-guild.exception';
+import { UsersNoSuchMemberOfDiscordGuildException } from './exceptions/users-no-such-member-of-discord-guild.exception';
 import { PrismaService } from '../prisma/prisma.service';
 import { UsersCannotInviteSelfException } from './exceptions/users-cannot-invite-self.exception';
 import { UsersNotMemberOfCs2TeamException } from './exceptions/users-not-member-of-cs2-team.exception';
@@ -236,7 +238,7 @@ export class UsersService {
   }
 
   async joinDiscordServer(
-    client: Client,
+    discordClient: Client,
     userId: string,
     discordGuildId: string,
   ) {
@@ -250,15 +252,50 @@ export class UsersService {
 
     // Get the discord user and their access token
     const { accessToken } = user.discord;
-    const discordUser = await client.users.fetch(user.discord.discordId);
+    const discordUser = await discordClient.users.fetch(user.discord.discordId);
 
     // Get the discord guild
-    const guild = await client.guilds.fetch(discordGuildId);
+    const guild = await discordClient.guilds.fetch(discordGuildId);
+    if (!guild) {
+      throw new UsersNoSuchDiscordGuildException();
+    }
 
     // Add the user to the guild
     return guild.members.add(discordUser, {
       accessToken,
     });
+  }
+
+  async updateDiscordServerNickname(
+    discordClient: Client,
+    userId: string,
+    guildId: string,
+  ) {
+    // Validate that the user exists
+    const user = await this.getByIdOrThrow(userId);
+
+    // Validate that the user has a discord account linked
+    if (!user.discord) {
+      throw new UsersNoDiscordAccountLinkedException();
+    }
+
+    // Get the discord user and their access token
+    const discordUser = await discordClient.users.fetch(user.discord.discordId);
+
+    // Get the discord guild
+    const guild = await discordClient.guilds.fetch(guildId);
+    if (!guild) {
+      throw new UsersNoSuchDiscordGuildException();
+    }
+
+    // Get the discord guild member
+    const guildMember = await guild.members.fetch(discordUser);
+    if (!guildMember) {
+      throw new UsersNoSuchMemberOfDiscordGuildException();
+    }
+
+    // Update the nickname
+    return guildMember.setNickname(user.nickname);
   }
 
   async verifyCredentials(email: string, password: string) {

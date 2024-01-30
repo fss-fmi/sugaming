@@ -6,6 +6,8 @@
     "noSuchUser": "Не съществува такъв потребител.",
     "noSuchTeam": "Не съществува такъв отбор.",
     "noSuchInvite": "Не съществува такава покана.",
+    "noSuchDiscordGuild": "Не съществува такъв Discord сървър.",
+    "noSuchMemberOfDiscordGuild": "Не съществува такъв член на Discord сървъра.",
     "cannotInviteSelf": "Не можете да поканите себе си.",
     "notMemberOfTeam": "Не сте член на отбор.",
     "onlyCaptainCanInvite": "Само капитанът може да покани нови членове.",
