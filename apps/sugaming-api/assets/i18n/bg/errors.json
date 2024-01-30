@@ -7,6 +7,7 @@
     "noSuchTeam": "Не съществува такъв отбор.",
     "noSuchInvite": "Не съществува такава покана.",
     "noSuchDiscordGuild": "Не съществува такъв Discord сървър.",
+    "noSuchDiscordGuildRole": "Не съществува такава Discord сървърна роля.",
     "noSuchMemberOfDiscordGuild": "Не съществува такъв член на Discord сървъра.",
     "cannotInviteSelf": "Не можете да поканите себе си.",
     "notMemberOfTeam": "Не сте член на отбор.",

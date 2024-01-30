@@ -7,6 +7,7 @@
     "noSuchTeam": "No such team exists.",
     "noSuchInvite": "No such invite exists.",
     "noSuchDiscordGuild": "No such Discord server exists.",
+    "noSuchDiscordGuildRole": "No such Discord server role exists.",
     "noSuchMemberOfDiscordGuild": "No such member of the Discord server exists.",
     "cannotInviteSelf": "You cannot invite yourself.",
     "notMemberOfTeam": "You are not a member of a team.",

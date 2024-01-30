@@ -35,5 +35,13 @@ export class UsersController {
       user.id,
       appConfig.discord.guildId,
     );
+
+    // Add the verified role to the user
+    await this.usersService.addDiscordServerRoleById(
+      this.discordClient,
+      user.id,
+      appConfig.discord.guildVerifiedRoleId,
+      appConfig.discord.guildId,
+    );
   }
 }

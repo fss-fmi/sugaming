@@ -24,6 +24,7 @@ export const appConfig = {
       Partials.GuildMember,
     ],
     guildId: process.env.DISCORD_GUILD_ID,
+    guildVerifiedRoleId: process.env.DISCORD_GUILD_VERTIFIED_ROLE_ID,
   },
   redis: {
     host: process.env.REDIS_HOST,

@@ -23,6 +23,7 @@ import { UsersSteamAccountAlreadyLinkedException } from './exceptions/users-stea
 import { UserRequestBodyDto } from './dto/user-request-body.dto';
 import { libConfig } from '../config/lib.config';
 import { UsersNoDiscordAccountLinkedException } from './exceptions/users-no-discord-account-linked.exception';
+import { UsersNoSuchDiscordGuildRoleException } from './exceptions/users-no-such-discord-guild-role.exception';
 
 @Injectable()
 export class UsersService {
@@ -279,7 +280,7 @@ export class UsersService {
       throw new UsersNoDiscordAccountLinkedException();
     }
 
-    // Get the discord user and their access token
+    // Get the discord user
     const discordUser = await discordClient.users.fetch(user.discord.discordId);
 
     // Get the discord guild
@@ -296,6 +297,42 @@ export class UsersService {
 
     // Update the nickname
     return guildMember.setNickname(user.nickname);
+  }
+
+  async addDiscordServerRoleById(
+    discordClient: Client,
+    userId: string,
+    roleId: string,
+    guildId: string,
+  ) {
+    // Validate that the user exists
+    const user = await this.getByIdOrThrow(userId);
+
+    // Validate that the user has a discord account linked
+    if (!user.discord) {
+      throw new UsersNoDiscordAccountLinkedException();
+    }
+
+    // Get the discord guild
+    const guild = await discordClient.guilds.fetch(guildId);
+    if (!guild) {
+      throw new UsersNoSuchDiscordGuildException();
+    }
+
+    // Get the discord role
+    const role = await guild.roles.fetch(roleId);
+    if (!role) {
+      throw new UsersNoSuchDiscordGuildRoleException();
+    }
+
+    // Get the discord user
+    const discordUser = await discordClient.users.fetch(user.discord.discordId);
+
+    // Get the discord guild member
+    const guildMember = await guild.members.fetch(discordUser);
+
+    // Add the role to the user
+    return guildMember.roles.add(role);
   }
 
   async verifyCredentials(email: string, password: string) {
