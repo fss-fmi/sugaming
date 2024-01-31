@@ -31,14 +31,22 @@ export async function login(email: string, password: string) {
 }
 
 export async function loginDiscord(code: string) {
-  const response =
-    await ApiClient.AuthApiService.authControllerPostLoginDiscordV1({
-      code,
-    });
+  try {
+    const response =
+      await ApiClient.AuthApiService.authControllerPostLoginDiscordV1({
+        code,
+      });
 
-  const { accessToken, refreshToken } = response;
-  const cookieStore = cookies();
-  setTokens(cookieStore, accessToken, refreshToken);
+    const { accessToken, refreshToken } = response;
+    const cookieStore = cookies();
+    setTokens(cookieStore, accessToken, refreshToken);
+  } catch (error) {
+    if (error instanceof ApiClient.ApiError) {
+      return { error: error.body.message };
+    }
+  }
+
+  return null;
 }
 
 export async function getRefreshedTokens() {

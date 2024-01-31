@@ -21,7 +21,11 @@ import {
   useToast,
 } from '../../common/client';
 
-export function LoginForm() {
+interface LoginFormProps {
+  error: string;
+}
+
+export function LoginForm({ error }: LoginFormProps) {
   const t = useTranslations('site.login-form');
   const { toast } = useToast();
 
@@ -39,6 +43,16 @@ export function LoginForm() {
       password: '',
     },
   });
+
+  const [displayedErrorProp, setDisplayedErrorProp] = useState<boolean>(false);
+  if (error && !displayedErrorProp) {
+    toast({
+      variant: 'destructive',
+      title: error,
+      description: t('try-again'),
+    });
+    setDisplayedErrorProp(true);
+  }
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const response = await login(values.email, values.password);
