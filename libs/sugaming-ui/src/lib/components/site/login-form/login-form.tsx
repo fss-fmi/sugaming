@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { login } from '@sugaming/sugaming-api-client/next';
+import { useTranslations } from 'next-intl';
 import { Button } from '../../common/server';
 import {
   Form,
@@ -17,13 +18,6 @@ import {
   Toaster,
   useToast,
 } from '../../common/client';
-
-const formSchema = z.object({
-  email: z.string().email({
-    message: 'Invalid email format.',
-  }),
-  password: z.string(),
-});
 
 export function LoginForm() {
   const t = useTranslations('site.login-form');
@@ -44,13 +38,8 @@ export function LoginForm() {
     },
   });
 
-  const { toast } = useToast();
-
-  async function loginAction(formData: FormData) {
-    const response = await login(
-      formData.get('email') as string,
-      formData.get('password') as string,
-    );
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const response = await login(values.email, values.password);
 
     if (response?.error) {
       toast({
@@ -66,7 +55,7 @@ export function LoginForm() {
       <Toaster />
 
       <Form {...form}>
-        <form action={loginAction} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
             control={form.control}
             name="email"
