@@ -66,6 +66,15 @@ export async function bootstrap() {
       },
     })
     .addGlobalParameters({
+      in: 'cookie',
+      required: false,
+      name: 'access_token',
+      schema: {
+        type: 'string',
+        examples: ['Bearer <token>'],
+      },
+    })
+    .addGlobalParameters({
       in: 'header',
       required: false,
       name: 'Accept-Language',
@@ -73,39 +82,6 @@ export async function bootstrap() {
         type: 'string',
         examples: ['bg', 'bg-bg', 'en', 'en-us', 'en;q=0.9, bg;q=0.8, *;q=0.7'],
         description: 'The natural language and locale that the client prefers',
-      },
-    })
-    .addGlobalParameters({
-      in: 'header',
-      required: false,
-      name: 'Cache-Control',
-      schema: {
-        type: 'string',
-        examples: ['no-cache'],
-        description:
-          'Used to specify directives that must be obeyed by all caching mechanisms along the request-response chain',
-      },
-    })
-    .addGlobalParameters({
-      in: 'header',
-      required: false,
-      name: 'Pragma',
-      schema: {
-        type: 'string',
-        examples: ['no-cache'],
-        description:
-          'Implementation-specific fields that may have various effects anywhere along the request-response chain',
-      },
-    })
-    .addGlobalParameters({
-      in: 'header',
-      required: false,
-      name: 'Expires',
-      schema: {
-        type: 'string',
-        examples: ['0'],
-        description:
-          'The date/time after which the response is considered stale',
       },
     })
     .addGlobalParameters({
@@ -130,6 +106,7 @@ export async function bootstrap() {
     await generate({
       input: `http://localhost:${port}/api-json`,
       output: clientOutputDirectory,
+      httpClient: 'fetch',
       useOptions: true,
     });
     Logger.log(`🧬 Generated API client in ${clientOutputDirectory}`);

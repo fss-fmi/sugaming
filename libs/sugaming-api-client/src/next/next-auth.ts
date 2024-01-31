@@ -3,10 +3,12 @@
 import { cookies } from 'next/headers';
 import { jwtDecode } from 'jwt-decode';
 import { ResponseCookies } from 'next/dist/compiled/@edge-runtime/cookies';
+import { unstable_noStore as noStore } from 'next/cache';
 import { ApiClient } from '../client';
 
 export async function login(email: string, password: string) {
   try {
+    noStore();
     const response = await ApiClient.AuthApiService.authControllerPostLoginV1({
       requestBody: {
         email,
@@ -27,6 +29,7 @@ export async function login(email: string, password: string) {
 }
 
 export async function getRefreshedTokens() {
+  noStore();
   const cookieStore = cookies();
   const refreshToken = cookieStore.get('refresh_token');
 
@@ -36,9 +39,6 @@ export async function getRefreshedTokens() {
 
   return ApiClient.AuthApiService.authControllerPostRefreshV1({
     authorization: `Refresh ${refreshToken.value}`,
-    cacheControl: 'no-cache',
-    pragma: 'no-cache',
-    expires: '0',
   });
 }
 
