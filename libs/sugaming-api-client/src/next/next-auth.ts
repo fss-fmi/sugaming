@@ -30,6 +30,17 @@ export async function login(email: string, password: string) {
   return null;
 }
 
+export async function loginDiscord(code: string) {
+  const response =
+    await ApiClient.AuthApiService.authControllerPostLoginDiscordV1({
+      code,
+    });
+
+  const { accessToken, refreshToken } = response;
+  const cookieStore = cookies();
+  setTokens(cookieStore, accessToken, refreshToken);
+}
+
 export async function getRefreshedTokens() {
   noStore();
   const cookieStore = cookies();

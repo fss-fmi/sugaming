@@ -4,6 +4,7 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Query,
   UseGuards,
   Version,
 } from '@nestjs/common';
@@ -26,6 +27,7 @@ import { OptionalJwtAuthGuard } from '@sugaming/sugaming-services/auth/guards/op
 import { DiscordAuthGuard } from '@sugaming/sugaming-services/auth/guards/discord-auth.guard';
 import { SteamAuthGuard } from '@sugaming/sugaming-services/auth/guards/steam-auth.guard';
 import { JwtRefreshGuard } from '@sugaming/sugaming-services/auth/guards/jwt-refresh.guard';
+import DiscordLoginQueryDto from '@sugaming/sugaming-services/auth/dto/discord-login-query.dto';
 import { UserAuth } from '../users/user-auth.decorator';
 
 @Controller({ path: 'auth' })
@@ -75,7 +77,10 @@ export class AuthController {
   @ApiConflictResponse({
     description: 'Discord account already linked to an user.',
   })
-  async postLoginDiscordV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
+  async postLoginDiscordV1(
+    @UserAuth() user: Omit<User, 'passwordHash'>,
+    @Query() _: DiscordLoginQueryDto,
+  ) {
     return this.authService.login(user);
   }
 

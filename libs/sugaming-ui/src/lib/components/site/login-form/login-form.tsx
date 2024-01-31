@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { login } from '@sugaming/sugaming-api-client/next';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+import Link from 'next/link';
 import { Button } from '../../common/server';
 import {
   Form,
@@ -103,13 +104,15 @@ export function LoginForm() {
           </span>
         </div>
       </div>
-      <Button variant="outline" type="button" disabled={isLoading}>
-        {isLoading
-          ? // <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-            'gosho'
-          : // <Icons.gitHub className="mr-2 h-4 w-4" />
-            'github'}{' '}
-        GitHub
+      <Button variant="outline" type="button" disabled={isLoading} asChild>
+        <Link href="http://localhost:3000/api/v1/auth/login/discord">
+          {isLoading
+            ? // <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+              'loading'
+            : // <Icons.gitHub className="mr-2 h-4 w-4" />
+              'discord'}{' '}
+          Discord
+        </Link>
       </Button>
     </>
   );
