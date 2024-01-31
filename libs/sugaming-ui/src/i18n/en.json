@@ -54,6 +54,13 @@
       },
       "login": "Log in",
       "signup": "Sign up"
+    },
+    "login-form": {
+      "email": "Email",
+      "invalid-email-format": "Invalid email address.",
+      "password": "Password",
+      "submit": "Submit",
+      "try-again": "Please, try again."
     }
   }
 }

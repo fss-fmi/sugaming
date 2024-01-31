@@ -26,6 +26,16 @@ const formSchema = z.object({
 });
 
 export function LoginForm() {
+  const t = useTranslations('site.login-form');
+  const { toast } = useToast();
+
+  const formSchema = z.object({
+    email: z.string().email({
+      message: t('invalid-email-format'),
+    }),
+    password: z.string(),
+  });
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -46,7 +56,7 @@ export function LoginForm() {
       toast({
         variant: 'destructive',
         title: response.error,
-        description: 'Please try again.',
+        description: t('try-again'),
       });
     }
   }
@@ -62,7 +72,7 @@ export function LoginForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>{t('email')}</FormLabel>
                 <FormControl>
                   <Input placeholder="gosho@example.com" {...field} />
                 </FormControl>
@@ -76,7 +86,7 @@ export function LoginForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>{t('password')}</FormLabel>
                 <FormControl>
                   <Input type="password" {...field} />
                 </FormControl>
@@ -85,7 +95,7 @@ export function LoginForm() {
             )}
           />
 
-          <Button type="submit">Submit</Button>
+          <Button type="submit">{t('submit')}</Button>
         </form>
       </Form>
     </>

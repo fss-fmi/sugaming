@@ -4,6 +4,7 @@ import { cookies } from 'next/headers';
 import { jwtDecode } from 'jwt-decode';
 import { ResponseCookies } from 'next/dist/compiled/@edge-runtime/cookies';
 import { unstable_noStore as noStore } from 'next/cache';
+import { useLocale } from 'next-intl';
 import { ApiClient } from '../client';
 
 export async function login(email: string, password: string) {
@@ -14,6 +15,7 @@ export async function login(email: string, password: string) {
         email,
         password,
       },
+      acceptLanguage: useLocale(),
     });
 
     const { accessToken, refreshToken } = response;
@@ -21,7 +23,7 @@ export async function login(email: string, password: string) {
     setTokens(cookieStore, accessToken, refreshToken);
   } catch (error) {
     if (error instanceof ApiClient.ApiError) {
-      return { error: error.message };
+      return { error: error.body.message };
     }
   }
 
