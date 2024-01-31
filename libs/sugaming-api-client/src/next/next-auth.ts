@@ -6,20 +6,24 @@ import { ResponseCookies } from 'next/dist/compiled/@edge-runtime/cookies';
 import { ApiClient } from '../client';
 
 export async function login(email: string, password: string) {
-  const response = await ApiClient.AuthApiService.authControllerPostLoginV1({
-    requestBody: {
-      email,
-      password,
-      ...{ date: new Date().toDateString() }, // TODO: this is a hacky fix for disabling caching; find a better way to implement this
-    },
-    cacheControl: 'no-cache',
-    pragma: 'no-cache',
-    expires: '0',
-  });
+  try {
+    const response = await ApiClient.AuthApiService.authControllerPostLoginV1({
+      requestBody: {
+        email,
+        password,
+      },
+    });
 
-  const { accessToken, refreshToken } = response;
-  const cookieStore = cookies();
-  setTokens(cookieStore, accessToken, refreshToken);
+    const { accessToken, refreshToken } = response;
+    const cookieStore = cookies();
+    setTokens(cookieStore, accessToken, refreshToken);
+  } catch (error) {
+    if (error instanceof ApiClient.ApiError) {
+      return { error: error.message };
+    }
+  }
+
+  return null;
 }
 
 export async function getRefreshedTokens() {
