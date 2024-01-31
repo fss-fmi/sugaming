@@ -3,6 +3,7 @@
 import React, { ReactNode } from 'react';
 
 interface NavbarProps {
+  // eslint-disable-next-line react/require-default-props
   children?: ReactNode;
 }
 
@@ -13,7 +14,3 @@ export function Navbar({ children }: NavbarProps) {
     </nav>
   );
 }
-
-Navbar.defaultProps = {
-  children: null,
-};
