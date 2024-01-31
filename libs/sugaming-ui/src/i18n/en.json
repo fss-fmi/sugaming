@@ -60,6 +60,7 @@
       "invalid-email-format": "Invalid email address.",
       "password": "Password",
       "submit": "Submit",
+      "or-continue-with": "or continue with",
       "try-again": "Please, try again."
     }
   }

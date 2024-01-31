@@ -8,6 +8,9 @@ import { login } from '@sugaming/sugaming-api-client/next';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import Link from 'next/link';
+import { CgSpinnerAlt } from 'react-icons/cg';
+import { FaDiscord } from 'react-icons/fa6';
+import { FaSignInAlt } from 'react-icons/fa';
 import { Button } from '../../common/server';
 import {
   Form,
@@ -95,7 +98,7 @@ export function LoginForm({ error }: LoginFormProps) {
               <FormItem>
                 <FormLabel>{t('password')}</FormLabel>
                 <FormControl>
-                  <Input type="password" {...field} />
+                  <Input type="password" placeholder="••••••••" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -103,7 +106,7 @@ export function LoginForm({ error }: LoginFormProps) {
           />
 
           <Button type="submit" className="w-full">
-            {t('submit')}
+            <FaSignInAlt className="mr-2 h-4 w-4" /> {t('submit')}
           </Button>
         </form>
       </Form>
@@ -114,17 +117,17 @@ export function LoginForm({ error }: LoginFormProps) {
         </div>
         <div className="relative flex justify-center text-xs uppercase">
           <span className="bg-background px-2 text-muted-foreground">
-            Or continue with
+            {t('or-continue-with')}
           </span>
         </div>
       </div>
       <Button variant="outline" type="button" disabled={isLoading} asChild>
         <Link href="http://localhost:3000/api/v1/auth/login/discord">
-          {isLoading
-            ? // <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-              'loading'
-            : // <Icons.gitHub className="mr-2 h-4 w-4" />
-              'discord'}{' '}
+          {isLoading ? (
+            <CgSpinnerAlt className="mr-2 h-4 w-4 animate-spin" />
+          ) : (
+            <FaDiscord className="mr-2 h-4 w-4" />
+          )}
           Discord
         </Link>
       </Button>

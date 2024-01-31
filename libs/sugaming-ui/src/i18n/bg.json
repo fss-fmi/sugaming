@@ -60,6 +60,7 @@
       "invalid-email-format": "Невалиден формат на имейл адрес.",
       "password": "Парола",
       "submit": "Вход",
+      "or-continue-with": "или влез чрез",
       "try-again": "Моля опитайте отново."
     }
   }

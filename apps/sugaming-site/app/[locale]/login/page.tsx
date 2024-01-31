@@ -3,6 +3,7 @@ import { getUser } from '@sugaming/sugaming-api-client/next';
 import { redirect, RedirectType } from 'next/navigation';
 import Link from 'next/link';
 import { Card } from '@sugaming/sugaming-ui/lib/components/common/server';
+import { getTranslations } from 'next-intl/server';
 
 interface LoginPageProps {
   searchParams?: { [key: string]: string | string[] | undefined };
@@ -13,6 +14,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
     redirect('/', RedirectType.replace);
   }
 
+  const t = await getTranslations('login-page');
   const error = searchParams?.error as string | undefined;
 
   return (
@@ -36,29 +38,27 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
         <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
           <div className="flex flex-col space-y-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">
-              Create an account
+              {t('title')}
             </h1>
-            <p className="text-sm text-muted-foreground">
-              Enter your email below to create your account
-            </p>
+            <p className="text-sm text-muted-foreground">{t('description')}</p>
           </div>
 
           <LoginForm error={error} />
 
-          <p className="px-8 text-center text-sm text-muted-foreground">
-            By clicking continue, you agree to our{' '}
+          <p className="px-4 text-center text-sm text-muted-foreground">
+            {t('by-signing-in-you-agree-to-our')}{' '}
             <Link
               href="/"
               className="underline underline-offset-4 hover:text-primary"
             >
-              Terms of Service
+              {t('terms-of-service')}
             </Link>{' '}
-            and{' '}
+            {t('and')}{' '}
             <Link
               href="/"
               className="underline underline-offset-4 hover:text-primary"
             >
-              Privacy Policy
+              {t('privacy-policy')}
             </Link>
             .
           </p>
