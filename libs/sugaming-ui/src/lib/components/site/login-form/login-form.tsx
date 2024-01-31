@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { login } from '@sugaming/sugaming-api-client/next';
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 import { Button } from '../../common/server';
 import {
   Form,
@@ -50,6 +51,8 @@ export function LoginForm() {
     }
   }
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   return (
     <>
       <Toaster />
@@ -84,9 +87,30 @@ export function LoginForm() {
             )}
           />
 
-          <Button type="submit">{t('submit')}</Button>
+          <Button type="submit" className="w-full">
+            {t('submit')}
+          </Button>
         </form>
       </Form>
+
+      <div className="relative">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-background px-2 text-muted-foreground">
+            Or continue with
+          </span>
+        </div>
+      </div>
+      <Button variant="outline" type="button" disabled={isLoading}>
+        {isLoading
+          ? // <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+            'gosho'
+          : // <Icons.gitHub className="mr-2 h-4 w-4" />
+            'github'}{' '}
+        GitHub
+      </Button>
     </>
   );
 }
