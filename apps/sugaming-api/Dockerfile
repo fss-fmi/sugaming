@@ -7,7 +7,7 @@ ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 WORKDIR /usr/src/app
 COPY dist/apps/sugaming-api/package.json ./
-COPY dist/apps/sugaming-api/pnpm-lock.yaml ./
+COPY pnpm-lock.yaml ./
 COPY prisma ./
 RUN pnpm install --only=production --frozen-lockfile
 RUN pnpm add prisma
