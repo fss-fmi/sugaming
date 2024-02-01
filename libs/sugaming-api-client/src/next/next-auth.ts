@@ -35,6 +35,7 @@ export async function loginDiscord(code: string) {
     const response =
       await ApiClient.AuthApiService.authControllerPostLoginDiscordV1({
         code,
+        authorization: await getBearerToken(),
       });
 
     const { accessToken, refreshToken } = response;
@@ -74,6 +75,7 @@ export async function loginSteam(
         openidAssocHandle,
         openidSigned,
         openidSig,
+        authorization: await getBearerToken(),
       });
     const { accessToken, refreshToken } = response;
     const cookieStore = cookies();
