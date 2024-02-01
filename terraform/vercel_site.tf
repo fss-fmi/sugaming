@@ -8,8 +8,8 @@ resource "vercel_project" "vercel_site" {
     production_branch = "release-placeholder"
   }
 
-  build_command    = "yarn prisma migrate deploy && yarn prisma generate && yarn nx build sugaming-site --prod"
+  build_command    = "pnpm prisma migrate deploy && pnpm prisma generate && pnpm nx build sugaming-site --prod"
   output_directory = "../../dist/apps/sugaming-site/.next"
-  install_command  = "yarn install"
+  install_command  = "pnpm install"
   root_directory   = "apps/sugaming-site"
 }

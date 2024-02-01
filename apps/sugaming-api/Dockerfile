@@ -2,13 +2,16 @@
 FROM docker.io/node:lts-alpine as deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
-RUN apk add --no-cache yarn
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
 WORKDIR /usr/src/app
 COPY dist/apps/sugaming-api/package.json ./
-COPY dist/apps/sugaming-api/yarn.lock ./
+COPY dist/apps/sugaming-api/pnpm-lock.yaml ./
 COPY prisma ./
-RUN yarn install --frozen-lockfile --production
-RUN npx prisma generate
+RUN pnpm install --only=production --frozen-lockfile
+RUN pnpm add prisma
+RUN pnpm prisma generate
 
 # Production image, copy all the files and run nest
 FROM docker.io/node:lts-alpine as runner

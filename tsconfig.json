@@ -16,14 +16,14 @@
     "baseUrl": ".",
     "paths": {
       "@sugaming/sugaming-api-client/client": [
-        "libs/sugaming-api-client/src/client"
+        "libs/sugaming-api-client/src/client",
       ],
       "@sugaming/sugaming-api-client/next": [
-        "libs/sugaming-api-client/src/next"
+        "libs/sugaming-api-client/src/next",
       ],
       "@sugaming/sugaming-services/*": ["libs/sugaming-services/src/*"],
       "@sugaming/sugaming-ui": ["libs/sugaming-ui/src/index.ts"],
-      "@sugaming/sugaming-ui/*": ["libs/sugaming-ui/src/*"]
+      "@sugaming/sugaming-ui/*": ["libs/sugaming-ui/src/*"],
     },
     "jsx": "react",
     "removeComments": true,
@@ -35,12 +35,12 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "useDefineForClassFields": true
+    "useDefineForClassFields": true,
   },
   "exclude": ["node_modules", "tmp"],
   "ts-node": {
     "compilerOptions": {
-      "module": "commonjs"
-    }
-  }
+      "module": "commonjs",
+    },
+  },
 }
