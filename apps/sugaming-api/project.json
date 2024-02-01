@@ -72,7 +72,7 @@
       "options": {
         "engine": "docker",
         "metadata": {
-          "images": ["fssfmi/sugaming-api", "ghcr.io/fss-fmi/sugaming-api"],
+          "images": ["sugaming-api"],
           "load": true,
           "tags": [
             "type=schedule",
@@ -80,9 +80,6 @@
             "type=ref,event=tag",
             "type=ref,event=pr",
             "type=sha,prefix=sha-"
-          ],
-          "labels": [
-            "org.opencontainers.image.source=https://github.com/fss-fmi/sugaming"
           ]
         }
       }

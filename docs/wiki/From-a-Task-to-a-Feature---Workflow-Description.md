@@ -209,13 +209,13 @@ Then run one of the following commands, depending on the type of release you are
 
 ```shell
 # Create a patch release; changes version from X.Y.Z to X.Y.Z+1
-yarn nx run workspace:version --releaseAs=patch
+pnpm nx run workspace:version --releaseAs=patch
 
 # Create a minor release; changes version from X.Y.Z to X.Y+1.0
-yarn nx run workspace:version --releaseAs=minor
+pnpm nx run workspace:version --releaseAs=minor
 
 # Create a major release; changes version from X.Y.Z to X+1.0.0
-yarn nx run workspace:version --releaseAs=major
+pnpm nx run workspace:version --releaseAs=major
 ```
 
 After completion, you must push the `main` branch changes and the new version tag to the remote repository.
