@@ -4,8 +4,7 @@ import { i18nValidationMessage } from 'nestjs-i18n';
 
 export class DiscordLoginQueryDto {
   @ApiProperty({
-    description: 'Authenticating user email address.',
-    example: 'email@example.com',
+    description: 'Discord authentication code.',
   })
   @IsString({
     message: i18nValidationMessage('validation.isString'),

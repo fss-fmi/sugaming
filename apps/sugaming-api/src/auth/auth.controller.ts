@@ -25,9 +25,10 @@ import { LocalAuthGuard } from '@sugaming/sugaming-services/auth/guards/local-au
 import { LoginDto } from '@sugaming/sugaming-services/auth/dto/login.dto';
 import { OptionalJwtAuthGuard } from '@sugaming/sugaming-services/auth/guards/optional-jwt-auth.guard';
 import { DiscordAuthGuard } from '@sugaming/sugaming-services/auth/guards/discord-auth.guard';
-import { SteamAuthGuard } from '@sugaming/sugaming-services/auth/guards/steam-auth.guard';
 import { JwtRefreshGuard } from '@sugaming/sugaming-services/auth/guards/jwt-refresh.guard';
-import DiscordLoginQueryDto from '@sugaming/sugaming-services/auth/dto/discord-login-query.dto';
+import { DiscordLoginQueryDto } from '@sugaming/sugaming-services/auth/dto/discord-login-query.dto';
+import { SteamLoginQueryDto } from '@sugaming/sugaming-services/auth/dto/steam-login-query.dto';
+import SteamAuthGuard from '@sugaming/sugaming-services/auth/guards/steam-auth.guard';
 import { UserAuth } from '../users/user-auth.decorator';
 
 @Controller({ path: 'auth' })
@@ -104,7 +105,10 @@ export class AuthController {
   @ApiConflictResponse({
     description: 'Steam account already linked to an user.',
   })
-  async postLoginSteamV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
+  async postLoginSteamV1(
+    @UserAuth() user: Omit<User, 'passwordHash'>,
+    @Query() _: SteamLoginQueryDto,
+  ) {
     return this.authService.login(user);
   }
 

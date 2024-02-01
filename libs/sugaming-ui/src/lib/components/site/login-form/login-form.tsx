@@ -9,7 +9,7 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import Link from 'next/link';
 import { CgSpinnerAlt } from 'react-icons/cg';
-import { FaDiscord } from 'react-icons/fa6';
+import { FaDiscord, FaSteamSymbol } from 'react-icons/fa6';
 import { FaSignInAlt } from 'react-icons/fa';
 import { Button } from '../../common/server';
 import {
@@ -76,7 +76,7 @@ export function LoginForm({ error }: LoginFormProps) {
       <Toaster />
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
             control={form.control}
             name="email"
@@ -129,6 +129,17 @@ export function LoginForm({ error }: LoginFormProps) {
             <FaDiscord className="mr-2 h-4 w-4" />
           )}
           Discord
+        </Link>
+      </Button>
+
+      <Button variant="outline" type="button" disabled={isLoading} asChild>
+        <Link href="http://localhost:3000/api/v1/auth/login/steam">
+          {isLoading ? (
+            <CgSpinnerAlt className="mr-2 h-4 w-4 animate-spin" />
+          ) : (
+            <FaSteamSymbol className="mr-2 h-4 w-4" />
+          )}
+          Steam
         </Link>
       </Button>
     </>

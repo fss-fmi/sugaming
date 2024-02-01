@@ -49,6 +49,44 @@ export async function loginDiscord(code: string) {
   return null;
 }
 
+export async function loginSteam(
+  openidNs: string,
+  openidMode: string,
+  openidOpEndpoint: string,
+  openidClaimedId: string,
+  openidIdentity: string,
+  openidReturnTo: string,
+  openidResponseNonce: string,
+  openidAssocHandle: string,
+  openidSigned: string,
+  openidSig: string,
+) {
+  try {
+    const response =
+      await ApiClient.AuthApiService.authControllerPostLoginSteamV1({
+        openidNs,
+        openidMode,
+        openidOpEndpoint,
+        openidClaimedId,
+        openidIdentity,
+        openidReturnTo,
+        openidResponseNonce,
+        openidAssocHandle,
+        openidSigned,
+        openidSig,
+      });
+    const { accessToken, refreshToken } = response;
+    const cookieStore = cookies();
+    setTokens(cookieStore, accessToken, refreshToken);
+  } catch (error) {
+    if (error instanceof ApiClient.ApiError) {
+      return { error: error.body.message };
+    }
+  }
+
+  return null;
+}
+
 export async function getRefreshedTokens() {
   noStore();
   const cookieStore = cookies();
