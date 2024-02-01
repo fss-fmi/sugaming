@@ -35,7 +35,7 @@ To get started with development on this project, several tools need to be set up
 | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | node20            | `Node.js` is an open-source, cross-platform JavaScript runtime environment.<br>This project uses the Node.js 20 runtime environment.                                                                             | On Linux, macOS, and Windows, Using `nvm` (recommended):<br>`nvm install 20 --lts`<br>`nvm use 20`<br><br>On Linux, macOS and Windows, Manual installation:<br>https://nodejs.org/en/download/package-manager |
 | nvm<br>(optional) | `nvm` or Node Version Manager is a tool for installing and using different versions of Node.js via the command line.<br>In this project, it is used for installing Node.js 20. (refer to the previous tool)      | On Linux and macOS:<br>https://github.com/nvm-sh/nvm#installing-and-updating<br><br>On Windows:<br>https://github.com/coreybutler/nvm-windows/releases                                                        |
-| yarn              | `yarn` is an open-source JavaScript package manager.<br>It is used for installing the project dependencies specified in `package.json` and `yarn.lock`.                                                          | On Linux, macOS and Windows:<br>`npm i -g yarn`                                                                                                                                                               |
+| pnpm              | `pnpm` is an open-source JavaScript package manager.<br>It is used for installing the project dependencies specified in `package.json` and `pnpm-lock.yaml`.                                                     | On Linux, macOS and Windows:<br>`npm i -g pnpm`                                                                                                                                                               |
 | terraform         | `terraform` is an infrastructure as a code tool that is used for provisioning and managing cloud infrastructure.<br>In this project, it is used for managing Vercel resources and the project GitHub repository. | On Linux, macOS, Windows:<br>https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli                                                                                                  |
 
 ## 👨‍💻 Development Setup
@@ -52,7 +52,7 @@ cd sugaming
 2. **Install the project dependencies.**
 
 ```shell
-yarn install
+pnpm install
 ```
 
 > [!NOTE]
@@ -111,13 +111,13 @@ This can be accomplished in 2 ways:
 To start a specific application, run the following command:
 
 ```shell
-yarn nx serve <application name>
+pnpm nx serve <application name>
 ```
 
 If you wish to start all the mono-repo projects, run this command:
 
 ```shell
-yarn nx run-many -t serve --all
+pnpm nx run-many -t serve --all
 ```
 
 ## ⌨️ IDE Setup

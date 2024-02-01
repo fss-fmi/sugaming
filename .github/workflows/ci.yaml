@@ -45,8 +45,18 @@ jobs:
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v3
 
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
       - name: Install dependencies
-        run: yarn install
+        run: pnpm install
 
       - name: Get environment files
         run: |
@@ -58,18 +68,18 @@ jobs:
           TOKEN: ${{ secrets.FSS_FMI_GITHUB_TOKEN }}
 
       - name: Build
-        run: yarn nx affected -t build --parallel
+        run: pnpm nx affected -t build --parallel
 
       - name: Check formatting
-        run: yarn nx format:check
+        run: pnpm nx format:check
 
       - name: Check linting
-        run: yarn nx affected -t lint --parallel
+        run: pnpm nx affected -t lint --parallel
 
       - name: Test
-        run: yarn nx affected -t test --parallel --configuration=ci
+        run: pnpm nx affected -t test --parallel --configuration=ci
 
       - name: E2E
         run: |
-          yarn prisma migrate dev
-          yarn nx affected -t e2e --parallel=false
+          pnpm prisma migrate dev
+          pnpm nx affected -t e2e --parallel=false
