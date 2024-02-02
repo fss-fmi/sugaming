@@ -3,7 +3,7 @@ import { NextRequest } from 'next/server';
 import { refreshTokens } from '@sugaming/sugaming-api-client/next';
 
 export const config = {
-  matcher: ['/', '/(bg|en)/:path*'],
+  matcher: ['/', '/(bg|en)/:path*', '/api/:path*'],
 };
 
 export async function middleware(request: NextRequest) {

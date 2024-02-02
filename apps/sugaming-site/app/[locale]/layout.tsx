@@ -36,7 +36,7 @@ export default async function RootLayout({
   const user = await getUser();
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body>
+      <body className="h-screen">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <Navbar>

@@ -3,26 +3,94 @@
 import { cookies } from 'next/headers';
 import { jwtDecode } from 'jwt-decode';
 import { ResponseCookies } from 'next/dist/compiled/@edge-runtime/cookies';
+import { unstable_noStore as noStore } from 'next/cache';
+import { useLocale } from 'next-intl';
 import { ApiClient } from '../client';
 
 export async function login(email: string, password: string) {
-  const response = await ApiClient.AuthApiService.authControllerPostLoginV1({
-    requestBody: {
-      email,
-      password,
-      ...{ date: new Date().toDateString() }, // TODO: this is a hacky fix for disabling caching; find a better way to implement this
-    },
-    cacheControl: 'no-cache',
-    pragma: 'no-cache',
-    expires: '0',
-  });
+  try {
+    noStore();
+    const response = await ApiClient.AuthApiService.authControllerPostLoginV1({
+      requestBody: {
+        email,
+        password,
+      },
+      acceptLanguage: useLocale(),
+    });
 
-  const { accessToken, refreshToken } = response;
-  const cookieStore = cookies();
-  setTokens(cookieStore, accessToken, refreshToken);
+    const { accessToken, refreshToken } = response;
+    const cookieStore = cookies();
+    setTokens(cookieStore, accessToken, refreshToken);
+  } catch (error) {
+    if (error instanceof ApiClient.ApiError) {
+      return { error: error.body.message };
+    }
+  }
+
+  return null;
+}
+
+export async function loginDiscord(code: string) {
+  try {
+    const response =
+      await ApiClient.AuthApiService.authControllerPostLoginDiscordV1({
+        code,
+        authorization: await getBearerToken(),
+      });
+
+    const { accessToken, refreshToken } = response;
+    const cookieStore = cookies();
+    setTokens(cookieStore, accessToken, refreshToken);
+  } catch (error) {
+    if (error instanceof ApiClient.ApiError) {
+      return { error: error.body.message };
+    }
+  }
+
+  return null;
+}
+
+export async function loginSteam(
+  openidNs: string,
+  openidMode: string,
+  openidOpEndpoint: string,
+  openidClaimedId: string,
+  openidIdentity: string,
+  openidReturnTo: string,
+  openidResponseNonce: string,
+  openidAssocHandle: string,
+  openidSigned: string,
+  openidSig: string,
+) {
+  try {
+    const response =
+      await ApiClient.AuthApiService.authControllerPostLoginSteamV1({
+        openidNs,
+        openidMode,
+        openidOpEndpoint,
+        openidClaimedId,
+        openidIdentity,
+        openidReturnTo,
+        openidResponseNonce,
+        openidAssocHandle,
+        openidSigned,
+        openidSig,
+        authorization: await getBearerToken(),
+      });
+    const { accessToken, refreshToken } = response;
+    const cookieStore = cookies();
+    setTokens(cookieStore, accessToken, refreshToken);
+  } catch (error) {
+    if (error instanceof ApiClient.ApiError) {
+      return { error: error.body.message };
+    }
+  }
+
+  return null;
 }
 
 export async function getRefreshedTokens() {
+  noStore();
   const cookieStore = cookies();
   const refreshToken = cookieStore.get('refresh_token');
 
@@ -32,9 +100,6 @@ export async function getRefreshedTokens() {
 
   return ApiClient.AuthApiService.authControllerPostRefreshV1({
     authorization: `Refresh ${refreshToken.value}`,
-    cacheControl: 'no-cache',
-    pragma: 'no-cache',
-    expires: '0',
   });
 }
 

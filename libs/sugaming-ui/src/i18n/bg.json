@@ -54,6 +54,16 @@
       },
       "login": "Вход",
       "signup": "Регистрация"
+    },
+    "login-form": {
+      "email": "Имейл адрес",
+      "invalid-email-format": "Невалиден формат на имейл адрес.",
+      "password": "Парола",
+      "submit": "Вход",
+      "no-account": "Нямаш акаунт?",
+      "signup-here": "Регистрирай се!",
+      "or-continue-with": "или влез чрез",
+      "try-again": "Моля опитайте отново."
     }
   }
 }
