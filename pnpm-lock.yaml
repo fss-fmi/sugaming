@@ -124,7 +124,7 @@ dependencies:
     version: 10.4.0(@nestjs/common@10.3.1)(@nestjs/core@10.3.1)(class-validator@0.14.1)(rxjs@7.8.1)
   next:
     specifier: ^14.0.2
-    version: 14.1.0(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)(sass@1.62.1)
+    version: 14.1.0(@babel/core@7.23.9)(@opentelemetry/api@1.7.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.62.1)
   next-intl:
     specifier: ^3.1.2
     version: 3.5.4(next@14.1.0)(react@18.2.0)
@@ -236,7 +236,7 @@ devDependencies:
     specifier: 17.1.2
     version: 17.1.2(@swc-node/register@1.6.8)(@swc/core@1.3.107)(@types/node@18.14.2)(eslint@8.46.0)(nx@17.1.2)(typescript@5.2.2)(webpack@5.90.1)
   '@nx/storybook':
-    specifier: ^17.1.3
+    specifier: ^17.3.1
     version: 17.3.1(@swc-node/register@1.6.8)(@swc/core@1.3.107)(@types/node@18.14.2)(cypress@12.17.4)(eslint@8.46.0)(nx@17.1.2)(typescript@5.2.2)
   '@nx/webpack':
     specifier: 17.1.2
@@ -244,6 +244,9 @@ devDependencies:
   '@nx/workspace':
     specifier: 17.1.2
     version: 17.1.2(@swc-node/register@1.6.8)(@swc/core@1.3.107)
+  '@opentelemetry/api':
+    specifier: ^1.7.0
+    version: 1.7.0
   '@storybook/addon-essentials':
     specifier: ^7.5.3
     version: 7.6.12(@types/react-dom@18.2.14)(@types/react@18.2.33)(react-dom@18.2.0)(react@18.2.0)
@@ -259,6 +262,9 @@ devDependencies:
   '@storybook/nextjs':
     specifier: ^7.5.3
     version: 7.6.12(@swc/core@1.3.107)(@swc/helpers@0.5.3)(esbuild@0.18.20)(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.62.1)(typescript@5.2.2)(webpack@5.90.1)
+  '@storybook/react':
+    specifier: ^7.6.12
+    version: 7.6.12(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
   '@storybook/test-runner':
     specifier: ^0.13.0
     version: 0.13.0(@swc/helpers@0.5.3)(@types/node@18.14.2)(ts-node@10.9.1)
@@ -5718,7 +5724,7 @@ packages:
       copy-webpack-plugin: 10.2.4(webpack@5.90.1)
       fs-extra: 11.2.0
       ignore: 5.3.1
-      next: 14.1.0(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)(sass@1.62.1)
+      next: 14.1.0(@babel/core@7.23.9)(@opentelemetry/api@1.7.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.62.1)
       semver: 7.5.3
       tslib: 2.6.2
       url-loader: 4.1.1(webpack@5.90.1)
@@ -6462,6 +6468,13 @@ packages:
     dependencies:
       '@octokit/openapi-types': 12.11.0
     dev: true
+
+  /@opentelemetry/api@1.7.0:
+    resolution:
+      {
+        integrity: sha512-AdY5wvN0P2vXBi3b29hxZgSFvdhdxPB9+f0B6s//P9Q8nibRWeA3cHm8UmLpio9ABigkVHJ5NMPk+Mz8VCCyrw==,
+      }
+    engines: { node: '>=8.0.0' }
 
   /@passport-next/passport-openid@1.0.0:
     resolution:
@@ -8521,7 +8534,7 @@ packages:
       fs-extra: 11.2.0
       image-size: 1.1.1
       loader-utils: 3.2.1
-      next: 14.1.0(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)(sass@1.62.1)
+      next: 14.1.0(@babel/core@7.23.9)(@opentelemetry/api@1.7.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.62.1)
       node-polyfill-webpack-plugin: 2.0.1(webpack@5.90.1)
       pnp-webpack-plugin: 1.7.0(typescript@5.2.2)
       postcss: 8.4.33
@@ -20946,7 +20959,7 @@ packages:
     dependencies:
       '@formatjs/intl-localematcher': 0.2.32
       negotiator: 0.6.3
-      next: 14.1.0(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)(sass@1.62.1)
+      next: 14.1.0(@babel/core@7.23.9)(@opentelemetry/api@1.7.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.62.1)
       react: 18.2.0
       use-intl: 3.5.4(react@18.2.0)
     dev: false
@@ -20961,12 +20974,12 @@ packages:
       react: '*'
       react-dom: '*'
     dependencies:
-      next: 14.1.0(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)(sass@1.62.1)
+      next: 14.1.0(@babel/core@7.23.9)(@opentelemetry/api@1.7.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.62.1)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /next@14.1.0(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)(sass@1.62.1):
+  /next@14.1.0(@babel/core@7.23.9)(@opentelemetry/api@1.7.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.62.1):
     resolution:
       {
         integrity: sha512-wlzrsbfeSU48YQBjZhDzOwhWhGsy+uQycR8bHAOt1LY1bn3zZEcDyHQOEoN3aWzQ8LHCAJ1nqrWCc9XF2+O45Q==,
@@ -20985,6 +20998,7 @@ packages:
         optional: true
     dependencies:
       '@next/env': 14.1.0
+      '@opentelemetry/api': 1.7.0
       '@swc/helpers': 0.5.2
       busboy: 1.6.0
       caniuse-lite: 1.0.30001582

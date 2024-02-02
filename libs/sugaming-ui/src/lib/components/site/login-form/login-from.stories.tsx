@@ -5,7 +5,9 @@ const meta: Meta<typeof LoginForm> = {
   title: 'Site/LoginForm',
   component: LoginForm,
   argTypes: {
-    loginAction: { action: 'login' },
+    error: {
+      control: 'text',
+    },
   },
 };
 
