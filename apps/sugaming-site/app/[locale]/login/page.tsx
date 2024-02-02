@@ -18,7 +18,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   const error = searchParams?.error as string | undefined;
 
   return (
-    <Card className="mx-auto mt-10 grid h-[750px] w-5/6 md:w-2/3 flex-col items-center justify-center lg:max-w-24 lg:grid-cols-2 lg:px-0 overflow-hidden">
+    <Card className="mx-auto mt-10 grid h-[750px] w-2/3 md:w-4/7 flex-col items-center justify-center lg:grid-cols-2 lg:px-0 overflow-hidden">
       <div className="hidden lg:flex h-full flex-col p-10 text-white bg-zinc-900">
         <div className="relative z-20 flex items-center text-lg font-medium">
           SUGAMING

@@ -5,12 +5,13 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { login } from '@sugaming/sugaming-api-client/next';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
 import Link from 'next/link';
 import { CgSpinnerAlt } from 'react-icons/cg';
 import { FaDiscord, FaSteamSymbol } from 'react-icons/fa6';
 import { FaSignInAlt } from 'react-icons/fa';
+import * as process from 'process';
 import { Button } from '../../common/server';
 import {
   Form,
@@ -31,6 +32,7 @@ interface LoginFormProps {
 export function LoginForm({ error }: LoginFormProps) {
   const t = useTranslations('site.login-form');
   const { toast } = useToast();
+  const locale = useLocale();
 
   const formSchema = z.object({
     email: z.string().email({
@@ -111,6 +113,18 @@ export function LoginForm({ error }: LoginFormProps) {
         </form>
       </Form>
 
+      <div className="relative flex justify-center">
+        <p className="text-sm text-muted-foreground">
+          {t('no-account')}{' '}
+          <Link
+            href={`/${locale}/signup`}
+            className="underline underline-offset-4 hover:text-primary"
+          >
+            {t('signup-here')}
+          </Link>
+        </p>
+      </div>
+
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />
@@ -122,7 +136,9 @@ export function LoginForm({ error }: LoginFormProps) {
         </div>
       </div>
       <Button variant="outline" type="button" disabled={isLoading} asChild>
-        <Link href="http://localhost:3000/api/v1/auth/login/discord">
+        <Link
+          href={`${process.env.NEXT_PUBLIC_API_BASE}/api/v1/auth/login/discord`}
+        >
           {isLoading ? (
             <CgSpinnerAlt className="mr-2 h-4 w-4 animate-spin" />
           ) : (
@@ -133,7 +149,9 @@ export function LoginForm({ error }: LoginFormProps) {
       </Button>
 
       <Button variant="outline" type="button" disabled={isLoading} asChild>
-        <Link href="http://localhost:3000/api/v1/auth/login/steam">
+        <Link
+          href={`${process.env.NEXT_PUBLIC_API_BASE}/api/v1/auth/login/discord`}
+        >
           {isLoading ? (
             <CgSpinnerAlt className="mr-2 h-4 w-4 animate-spin" />
           ) : (

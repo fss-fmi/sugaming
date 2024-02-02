@@ -59,6 +59,8 @@
       "email": "Email",
       "invalid-email-format": "Invalid email address.",
       "password": "Password",
+      "no-account": "Don't have an account?",
+      "signup-here": "Sign up!",
       "submit": "Submit",
       "or-continue-with": "or continue with",
       "try-again": "Please, try again."
