@@ -9,7 +9,7 @@ WORKDIR /usr/src/app
 COPY dist/apps/sugaming-api/package.json ./
 COPY dist/apps/sugaming-api/pnpm-lock.yaml ./
 COPY prisma ./
-RUN pnpm install --only=production --frozen-lockfile
+RUN pnpm install --only=production
 RUN pnpm add prisma
 RUN pnpm prisma generate
 
