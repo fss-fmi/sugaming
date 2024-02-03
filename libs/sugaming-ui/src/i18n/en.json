@@ -64,6 +64,18 @@
       "submit": "Submit",
       "or-continue-with": "or continue with",
       "try-again": "Please, try again."
+    },
+    "sign-up-form": {
+      "first-name": "First Name",
+      "last-name": "Last Name",
+      "nickname": "Nickname",
+      "nickname-description": "This nickname will be used in all tournaments you participate in, the Discord server and various other places.",
+      "email": "Email",
+      "invalid-email-format": "Invalid email address.",
+      "password": "Password",
+      "password-confirmation": "Password Confirmation",
+      "submit": "Submit",
+      "try-again": "Please, try again."
     }
   }
 }

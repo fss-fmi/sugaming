@@ -89,6 +89,22 @@ export async function loginSteam(
   return null;
 }
 
+export async function signUp(requestBody: ApiClient.UserRequestBodyDto) {
+  try {
+    return await ApiClient.UsersApiService.usersControllerPostUsersV1({
+      requestBody,
+      acceptLanguage: useLocale(),
+      authorization: await getBearerToken(),
+    });
+  } catch (error) {
+    if (error instanceof ApiClient.ApiError) {
+      return { error: error.body };
+    }
+  }
+
+  return null;
+}
+
 export async function getRefreshedTokens() {
   noStore();
   const cookieStore = cookies();
