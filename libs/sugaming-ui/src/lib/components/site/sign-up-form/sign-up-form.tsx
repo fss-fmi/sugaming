@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 import { FaSignInAlt } from 'react-icons/fa';
 import { signUp } from '@sugaming/sugaming-api-client/next';
+import libConfig from '@sugaming/sugaming-services/config/lib.config';
 import { Button } from '../../common/server';
 import {
   Form,
@@ -17,6 +18,8 @@ import {
   FormLabel,
   FormMessage,
   Input,
+  PasswordChecklist,
+  ScrollArea,
   Toaster,
   useToast,
 } from '../../common/client';
@@ -69,38 +72,46 @@ export function SignUpForm() {
   }
 
   return (
-    <>
+    <ScrollArea className="h-auto max-h-full">
       <Toaster />
-
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <FormField
-            control={form.control}
-            name="firstName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('first-name')}</FormLabel>
-                <FormControl>
-                  <Input placeholder="Георги" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="grid grid-flow-col grid-cols-1 lg:grid-cols-2 grid-rows-[repeat(12,_min-content)] lg:grid-rows-[repeat(5,_min-content)] auto-rows-min gap-x-8 gap-y-4 p-4"
+        >
+          <div className="grid grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="firstName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('first-name')}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Георги"
+                      className="overflow-visible"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="lastName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('last-name')}</FormLabel>
-                <FormControl>
-                  <Input placeholder="Иванов" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="lastName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('last-name')}</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Иванов" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
 
           <FormField
             control={form.control}
@@ -133,14 +144,28 @@ export function SignUpForm() {
 
           <FormField
             control={form.control}
-            name="password"
+            name="phone"
             render={({ field }) => (
               <FormItem>
+                <FormLabel>{t('phone')}</FormLabel>
+                <FormControl>
+                  <Input placeholder="+359 888 888 888" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem className="row-span-2">
                 <FormLabel>{t('password')}</FormLabel>
                 <FormControl>
                   <Input type="password" placeholder="••••••••" {...field} />
                 </FormControl>
-
+                <PasswordChecklist password={form.getValues().password} />
                 <FormMessage />
               </FormItem>
             )}
@@ -165,6 +190,6 @@ export function SignUpForm() {
           </Button>
         </form>
       </Form>
-    </>
+    </ScrollArea>
   );
 }

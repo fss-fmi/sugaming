@@ -80,6 +80,7 @@
       "nickname-description": "This nickname will be used in all tournaments you participate in, the Discord server and various other places.",
       "email": "Email",
       "invalid-email-format": "Invalid email address.",
+      "phone": "Phone",
       "password": "Password",
       "password-confirmation": "Password Confirmation",
       "submit": "Submit",
