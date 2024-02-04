@@ -9,5 +9,9 @@
     "terms-of-service": "Terms of service",
     "and": "and",
     "privacy-policy": "Privacy Policy"
+  },
+  "sign-up-page": {
+    "title": "Join the club!",
+    "description": "Sign up for the SUGAMING club by filling-out the following form."
   }
 }

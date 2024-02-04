@@ -9,7 +9,7 @@ export default async function SignUpPage() {
     redirect('/', RedirectType.replace);
   }
 
-  const t = await getTranslations('login-page');
+  const t = await getTranslations('sign-up-page');
 
   return (
     <Card className="flex mx-auto mt-10 h-5/6 w-2/3 md:w-4/7 flex-col items-center justify-center p-8 space-y-4">
