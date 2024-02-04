@@ -4,6 +4,14 @@
       "light": "Light",
       "system": "System",
       "dark": "Dark"
+    },
+    "password-checklist": {
+      "title": "The password must contain:",
+      "length": "At least 8 characters",
+      "uppercase": "At least 1 uppercase letter",
+      "lowercase": "At least 1 lowercase letter",
+      "number": "At least 1 number",
+      "special": "At least 1 special character"
     }
   },
   "site": {
