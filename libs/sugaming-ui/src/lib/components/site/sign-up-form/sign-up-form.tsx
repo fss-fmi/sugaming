@@ -28,17 +28,68 @@ export function SignUpForm() {
   const t = useTranslations('site.sign-up-form');
   const { toast } = useToast();
 
-  const formSchema = z.object({
-    // TODO: additional field validation
-    firstName: z.string(),
-    lastName: z.string(),
-    nickname: z.string(),
-    email: z.string().email({
-      message: t('invalid-email-format'),
-    }),
-    password: z.string(),
-    passwordConfirmation: z.string(),
-  });
+  const formSchema = z
+    .object({
+      firstName: z
+        .string()
+        .min(
+          libConfig.user.firstName.minLength,
+          t('too-short', { length: libConfig.user.firstName.minLength }),
+        )
+        .max(
+          libConfig.user.firstName.maxLength,
+          t('too-long', { length: libConfig.user.firstName.maxLength }),
+        )
+        .regex(libConfig.user.firstName.regex, t('regex-error')),
+      lastName: z
+        .string()
+        .min(
+          libConfig.user.lastName.minLength,
+          t('too-short', { length: libConfig.user.lastName.minLength }),
+        )
+        .max(
+          libConfig.user.lastName.maxLength,
+          t('too-long', { length: libConfig.user.lastName.maxLength }),
+        )
+        .regex(libConfig.user.lastName.regex, t('regex-error')),
+      nickname: z
+        .string()
+        .min(
+          libConfig.user.nickname.minLength,
+          t('too-short', { length: libConfig.user.nickname.minLength }),
+        )
+        .max(
+          libConfig.user.nickname.maxLength,
+          t('too-long', { length: libConfig.user.nickname.maxLength }),
+        )
+        .regex(libConfig.user.nickname.regex, t('regex-error')),
+      email: z.string().email({
+        message: t('invalid-email-format'),
+      }),
+      phone: z
+        .string()
+        .min(
+          libConfig.user.phone.minLength,
+          t('too-short', { length: libConfig.user.phone.minLength }),
+        )
+        .max(
+          libConfig.user.phone.maxLength,
+          t('too-long', { length: libConfig.user.phone.maxLength }),
+        )
+        .regex(libConfig.user.phone.regex, t('regex-error')),
+      password: z
+        .string()
+        .min(
+          libConfig.user.password.minLength,
+          t('too-short', { length: libConfig.user.password.minLength }),
+        )
+        .regex(libConfig.user.password.regex, t('regex-error')),
+      passwordConfirmation: z.string(),
+    })
+    .refine((data) => data.password === data.passwordConfirmation, {
+      message: t('passwords-dont-match'),
+      path: ['passwordConfirmation'],
+    });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -62,7 +113,7 @@ export function SignUpForm() {
       password,
     });
 
-    if (response.error) {
+    if (response?.error) {
       toast({
         variant: 'destructive',
         title: response.error.message,
@@ -79,7 +130,7 @@ export function SignUpForm() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="grid grid-flow-col grid-cols-1 lg:grid-cols-2 grid-rows-[repeat(12,_min-content)] lg:grid-rows-[repeat(5,_min-content)] auto-rows-min gap-x-8 gap-y-4 p-4"
         >
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-2">
             <FormField
               control={form.control}
               name="firstName"
@@ -111,6 +162,9 @@ export function SignUpForm() {
                 </FormItem>
               )}
             />
+            <FormDescription className="col-span-2">
+              {t('name-description')}
+            </FormDescription>
           </div>
 
           <FormField

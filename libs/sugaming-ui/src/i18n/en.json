@@ -76,15 +76,20 @@
     "sign-up-form": {
       "first-name": "First Name",
       "last-name": "Last Name",
+      "name-description": "The names should be written in cyrillic.",
       "nickname": "Nickname",
-      "nickname-description": "This nickname will be used in all tournaments you participate in, the Discord server and various other places.",
+      "nickname-description": "This nickname will be used in tournaments, the Discord server and various other places.",
       "email": "Email",
-      "invalid-email-format": "Invalid email address.",
       "phone": "Phone",
       "password": "Password",
       "password-confirmation": "Password Confirmation",
+      "passwords-dont-match": "Passwords don't match.",
       "submit": "Submit",
-      "try-again": "Please, try again."
+      "try-again": "Please, try again.",
+      "too-short": "The field should contain at least {length} symbols.",
+      "too-long": "The field should contain at most {length} symbols.",
+      "regex-error": "The field does not match the requirements.",
+      "invalid-email-format": "Invalid email address."
     }
   }
 }

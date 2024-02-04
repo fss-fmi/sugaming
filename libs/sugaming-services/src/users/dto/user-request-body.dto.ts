@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, MaxLength, MinLength } from 'class-validator';
+import { IsString, MinLength } from 'class-validator';
 import { i18nValidationMessage } from 'nestjs-i18n';
 import { libConfig } from '../../config/lib.config';
 import { UserBaseDto } from './user-base.dto';
@@ -14,9 +14,6 @@ export class UserRequestBodyDto extends UserBaseDto {
   })
   @MinLength(libConfig.user.password.minLength, {
     message: i18nValidationMessage('validation.minLength'),
-  })
-  @MaxLength(libConfig.user.password.maxLength, {
-    message: i18nValidationMessage('validation.maxLength'),
   })
   password!: string;
 }
