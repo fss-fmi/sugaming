@@ -7,4 +7,5 @@ export * from './password-checklist/password-checklist';
 export * from './popover/popover';
 export * from './scroll-area/scroll-area';
 export * from './sheet/sheet';
+export * from './tabs/tabs';
 export * from './toast/toast';
