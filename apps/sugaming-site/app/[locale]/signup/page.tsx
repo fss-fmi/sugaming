@@ -12,13 +12,15 @@ export default async function SignUpPage() {
   const t = await getTranslations('sign-up-page');
 
   return (
-    <Card className="flex mx-auto mt-10 h-5/6 w-2/3 md:w-4/7 flex-col items-center justify-center p-8 space-y-4">
-      <div className="flex flex-col space-y-2 text-center">
+    <Card className="flex mx-auto mt-10 h-5/6 w-5/6 md:w-2/3 flex-col items-center p-4 md:p-8 space-y-4">
+      <div className="flex flex-col space-y-2 h-1/6 justify-end text-center">
         <h1 className="text-2xl font-semibold tracking-tight">{t('title')}</h1>
         <p className="text-sm text-muted-foreground">{t('description')}</p>
       </div>
 
-      <SignUpForm />
+      <div className="w-full h-5/6">
+        <SignUpForm />
+      </div>
     </Card>
   );
 }

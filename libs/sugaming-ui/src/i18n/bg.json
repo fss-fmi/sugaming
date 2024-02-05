@@ -84,6 +84,8 @@
       "password": "Парола",
       "password-confirmation": "Потвърждение на паролата",
       "passwords-dont-match": "Паролите не съвпадат.",
+      "continue": "Продължи",
+      "return": "Назад",
       "submit": "Регистрация",
       "try-again": "Моля, опитайте отново.",
       "too-short": "Полето трябва да има поне {length} символа.",

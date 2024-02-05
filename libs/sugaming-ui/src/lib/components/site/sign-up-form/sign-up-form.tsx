@@ -20,6 +20,10 @@ import {
   Input,
   PasswordChecklist,
   ScrollArea,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
   Toaster,
   useToast,
 } from '../../common/client';
@@ -85,6 +89,12 @@ export function SignUpForm() {
         )
         .regex(libConfig.user.password.regex, t('regex-error')),
       passwordConfirmation: z.string(),
+
+      // Second part of the form
+      university: z.string().min(3).max(100),
+      faculty: z.string(),
+      degree: z.string(),
+      year: z.number(),
     })
     .refine((data) => data.password === data.passwordConfirmation, {
       message: t('passwords-dont-match'),
@@ -93,15 +103,38 @@ export function SignUpForm() {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    mode: 'onChange',
     defaultValues: {
       firstName: '',
       lastName: '',
       nickname: '',
       email: '',
+      phone: '',
       password: '',
       passwordConfirmation: '',
     },
   });
+
+  function isPersonalTabValid() {
+    const personalTabFields = [
+      'firstName',
+      'lastName',
+      'nickname',
+      'email',
+      'phone',
+      'password',
+      'passwordConfirmation',
+    ];
+
+    const touchedFields = Object.keys(form.formState.touchedFields);
+    const haveAllFieldsBeenTouched = personalTabFields.every((element) =>
+      touchedFields.includes(element),
+    );
+    const errorFields = Object.keys(form.formState.errors);
+    const hasErrors = errorFields.length > 0;
+
+    return haveAllFieldsBeenTouched && !hasErrors;
+  }
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { firstName, lastName, nickname, email, password } = values;
@@ -123,127 +156,196 @@ export function SignUpForm() {
   }
 
   return (
-    <ScrollArea className="h-auto max-h-full">
+    <>
       <Toaster />
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="grid grid-flow-col grid-cols-1 lg:grid-cols-2 grid-rows-[repeat(12,_min-content)] lg:grid-rows-[repeat(5,_min-content)] auto-rows-min gap-x-8 gap-y-4 p-4"
-        >
-          <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-            <FormField
-              control={form.control}
-              name="firstName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('first-name')}</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Георги"
-                      className="overflow-visible"
-                      {...field}
+      <Tabs className="h-full" defaultValue="personal">
+        <Form {...form}>
+          <form className="h-full" onSubmit={form.handleSubmit(onSubmit)}>
+            <TabsContent className="h-full" value="personal">
+              <ScrollArea className="h-5/6">
+                <div className="flex h-[50vh]">
+                  <div className="grid m-auto grid-flow-col grid-cols-1 lg:grid-cols-2 grid-rows-[repeat(9,_min-content)] lg:grid-rows-[repeat(4,_min-content)] gap-x-8 gap-y-4 p-2 md:p-4">
+                    <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                      <FormField
+                        control={form.control}
+                        name="firstName"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>{t('first-name')}</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="Георги"
+                                className="overflow-visible"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="lastName"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>{t('last-name')}</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Иванов" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormDescription className="col-span-2">
+                        {t('name-description')}
+                      </FormDescription>
+                    </div>
+
+                    <FormField
+                      control={form.control}
+                      name="nickname"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>{t('nickname')}</FormLabel>
+                          <FormControl>
+                            <Input placeholder="gosholosho" {...field} />
+                          </FormControl>
+                          <FormDescription>
+                            {t('nickname-description')}
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
 
-            <FormField
-              control={form.control}
-              name="lastName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('last-name')}</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Иванов" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormDescription className="col-span-2">
-              {t('name-description')}
-            </FormDescription>
-          </div>
+                    <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>{t('email')}</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="gosho@example.com"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
 
-          <FormField
-            control={form.control}
-            name="nickname"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('nickname')}</FormLabel>
-                <FormControl>
-                  <Input placeholder="gosholosho" {...field} />
-                </FormControl>
-                <FormDescription>{t('nickname-description')}</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                      <FormField
+                        control={form.control}
+                        name="phone"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>{t('phone')}</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="+359 888 888 888"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
 
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('email')}</FormLabel>
-                <FormControl>
-                  <Input placeholder="gosho@example.com" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                    <FormField
+                      control={form.control}
+                      name="password"
+                      render={({ field }) => (
+                        <FormItem className="row-span-2">
+                          <FormLabel>{t('password')}</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="password"
+                              placeholder="••••••••"
+                              {...field}
+                            />
+                          </FormControl>
+                          <PasswordChecklist
+                            password={form.getValues().password}
+                          />
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
 
-          <FormField
-            control={form.control}
-            name="phone"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('phone')}</FormLabel>
-                <FormControl>
-                  <Input placeholder="+359 888 888 888" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                    <FormField
+                      control={form.control}
+                      name="passwordConfirmation"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>{t('password-confirmation')}</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="password"
+                              placeholder="••••••••"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
+              </ScrollArea>
 
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem className="row-span-2">
-                <FormLabel>{t('password')}</FormLabel>
-                <FormControl>
-                  <Input type="password" placeholder="••••••••" {...field} />
-                </FormControl>
-                <PasswordChecklist password={form.getValues().password} />
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+              <div className="grid grid-cols-2 grid-rows-1 gap-x-4 gap-y-2 h-1/6 py-5">
+                <Button
+                  className="col-start-2"
+                  type="submit"
+                  variant="secondary"
+                  disabled={!isPersonalTabValid()}
+                  asChild
+                >
+                  <TabsList asChild>
+                    <TabsTrigger value="university">
+                      {t('continue')}
+                    </TabsTrigger>
+                  </TabsList>
+                </Button>
+              </div>
+            </TabsContent>
 
-          <FormField
-            control={form.control}
-            name="passwordConfirmation"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('password-confirmation')}</FormLabel>
-                <FormControl>
-                  <Input type="password" placeholder="••••••••" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <TabsContent value="university">
+              <div className="grid grid-flow-col grid-cols-1 lg:grid-cols-2 grid-rows-[repeat(12,_min-content)] lg:grid-rows-[repeat(5,_min-content)] auto-rows-min gap-x-8 gap-y-4 p-2 md:p-4">
+                <FormField
+                  control={form.control}
+                  name="university"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('university')}</FormLabel>
+                      <FormControl>
+                        <Input placeholder="" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
 
-          <Button type="submit" className="w-full">
-            <FaSignInAlt className="mr-2 h-4 w-4" /> {t('submit')}
-          </Button>
-        </form>
-      </Form>
-    </ScrollArea>
+              <div className="grid grid-cols-2 grid-rows-1 gap-x-4 gap-y-2 h-1/6">
+                <Button type="submit" variant="secondary" asChild>
+                  <TabsList asChild>
+                    <TabsTrigger value="personal">{t('return')}</TabsTrigger>
+                  </TabsList>
+                </Button>
+
+                <Button type="submit">
+                  <FaSignInAlt className="mr-2 h-4 w-4" /> {t('submit')}
+                </Button>
+              </div>
+            </TabsContent>
+          </form>
+        </Form>
+      </Tabs>
+    </>
   );
 }

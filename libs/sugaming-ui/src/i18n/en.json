@@ -84,6 +84,8 @@
       "password": "Password",
       "password-confirmation": "Password Confirmation",
       "passwords-dont-match": "Passwords don't match.",
+      "continue": "Continue",
+      "return": "Return",
       "submit": "Submit",
       "try-again": "Please, try again.",
       "too-short": "The field should contain at least {length} symbols.",
