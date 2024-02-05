@@ -50,9 +50,6 @@ export default function Index() {
           <p>Card Footer</p>
         </CardFooter>
       </Card>
-      {Array.from({ length: 100 }).map((index) => (
-        <p key={`${index}`}>Scroll area content</p>
-      ))}
     </>
   );
 }
