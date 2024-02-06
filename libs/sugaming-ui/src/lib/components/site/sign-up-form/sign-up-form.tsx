@@ -8,17 +8,11 @@ import { useTranslations } from 'next-intl';
 import { FaSignInAlt } from 'react-icons/fa';
 import { signUp } from '@sugaming/sugaming-api-client/next';
 import libConfig from '@sugaming/sugaming-services/config/lib.config';
+import { PersonalInformationFields } from './components/personal-information-fields';
+import { UniversityInformationFields } from './components/university-information-fields';
 import { Button } from '../../common/server';
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  Input,
-  PasswordChecklist,
   ScrollArea,
   Tabs,
   TabsContent,
@@ -165,134 +159,7 @@ export function SignUpForm() {
               <ScrollArea className="h-5/6">
                 <div className="flex h-[50vh]">
                   <div className="grid m-auto grid-flow-col grid-cols-1 lg:grid-cols-2 grid-rows-[repeat(9,_min-content)] lg:grid-rows-[repeat(4,_min-content)] gap-x-8 gap-y-4 p-2 md:p-4">
-                    <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-                      <FormField
-                        control={form.control}
-                        name="firstName"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>{t('first-name')}</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="Георги"
-                                className="overflow-visible"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-
-                      <FormField
-                        control={form.control}
-                        name="lastName"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>{t('last-name')}</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Иванов" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormDescription className="col-span-2">
-                        {t('name-description')}
-                      </FormDescription>
-                    </div>
-
-                    <FormField
-                      control={form.control}
-                      name="nickname"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>{t('nickname')}</FormLabel>
-                          <FormControl>
-                            <Input placeholder="gosholosho" {...field} />
-                          </FormControl>
-                          <FormDescription>
-                            {t('nickname-description')}
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-                      <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>{t('email')}</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="gosho@example.com"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-
-                      <FormField
-                        control={form.control}
-                        name="phone"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>{t('phone')}</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="+359 888 888 888"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-
-                    <FormField
-                      control={form.control}
-                      name="password"
-                      render={({ field }) => (
-                        <FormItem className="row-span-2">
-                          <FormLabel>{t('password')}</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="password"
-                              placeholder="••••••••"
-                              {...field}
-                            />
-                          </FormControl>
-                          <PasswordChecklist
-                            password={form.getValues().password}
-                          />
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="passwordConfirmation"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>{t('password-confirmation')}</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="password"
-                              placeholder="••••••••"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                    <PersonalInformationFields form={form} />
                   </div>
                 </div>
               </ScrollArea>
@@ -316,19 +183,7 @@ export function SignUpForm() {
 
             <TabsContent value="university">
               <div className="grid grid-flow-col grid-cols-1 lg:grid-cols-2 grid-rows-[repeat(12,_min-content)] lg:grid-rows-[repeat(5,_min-content)] auto-rows-min gap-x-8 gap-y-4 p-2 md:p-4">
-                <FormField
-                  control={form.control}
-                  name="university"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('university')}</FormLabel>
-                      <FormControl>
-                        <Input placeholder="" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <UniversityInformationFields form={form} />
               </div>
 
               <div className="grid grid-cols-2 grid-rows-1 gap-x-4 gap-y-2 h-1/6">
