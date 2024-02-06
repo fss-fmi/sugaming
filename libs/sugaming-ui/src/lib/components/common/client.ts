@@ -5,6 +5,7 @@ export * from './input/input';
 export * from './navigation-menu/navigation-menu';
 export * from './password-checklist/password-checklist';
 export * from './popover/popover';
+export * from './select/select';
 export * from './scroll-area/scroll-area';
 export * from './sheet/sheet';
 export * from './tabs/tabs';
