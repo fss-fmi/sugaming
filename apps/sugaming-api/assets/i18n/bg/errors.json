@@ -20,7 +20,9 @@
     "discordAccountAlreadyLinked": "Този Discord акаунт вече е свързан с потребител.",
     "steamAccountAlreadyLinked": "Този Steam акаунт вече е свързан с потребител.",
     "emailAlreadyInUse": "Имейлът вече е използван.",
-    "nicknameAlreadyInUse": "Името вече е използвано от друг потребител."
+    "nicknameAlreadyInUse": "Името вече е използвано от друг потребител.",
+    "phoneAlreadyInUse": "Телефоният номер вече е използван от друг потребител.",
+    "universityFacultyNumberAlreadyInUse": "Факултетният номер вече е използван от друг потребител."
   },
   "cs2": {
     "teams": {

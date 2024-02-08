@@ -24,6 +24,7 @@ import { UserRequestBodyDto } from './dto/user-request-body.dto';
 import { libConfig } from '../config/lib.config';
 import { UsersNoDiscordAccountLinkedException } from './exceptions/users-no-discord-account-linked.exception';
 import { UsersNoSuchDiscordGuildRoleException } from './exceptions/users-no-such-discord-guild-role.exception';
+import { UsersPhoneAlreadyInUseException } from './exceptions/users-phone-already-in-use.exception';
 
 @Injectable()
 export class UsersService {
@@ -537,6 +538,15 @@ export class UsersService {
 
     if (existingNickname) {
       throw new UsersNicknameAlreadyInUseException();
+    }
+
+    // Check if the phone number is already in use
+    const existingPhone = await this.prisma.user.findUnique({
+      where: { phone: userToBeCreated.phone },
+    });
+
+    if (existingPhone) {
+      throw new UsersPhoneAlreadyInUseException();
     }
 
     // Hash the password before storing it in the database
