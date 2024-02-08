@@ -28,8 +28,11 @@ export function SignUpForm() {
 
   const formSchema = z
     .object({
+      // Personal tab of the form
       firstName: z
-        .string()
+        .string({
+          required_error: t('is-required'),
+        })
         .min(
           libConfig.user.firstName.minLength,
           t('too-short', { length: libConfig.user.firstName.minLength }),
@@ -40,7 +43,9 @@ export function SignUpForm() {
         )
         .regex(libConfig.user.firstName.regex, t('regex-error')),
       lastName: z
-        .string()
+        .string({
+          required_error: t('is-required'),
+        })
         .min(
           libConfig.user.lastName.minLength,
           t('too-short', { length: libConfig.user.lastName.minLength }),
@@ -51,7 +56,9 @@ export function SignUpForm() {
         )
         .regex(libConfig.user.lastName.regex, t('regex-error')),
       nickname: z
-        .string()
+        .string({
+          required_error: t('is-required'),
+        })
         .min(
           libConfig.user.nickname.minLength,
           t('too-short', { length: libConfig.user.nickname.minLength }),
@@ -65,7 +72,9 @@ export function SignUpForm() {
         message: t('invalid-email-format'),
       }),
       phone: z
-        .string()
+        .string({
+          required_error: t('is-required'),
+        })
         .min(
           libConfig.user.phone.minLength,
           t('too-short', { length: libConfig.user.phone.minLength }),
@@ -76,7 +85,9 @@ export function SignUpForm() {
         )
         .regex(libConfig.user.phone.regex, t('regex-error')),
       password: z
-        .string()
+        .string({
+          required_error: t('is-required'),
+        })
         .min(
           libConfig.user.password.minLength,
           t('too-short', { length: libConfig.user.password.minLength }),
@@ -217,7 +228,7 @@ export function SignUpForm() {
             <TabsContent className="h-full" value="personal">
               <ScrollArea className="h-5/6">
                 <div className="flex h-[50vh]">
-                  <div className="grid m-auto grid-flow-col grid-cols-1 lg:grid-cols-2 grid-rows-[repeat(9,_min-content)] lg:grid-rows-[repeat(4,_min-content)] gap-x-8 gap-y-4 p-2 md:p-4">
+                  <div className="grid w-full m-auto grid-flow-col grid-cols-1 lg:grid-cols-2 grid-rows-[repeat(9,_min-content)] lg:grid-rows-[repeat(4,_min-content)] gap-x-8 gap-y-4 p-4">
                     <PersonalInformationFields form={form} />
                   </div>
                 </div>
@@ -240,12 +251,16 @@ export function SignUpForm() {
               </div>
             </TabsContent>
 
-            <TabsContent value="university">
-              <div className="grid grid-flow-col grid-cols-1 lg:grid-cols-2 grid-rows-[repeat(12,_min-content)] lg:grid-rows-[repeat(5,_min-content)] auto-rows-min gap-x-8 gap-y-4 p-2 md:p-4">
-                <UniversityInformationFields form={form} />
-              </div>
+            <TabsContent className="h-full" value="university">
+              <ScrollArea className="h-5/6">
+                <div className="flex h-[50vh]">
+                  <div className="grid w-full m-auto grid-flow-col grid-cols-1 lg:grid-cols-2 grid-rows-[repeat(4,_min-content)] lg:grid-rows-[repeat(2,_min-content)] gap-x-8 gap-y-4 p-4">
+                    <UniversityInformationFields form={form} />
+                  </div>
+                </div>
+              </ScrollArea>
 
-              <div className="grid grid-cols-2 grid-rows-1 gap-x-4 gap-y-2 h-1/6">
+              <div className="grid grid-cols-2 grid-rows-1 gap-x-4 gap-y-2 h-1/6 py-5">
                 <Button type="submit" variant="secondary" asChild>
                   <TabsList asChild>
                     <TabsTrigger value="personal">{t('return')}</TabsTrigger>
