@@ -1,22 +1,21 @@
-import { IsEmail, IsNotEmpty, MaxLength, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsEnum,
+  IsNotEmpty,
+  IsPhoneNumber,
+  Matches,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { i18nValidationMessage } from 'nestjs-i18n';
+import { UniversityDegree, UniversityYear } from '@prisma/client';
 import { libConfig } from '../../config/lib.config';
 
 export class UserBaseDto {
   @ApiProperty({
-    description: 'User email address.',
-    example: 'email@example.com',
-  })
-  @IsNotEmpty({
-    message: i18nValidationMessage('validation.isNotEmpty'),
-  })
-  @IsEmail({}, { message: i18nValidationMessage('validation.isEmail') })
-  email!: string;
-
-  @ApiProperty({
     description: "User's first name.",
-    example: 'Gosho',
+    example: 'Гошо',
   })
   @IsNotEmpty({
     message: i18nValidationMessage('validation.isNotEmpty'),
@@ -27,11 +26,14 @@ export class UserBaseDto {
   @MaxLength(libConfig.user.firstName.maxLength, {
     message: i18nValidationMessage('validation.maxLength'),
   })
+  @Matches(libConfig.user.firstName.regex, {
+    message: i18nValidationMessage('validation.matches'),
+  })
   firstName!: string;
 
   @ApiProperty({
     description: "User's last name.",
-    example: 'Losho',
+    example: 'Лошо',
   })
   @IsNotEmpty({
     message: i18nValidationMessage('validation.isNotEmpty'),
@@ -42,10 +44,13 @@ export class UserBaseDto {
   @MaxLength(libConfig.user.lastName.maxLength, {
     message: i18nValidationMessage('validation.maxLength'),
   })
+  @Matches(libConfig.user.lastName.regex, {
+    message: i18nValidationMessage('validation.matches'),
+  })
   lastName!: string;
 
   @ApiProperty({
-    description: "User's in-game nickname",
+    description: "User's in-game nickname.",
     example: 'Reomak',
   })
   @IsNotEmpty({
@@ -57,7 +62,99 @@ export class UserBaseDto {
   @MaxLength(libConfig.user.nickname.maxLength, {
     message: i18nValidationMessage('validation.maxLength'),
   })
+  @Matches(libConfig.user.nickname.regex, {
+    message: i18nValidationMessage('validation.matches'),
+  })
   nickname!: string;
+
+  @ApiProperty({
+    description: 'User email address.',
+    example: 'email@example.com',
+  })
+  @IsNotEmpty({
+    message: i18nValidationMessage('validation.isNotEmpty'),
+  })
+  @IsEmail({}, { message: i18nValidationMessage('validation.isEmail') })
+  email!: string;
+
+  @ApiProperty({
+    description: 'User phone number.',
+    example: '+359880080085',
+  })
+  @IsNotEmpty({
+    message: i18nValidationMessage('validation.isNotEmpty'),
+  })
+  @IsPhoneNumber(undefined, {
+    message: i18nValidationMessage('validation.isPhoneNumber'),
+  })
+  @Matches(libConfig.user.phone.regex, {
+    message: i18nValidationMessage('validation.matches'),
+  })
+  phone!: string;
+
+  @ApiProperty({
+    description: 'User university major.',
+    example: 'Компютърни науки',
+  })
+  @IsNotEmpty({
+    message: i18nValidationMessage('validation.isNotEmpty'),
+  })
+  @MinLength(libConfig.user.universityMajor.minLength, {
+    message: i18nValidationMessage('validation.minLength'),
+  })
+  @MaxLength(libConfig.user.universityMajor.maxLength, {
+    message: i18nValidationMessage('validation.maxLength'),
+  })
+  @Matches(libConfig.user.universityMajor.regex, {
+    message: i18nValidationMessage('validation.matches'),
+  })
+  universityMajor!: string;
+
+  @ApiProperty({
+    description: 'User university degree.',
+    example: 'BACHELOR',
+  })
+  @IsNotEmpty({
+    message: i18nValidationMessage('validation.isNotEmpty'),
+  })
+  @IsEnum(libConfig.user.universityDegree.enum, {
+    message: i18nValidationMessage('validation.isEnum', {
+      enum: Object.values(libConfig.user.universityDegree.enum).join(', '),
+    }),
+  })
+  universityDegree!: UniversityDegree;
+
+  @ApiProperty({
+    description: 'User university year.',
+    example: 'FIRST',
+  })
+  @IsNotEmpty({
+    message: i18nValidationMessage('validation.isNotEmpty'),
+  })
+  @IsEnum(libConfig.user.universityYear.enum, {
+    message: i18nValidationMessage('validation.isEnum', {
+      enum: Object.values(libConfig.user.universityYear.enum).join(', '),
+    }),
+  })
+  universityYear!: UniversityYear;
+
+  @ApiProperty({
+    description: 'User university faculty number.',
+    example: '0MI123456',
+  })
+  @IsNotEmpty({
+    message: i18nValidationMessage('validation.isNotEmpty'),
+  })
+  @MinLength(libConfig.user.universityFacultyNumber.minLength, {
+    message: i18nValidationMessage('validation.minLength'),
+  })
+  @MaxLength(libConfig.user.universityFacultyNumber.maxLength, {
+    message: i18nValidationMessage('validation.maxLength'),
+  })
+  @Matches(libConfig.user.universityFacultyNumber.regex, {
+    message: i18nValidationMessage('validation.matches'),
+  })
+  universityFacultyNumber!: string;
 }
 
 export default UserBaseDto;
