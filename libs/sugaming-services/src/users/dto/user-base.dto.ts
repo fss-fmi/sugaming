@@ -9,7 +9,6 @@ import {
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { i18nValidationMessage } from 'nestjs-i18n';
-import { UniversityDegree, UniversityYear } from '@prisma/client';
 import { libConfig } from '../../config/lib.config';
 
 export class UserBaseDto {
@@ -122,7 +121,7 @@ export class UserBaseDto {
       enum: Object.values(libConfig.user.universityDegree.enum).join(', '),
     }),
   })
-  universityDegree!: UniversityDegree;
+  universityDegree!: 'BACHELOR' | 'MASTER' | 'DOCTORATE';
 
   @ApiProperty({
     description: 'User university year.',
@@ -136,7 +135,7 @@ export class UserBaseDto {
       enum: Object.values(libConfig.user.universityYear.enum).join(', '),
     }),
   })
-  universityYear!: UniversityYear;
+  universityYear!: 'FIRST' | 'SECOND' | 'THIRD' | 'FOURTH';
 
   @ApiProperty({
     description: 'User university faculty number.',

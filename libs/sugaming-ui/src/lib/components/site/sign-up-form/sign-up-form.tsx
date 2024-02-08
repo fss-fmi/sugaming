@@ -84,11 +84,54 @@ export function SignUpForm() {
         .regex(libConfig.user.password.regex, t('regex-error')),
       passwordConfirmation: z.string(),
 
-      // Second part of the form
-      university: z.string().min(3).max(100),
-      faculty: z.string(),
-      degree: z.string(),
-      year: z.number(),
+      // University tab of the form
+      universityMajor: z
+        .string({
+          required_error: t('is-required'),
+        })
+        .min(
+          libConfig.user.universityMajor.minLength,
+          t('too-short', { length: libConfig.user.universityMajor.minLength }),
+        )
+        .max(
+          libConfig.user.universityMajor.maxLength,
+          t('too-long', { length: libConfig.user.universityMajor.maxLength }),
+        ),
+      universityDegree: z.enum(
+        Object.values(libConfig.user.universityDegree.enum) as [
+          string,
+          ...string[],
+        ],
+        {
+          required_error: t('is-required'),
+        },
+      ),
+      universityYear: z.enum(
+        Object.values(libConfig.user.universityYear.enum) as [
+          string,
+          ...string[],
+        ],
+        {
+          required_error: t('is-required'),
+        },
+      ),
+      universityFacultyNumber: z
+        .string({
+          required_error: t('is-required'),
+        })
+        .min(libConfig.user.universityFacultyNumber.minLength, {
+          message: t('too-short', {
+            length: libConfig.user.universityFacultyNumber.minLength,
+          }),
+        })
+        .max(libConfig.user.universityFacultyNumber.maxLength, {
+          message: t('too-long', {
+            length: libConfig.user.universityFacultyNumber.maxLength,
+          }),
+        })
+        .regex(libConfig.user.universityFacultyNumber.regex, {
+          message: t('regex-error'),
+        }),
     })
     .refine((data) => data.password === data.passwordConfirmation, {
       message: t('passwords-dont-match'),
@@ -131,13 +174,29 @@ export function SignUpForm() {
   }
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const { firstName, lastName, nickname, email, password } = values;
+    const {
+      firstName,
+      lastName,
+      nickname,
+      email,
+      phone,
+      password,
+      universityMajor,
+      universityDegree,
+      universityYear,
+      universityFacultyNumber,
+    } = values;
     const response = await signUp({
       firstName,
       lastName,
       nickname,
       email,
+      phone,
       password,
+      universityMajor,
+      universityDegree,
+      universityYear,
+      universityFacultyNumber,
     });
 
     if (response?.error) {

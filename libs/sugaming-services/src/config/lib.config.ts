@@ -1,3 +1,4 @@
+import { UniversityDegree, UniversityYear } from '@prisma/client';
 import * as process from 'process';
 
 export const libConfig = {
@@ -46,6 +47,26 @@ export const libConfig = {
       // - be at least 8 characters long
       regex:
         /^(?=.*?[А-ЯA-Z])(?=.*?[а-яa-z])(?=.*?[0-9])(?=.*?[`!@#$%^&*()_\-+=[\]{};':"\\|,.<>/?~ ]).{8,}$/,
+    },
+    universityMajor: {
+      minLength: 3,
+      maxLength: 50,
+      // Regex for university majors, containing cyrillic letters, dashes, and spaces
+      regex: /^[А-Яа-я\s-]+$/,
+    },
+    universityDegree: {
+      minLength: 3,
+      maxLength: 50,
+      enum: UniversityDegree,
+    },
+    universityYear: {
+      enum: UniversityYear,
+    },
+    universityFacultyNumber: {
+      minLength: 5,
+      maxLength: 10,
+      // Regex for university faculty numbers, containing only digits and capital latin letters
+      regex: /^[A-Z0-9]+$/,
     },
   },
   cs2Team: {
