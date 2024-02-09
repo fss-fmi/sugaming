@@ -1,4 +1,4 @@
-name: 'Build and Publish container images'
+name: 'Build, Publish, and Deploy container images'
 
 on:
   push:
@@ -61,3 +61,34 @@ jobs:
 
       - name: Build images
         run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} npx nx run-many --target=container --push
+
+  deploy-container-images:
+    name: 'Deploy ${{ matrix.NAME }} container image'
+    runs-on: ubuntu-latest
+
+    env:
+      IMAGE_NAME: ${{ secrets[matrix.NAME] }}
+
+    strategy:
+      matrix:
+        include:
+          - NAME: 'sugaming-api'
+          - NAME: 'sugaming-discord'
+
+    steps:
+      - name: Set image tag environment variable
+        run: |
+          # If the deployment is started by:
+          #  - a pull requst -> set the image tag to be "pr-{PR_ID}"
+          #  - a push to main -> set the image tag to be "main"
+          #  - a push of a version tag -> set the image tag to be "latest"
+          if [ -n "${{ github.event.pull_request }}" ]; then
+            IMAGE_TAG="pr-${{ github.event.number }}"
+          elif [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            IMAGE_TAG="main"
+          elif [ "${{ github.ref }}" = "refs/tags/${{ github.ref }}" ]; then
+            IMAGE_TAG="latest"
+          fi
+
+          echo "IMAGE_TAG=${IMAGE_TAG}" >> $GITHUB_ENV
+          echo $IMAGE_NAME:$IMAGE_TAG
