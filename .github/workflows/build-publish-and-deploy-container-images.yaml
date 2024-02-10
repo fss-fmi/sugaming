@@ -67,7 +67,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      IMAGE_NAME: ${{ secrets[matrix.NAME] }}
+      IMAGE_NAME: ${{ matrix.NAME }}
 
     strategy:
       matrix:
@@ -91,4 +91,7 @@ jobs:
           fi
 
           echo "IMAGE_TAG=${IMAGE_TAG}" >> $GITHUB_ENV
+
+      - name: Deploy container image
+        run: |
           echo ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
