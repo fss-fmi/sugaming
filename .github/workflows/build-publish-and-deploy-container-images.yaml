@@ -116,7 +116,6 @@ jobs:
           echo "SSH_KEY=${SSH_KEY}" >> $GITHUB_ENV
 
       - name: Deploy container image
-      - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ env.SSH_HOST }}
