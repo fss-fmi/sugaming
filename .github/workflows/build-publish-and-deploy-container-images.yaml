@@ -94,6 +94,9 @@ jobs:
             PREVIEW_SSH_KEY: 'SUGAMING_DISCORD_PREVIEW_SSH_KEY'
 
     steps:
+      - run: |
+          sudo apt-get install openssh-client
+
       - name: Set environment variables
         run: |
           # If the deployment is started by:
