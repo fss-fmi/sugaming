@@ -129,6 +129,7 @@ jobs:
           host: ${{ env.SSH_HOST }}
           username: ${{ env.SSH_USER }}
           key: ${{ env.SSH_KEY }}
+          port: 22
           script: |
             whoami
             echo ${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
