@@ -94,9 +94,6 @@ jobs:
             PREVIEW_SSH_KEY: 'SUGAMING_DISCORD_PREVIEW_SSH_KEY'
 
     steps:
-      - run: |
-          sudo apt-get install openssh-client
-
       - name: Set environment variables
         run: |
           # If the deployment is started by:
@@ -105,42 +102,35 @@ jobs:
           #  - a push of a version tag -> set the image tag to be "latest"
           if [ -n "${{ github.event.pull_request }}" ]; then
             IMAGE_TAG="pr-${{ github.event.number }}"
-            SSH_HOST=${{ env.PREVIEW_SSH_HOST }}
-            SSH_USER=${{ env.PREVIEW_SSH_USER }}
-            SSH_KEY=${{ env.PREVIEW_SSH_KEY }}
+            SSH_HOST="${{ env.PREVIEW_SSH_HOST }}"
+            SSH_USER="${{ env.PREVIEW_SSH_USER }}"
+            SSH_KEY=$(echo "${{ env.PREVIEW_SSH_KEY }}" | openssl base64 | tr -d '\n')
           elif [ "${{ github.ref }}" = "refs/heads/main" ]; then
             IMAGE_TAG="main"
-            SSH_HOST=${{ env.PREVIEW_SSH_HOST }}
-            SSH_USER=${{ env.PREVIEW_SSH_USER }}
-            SSH_KEY=${{ env.PREVIEW_SSH_KEY }}
+            SSH_HOST="${{ env.PREVIEW_SSH_HOST }}"
+            SSH_USER="${{ env.PREVIEW_SSH_USER }}"
+            SSH_KEY="${{ env.PREVIEW_SSH_KEY }}"
           elif [ "${{ github.ref }}" = "refs/tags/${{ github.ref }}" ]; then
             IMAGE_TAG="latest"
-            SSH_HOST=${{ env.PRODUCTION_SSH_HOST }}
-            SSH_USER=${{ env.PRODUCTION_SSH_USER }}
-            SSH_KEY=${{ env.PRODUCTION_SSH_KEY }}
+            SSH_HOST="${{ env.PRODUCTION_SSH_HOST }}"
+            SSH_USER="${{ env.PRODUCTION_SSH_USER }}"
+            SSH_KEY="${{ env.PRODUCTION_SSH_KEY }}"
           fi
 
-          echo "IMAGE_TAG=${IMAGE_TAG}" >> $GITHUB_ENV
-          echo "SSH_HOST=${SSH_HOST}" >> $GITHUB_ENV
-          echo "SSH_USER=${SSH_USER}" >> $GITHUB_ENV
-          echo "SSH_KEY=${SSH_KEY}" >> $GITHUB_ENV
+          echo IMAGE_TAG="$IMAGE_TAG" >> $GITHUB_ENV
+          echo SSH_HOST="$SSH_HOST" >> $GITHUB_ENV
+          echo SSH_USER="$SSH_USER" >> $GITHUB_ENV
+          echo SSH_KEY="$SSH_KEY" >> $GITHUB_ENV
 
-      - name: Configure SSH
-        run: |
-          mkdir -p ~/.ssh/
-          echo "$SSH_KEY" > ~/.ssh/deployment_box.key
-          chmod 600 ~/.ssh/deployment_box.key
-          cat >>~/.ssh/config <<END
-          Host deployment_box
-            HostName $SSH_HOST
-            User $SSH_USER
-            IdentityFile ~/.ssh/deployment_box.key
-            StrictHostKeyChecking no
-          END
-        env:
-          SSH_USER: ${{ env.SSH_USER }}
-          SSH_KEY: ${{ env.SSH_KEY }}
-          SSH_HOST: ${{ env.SSH_HOST }}
+      - run: |
+          echo "${{ env.SSH_KEY }}" | base64 --decode
 
-      - name: Check out the source
-        run: ssh deployment_box 'whoami'
+      - name: Deploy container image
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ env.SSH_HOST }}
+          username: ${{ env.SSH_USER }}
+          key: $(echo "${{ env.SSH_KEY }}" | base64 --decode)
+          script: |
+            whoami
+            echo ${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
