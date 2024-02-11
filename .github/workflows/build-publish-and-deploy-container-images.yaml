@@ -69,10 +69,10 @@ jobs:
     env:
       PRODUCTION_SSH_HOST: ${{ secrets[matrix.PRODUCTION_SSH_HOST] }}
       PRODUCTION_SSH_USER: ${{ secrets[matrix.PRODUCTION_SSH_USER] }}
-      PRODUCTION_SSH_KEY: ${{ secrets[matrix.PRODUCTION_SSH_KEY] }}
+      PRODUCTION_SSH_PASSWORD: ${{ secrets[matrix.PRODUCTION_SSH_PASSWORD] }}
       PREVIEW_SSH_HOST: ${{ secrets[matrix.PREVIEW_SSH_HOST] }}
       PREVIEW_SSH_USER: ${{ secrets[matrix.PREVIEW_SSH_USER] }}
-      PREVIEW_SSH_KEY: ${{ secrets[matrix.PREVIEW_SSH_KEY] }}
+      PREVIEW_SSH_PASSWORD: ${{ secrets[matrix.PREVIEW_SSH_PASSWORD] }}
 
     strategy:
       matrix:
@@ -80,18 +80,18 @@ jobs:
           - IMAGE_NAME: 'sugaming-api'
             PRODUCTION_SSH_HOST: 'SUGAMING_API_PRODUCTION_SSH_HOST'
             PRODUCTION_SSH_USER: 'SUGAMING_API_PRODUCTION_SSH_USER'
-            PRODUCTION_SSH_KEY: 'SUGAMING_API_PRODUCTION_SSH_KEY'
+            PRODUCTION_SSH_PASSWORD: 'SUGAMING_API_PRODUCTION_SSH_PASSWORD'
             PREVIEW_SSH_HOST: 'SUGAMING_API_PREVIEW_SSH_HOST'
             PREVIEW_SSH_USER: 'SUGAMING_API_PREVIEW_SSH_USER'
-            PREVIEW_SSH_KEY: 'SUGAMING_API_PREVIEW_SSH_KEY'
+            PREVIEW_SSH_PASSWORD: 'SUGAMING_API_PREVIEW_SSH_PASSWORD'
 
           - IMAGE_NAME: 'sugaming-discord'
             PRODUCTION_SSH_HOST: 'SUGAMING_DISCORD_PRODUCTION_SSH_HOST'
             PRODUCTION_SSH_USER: 'SUGAMING_DISCORD_PRODUCTION_SSH_USER'
-            PRODUCTION_SSH_KEY: 'SUGAMING_DISCORD_PRODUCTION_SSH_KEY'
+            PRODUCTION_SSH_PASSWORD: 'SUGAMING_DISCORD_PRODUCTION_SSH_PASSWORD'
             PREVIEW_SSH_HOST: 'SUGAMING_DISCORD_PREVIEW_SSH_HOST'
             PREVIEW_SSH_USER: 'SUGAMING_DISCORD_PREVIEW_SSH_USER'
-            PREVIEW_SSH_KEY: 'SUGAMING_DISCORD_PREVIEW_SSH_KEY'
+            PREVIEW_SSH_PASSWORD: 'SUGAMING_DISCORD_PREVIEW_SSH_PASSWORD'
 
     steps:
       - name: Set environment variables
@@ -104,33 +104,33 @@ jobs:
             IMAGE_TAG="pr-${{ github.event.number }}"
             SSH_HOST="${{ env.PREVIEW_SSH_HOST }}"
             SSH_USER="${{ env.PREVIEW_SSH_USER }}"
-            SSH_KEY=$(echo "${{ env.PREVIEW_SSH_KEY }}" | openssl base64 | tr -d '\n')
+            SSH_PASSWORD="${{ env.PREVIEW_SSH_PASSWORD }}"
           elif [ "${{ github.ref }}" = "refs/heads/main" ]; then
             IMAGE_TAG="main"
             SSH_HOST="${{ env.PREVIEW_SSH_HOST }}"
             SSH_USER="${{ env.PREVIEW_SSH_USER }}"
-            SSH_KEY="${{ env.PREVIEW_SSH_KEY }}"
+            SSH_PASSWORD="${{ env.PREVIEW_SSH_PASSWORD }}"
           elif [ "${{ github.ref }}" = "refs/tags/${{ github.ref }}" ]; then
             IMAGE_TAG="latest"
             SSH_HOST="${{ env.PRODUCTION_SSH_HOST }}"
             SSH_USER="${{ env.PRODUCTION_SSH_USER }}"
-            SSH_KEY="${{ env.PRODUCTION_SSH_KEY }}"
+            SSH_PASSWORD="${{ env.PRODUCTION_SSH_PASSWORD }}"
           fi
 
           echo IMAGE_TAG="$IMAGE_TAG" >> $GITHUB_ENV
           echo SSH_HOST="$SSH_HOST" >> $GITHUB_ENV
           echo SSH_USER="$SSH_USER" >> $GITHUB_ENV
-          echo SSH_KEY="$SSH_KEY" >> $GITHUB_ENV
+          echo SSH_PASSWORD="$SSH_PASSWORD" >> $GITHUB_ENV
 
       - run: |
-          echo "${{ env.SSH_KEY }}" | base64 --decode
+          echo "${{ env.SSH_PASSWORD }}" | base64 --decode
 
       - name: Deploy container image
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ env.SSH_HOST }}
           username: ${{ env.SSH_USER }}
-          key: $(echo "${{ env.SSH_KEY }}" | base64 --decode)
+          password: $(echo "${{ env.SSH_PASSWORD }}" | base64 --decode)
           script: |
             whoami
             echo ${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
