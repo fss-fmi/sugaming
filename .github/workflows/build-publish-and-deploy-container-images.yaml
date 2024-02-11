@@ -122,9 +122,6 @@ jobs:
           echo SSH_USER="$SSH_USER" >> $GITHUB_ENV
           echo SSH_PASSWORD="$SSH_PASSWORD" >> $GITHUB_ENV
 
-      - run: |
-          echo "${{ env.SSH_PASSWORD }}" | base64 --decode
-
       - name: Deploy container image
         uses: appleboy/ssh-action@v1.0.3
         with:
