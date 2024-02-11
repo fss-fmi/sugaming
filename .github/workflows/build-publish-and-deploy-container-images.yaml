@@ -125,12 +125,19 @@ jobs:
           echo "SSH_USER=${SSH_USER}" >> $GITHUB_ENV
           echo "SSH_KEY=${SSH_KEY}" >> $GITHUB_ENV
 
-      - name: Deploy container image
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ env.SSH_HOST }}
-          username: ${{ env.SSH_USER }}
-          key: ${{ env.SSH_KEY }}
-          script: |
-            whoami
-            echo ${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/staging.key
+          chmod 600 ~/.ssh/staging.key
+          cat >>~/.ssh/config <<END
+          Host staging
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/staging.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: ${{ env.SSH_USER }}
+          SSH_KEY: ${{ env.SSH_KEY }}
+          SSH_HOST: ${{ env.SSH_HOST }}
