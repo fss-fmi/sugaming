@@ -63,9 +63,8 @@ jobs:
         run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} npx nx run-many --target=container --push
 
   deploy-container-images:
-    name: 'Deploy ${{ matrix.NAME }} container image'
+    name: 'Deploy ${{ matrix.IMAGE_NAME }} container image'
     runs-on: ubuntu-latest
-    needs: build-and-publish-container-images
 
     env:
       PRODUCTION_SSH_HOST: ${{ secrets[matrix.PRODUCTION_SSH_HOST] }}
@@ -103,19 +102,19 @@ jobs:
           #  - a push of a version tag -> set the image tag to be "latest"
           if [ -n "${{ github.event.pull_request }}" ]; then
             IMAGE_TAG="pr-${{ github.event.number }}"
-            SSH_HOST=${{ matrix.PREVIEW_SSH_HOST }}
-            SSH_USER=${{ matrix.PREVIEW_SSH_USER }}
-            SSH_KEY=${{ matrix.PREVIEW_SSH_KEY }}
+            SSH_HOST=${{ env.PREVIEW_SSH_HOST }}
+            SSH_USER=${{ env.PREVIEW_SSH_USER }}
+            SSH_KEY=${{ env.PREVIEW_SSH_KEY }}
           elif [ "${{ github.ref }}" = "refs/heads/main" ]; then
             IMAGE_TAG="main"
-            SSH_HOST=${{ matrix.PREVIEW_SSH_HOST }}
-            SSH_USER=${{ matrix.PREVIEW_SSH_USER }}
-            SSH_KEY=${{ matrix.PREVIEW_SSH_KEY }}
+            SSH_HOST=${{ env.PREVIEW_SSH_HOST }}
+            SSH_USER=${{ env.PREVIEW_SSH_USER }}
+            SSH_KEY=${{ env.PREVIEW_SSH_KEY }}
           elif [ "${{ github.ref }}" = "refs/tags/${{ github.ref }}" ]; then
             IMAGE_TAG="latest"
-            SSH_HOST=${{ matrix.PRODUCTION_SSH_HOST }}
-            SSH_USER=${{ matrix.PRODUCTION_SSH_USER }}
-            SSH_KEY=${{ matrix.PRODUCTION_SSH_KEY }}
+            SSH_HOST=${{ env.PRODUCTION_SSH_HOST }}
+            SSH_USER=${{ env.PRODUCTION_SSH_USER }}
+            SSH_KEY=${{ env.PRODUCTION_SSH_KEY }}
           fi
 
           echo "IMAGE_TAG=${IMAGE_TAG}" >> $GITHUB_ENV
@@ -129,7 +128,6 @@ jobs:
           host: ${{ env.SSH_HOST }}
           username: ${{ env.SSH_USER }}
           key: ${{ env.SSH_KEY }}
-          port: 22
           script: |
             whoami
             echo ${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
