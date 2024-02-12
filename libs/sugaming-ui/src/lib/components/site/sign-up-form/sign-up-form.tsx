@@ -151,7 +151,7 @@ export function SignUpForm() {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    mode: 'onChange',
+    mode: 'all',
     defaultValues: {
       firstName: '',
       lastName: '',
