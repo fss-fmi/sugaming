@@ -132,6 +132,7 @@ jobs:
           echo SSH_PASSWORD="$SSH_PASSWORD" >> $GITHUB_ENV
           echo CONTAINER_NAME="$CONTAINER_NAME" >> $GITHUB_ENV
           echo CONTAINER_PORT="$CONTAINER_PORT" >> $GITHUB_ENV
+          echo ENV_FILE="$ENV_FILE" >> $GITHUB_ENV
 
       - name: Deploy container image
         uses: appleboy/ssh-action@v1.0.3
