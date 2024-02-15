@@ -105,22 +105,33 @@ jobs:
             SSH_HOST="${{ env.PREVIEW_SSH_HOST }}"
             SSH_USER="${{ env.PREVIEW_SSH_USER }}"
             SSH_PASSWORD="${{ env.PREVIEW_SSH_PASSWORD }}"
+            CONTAINER_NAME="${{ matrix.IMAGE_NAME }}-pr-${{ github.event.number }}"
+            CONTAINER_PORT=`expr 4000 + ${{ github.event.number }}`
+            ENV_FILE=".env.preview"
           elif [ "${{ github.ref }}" = "refs/heads/main" ]; then
             IMAGE_TAG="main"
             SSH_HOST="${{ env.PREVIEW_SSH_HOST }}"
             SSH_USER="${{ env.PREVIEW_SSH_USER }}"
             SSH_PASSWORD="${{ env.PREVIEW_SSH_PASSWORD }}"
+            CONTAINER_NAME="main"
+            CONTAINER_PORT="4000"
+            ENV_FILE=".env.preview"
           elif [ "${{ github.ref }}" = "refs/tags/${{ github.ref }}" ]; then
             IMAGE_TAG="latest"
             SSH_HOST="${{ env.PRODUCTION_SSH_HOST }}"
             SSH_USER="${{ env.PRODUCTION_SSH_USER }}"
             SSH_PASSWORD="${{ env.PRODUCTION_SSH_PASSWORD }}"
+            CONTAINER_NAME="latest"
+            CONTAINER_PORT="3000"
+            ENV_FILE=".env.production"
           fi
 
           echo IMAGE_TAG="$IMAGE_TAG" >> $GITHUB_ENV
           echo SSH_HOST="$SSH_HOST" >> $GITHUB_ENV
           echo SSH_USER="$SSH_USER" >> $GITHUB_ENV
           echo SSH_PASSWORD="$SSH_PASSWORD" >> $GITHUB_ENV
+          echo CONTAINER_NAME="$CONTAINER_NAME" >> $GITHUB_ENV
+          echo CONTAINER_PORT="$CONTAINER_PORT" >> $GITHUB_ENV
 
       - name: Deploy container image
         uses: appleboy/ssh-action@v1.0.3
@@ -129,5 +140,9 @@ jobs:
           username: ${{ env.SSH_USER }}
           password: $(echo "${{ env.SSH_PASSWORD }}" | base64 --decode)
           script: |
-            whoami
-            echo ${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+            # Pull and run the container image
+            cd /opt/deployment
+            docker pull ghcr.io/fss-fmi/sugaming/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+            docker stop ${{ matrix.IMAGE_NAME }} || true
+            docker rm ${{ matrix.IMAGE_NAME }} || true
+            docker run -d -p ${{ env.CONTAINER_PORT }}:3000 --name ${{ matrix.IMAGE_NAME }} --env-file ${{ env.ENV_FILE }} ghcr.io/fss-fmi/sugaming/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
