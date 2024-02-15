@@ -146,4 +146,10 @@ jobs:
             docker pull ghcr.io/fss-fmi/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
             docker stop ${{ matrix.IMAGE_NAME }} || true
             docker rm ${{ matrix.IMAGE_NAME }} || true
-            docker run -d -p ${{ env.CONTAINER_PORT }}:3000 --name ${{ matrix.IMAGE_NAME }} --env-file ${{ env.ENV_FILE }} ghcr.io/fss-fmi/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+
+            # if discord, don't expose the port
+            if [ "${{ matrix.IMAGE_NAME }}" = "sugaming-discord" ]; then
+              docker run -d --name ${{ matrix.IMAGE_NAME }} --env-file ${{ env.ENV_FILE }} ghcr.io/fss-fmi/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+            else
+              docker run -d --name ${{ matrix.IMAGE_NAME }} --env-file ${{ env.ENV_FILE }} -p ${{ env.CONTAINER_PORT }}:3000 ghcr.io/fss-fmi/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+            fi
