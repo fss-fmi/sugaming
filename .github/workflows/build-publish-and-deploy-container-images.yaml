@@ -142,7 +142,7 @@ jobs:
           script: |
             # Pull and run the container image
             cd /opt/deployment
-            docker pull ghcr.io/fss-fmi/sugaming/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+            docker pull ghcr.io/fss-fmi/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
             docker stop ${{ matrix.IMAGE_NAME }} || true
             docker rm ${{ matrix.IMAGE_NAME }} || true
-            docker run -d -p ${{ env.CONTAINER_PORT }}:3000 --name ${{ matrix.IMAGE_NAME }} --env-file ${{ env.ENV_FILE }} ghcr.io/fss-fmi/sugaming/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+            docker run -d -p ${{ env.CONTAINER_PORT }}:3000 --name ${{ matrix.IMAGE_NAME }} --env-file ${{ env.ENV_FILE }} ghcr.io/fss-fmi/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
