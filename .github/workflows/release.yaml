@@ -17,8 +17,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - NAME: 'sugaming-api'
-            PROJECT_ID_VARIABLE: 'VERCEL_PROJECT_API_ID'
           - NAME: 'sugaming-site'
             PROJECT_ID_VARIABLE: 'VERCEL_PROJECT_SITE_ID'
           - NAME: 'sugaming-admin'
@@ -78,6 +76,6 @@ jobs:
           generateReleaseNotes: true
           body: |-
             ## Environments
-            **sugaming-api**: ${{ fromJson(needs.read-preview-urls.outputs.result).preview-url.sugaming-api }}
+            **sugaming-api**: https://api.sugaming.club/api
             **sugaming-site**: ${{ fromJson(needs.read-preview-urls.outputs.result).preview-url.sugaming-site }}
             **sugaming-admin**: ${{ fromJson(needs.read-preview-urls.outputs.result).preview-url.sugaming-admin }}
