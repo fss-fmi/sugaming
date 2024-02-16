@@ -175,6 +175,12 @@ jobs:
             docker stop ${{ matrix.IMAGE_NAME }}-${{ env.IMAGE_TAG }} || true
             docker rm ${{ matrix.IMAGE_NAME }}-${{ env.IMAGE_TAG }} || true
 
+            # If running sugaming_discord preview container, remove other preview containers
+            if [ "${{ matrix.IMAGE_NAME }}" = "sugaming-discord" && "${{ env.IMAGE_TAG }}" = "pr-${{ github.event.number }}" ]; then
+              docker ps -a | grep "sugaming-discord-pr-" | awk '{print $1}'
+              docker ps -a | grep "sugaming-discord-pr-" | awk '{print $1}' | xargs -I {} docker rm {}
+            fi
+
             # if running sugaming_discord container, don't expose the port
             if [ "${{ matrix.IMAGE_NAME }}" = "sugaming-discord" ]; then
               docker run -d --name ${{ matrix.IMAGE_NAME }}-${{ env.IMAGE_TAG }} --env-file ${{ env.ENV_FILE }} ghcr.io/fss-fmi/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
