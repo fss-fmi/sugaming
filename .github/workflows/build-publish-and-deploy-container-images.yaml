@@ -186,10 +186,10 @@ jobs:
           password: ${{ env.SSH_PASSWORD }}
           script: |
             # Log in to Nginx Proxy Manager
-            TOKEN=`curl 'http://localhost:81/api/tokens' \
+            TOKEN=$(curl 'http://localhost:81/api/tokens' \
               -H 'Content-Type: application/json; charset=UTF-8' \
               --data-raw '{"identity":"${{ env.NGINX_PROXY_MANAGER_EMAIL }}","secret":"${{ env.NGINX_PROXY_MANAGER_PASSWORD }}"}' \
-              | jq -r '.token'`
+              | jq -r '.token')
 
             # Check if the API container is already added to the reverse proxy and exit if it is
             curl 'http://localhost:81/api/nginx/proxy-hosts' \
