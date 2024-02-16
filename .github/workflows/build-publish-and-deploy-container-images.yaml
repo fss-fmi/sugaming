@@ -167,14 +167,14 @@ jobs:
             # Pull and run the container image
             cd /opt/deployment
             docker pull ghcr.io/fss-fmi/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-            docker stop ${{ matrix.IMAGE_NAME }} || true
-            docker rm ${{ matrix.IMAGE_NAME }} || true
+            docker stop ${{ matrix.IMAGE_NAME }}-${{ env.IMAGE_TAG }} || true
+            docker rm ${{ matrix.IMAGE_NAME }}-${{ env.IMAGE_TAG }} || true
 
             # if running sugaming_discord container, don't expose the port
             if [ "${{ matrix.IMAGE_NAME }}" = "sugaming-discord" ]; then
-              docker run -d --name ${{ matrix.IMAGE_NAME }} --env-file ${{ env.ENV_FILE }} ghcr.io/fss-fmi/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+              docker run -d --name ${{ matrix.IMAGE_NAME }}-${{ env.IMAGE_TAG }} --env-file ${{ env.ENV_FILE }} ghcr.io/fss-fmi/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
             else
-              docker run -d --name ${{ matrix.IMAGE_NAME }} --env-file ${{ env.ENV_FILE }} -p ${{ env.CONTAINER_PORT }}:3000 ghcr.io/fss-fmi/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+              docker run -d --name ${{ matrix.IMAGE_NAME }}-${{ env.IMAGE_TAG }} --env-file ${{ env.ENV_FILE }} -p ${{ env.CONTAINER_PORT }}:3000 ghcr.io/fss-fmi/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
             fi
 
       - name: Add reverse proxy configuration for API containers
@@ -219,9 +219,10 @@ jobs:
             });
             const output = `#### API Deployment
               The latest API deployment has been completed.
-              | Name             | Status    | Preview | Updated |
-              |:-----------------|:----------|:--------|:--------|
-              | **sugaming-api** | ✅ Ready  | [Visit Preview](${{ env.API_DOMAIN/api }}) | ${new Date().toLocaleString()} |
+
+              | Name             | Status    | Preview                                    | Updated                        |
+              |:-----------------|:----------|:-------------------------------------------|:-------------------------------|
+              | **sugaming-api** | ✅ Ready  | [Visit Preview](${{ env.API_DOMAIN }}/api) | ${new Date().toLocaleString()} |
               `;
 
             if (botComment) {
