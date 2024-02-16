@@ -8,6 +8,12 @@
       "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
+      "dependsOn": [
+        {
+          "target": "prisma-generate",
+          "projects": "workspace"
+        }
+      ],
       "options": {
         "target": "node",
         "compiler": "tsc",
@@ -16,7 +22,8 @@
         "tsConfig": "apps/sugaming-discord/tsconfig.app.json",
         "assets": ["apps/sugaming-discord/assets"],
         "isolatedConfig": true,
-        "webpackConfig": "apps/sugaming-discord/webpack.config.js"
+        "webpackConfig": "apps/sugaming-discord/webpack.config.js",
+        "generatePackageJson": true
       },
       "configurations": {
         "development": {},
@@ -50,6 +57,30 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/sugaming-discord/jest.config.ts"
+      }
+    },
+    "container": {
+      "executor": "@nx-tools/nx-container:build",
+      "dependsOn": ["build"],
+      "options": {
+        "engine": "docker",
+        "metadata": {
+          "images": [
+            "fssfmi/sugaming-discord",
+            "ghcr.io/fss-fmi/sugaming-discord"
+          ],
+          "load": true,
+          "tags": [
+            "type=schedule",
+            "type=ref,event=branch",
+            "type=ref,event=tag",
+            "type=ref,event=pr",
+            "type=sha,prefix=sha-"
+          ],
+          "labels": [
+            "org.opencontainers.image.source=https://github.com/fss-fmi/sugaming"
+          ]
+        }
       }
     }
   },
