@@ -192,13 +192,13 @@ jobs:
               | jq -r '.token')
 
             # Check if the API container is already added to the reverse proxy and exit if it is
-            curl 'http://localhost:81/api/nginx/proxy-hosts' \
-              -H 'Authorization: Bearer $TOKEN' \
-              -H 'Content-Type: application/json; charset=UTF-8' \
+            curl "http://localhost:81/api/nginx/proxy-hosts" \
+              -H "Authorization: Bearer $TOKEN" \
+              -H "Content-Type: application/json; charset=UTF-8" \
               | grep -q ${{ env.API_DOMAIN }} && exit 0
               
             # Add reverse proxy configuration for the API container
-            curl 'http://localhost:81/api/nginx/proxy-hosts' \
-              -H 'Authorization: Bearer $TOKEN' \
-              -H 'Content-Type: application/json; charset=UTF-8' \
+            curl "http://localhost:81/api/nginx/proxy-hosts" \
+              -H "Authorization: Bearer $TOKEN" \
+              -H "Content-Type: application/json; charset=UTF-8" \
               --data-raw '{"domain_names":["${{ env.API_DOMAIN }}"],"forward_scheme":"http","forward_host":"${{ env.PUBLIC_IP }}","forward_port":${{ env.CONTAINER_PORT }},"block_exploits":true,"allow_websocket_upgrade":true,"access_list_id":"0","certificate_id":4,"ssl_forced":true,"meta":{"letsencrypt_agree":false,"dns_challenge":false},"advanced_config":"","locations":[],"caching_enabled":false,"http2_support":false,"hsts_enabled":false,"hsts_subdomains":false}'
