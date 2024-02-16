@@ -219,14 +219,14 @@ jobs:
               issue_number: context.issue.number,
             });
             const botComment = comments.find(comment => {
-              return comment.user.login === 'github-actions[bot]' && comment.body.includes('Deployed to');
+              return comment.user.login === 'github-actions[bot]' && comment.body.includes('The latest API deployment has been completed');
             });
             const output = `#### API Deployment
               The latest API deployment has been completed.
 
-              | Name             | Status    | Preview                                    | Updated                        |
-              |:-----------------|:----------|:-------------------------------------------|:-------------------------------|
-              | **sugaming-api** | ✅ Ready  | [Visit Preview](${{ env.API_DOMAIN }}/api) | ${new Date().toLocaleString()} |
+              | Name             | Status    | Preview                                            | Updated                        |
+              |:-----------------|:----------|:---------------------------------------------------|:-------------------------------|
+              | **sugaming-api** | ✅ Ready  | [Visit Preview](https://${{ env.API_DOMAIN }}/api) | ${new Date().toLocaleString()} |
               `;
 
             if (botComment) {
