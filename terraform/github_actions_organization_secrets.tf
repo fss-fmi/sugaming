@@ -93,3 +93,39 @@ resource "github_actions_organization_secret" "sugaming_api_preview_nginx_proxy_
   visibility = "all"
   plaintext_value = var.sugaming_api_preview_nginx_proxy_manager_password
 }
+
+resource "github_actions_organization_secret" "sugaming_discord_production_public_ip_secret" {
+  secret_name     = "SUGAMING_DISCORD_PRODUCTION_PUBLIC_IP"
+  visibility      = "all"
+  plaintext_value = var.sugaming_discord_production_public_ip
+}
+
+resource "github_actions_organization_secret" "sugaming_discord_preview_public_ip_secret" {
+  secret_name = "SUGAMING_DISCORD_PREVIEW_PUBLIC_IP"
+  visibility = "all"
+  plaintext_value = var.sugaming_discord_preview_public_ip
+}
+
+resource "github_actions_organization_secret" "sugaming_discord_production_ssh_user_secret" {
+  secret_name = "SUGAMING_DISCORD_PRODUCTION_SSH_USER"
+  visibility = "all"
+  plaintext_value = var.sugaming_discord_production_ssh_user
+}
+
+resource "github_actions_organization_secret" "sugaming_discord_preview_ssh_user_secret" {
+  secret_name = "SUGAMING_DISCORD_PREVIEW_SSH_USER"
+  visibility = "all"
+  plaintext_value = var.sugaming_discord_preview_ssh_user
+}
+
+resource "github_actions_organization_secret" "sugaming_discord_production_ssh_password_secret" {
+  secret_name = "SUGAMING_DISCORD_PRODUCTION_SSH_PASSWORD"
+  visibility = "all"
+  plaintext_value = var.sugaming_discord_production_ssh_password
+}
+
+resource "github_actions_organization_secret" "sugaming_discord_preview_ssh_password_secret" {
+  secret_name = "SUGAMING_DISCORD_PREVIEW_SSH_PASSWORD"
+  visibility = "all"
+  plaintext_value = var.sugaming_discord_preview_ssh_password
+}

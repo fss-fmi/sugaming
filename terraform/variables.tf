@@ -105,3 +105,39 @@ variable "sugaming_api_preview_nginx_proxy_manager_password" {
   type        = string
   sensitive   = true
 }
+
+variable "sugaming_discord_production_public_ip" {
+  description = "Public IP address of the sugaming-discord production server"
+  type        = string
+  sensitive   = false
+}
+
+variable "sugaming_discord_preview_public_ip" {
+  description = "Public IP address of the sugaming-discord preview server"
+  type        = string
+  sensitive   = false
+}
+
+variable "sugaming_discord_production_ssh_user" {
+  description = "SSH user for the sugaming-discord production server"
+  type        = string
+  sensitive   = false
+}
+
+variable "sugaming_discord_preview_ssh_user" {
+  description = "SSH user for the sugaming-discord preview server"
+  type        = string
+  sensitive   = false
+}
+
+variable "sugaming_discord_production_ssh_password" {
+  description = "SSH password for the sugaming-discord production server"
+  type        = string
+  sensitive   = true
+}
+
+variable "sugaming_discord_preview_ssh_password" {
+  description = "SSH password for the sugaming-discord preview server"
+  type        = string
+  sensitive   = true
+}
