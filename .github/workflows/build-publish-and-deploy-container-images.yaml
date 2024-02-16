@@ -83,6 +83,7 @@ jobs:
       PREVIEW_NGINX_PROXY_MANAGER_PASSWORD: ${{ secrets[matrix.PREVIEW_NGINX_PROXY_MANAGER_PASSWORD] }}
 
     strategy:
+      fail-fast: false
       matrix:
         include:
           - IMAGE_NAME: 'sugaming-api'
@@ -211,7 +212,7 @@ jobs:
         uses: actions/github-script@v5
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          scripts: |
+          script: |
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
