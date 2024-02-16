@@ -65,6 +65,9 @@ jobs:
   deploy-container-images:
     name: 'Deploy ${{ matrix.IMAGE_NAME }} container image'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
 
     env:
       PRODUCTION_PUBLIC_IP: ${{ secrets[matrix.PRODUCTION_PUBLIC_IP] }}
