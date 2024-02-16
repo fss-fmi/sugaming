@@ -67,29 +67,40 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      PRODUCTION_SSH_HOST: ${{ secrets[matrix.PRODUCTION_SSH_HOST] }}
+      PRODUCTION_PUBLIC_IP: ${{ secrets[matrix.PRODUCTION_PUBLIC_IP] }}
       PRODUCTION_SSH_USER: ${{ secrets[matrix.PRODUCTION_SSH_USER] }}
       PRODUCTION_SSH_PASSWORD: ${{ secrets[matrix.PRODUCTION_SSH_PASSWORD] }}
-      PREVIEW_SSH_HOST: ${{ secrets[matrix.PREVIEW_SSH_HOST] }}
+      PRODUCTION_NGINX_PROXY_MANAGER_EMAIL: ${{ secrets[matrix.PRODUCTION_NGINX_PROXY_MANAGER_EMAIL] }}
+      PRODUCTION_NGINX_PROXY_MANAGER_PASSWORD: ${{ secrets[matrix.PRODUCTION_NGINX_PROXY_MANAGER_PASSWORD] }}
+
+      PREVIEW_PUBLIC_IP: ${{ secrets[matrix.PREVIEW_PUBLIC_IP] }}
       PREVIEW_SSH_USER: ${{ secrets[matrix.PREVIEW_SSH_USER] }}
       PREVIEW_SSH_PASSWORD: ${{ secrets[matrix.PREVIEW_SSH_PASSWORD] }}
+      PREVIEW_NGINX_PROXY_MANAGER_EMAIL: ${{ secrets[matrix.PREVIEW_NGINX_PROXY_MANAGER_EMAIL] }}
+      PREVIEW_NGINX_PROXY_MANAGER_PASSWORD: ${{ secrets[matrix.PREVIEW_NGINX_PROXY_MANAGER_PASSWORD] }}
 
     strategy:
       matrix:
         include:
           - IMAGE_NAME: 'sugaming-api'
-            PRODUCTION_SSH_HOST: 'SUGAMING_API_PRODUCTION_SSH_HOST'
+            PRODUCTION_PUBLIC_IP: 'SUGAMING_API_PRODUCTION_PUBLIC_IP'
             PRODUCTION_SSH_USER: 'SUGAMING_API_PRODUCTION_SSH_USER'
             PRODUCTION_SSH_PASSWORD: 'SUGAMING_API_PRODUCTION_SSH_PASSWORD'
-            PREVIEW_SSH_HOST: 'SUGAMING_API_PREVIEW_SSH_HOST'
+            PRODUCTION_NGINX_PROXY_MANAGER_EMAIL: 'SUGAMING_API_PRODUCTION_NGINX_PROXY_MANAGER_EMAIL'
+            PRODUCTION_NGINX_PROXY_MANAGER_PASSWORD: 'SUGAMING_API_PRODUCTION_NGINX_PROXY_MANAGER_PASSWORD'
+
+            PREVIEW_PUBLIC_IP: 'SUGAMING_API_PREVIEW_PUBLIC_IP'
             PREVIEW_SSH_USER: 'SUGAMING_API_PREVIEW_SSH_USER'
             PREVIEW_SSH_PASSWORD: 'SUGAMING_API_PREVIEW_SSH_PASSWORD'
+            PREVIEW_NGINX_PROXY_MANAGER_EMAIL: 'SUGAMING_API_PREVIEW_NGINX_PROXY_MANAGER_EMAIL'
+            PREVIEW_NGINX_PROXY_MANAGER_PASSWORD: 'SUGAMING_API_PREVIEW_NGINX_PROXY_MANAGER_PASSWORD'
 
           - IMAGE_NAME: 'sugaming-discord'
-            PRODUCTION_SSH_HOST: 'SUGAMING_DISCORD_PRODUCTION_SSH_HOST'
+            PRODUCTION_PUBLIC_IP: 'SUGAMING_DISCORD_PRODUCTION_PUBLIC_IP'
             PRODUCTION_SSH_USER: 'SUGAMING_DISCORD_PRODUCTION_SSH_USER'
             PRODUCTION_SSH_PASSWORD: 'SUGAMING_DISCORD_PRODUCTION_SSH_PASSWORD'
-            PREVIEW_SSH_HOST: 'SUGAMING_DISCORD_PREVIEW_SSH_HOST'
+
+            PREVIEW_PUBLIC_IP: 'SUGAMING_DISCORD_PREVIEW_PUBLIC_IP'
             PREVIEW_SSH_USER: 'SUGAMING_DISCORD_PREVIEW_SSH_USER'
             PREVIEW_SSH_PASSWORD: 'SUGAMING_DISCORD_PREVIEW_SSH_PASSWORD'
 
@@ -102,44 +113,56 @@ jobs:
           #  - a push of a version tag -> set the image tag to be "latest"
           if [ -n "${{ github.event.pull_request }}" ]; then
             IMAGE_TAG="pr-${{ github.event.number }}"
-            SSH_HOST="${{ env.PREVIEW_SSH_HOST }}"
+            PUBLIC_IP="${{ env.PREVIEW_PUBLIC_IP }}"
             SSH_USER="${{ env.PREVIEW_SSH_USER }}"
             SSH_PASSWORD="${{ env.PREVIEW_SSH_PASSWORD }}"
+            NGINX_PROXY_MANAGER_EMAIL="${{ env.PREVIEW_NGINX_PROXY_MANAGER_EMAIL }}"
+            NGINX_PROXY_MANAGER_PASSWORD="${{ env.PREVIEW_NGINX_PROXY_MANAGER_PASSWORD }}"
             CONTAINER_NAME="${{ matrix.IMAGE_NAME }}-pr-${{ github.event.number }}"
             CONTAINER_PORT=`expr 4000 + ${{ github.event.number }}`
+            API_DOMAIN="pr-${{ github.event.number }}-api.sugaming.club"
             ENV_FILE=".env.preview"
           elif [ "${{ github.ref }}" = "refs/heads/main" ]; then
             IMAGE_TAG="main"
-            SSH_HOST="${{ env.PREVIEW_SSH_HOST }}"
+            PUBLIC_IP="${{ env.PREVIEW_PUBLIC_IP }}"
             SSH_USER="${{ env.PREVIEW_SSH_USER }}"
             SSH_PASSWORD="${{ env.PREVIEW_SSH_PASSWORD }}"
+            NGINX_PROXY_MANAGER_EMAIL="${{ env.PREVIEW_NGINX_PROXY_MANAGER_EMAIL }}"
+            NGINX_PROXY_MANAGER_PASSWORD="${{ env.PREVIEW_NGINX_PROXY_MANAGER_PASSWORD }}"
             CONTAINER_NAME="main"
             CONTAINER_PORT="4000"
+            API_DOMAIN="preview-api.sugaming.club"
             ENV_FILE=".env.preview"
           elif [ "${{ github.ref }}" = "refs/tags/${{ github.ref }}" ]; then
             IMAGE_TAG="latest"
-            SSH_HOST="${{ env.PRODUCTION_SSH_HOST }}"
+            PUBLIC_IP="${{ env.PRODUCTION_PUBLIC_IP }}"
             SSH_USER="${{ env.PRODUCTION_SSH_USER }}"
             SSH_PASSWORD="${{ env.PRODUCTION_SSH_PASSWORD }}"
+            NGINX_PROXY_MANAGER_EMAIL="${{ env.PRODUCTION_NGINX_PROXY_MANAGER_EMAIL }}"
+            NGINX_PROXY_MANAGER_PASSWORD="${{ env.PRODUCTION_NGINX_PROXY_MANAGER_PASSWORD }}"
             CONTAINER_NAME="latest"
             CONTAINER_PORT="3000"
+            API_DOMAIN=api.sugaming.club
             ENV_FILE=".env.production"
           fi
 
           echo IMAGE_TAG="$IMAGE_TAG" >> $GITHUB_ENV
-          echo SSH_HOST="$SSH_HOST" >> $GITHUB_ENV
+          echo PUBLIC_IP="$PUBLIC_IP" >> $GITHUB_ENV
           echo SSH_USER="$SSH_USER" >> $GITHUB_ENV
           echo SSH_PASSWORD="$SSH_PASSWORD" >> $GITHUB_ENV
+          echo NGINX_PROXY_MANAGER_EMAIL="$NGINX_PROXY_MANAGER_EMAIL" >> $GITHUB_ENV
+          echo NGINX_PROXY_MANAGER_PASSWORD="$NGINX_PROXY_MANAGER_PASSWORD" >> $GITHUB_ENV
           echo CONTAINER_NAME="$CONTAINER_NAME" >> $GITHUB_ENV
           echo CONTAINER_PORT="$CONTAINER_PORT" >> $GITHUB_ENV
+          echo API_DOMAIN="$API_DOMAIN" >> $GITHUB_ENV
           echo ENV_FILE="$ENV_FILE" >> $GITHUB_ENV
 
       - name: Deploy container image
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ env.SSH_HOST }}
+          host: ${{ env.PUBLIC_IP }}
           username: ${{ env.SSH_USER }}
-          password: $(echo "${{ env.SSH_PASSWORD }}" | base64 --decode)
+          password: ${{ env.SSH_PASSWORD }}
           script: |
             # Pull and run the container image
             cd /opt/deployment
@@ -147,9 +170,35 @@ jobs:
             docker stop ${{ matrix.IMAGE_NAME }} || true
             docker rm ${{ matrix.IMAGE_NAME }} || true
 
-            # if discord, don't expose the port
+            # if running sugaming_discord container, don't expose the port
             if [ "${{ matrix.IMAGE_NAME }}" = "sugaming-discord" ]; then
               docker run -d --name ${{ matrix.IMAGE_NAME }} --env-file ${{ env.ENV_FILE }} ghcr.io/fss-fmi/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
             else
               docker run -d --name ${{ matrix.IMAGE_NAME }} --env-file ${{ env.ENV_FILE }} -p ${{ env.CONTAINER_PORT }}:3000 ghcr.io/fss-fmi/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
             fi
+
+      - name: Add reverse proxy configuration for API containers
+        uses: appleboy/ssh-action@v1.0.3
+        if: ${{ matrix.IMAGE_NAME == 'sugaming-api' }}
+        with:
+          host: ${{ env.PUBLIC_IP }}
+          username: ${{ env.SSH_USER }}
+          password: ${{ env.SSH_PASSWORD }}
+          script: |
+            # Log in to Nginx Proxy Manager
+            curl 'http://localhost:81/api/tokens' \
+              -H 'Content-Type: application/json; charset=UTF-8' \
+              --data-raw '{"identity":"${{ env.NGINX_PROXY_MANAGER_EMAIL }}","secret":"${{ env.NGINX_PROXY_MANAGER_PASSWORD }}"}' \
+              | jq -r '.token' > /tmp/nginx-proxy-manager-token
+
+            # Check if the API container is already added to the reverse proxy and exit if it is
+            curl 'http://localhost:81/api/nginx/proxy-hosts' \
+              -H 'Authorization: Bearer $(cat /tmp/nginx-proxy-manager-token)' \
+              -H 'Content-Type: application/json; charset=UTF-8' \
+              | grep -q ${{ env.API_DOMAIN }} && exit 0
+              
+            # Add reverse proxy configuration for the API container
+            curl 'http://localhost:81/api/nginx/proxy-hosts' \
+              -H 'Authorization: Bearer $(cat /tmp/nginx-proxy-manager-token)' \
+              -H 'Content-Type: application/json; charset=UTF-8' \
+              --data-raw '{"domain_names":["${{ env.API_DOMAIN }}"],"forward_scheme":"http","forward_host":"${{ env.PUBLIC_IP }}","forward_port":${{ env.CONTAINER_PORT }},"block_exploits":true,"allow_websocket_upgrade":true,"access_list_id":"0","certificate_id":4,"ssl_forced":true,"meta":{"letsencrypt_agree":false,"dns_challenge":false},"advanced_config":"","locations":[],"caching_enabled":false,"http2_support":false,"hsts_enabled":false,"hsts_subdomains":false}'
