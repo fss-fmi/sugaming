@@ -176,7 +176,7 @@ jobs:
             docker rm ${{ matrix.IMAGE_NAME }}-${{ env.IMAGE_TAG }} || true
 
             # If running sugaming_discord preview container, remove other preview containers
-            if [ "${{ matrix.IMAGE_NAME }}" = "sugaming-discord" && "${{ env.IMAGE_TAG }}" = "pr-${{ github.event.number }}" ]; then
+            if [ "${{ matrix.IMAGE_NAME }}" = "sugaming-discord" ] && [ "${{ env.IMAGE_TAG }}" = "pr-${{ github.event.number }}" ]; then
               docker ps -a | grep "sugaming-discord-pr-" | awk '{print $1}'
               docker ps -a | grep "sugaming-discord-pr-" | awk '{print $1}' | xargs -I {} docker rm {}
             fi
@@ -215,7 +215,7 @@ jobs:
               --data-raw '{"domain_names":["${{ env.API_DOMAIN }}"],"forward_scheme":"http","forward_host":"${{ env.PUBLIC_IP }}","forward_port":${{ env.CONTAINER_PORT }},"block_exploits":true,"allow_websocket_upgrade":true,"access_list_id":"0","certificate_id":4,"ssl_forced":true,"meta":{"letsencrypt_agree":false,"dns_challenge":false},"advanced_config":"","locations":[],"caching_enabled":false,"http2_support":false,"hsts_enabled":false,"hsts_subdomains":false}'
 
       - name: Add comment to the pull request
-        if: ${{ github.event_name == 'pull_request' }} && ${{ matrix.IMAGE_NAME == 'sugaming-api' }}
+        if: "${{ github.event_name == 'pull_request' }} && ${{ matrix.IMAGE_NAME == 'sugaming-api' }}"
         uses: actions/github-script@v5
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
