@@ -183,9 +183,9 @@ jobs:
 
             # if running sugaming_discord container, don't expose the port
             if [ "${{ matrix.IMAGE_NAME }}" = "sugaming-discord" ]; then
-              docker run -d --name ${{ matrix.IMAGE_NAME }}-${{ env.IMAGE_TAG }} --env-file ${{ env.ENV_FILE }} ghcr.io/fss-fmi/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+              docker run -d --name ${{ matrix.IMAGE_NAME }}-${{ env.IMAGE_TAG }} --env-file ${{ env.ENV_FILE }} --net deployment ghcr.io/fss-fmi/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
             else
-              docker run -d --name ${{ matrix.IMAGE_NAME }}-${{ env.IMAGE_TAG }} --env-file ${{ env.ENV_FILE }} -p ${{ env.CONTAINER_PORT }}:3000 ghcr.io/fss-fmi/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+              docker run -d --name ${{ matrix.IMAGE_NAME }}-${{ env.IMAGE_TAG }} --env-file ${{ env.ENV_FILE }} -p ${{ env.CONTAINER_PORT }}:3000 --net deployment ghcr.io/fss-fmi/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
             fi
 
       - name: Add reverse proxy configuration for API containers
