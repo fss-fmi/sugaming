@@ -24,11 +24,11 @@ model User {
   nickname  String @unique
 
   // University information
-  universityMajor         String           @map("university_major")
-  universityDegree        UniversityDegree @map("university_degree")
-  universityYear          UniversityYear   @map("university_year")
-  universityFacultyNumber String           @unique @map("university_faculty_number")
-  universityProofImageUrl String?          @map("university_proof_image")
+  universityMajor         String                 @map("university_major")
+  universityDegree        UniversityDegree       @map("university_degree")
+  universityYear          UniversityYear         @map("university_year")
+  universityFacultyNumber String                 @unique @map("university_faculty_number")
+  universityProofImages   UniversityProofImage[]
 
   // External accounts information
   discord DiscordAccount?
@@ -84,6 +84,24 @@ model SteamAccount {
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
 
   @@map("steam_accounts")
+}
+
+model UniversityProofImage {
+  // Primary key
+  id Int @id @default(autoincrement())
+
+  // User relation
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Image information
+  url String
+
+  // Row timestamps
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+
+  @@map("university_proof_images")
 }
 
 model Cs2Team {

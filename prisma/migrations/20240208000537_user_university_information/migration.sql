@@ -18,7 +18,6 @@ CREATE TYPE "university_year" AS ENUM ('FIRST', 'SECOND', 'THIRD', 'FOURTH');
 ALTER TABLE "users" ADD COLUMN     "university_degree" "university_degree" NOT NULL,
 ADD COLUMN     "university_faculty_number" TEXT NOT NULL,
 ADD COLUMN     "university_major" TEXT NOT NULL,
-ADD COLUMN     "university_proof_image" TEXT,
 ADD COLUMN     "university_year" "university_year" NOT NULL;
 
 -- CreateIndex
