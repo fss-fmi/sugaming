@@ -123,7 +123,7 @@ export function UniversityInformationFields({
           <FormItem className="lg:col-start-1 lg:col-span-2 lg:row-start-3">
             <FormLabel>{t('university-proof-images')}</FormLabel>
             <FormControl>
-              <ImageInput />
+              <ImageInput {...field} />
             </FormControl>
             <FormDescription>
               {t('university-proof-images-description')}

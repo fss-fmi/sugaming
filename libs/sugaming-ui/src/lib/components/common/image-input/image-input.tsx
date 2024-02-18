@@ -5,12 +5,16 @@ import { FaFileCirclePlus, FaImage } from 'react-icons/fa6';
 import { FaTrashAlt } from 'react-icons/fa';
 import { Card } from '../server';
 
-type ImageInputProps = {
+type Image = {
   file: File;
 };
 
-export function ImageInput() {
-  const [images, setImages] = useState<ImageInputProps[]>([]);
+type ImageInputProps = {
+  onChange: (images: Image[]) => void;
+};
+
+export function ImageInput({ onChange }: ImageInputProps) {
+  const [images, setImages] = useState<Image[]>([]);
 
   const addImages = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
@@ -27,19 +31,20 @@ export function ImageInput() {
     const newImages = newFiles.map((file) => ({
       file,
     }));
+    onChange([...images, ...newImages]);
     setImages([...images, ...newImages]);
   };
 
   const handleDragStart = (
     e: React.DragEvent<HTMLDivElement>,
-    draggedImage: ImageInputProps,
+    draggedImage: Image,
   ) => {
     e.dataTransfer.setData('text/plain', draggedImage.file.name);
   };
 
   const handleDrop = (
     e: React.DragEvent<HTMLDivElement>,
-    droppedImage: ImageInputProps,
+    droppedImage: Image,
   ) => {
     e.preventDefault();
     const draggedImageName = e.dataTransfer.getData('text/plain');
@@ -112,6 +117,7 @@ export function ImageInput() {
                         order: index + 1,
                       })),
                   );
+                  onChange(images);
                 }}
                 type="button"
                 className="absolute bottom-1 right-1 rounded-full border border-stroke bg-primary-foreground p-1 transition-colors hover:border-stroke-secondary"
