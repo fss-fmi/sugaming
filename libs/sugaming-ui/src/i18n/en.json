@@ -95,6 +95,8 @@
       "university-year-third": "Third year",
       "university-year-fourth": "Fourth year",
       "university-faculty-number": "University Faculty Number",
+      "university-proof-images": "University Proof Images",
+      "university-proof-images-description": "The proof can be a picture of your student book, a picture from a university platform or a certificate confirming that you are a student.",
       "continue": "Continue",
       "return": "Return",
       "submit": "Submit",

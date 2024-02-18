@@ -2,10 +2,12 @@ import { UseFormReturn } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
+  ImageInput,
   Input,
   Select,
   SelectContent,
@@ -109,6 +111,23 @@ export function UniversityInformationFields({
             <FormControl>
               <Input placeholder="0MI123456" {...field} />
             </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        control={form.control}
+        name="universityProofImages"
+        render={({ field }) => (
+          <FormItem className="lg:col-start-1 lg:col-span-2 lg:row-start-3">
+            <FormLabel>{t('university-proof-images')}</FormLabel>
+            <FormControl>
+              <ImageInput />
+            </FormControl>
+            <FormDescription>
+              {t('university-proof-images-description')}
+            </FormDescription>
             <FormMessage />
           </FormItem>
         )}

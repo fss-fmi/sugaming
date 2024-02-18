@@ -68,6 +68,10 @@ export const libConfig = {
       // Regex for university faculty numbers, containing only digits and capital latin letters
       regex: /^[A-Z0-9]+$/,
     },
+    universityProofImages: {
+      min: 1,
+      max: 5,
+    },
   },
   cs2Team: {
     name: {
