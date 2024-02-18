@@ -144,7 +144,11 @@ export function SignUpForm() {
           message: t('regex-error'),
         }),
       universityProofImages: z
-        .array(z.string())
+        .array(
+          z.unknown({
+            required_error: t('is-required'),
+          }),
+        )
         .min(libConfig.user.universityProofImages.min, {
           message: t('too-short', {
             length: libConfig.user.universityProofImages.min,
