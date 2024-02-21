@@ -579,7 +579,7 @@ export class UsersService {
         passwordHash: hashedPassword,
         universityProofImages: {
           create: universityProofImages.map((image) => ({
-            url: image.path,
+            url: image.filename,
           })),
         },
         ...userToBeCreatedWithoutPassword,

@@ -33,6 +33,8 @@ import { UsersPostCurrentCs2TeamInvitesRespondRequestBodyDto } from '@sugaming/s
 import { UsersPostCurrentCs2TeamInvitesRespondParamsDto } from '@sugaming/sugaming-services/users/dto/users-post-current-cs2-team-invites-respond-params.dto';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import libConfig from '@sugaming/sugaming-services/config/lib.config';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 import { UserAuth } from './user-auth.decorator';
 
 @Controller('users')
@@ -48,7 +50,18 @@ export class UsersController {
       'universityProofImages',
       libConfig.user.universityProofImages.max,
       {
-        storage: libConfig.user.universityProofImages.storage,
+        storage: diskStorage({
+          destination: './uploads/university-proof-images',
+          filename: (req, file, cb) => {
+            const name = file.originalname.split('.')[0];
+            const extension = extname(file.originalname);
+            const randomName = Array(32)
+              .fill(null)
+              .map(() => Math.round(Math.random() * 16).toString(16))
+              .join('');
+            cb(null, `${randomName}-${name}${extension}`);
+          },
+        }),
       },
     ),
   )
