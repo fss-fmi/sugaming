@@ -109,3 +109,5 @@ terraform.rc
 !.idea/inspectionProfiles
 
 !.idea/.gitignore
+
+uploads/

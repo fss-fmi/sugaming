@@ -9,6 +9,7 @@ import {
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { i18nValidationMessage } from 'nestjs-i18n';
+import { Multer } from 'multer';
 import { libConfig } from '../../config/lib.config';
 
 export class UserBaseDto {
@@ -154,6 +155,11 @@ export class UserBaseDto {
     message: i18nValidationMessage('validation.matches'),
   })
   universityFacultyNumber!: string;
+
+  @ApiProperty({
+    description: 'User university proof images.',
+  })
+  universityProofImages!: Array<Express.Multer.File>;
 }
 
 export default UserBaseDto;

@@ -1,5 +1,7 @@
 import { UniversityDegree, UniversityYear } from '@prisma/client';
+import { extname } from 'path';
 import * as process from 'process';
+import { diskStorage } from 'multer';
 
 export const libConfig = {
   jwtAccessToken: {
@@ -71,6 +73,18 @@ export const libConfig = {
     universityProofImages: {
       min: 1,
       max: 5,
+      storage: diskStorage({
+        destination: './uploads/university-proof-images',
+        filename: (req, file, cb) => {
+          const name = file.originalname.split('.')[0];
+          const extension = extname(file.originalname);
+          const randomName = Array(32)
+            .fill(null)
+            .map(() => Math.round(Math.random() * 16).toString(16))
+            .join('');
+          cb(null, `${randomName}-${name}${extension}`);
+        },
+      }),
     },
   },
   cs2Team: {

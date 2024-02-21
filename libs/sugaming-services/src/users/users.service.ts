@@ -522,7 +522,10 @@ export class UsersService {
     return { message: i18n?.t('responses.users.cs2TeamInviteAccepted') };
   }
 
-  async registerUser(userToBeCreated: UserRequestBodyDto) {
+  async registerUser(
+    userToBeCreated: UserRequestBodyDto,
+    universityProofImages: Array<Express.Multer.File>,
+  ) {
     // Check if the email is already in use
     const existingUser = await this.prisma.user.findUnique({
       where: { email: userToBeCreated.email },
@@ -565,10 +568,20 @@ export class UsersService {
     const hashedPassword = await bcrypt.hash(userToBeCreated.password, 10);
 
     // Create the user
-    const { password, ...userToBeCreatedWithoutPassword } = userToBeCreated;
+    const {
+      password,
+      universityProofImages: unused,
+      ...userToBeCreatedWithoutPassword
+    } = userToBeCreated;
+
     const newUser = await this.prisma.user.create({
       data: {
         passwordHash: hashedPassword,
+        universityProofImages: {
+          create: universityProofImages.map((image) => ({
+            url: image.path,
+          })),
+        },
         ...userToBeCreatedWithoutPassword,
       },
     });

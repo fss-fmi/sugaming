@@ -6,13 +6,16 @@ import {
   HttpStatus,
   Param,
   Post,
+  UploadedFiles,
   UseGuards,
+  UseInterceptors,
   Version,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiBody,
   ApiConflictResponse,
+  ApiConsumes,
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiNotFoundResponse,
@@ -28,6 +31,8 @@ import { JwtAuthGuard } from '@sugaming/sugaming-services/auth/guards/jwt-auth.g
 import { UserResponseBodyDto } from '@sugaming/sugaming-services/users/dto/user-response-body.dto';
 import { UsersPostCurrentCs2TeamInvitesRespondRequestBodyDto } from '@sugaming/sugaming-services/users/dto/users-post-current-cs2-team-invites-respond-request-body.dto';
 import { UsersPostCurrentCs2TeamInvitesRespondParamsDto } from '@sugaming/sugaming-services/users/dto/users-post-current-cs2-team-invites-respond-params.dto';
+import { FilesInterceptor } from '@nestjs/platform-express';
+import libConfig from '@sugaming/sugaming-services/config/lib.config';
 import { UserAuth } from './user-auth.decorator';
 
 @Controller('users')
@@ -38,10 +43,20 @@ export class UsersController {
   @Post()
   @Version(['1'])
   @HttpCode(HttpStatus.CREATED)
+  @UseInterceptors(
+    FilesInterceptor(
+      'universityProofImages',
+      libConfig.user.universityProofImages.max,
+      {
+        storage: libConfig.user.universityProofImages.storage,
+      },
+    ),
+  )
   @ApiOperation({
     summary: 'Register a new user',
     description: 'Endpoint for registering a new user.',
   })
+  @ApiConsumes('multipart/form-data')
   @ApiBody({ type: UserRequestBodyDto })
   @ApiCreatedResponse({
     description: 'User registered successfully.',
@@ -58,8 +73,11 @@ export class UsersController {
       ],
     },
   })
-  async postUsersV1(@Body() user: UserRequestBodyDto) {
-    return this.usersService.registerUser(user);
+  async postUsersV1(
+    @Body() user: UserRequestBodyDto,
+    @UploadedFiles() universityProofImages: Array<Express.Multer.File>,
+  ) {
+    return this.usersService.registerUser(user, universityProofImages);
   }
 
   @Get('current')
