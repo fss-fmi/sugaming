@@ -83,7 +83,7 @@ export function ImageInput({ onChange }: ImageInputProps) {
           accept="image/jpeg, image/png, image/jpg, image/webp"
           multiple
           className="absolute inset-0 cursor-pointer opacity-0"
-          name="images"
+          name="universityProofImages"
           onChange={addImages}
         />
       </Card>
@@ -143,7 +143,7 @@ export function ImageInput({ onChange }: ImageInputProps) {
                   accept="image/jpeg, image/png, image/jpg, image/webp"
                   multiple
                   className="absolute inset-0 cursor-pointer opacity-0"
-                  name="images"
+                  name="universityProofImages"
                   onChange={addImages}
                 />
               </Card>
@@ -156,7 +156,7 @@ export function ImageInput({ onChange }: ImageInputProps) {
                 accept="image/jpeg, image/png, image/jpg, image/webp"
                 multiple
                 className="absolute inset-0 cursor-pointer opacity-0"
-                name="images"
+                name="universityProofImages"
                 onChange={addImages}
               />
             </Card>

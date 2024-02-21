@@ -84,9 +84,6 @@ export class UserBaseDto {
   @IsNotEmpty({
     message: i18nValidationMessage('validation.isNotEmpty'),
   })
-  @IsPhoneNumber(undefined, {
-    message: i18nValidationMessage('validation.isPhoneNumber'),
-  })
   @Matches(libConfig.user.phone.regex, {
     message: i18nValidationMessage('validation.matches'),
   })

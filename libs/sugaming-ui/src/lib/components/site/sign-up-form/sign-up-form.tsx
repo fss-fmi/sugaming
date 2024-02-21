@@ -4,10 +4,11 @@ import { z } from 'zod';
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { FaSignInAlt } from 'react-icons/fa';
-import { signUp } from '@sugaming/sugaming-api-client/next';
 import libConfig from '@sugaming/sugaming-services/config/lib.config';
+import { ApiClient } from '@sugaming/sugaming-api-client/client';
+import { useRef } from 'react';
 import { PersonalInformationFields } from './components/personal-information-fields';
 import { UniversityInformationFields } from './components/university-information-fields';
 import { Button } from '../../common/server';
@@ -24,6 +25,7 @@ import {
 
 export function SignUpForm() {
   const t = useTranslations('site.sign-up-form');
+  const locale = useLocale();
   const { toast } = useToast();
 
   const formSchema = z
@@ -107,7 +109,10 @@ export function SignUpForm() {
         .max(
           libConfig.user.universityMajor.maxLength,
           t('too-long', { length: libConfig.user.universityMajor.maxLength }),
-        ),
+        )
+        .regex(libConfig.user.universityMajor.regex, {
+          message: t('regex-error'),
+        }),
       universityDegree: z.enum(
         Object.values(libConfig.user.universityDegree.enum) as [
           string,
@@ -145,7 +150,7 @@ export function SignUpForm() {
         }),
       universityProofImages: z
         .array(
-          z.unknown({
+          z.any({
             required_error: t('is-required'),
           }),
         )
@@ -199,37 +204,34 @@ export function SignUpForm() {
 
     return haveAllFieldsBeenTouched && !hasErrors;
   }
-
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    const {
-      firstName,
-      lastName,
-      nickname,
-      email,
-      phone,
-      password,
-      universityMajor,
-      universityDegree,
-      universityYear,
-      universityFacultyNumber,
-    } = values;
-    const response = await signUp({
-      firstName,
-      lastName,
-      nickname,
-      email,
-      phone,
-      password,
-      universityMajor,
-      universityDegree,
-      universityYear,
-      universityFacultyNumber,
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    const formData = new FormData();
+    data.universityProofImages.forEach((image) => {
+      formData.append('universityProofImages', image.file);
     });
 
-    if (response?.error) {
+    Object.keys(data).forEach((key) => {
+      if (key !== 'universityProofImages' && key !== 'passwordConfirmation') {
+        formData.append(key, data[key]);
+      }
+    });
+
+    const response = await fetch('http://localhost:3000/api/v1/users', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept-Language': locale,
+      },
+    });
+    const json = await response.json();
+
+    if (response.ok) {
+      // Handle success
+      console.log('Form submitted successfully');
+    } else {
       toast({
         variant: 'destructive',
-        title: response.error.message,
+        title: json.message || t('error-occurred'),
         description: t('try-again'),
       });
     }

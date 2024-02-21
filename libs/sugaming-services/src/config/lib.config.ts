@@ -1,7 +1,5 @@
 import { UniversityDegree, UniversityYear } from '@prisma/client';
-import { extname } from 'path';
 import * as process from 'process';
-import { diskStorage } from 'multer';
 
 export const libConfig = {
   jwtAccessToken: {
