@@ -14,7 +14,10 @@ import { getUser } from '@sugaming/sugaming-api-client/next';
 import { getMessages } from 'next-intl/server';
 import Link from 'next/link';
 import { SquareIcon } from '@radix-ui/react-icons';
+import { AxiomWebVitals } from 'next-axiom';
 import { locales } from '../i18n';
+
+export { useReportWebVitals } from 'next-axiom';
 
 export const metadata = {
   title: 'Welcome to sugaming-site',
@@ -37,6 +40,9 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className="h-screen">
+        {/* Enable production logging */}
+        <AxiomWebVitals />
+
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <Navbar>
