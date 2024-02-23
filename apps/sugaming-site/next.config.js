@@ -2,6 +2,7 @@
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { composePlugins, withNx } = require('@nx/next');
+const { withAxiom } = require('next-axiom');
 const withNextIntl = require('next-intl/plugin')('./app/i18n.ts');
 
 /**
@@ -19,6 +20,7 @@ const plugins = [
   // Add more Next.js plugins to this list if needed.
   withNx,
   withNextIntl,
+  withAxiom,
 ];
 
 module.exports = composePlugins(...plugins)(nextConfig);
