@@ -154,6 +154,12 @@ export class UserBaseDto {
   universityFacultyNumber!: string;
 
   @ApiProperty({
+    type: 'array',
+    items: {
+      type: 'string',
+      format: 'binary',
+    },
+    required: true,
     description: 'User university proof images.',
   })
   universityProofImages!: Array<Express.Multer.File>;
