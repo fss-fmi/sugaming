@@ -7,8 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocale, useTranslations } from 'next-intl';
 import { FaSignInAlt } from 'react-icons/fa';
 import libConfig from '@sugaming/sugaming-services/config/lib.config';
-import { ApiClient } from '@sugaming/sugaming-api-client/client';
-import { useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { PersonalInformationFields } from './components/personal-information-fields';
 import { UniversityInformationFields } from './components/university-information-fields';
 import { Button } from '../../common/server';
@@ -27,6 +26,7 @@ export function SignUpForm() {
   const t = useTranslations('site.sign-up-form');
   const locale = useLocale();
   const { toast } = useToast();
+  const router = useRouter();
 
   const formSchema = z
     .object({
@@ -216,22 +216,31 @@ export function SignUpForm() {
       }
     });
 
-    const response = await fetch('http://localhost:3000/api/v1/users', {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'Accept-Language': locale,
-      },
-    });
-    const json = await response.json();
+    try {
+      const response = await fetch('http://localhost:3000/api/v1/users', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept-Language': locale,
+        },
+      });
+      const json = await response.json();
 
-    if (response.ok) {
-      // Handle success
-      console.log('Form submitted successfully');
-    } else {
+      if (response.ok) {
+        // Handle success
+        router.push(`/${locale}/login`);
+      } else {
+        // Handle errors
+        toast({
+          variant: 'destructive',
+          title: json.message || t('error-occurred'),
+          description: t('try-again'),
+        });
+      }
+    } catch (error) {
       toast({
         variant: 'destructive',
-        title: json.message || t('error-occurred'),
+        title: t('error-occurred'),
         description: t('try-again'),
       });
     }
