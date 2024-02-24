@@ -16,13 +16,17 @@ interface OnboardingDialogProps {
   isOpen: boolean;
 }
 export function OnboardingDialog({ isOpen }: OnboardingDialogProps) {
+  const [open, setOpen] = useState(false);
   // This is required in order to avoid hydration errors.
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setOpen(isOpen);
     }, 1000);
+
+    return () => clearTimeout(timer);
   }, [isOpen]);
   const [open, setOpen] = useState(false);
+
 
   return (
     <Dialog open={open}>
