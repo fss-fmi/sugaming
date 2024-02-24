@@ -9,7 +9,7 @@ export const appConfig = {
     password: process.env.REDIS_PASSWORD,
   },
   multer: {
-    dest: process.env.MULTER_DEST || 'uploads',
+    destination: process.env.MULTER_DESTINATION || 'uploads',
   },
   jwtAccessToken: {
     secret: process.env.JWT_SECRET || 'secret',

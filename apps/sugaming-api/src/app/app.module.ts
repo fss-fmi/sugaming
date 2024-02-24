@@ -30,7 +30,7 @@ import { appConfig } from './app.config';
     }),
     RedisModule.forRoot({ config: appConfig.redis }),
     MulterModule.register({
-      dest: appConfig.multer.dest,
+      dest: appConfig.multer.destination,
     }),
     HealthModule,
     UsersModule,
