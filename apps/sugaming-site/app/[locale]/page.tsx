@@ -1,8 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
-import { ApiClient } from '@sugaming/sugaming-api-client/client';
-import { login } from '@sugaming/sugaming-api-client/next';
+import React from 'react';
 import { useTranslations } from 'next-intl';
 import {
   Button,
@@ -18,13 +16,6 @@ import { FaDiscord } from 'react-icons/fa6';
 
 export default function Index() {
   const t = useTranslations('Index');
-  const [userInfo, setUserInfo] = useState<ApiClient.UserResponseBodyDto>();
-
-  const handleClick = async () => {
-    await login('gosho@losho.com', 'GoshoLoshoTestPassword');
-    const res = await ApiClient.UsersApiService.usersControllerGetCurrentV1({});
-    setUserInfo(res);
-  };
 
   return (
     <>
@@ -37,7 +28,6 @@ export default function Index() {
         </Link>
       </Button>
 
-      <p>{userInfo?.firstName}</p>
       <Card>
         <CardHeader>
           <CardTitle>Card Title</CardTitle>

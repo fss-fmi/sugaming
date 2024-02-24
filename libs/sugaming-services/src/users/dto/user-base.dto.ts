@@ -2,14 +2,12 @@ import {
   IsEmail,
   IsEnum,
   IsNotEmpty,
-  IsPhoneNumber,
   Matches,
   MaxLength,
   MinLength,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { i18nValidationMessage } from 'nestjs-i18n';
-import { Multer } from 'multer';
 import { libConfig } from '../../config/lib.config';
 
 export class UserBaseDto {

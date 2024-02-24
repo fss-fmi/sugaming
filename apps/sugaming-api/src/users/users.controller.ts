@@ -36,6 +36,7 @@ import libConfig from '@sugaming/sugaming-services/config/lib.config';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { UserAuth } from './user-auth.decorator';
+import { appConfig } from '../app/app.config';
 
 @Controller('users')
 @ApiTags('Users API')
@@ -51,7 +52,7 @@ export class UsersController {
       libConfig.user.universityProofImages.max,
       {
         storage: diskStorage({
-          destination: './uploads/university-proof-images',
+          destination: `${appConfig.multer.destination}/university-proof-images`,
           filename: (req, file, cb) => {
             const name = file.originalname.split('.')[0];
             const extension = extname(file.originalname);
