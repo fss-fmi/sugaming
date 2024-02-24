@@ -89,11 +89,14 @@ export async function loginSteam(
   return null;
 }
 
-export async function signUp(
-  formData: Omit<ApiClient.UserRequestBodyDto, 'universityProofImages'>,
-  universityProofImages: Array<{ file: File }>,
-) {
-  return null;
+export async function signUp(formData: FormData) {
+  return fetch(`${process.env['API_BASE']}/api/v1/users`, {
+    method: 'POST',
+    body: formData,
+    headers: {
+      'Accept-Language': useLocale(),
+    },
+  });
 }
 
 export async function getRefreshedTokens() {

@@ -249,7 +249,7 @@ export function SignUpForm() {
   return (
     <>
       <Toaster />
-      <Tabs className="h-full" defaultValue="university">
+      <Tabs className="h-full" defaultValue="personal">
         <Form {...form}>
           <form className="h-full" onSubmit={form.handleSubmit(onSubmit)}>
             <TabsContent className="h-full" value="personal">
