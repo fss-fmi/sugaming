@@ -3,6 +3,7 @@ import * as bcrypt from 'bcryptjs';
 import { I18nContext } from 'nestjs-i18n';
 import { User } from '@prisma/client';
 import { Client } from 'discord.js';
+import { UsersUniversityFacultyNumberAlreadyInUseException } from './exceptions/users-university-faculty-number-already-in-use.exception';
 import { UsersNoSuchDiscordGuildException } from './exceptions/users-no-such-discord-guild.exception';
 import { UsersNoSuchMemberOfDiscordGuildException } from './exceptions/users-no-such-member-of-discord-guild.exception';
 import { PrismaService } from '../prisma/prisma.service';
@@ -24,6 +25,7 @@ import { UserRequestBodyDto } from './dto/user-request-body.dto';
 import { libConfig } from '../config/lib.config';
 import { UsersNoDiscordAccountLinkedException } from './exceptions/users-no-discord-account-linked.exception';
 import { UsersNoSuchDiscordGuildRoleException } from './exceptions/users-no-such-discord-guild-role.exception';
+import { UsersPhoneAlreadyInUseException } from './exceptions/users-phone-already-in-use.exception';
 
 @Injectable()
 export class UsersService {
@@ -520,7 +522,10 @@ export class UsersService {
     return { message: i18n?.t('responses.users.cs2TeamInviteAccepted') };
   }
 
-  async registerUser(userToBeCreated: UserRequestBodyDto) {
+  async registerUser(
+    userToBeCreated: UserRequestBodyDto,
+    universityProofImages: Array<Express.Multer.File>,
+  ) {
     // Check if the email is already in use
     const existingUser = await this.prisma.user.findUnique({
       where: { email: userToBeCreated.email },
@@ -539,14 +544,44 @@ export class UsersService {
       throw new UsersNicknameAlreadyInUseException();
     }
 
+    // Check if the phone number is already in use
+    const existingPhone = await this.prisma.user.findUnique({
+      where: { phone: userToBeCreated.phone },
+    });
+
+    if (existingPhone) {
+      throw new UsersPhoneAlreadyInUseException();
+    }
+
+    // Check if the university faculty number is already in use
+    const existingFacultyNumber = await this.prisma.user.findUnique({
+      where: {
+        universityFacultyNumber: userToBeCreated.universityFacultyNumber,
+      },
+    });
+
+    if (existingFacultyNumber) {
+      throw new UsersUniversityFacultyNumberAlreadyInUseException();
+    }
+
     // Hash the password before storing it in the database
     const hashedPassword = await bcrypt.hash(userToBeCreated.password, 10);
 
     // Create the user
-    const { password, ...userToBeCreatedWithoutPassword } = userToBeCreated;
+    const {
+      password,
+      universityProofImages: unused,
+      ...userToBeCreatedWithoutPassword
+    } = userToBeCreated;
+
     const newUser = await this.prisma.user.create({
       data: {
         passwordHash: hashedPassword,
+        universityProofImages: {
+          create: universityProofImages.map((image) => ({
+            url: image.filename,
+          })),
+        },
         ...userToBeCreatedWithoutPassword,
       },
     });

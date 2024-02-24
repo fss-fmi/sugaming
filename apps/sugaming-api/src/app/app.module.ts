@@ -7,6 +7,7 @@ import {
 } from 'nestjs-i18n';
 import * as path from 'path';
 import { RedisModule } from '@songkeys/nestjs-redis';
+import { MulterModule } from '@nestjs/platform-express';
 import { HealthModule } from '../health/health.module';
 import { UsersModule } from '../users/users.module';
 import { AuthModule } from '../auth/auth.module';
@@ -28,6 +29,9 @@ import { appConfig } from './app.config';
       ],
     }),
     RedisModule.forRoot({ config: appConfig.redis }),
+    MulterModule.register({
+      dest: appConfig.multer.destination,
+    }),
     HealthModule,
     UsersModule,
     AuthModule,

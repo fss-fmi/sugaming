@@ -1,7 +1,5 @@
 import * as ApiClient from './src/index';
 
-export { ApiError } from './src/index';
-
 ApiClient.OpenAPI.BASE =
   process.env['API_BASE'] ||
   process.env['NEXT_PUBLIC_API_BASE'] ||

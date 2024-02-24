@@ -4,6 +4,14 @@
       "light": "Light",
       "system": "System",
       "dark": "Dark"
+    },
+    "password-checklist": {
+      "title": "The password must contain:",
+      "length": "At least 8 characters",
+      "uppercase": "At least 1 uppercase letter",
+      "lowercase": "At least 1 lowercase letter",
+      "number": "At least 1 number",
+      "special": "At least 1 special character"
     }
   },
   "site": {
@@ -64,6 +72,41 @@
       "submit": "Submit",
       "or-continue-with": "or continue with",
       "try-again": "Please, try again."
+    },
+    "sign-up-form": {
+      "first-name": "First Name",
+      "last-name": "Last Name",
+      "name-description": "The names should be written in cyrillic.",
+      "nickname": "Nickname",
+      "nickname-description": "This nickname will be used in tournaments, the Discord server and various other places.",
+      "email": "Email",
+      "phone": "Phone",
+      "password": "Password",
+      "password-confirmation": "Password Confirmation",
+      "passwords-dont-match": "Passwords don't match.",
+      "university-major": "University Major",
+      "university-degree": "University Degree",
+      "university-degree-bachelor": "Bachelor",
+      "university-degree-master": "Master",
+      "university-degree-doctorate": "Doctorate",
+      "university-year": "University Year",
+      "university-year-first": "First year",
+      "university-year-second": "Second year",
+      "university-year-third": "Third year",
+      "university-year-fourth": "Fourth year",
+      "university-faculty-number": "University Faculty Number",
+      "university-proof-images": "University Proof Images",
+      "university-proof-images-description": "The proof can be a picture of your student book, a picture from a university platform or a certificate confirming that you are a student.",
+      "continue": "Continue",
+      "return": "Return",
+      "submit": "Submit",
+      "error-occurred": "An error occurred.",
+      "try-again": "Please, try again.",
+      "is-required": "This field is required.",
+      "too-short": "The field should contain at least {length} symbols.",
+      "too-long": "The field should contain at most {length} symbols.",
+      "regex-error": "The field does not match the requirements.",
+      "invalid-email-format": "Invalid email address."
     }
   }
 }

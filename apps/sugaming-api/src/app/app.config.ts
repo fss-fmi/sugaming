@@ -8,6 +8,9 @@ export const appConfig = {
     port: parseInt(process.env.REDIS_PORT, 10),
     password: process.env.REDIS_PASSWORD,
   },
+  multer: {
+    destination: process.env.MULTER_DESTINATION || 'uploads',
+  },
   jwtAccessToken: {
     secret: process.env.JWT_SECRET || 'secret',
     signOptions: { expiresIn: '1h' },

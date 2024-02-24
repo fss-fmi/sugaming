@@ -13,14 +13,22 @@ datasource db {
 
 model User {
   // Login information
-  id           String  @id @default(uuid())
-  email        String? @unique
-  passwordHash String? @map("password_hash")
+  id           String @id @default(uuid())
+  email        String @unique
+  phone        String @unique
+  passwordHash String @map("password_hash")
 
   // Personal information
-  firstName String? @map("first_name")
-  lastName  String? @map("last_name")
-  nickname  String? @unique
+  firstName String @map("first_name")
+  lastName  String @map("last_name")
+  nickname  String @unique
+
+  // University information
+  universityMajor         String                 @map("university_major")
+  universityDegree        UniversityDegree       @map("university_degree")
+  universityYear          UniversityYear         @map("university_year")
+  universityFacultyNumber String                 @unique @map("university_faculty_number")
+  universityProofImages   UniversityProofImage[]
 
   // External accounts information
   discord DiscordAccount?
@@ -76,6 +84,24 @@ model SteamAccount {
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
 
   @@map("steam_accounts")
+}
+
+model UniversityProofImage {
+  // Primary key
+  id Int @id @default(autoincrement())
+
+  // User relation
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Image information
+  url String
+
+  // Row timestamps
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+
+  @@map("university_proof_images")
 }
 
 model Cs2Team {
@@ -161,4 +187,21 @@ enum Color {
   CORAL
 
   @@map("colors")
+}
+
+enum UniversityDegree {
+  BACHELOR
+  MASTER
+  DOCTORATE
+
+  @@map("university_degree")
+}
+
+enum UniversityYear {
+  FIRST
+  SECOND
+  THIRD
+  FOURTH
+
+  @@map("university_year")
 }

@@ -1,3 +1,4 @@
+import { UniversityDegree, UniversityYear } from '@prisma/client';
 import * as process from 'process';
 
 export const libConfig = {
@@ -10,21 +11,66 @@ export const libConfig = {
     expiresIn: '7d',
   },
   user: {
-    password: {
-      minLength: 8,
-      maxLength: 50,
-    },
     firstName: {
       minLength: 2,
       maxLength: 50,
+      // Regex for cyrillic names with a first capital letter,
+      // followed by lowercase letters and an optional hyphen and another name
+      regex: /^[А-Я][а-я]+(?:-[А-Я][а-я]+)?$/,
     },
     lastName: {
       minLength: 2,
       maxLength: 50,
+      // Regex for cyrillic names with a first capital letter,
+      // followed by lowercase letters and an optional hyphen and another name
+      regex: /^[А-Я][а-я]+(?:-[А-Я][а-я]+)?$/,
     },
     nickname: {
       minLength: 2,
+      maxLength: 20,
+      // Regex for nicknames, containing latin letters, numbers, dashes, and spaces
+      regex: /^[a-zA-Z0-9\s-]+$/,
+    },
+    phone: {
+      minLength: 10,
+      maxLength: 20,
+      regex:
+        /^(?:\+\d{1,3}[-.\s]?)?(?:\(\d{1,4}\)|\d{1,4})[-.\s]?\d{1,6}[-.\s]?\d{1,8}[-.\s]?\d{1,10}$/,
+    },
+    password: {
+      minLength: 8,
+      // Regex, that ensures that the password must:
+      // - contain at least one uppercase letter
+      // - contain at least one lowercase letter
+      // - contain at least one digit
+      // - contain at least one special character from the specified set
+      // - be at least 8 characters long
+      regex:
+        /^(?=.*?[А-ЯA-Z])(?=.*?[а-яa-z])(?=.*?[0-9])(?=.*?[`!@#$%^&*()_\-+=[\]{};':"\\|,.<>/?~ ]).{8,}$/,
+    },
+    universityMajor: {
+      minLength: 3,
       maxLength: 50,
+      // Regex for university majors, containing cyrillic letters, dashes, and spaces
+      regex: /^[А-Яа-я\s-]+$/,
+    },
+    universityDegree: {
+      minLength: 3,
+      maxLength: 50,
+      enum: UniversityDegree,
+    },
+    universityYear: {
+      enum: UniversityYear,
+    },
+    universityFacultyNumber: {
+      minLength: 5,
+      maxLength: 10,
+      // Regex for university faculty numbers, containing only digits and capital latin letters
+      regex: /^[A-Z0-9]+$/,
+    },
+    universityProofImages: {
+      min: 1,
+      max: 5,
     },
   },
   cs2Team: {
