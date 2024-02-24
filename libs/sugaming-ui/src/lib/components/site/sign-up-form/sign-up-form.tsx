@@ -217,13 +217,16 @@ export function SignUpForm() {
     });
 
     try {
-      const response = await fetch('http://localhost:3000/api/v1/users', {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept-Language': locale,
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE}/api/v1/users`,
+        {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept-Language': locale,
+          },
         },
-      });
+      );
       const json = await response.json();
 
       if (response.ok) {
