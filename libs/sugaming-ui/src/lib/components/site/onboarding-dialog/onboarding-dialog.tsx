@@ -17,6 +17,8 @@ interface OnboardingDialogProps {
 }
 export function OnboardingDialog({ isOpen }: OnboardingDialogProps) {
   const [open, setOpen] = useState(false);
+  const [step, setStep] = useState(OnboardingDialogSteps.Avatar);
+
   // This is required in order to avoid hydration errors.
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -25,8 +27,40 @@ export function OnboardingDialog({ isOpen }: OnboardingDialogProps) {
 
     return () => clearTimeout(timer);
   }, [isOpen]);
-  const [open, setOpen] = useState(false);
 
+  const t = useTranslations('site.onboarding-dialog');
+
+  const renderStep = () => {
+    switch (step) {
+      case OnboardingDialogSteps.Avatar:
+        return (
+          <AvatarStep nextStep={() => setStep(OnboardingDialogSteps.Discord)} />
+        );
+      case OnboardingDialogSteps.Discord:
+        return (
+          <DiscordStep
+            previousStep={() => setStep(OnboardingDialogSteps.Avatar)}
+            nextStep={() => setStep(OnboardingDialogSteps.Steam)}
+          />
+        );
+      case OnboardingDialogSteps.Steam:
+        return (
+          <SteamStep
+            previousStep={() => setStep(OnboardingDialogSteps.Discord)}
+            nextStep={() => setStep(OnboardingDialogSteps.Completed)}
+          />
+        );
+      case OnboardingDialogSteps.Completed:
+        return (
+          <CompletedStep
+            previousStep={() => setStep(OnboardingDialogSteps.Steam)}
+            close={() => null}
+          />
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
     <Dialog open={open}>
