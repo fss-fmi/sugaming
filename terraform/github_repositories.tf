@@ -1,6 +1,7 @@
 resource "github_repository" "github_repository" {
-  name        = "sugaming"
-  description = "Tournament management platform for the Sofia University Gaming club. 🎮"
+  name         = "sugaming"
+  description  = "Tournament management platform for the Sofia University Gaming club. 🎮"
+  homepage_url = "https://sugaming.club"
 
   visibility = "public"
 
