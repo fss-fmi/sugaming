@@ -107,6 +107,27 @@
       "too-long": "Полето трябва да има най-много {length} символа.",
       "regex-error": "Полето не отговаря на изискванията.",
       "invalid-email-format": "Невалиден формат на имейл адрес."
+    },
+    "onboarding-dialog": {
+      "title": "Добре дошли в SUGAMING!",
+      "description": "Радваме се, че сте тук! Нека завършим профила ви и да започнем.",
+      "avatar-step": {
+        "continue": "Продължи"
+      },
+      "discord-step": {
+        "previous": "Назад",
+        "skip": "Пропусни",
+        "continue-with-discord": "Продължи с Discord"
+      },
+      "steam-step": {
+        "previous": "Назад",
+        "skip": "Пропусни",
+        "continue-with-steam": "Продължи с Steam"
+      },
+      "completed-step": {
+        "previous": "Назад",
+        "lets-start": "Да започваме!"
+      }
     }
   }
 }

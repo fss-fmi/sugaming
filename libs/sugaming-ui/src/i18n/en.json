@@ -107,6 +107,27 @@
       "too-long": "The field should contain at most {length} symbols.",
       "regex-error": "The field does not match the requirements.",
       "invalid-email-format": "Invalid email address."
+    },
+    "onboarding-dialog": {
+      "title": "Welcome to SUGAMING!",
+      "description": "We are glad to have you here! Let's complete your profile and get you started.",
+      "avatar-step": {
+        "continue": "Continue"
+      },
+      "discord-step": {
+        "previous": "Previous",
+        "skip": "Skip",
+        "continue-with-discord": "Continue with Discord"
+      },
+      "steam-step": {
+        "previous": "Previous",
+        "skip": "Skip",
+        "continue-with-steam": "Continue with Steam"
+      },
+      "completed-step": {
+        "previous": "Previous",
+        "lets-start": "Let's go!"
+      }
     }
   }
 }

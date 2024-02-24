@@ -1,20 +1,30 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
+import { AvatarStep } from './components/avatar-step';
+import { DiscordStep } from './components/discord-step';
+import { SteamStep } from './components/steam-step';
+import { CompletedStep } from './components/completed-step';
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from '../../common/client';
-import { Button } from '../../common/button/button';
-import { Label } from '../../common/server';
 
 interface OnboardingDialogProps {
   isOpen: boolean;
 }
+
+enum OnboardingDialogSteps {
+  Avatar,
+  Discord,
+  Steam,
+  Completed,
+}
+
 export function OnboardingDialog({ isOpen }: OnboardingDialogProps) {
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(OnboardingDialogSteps.Avatar);
@@ -64,28 +74,12 @@ export function OnboardingDialog({ isOpen }: OnboardingDialogProps) {
 
   return (
     <Dialog open={open}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
-          <DialogDescription>
-            Make changes to your profile here.
-          </DialogDescription>
+          <DialogTitle>{t('title')}</DialogTitle>
+          <DialogDescription>{t('description')}</DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
-            </Label>
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Username
-            </Label>
-          </div>
-        </div>
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
+        {renderStep()}
       </DialogContent>
     </Dialog>
   );
