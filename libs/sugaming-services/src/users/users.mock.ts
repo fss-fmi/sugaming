@@ -18,12 +18,12 @@ export const exampleUserWithoutPassword = {
 
 export const exampleUserCredentials = {
   email: 'gosho@losho.com',
-  password: 'ExamplePassword@123!@#',
+  password: 'ExamplePassword123!@#',
 };
 
 export const exampleUser = {
   // Hashed and salted version of "ExamplePassword@123!@#'
-  passwordHash: '$2a$10$HM3RWCp.UPo0Zi73fyrDvu0ZIPEV1TxWRpVzCIe2F1Bn79GN7UiOm',
+  passwordHash: '$2a$10$ybuDWXu3fV0wCPIn088kL.BqBK/0BxmE0AapSGYKDLnfS.RQ0EZma',
   ...exampleUserWithoutPassword,
 };
 
@@ -45,12 +45,12 @@ export const exampleUserWithoutPassword2 = {
 
 export const exampleUserCredentials2 = {
   email: 'posho.minava.moshava@gmail.com',
-  password: 'ExamplePassword@123!@#',
+  password: 'ExamplePassword123!@#',
 };
 
 export const exampleUser2 = {
   // Hashed and salted version of "GoshoLoshoTestPassword"
-  passwordHash: '$2a$10$HM3RWCp.UPo0Zi73fyrDvu0ZIPEV1TxWRpVzCIe2F1Bn79GN7UiOm',
+  passwordHash: '$2a$10$ybuDWXu3fV0wCPIn088kL.BqBK/0BxmE0AapSGYKDLnfS.RQ0EZma',
   ...exampleUserWithoutPassword2,
 };
 
@@ -72,12 +72,12 @@ export const exampleUserWithoutPassword3 = {
 
 export const exampleUserCredentials3 = {
   email: 'posho.mosho@gmail.com',
-  password: 'ExamplePassword@123!@#',
+  password: 'ExamplePassword123!@#',
 };
 
 export const exampleUser3 = {
   // Hashed and salted version of "ExamplePassword@123!@#"
-  passwordHash: '$2a$10$HM3RWCp.UPo0Zi73fyrDvu0ZIPEV1TxWRpVzCIe2F1Bn79GN7UiOm',
+  passwordHash: '$2a$10$ybuDWXu3fV0wCPIn088kL.BqBK/0BxmE0AapSGYKDLnfS.RQ0EZma',
   ...exampleUserWithoutPassword3,
 };
 
