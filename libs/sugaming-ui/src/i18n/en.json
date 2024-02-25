@@ -128,7 +128,8 @@
       },
       "completed-step": {
         "previous": "Previous",
-        "lets-start": "Let's go!"
+        "lets-start": "Let's go!",
+        "try-again": "Please, try again. If the problem persists, contact us."
       }
     }
   }

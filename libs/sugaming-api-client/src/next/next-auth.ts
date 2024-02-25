@@ -36,6 +36,7 @@ export async function loginDiscord(code: string) {
       await ApiClient.AuthApiService.authControllerPostLoginDiscordV1({
         code,
         authorization: await getBearerToken(),
+        acceptLanguage: useLocale(),
       });
 
     const { accessToken, refreshToken } = response;
@@ -97,6 +98,21 @@ export async function signUp(formData: FormData) {
       'Accept-Language': useLocale(),
     },
   });
+}
+
+export async function completeOnboarding() {
+  try {
+    await ApiClient.UsersApiService.usersControllerPatchCurrentOnboardingV1({
+      authorization: await getBearerToken(),
+      acceptLanguage: useLocale(),
+    });
+  } catch (error) {
+    if (error instanceof ApiClient.ApiError) {
+      return { error: error.body.message };
+    }
+  }
+
+  return null;
 }
 
 export async function getRefreshedTokens() {

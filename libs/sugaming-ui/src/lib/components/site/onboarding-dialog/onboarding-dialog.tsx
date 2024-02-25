@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { completeOnboarding } from '@sugaming/sugaming-api-client/next';
 import { AvatarStep } from './components/avatar-step';
 import { DiscordStep } from './components/discord-step';
 import { SteamStep } from './components/steam-step';
@@ -12,6 +13,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
+  toast,
 } from '../../common/client';
 
 interface OnboardingDialogProps {
@@ -37,6 +39,20 @@ export function OnboardingDialog({ isOpen }: OnboardingDialogProps) {
 
     return () => clearTimeout(timer);
   }, [isOpen]);
+
+  async function close() {
+    // Mark onboarding as complete
+    const response = await completeOnboarding();
+    if (response?.error) {
+      toast({
+        variant: 'destructive',
+        title: response.error,
+        description: t('try-again'),
+      });
+    } else {
+      setOpen(false);
+    }
+  }
 
   const t = useTranslations('site.onboarding-dialog');
 
@@ -64,7 +80,7 @@ export function OnboardingDialog({ isOpen }: OnboardingDialogProps) {
         return (
           <CompletedStep
             previousStep={() => setStep(OnboardingDialogSteps.Steam)}
-            close={() => null}
+            close={() => close()}
           />
         );
       default:
