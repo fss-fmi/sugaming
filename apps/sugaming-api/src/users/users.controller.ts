@@ -5,6 +5,7 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  Patch,
   Post,
   UploadedFiles,
   UseGuards,
@@ -110,6 +111,25 @@ export class UsersController {
   @ApiUnauthorizedResponse({ description: 'Invalid authentication token.' })
   getCurrentV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
     return user;
+  }
+
+  @Patch('current/onboarding')
+  @Version(['1'])
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Complete onboarding',
+    description:
+      'Endpoint for marking the user as having completed onboarding.',
+  })
+  @ApiOkResponse({
+    description:
+      'The user is authenticated and onboarding is marked as complete.',
+  })
+  @ApiUnauthorizedResponse({ description: 'Invalid authentication token.' })
+  patchCurrentOnboardingV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
+    return this.usersService.completeOnboarding(user);
   }
 
   @Get('current/cs2-team-invites')

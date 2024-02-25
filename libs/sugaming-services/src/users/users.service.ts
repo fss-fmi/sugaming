@@ -590,6 +590,21 @@ export class UsersService {
     const { passwordHash, ...userWithoutPassword } = newUser;
     return userWithoutPassword;
   }
+
+  async completeOnboarding(user: Omit<User, 'passwordHash'>) {
+    // Validate that the user exists
+    await this.getByIdOrThrow(user.id);
+
+    // Update the user
+    return this.prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        isOnboardingCompleted: true,
+      },
+    });
+  }
 }
 
 export default UsersService;
