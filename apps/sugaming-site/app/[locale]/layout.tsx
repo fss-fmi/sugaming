@@ -62,7 +62,8 @@ export default async function RootLayout({
 
               <NavbarUserControls user={user} className="" />
             </Navbar>
-            {children}
+
+            <main className="p-4">{children}</main>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
