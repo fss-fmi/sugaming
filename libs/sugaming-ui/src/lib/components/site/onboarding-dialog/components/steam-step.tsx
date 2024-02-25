@@ -29,6 +29,7 @@ export function SteamStep({ previousStep, nextStep }: DiscordStepProps) {
           <Link
             href={`${process.env.NEXT_PUBLIC_API_BASE}/api/v1/auth/login/steam`}
             target="_blank"
+            rel="opener" // Required, so that the new tab can go back to this window
           >
             <FaSteamSymbol className="mr-2 h-4 w-4" />
             {t('continue-with-steam')}

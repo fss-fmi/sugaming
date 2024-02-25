@@ -28,6 +28,7 @@ export function DiscordStep({ previousStep, nextStep }: DiscordStepProps) {
           <Link
             href={`${process.env.NEXT_PUBLIC_API_BASE}/api/v1/auth/login/discord`}
             target="_blank"
+            rel="opener" // Required, so that the new tab can go back to this window
           >
             <FaDiscord className="mr-2 h-4 w-4" />
             {t('continue-with-discord')}
