@@ -5,6 +5,12 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@dicebear/collection':
+    specifier: ^7.0.5
+    version: 7.0.5(@dicebear/core@7.0.5)
+  '@dicebear/core':
+    specifier: ^7.0.5
+    version: 7.0.5
   '@discord-nestjs/common':
     specifier: ^5.2.10
     version: 5.2.10(@discord-nestjs/core@5.3.12)(@nestjs/common@10.3.1)(@nestjs/core@10.3.1)(discord.js@14.14.1)(reflect-metadata@0.1.14)(rxjs@7.8.1)
@@ -2643,6 +2649,419 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@dicebear/adventurer-neutral@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-C4IO6LnsZVbjo/rsb9z/OZ5YkY7R2b5vje/sV+eWNcAbPJtLq+cmXM3mlOQOZmasuK4sSQiP7n3afxMCi8wt7w==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/adventurer@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-SWWEF1DiAwuGQD5vMTAKBd39gG86Xr3mTz7tdLF/JXkQEumvvda+4dVgNZa6yIbGHKRyMJ8STyWV03qVtC5UGA==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/avataaars-neutral@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-5qKgm0lThcyp1XY6wGRw1naQQ0geg0kgfu27+kSwisrFAk0xIqAZgHTu4XFmbmpoPognsBKzCxwa5EiK0bSw3w==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/avataaars@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-qgX6KvodL/v4unIxIFF2iPdzUvhzTtQIBi0RqBjMicSsGe6Nc4neQV1OnlPoLQRD70X7MYi2VMY5Tlz6nEygzw==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/big-ears-neutral@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-jD4kw416+HiHy/NzNw+nInlvXrai5yOwOPAZRMS2U547Nby0vtzD/zJG/jkpxP0o5d8ARHWqre5oUDhp7+XbSg==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/big-ears@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-Ia9cEnLZdM975ThdgJxj3zyZqLWlU5bT4ymE1qPazNw2/t2ZOIpHLfyuaDPWUU29KP1fleJOELcMdoFYlKIyvw==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/big-smile@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-6WmBmTeKrJv7ULfojWqC8FoQJvc2LCVFgrguzzIOMQaPsFzX0cGnp72nDzzXAD+Zl9wpatdhN99vaJXjTR/mKg==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/bottts-neutral@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-h0cGxJc1bKCe5cn5n+mgfWBAVzDgeAVur2oHjiE9ZySoa1yQ91WnBCEAW4pVIgSCTZt/M/Kvd99aTpdWva9EKQ==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/bottts@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-NcaJicjEnktRVzE5pWOvHMLOrb5zEtMoYBn5pAWvxqDi4EMJW4Oe5MGxAcTppQrJGKE0B5Tv7Gdfh4IJSyrXPg==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/collection@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-1I73wyn+pqeMlOxbPKHqMzAnmeQh+xrunaqNiKvw9HMOFohtKf3rfDw+6UykDA2Dhuzg1em0MWmkk/GEQwlnVA==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/adventurer': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/adventurer-neutral': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/avataaars': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/avataaars-neutral': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/big-ears': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/big-ears-neutral': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/big-smile': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/bottts': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/bottts-neutral': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/core': 7.0.5
+      '@dicebear/croodles': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/croodles-neutral': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/fun-emoji': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/icons': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/identicon': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/initials': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/lorelei': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/lorelei-neutral': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/micah': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/miniavs': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/notionists': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/notionists-neutral': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/open-peeps': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/personas': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/pixel-art': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/pixel-art-neutral': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/rings': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/shapes': 7.0.5(@dicebear/core@7.0.5)
+      '@dicebear/thumbs': 7.0.5(@dicebear/core@7.0.5)
+    dev: false
+
+  /@dicebear/converter@7.0.5:
+    resolution:
+      {
+        integrity: sha512-YBmcRWqw0QZhuxJHOlk6o1LgP89Qjmk+PaUKfZC8Wt6zM5ERJyIg8ENupKcDkAKe53I3DxLjxQUaeKY0LFALOQ==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@resvg/resvg-js': ^2.4.1
+      exiftool-vendored: ^23.0.0
+      sharp: ^0.32.6
+    peerDependenciesMeta:
+      '@resvg/resvg-js':
+        optional: true
+      exiftool-vendored:
+        optional: true
+      sharp:
+        optional: true
+    dependencies:
+      '@types/json-schema': 7.0.15
+      tmp-promise: 3.0.3
+    dev: false
+
+  /@dicebear/core@7.0.5:
+    resolution:
+      {
+        integrity: sha512-fK04m5tWwCoS1KW001NEU/GFOAV1zZEcTyy/SRsHhRSR6vlBan9Ab2m/r6VPwWrZa4Az+bycN4vRwTCd5C7Czw==,
+      }
+    engines: { node: '>=16.0.0' }
+    dependencies:
+      '@dicebear/converter': 7.0.5
+      '@types/json-schema': 7.0.15
+    transitivePeerDependencies:
+      - '@resvg/resvg-js'
+      - exiftool-vendored
+      - sharp
+    dev: false
+
+  /@dicebear/croodles-neutral@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-QVrXuWhw+zLbt5yi6+dRL7tNcZPiyMEg1GNihCUB2YFqrmbUo+pohzYUffYlTxoIoR3/FNoBFJmwpuZr+dB1Gw==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/croodles@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-pIsYOZem9cT6QX8gZgJKKMGXTh9f7BSKxP8sIHMk9LdOKmFr4V+9XhhsqHi9m1xc9T/VPmH04c6kSfmxgfsrNg==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/fun-emoji@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-UJSF0xpvYZj853L70NPkKCO8Uavm8jczR4jGxzHb8xsfY6nq25gYsBXU4L9YvuScMQdTmm5AOB8hl7cyDsKD6A==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/icons@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-leJeANbD05aMYXmqYmRwtiu8/2ecWnu05tYUGYS7xxRtQKv7EHe3UfVqkseONHwVq91d4s7y8+bb8YzEsbLLQw==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/identicon@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-bNvsMUWMXkKQDei2/A2ol5/xiQTILIut5rc6o4+KHa0s3PzV1IzWG5QEnK8Te97nukOsgS1aCXEs6e3DFziK+g==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/initials@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-iPkgzIzPWKp0y1Boed7R3O2Zn9x2KFDMiC2bdrEtufnPTm6X4iIEataQi2QE9pFFdEJSFXkX4zvQI2/mWGoKXw==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/lorelei-neutral@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-/Imx4uIsovOzRO+ngRCFJ4kAdRNaU5EZF5JZX6RjfhREzvAnFlkePaCBEU55/jFp9suEh1viHCYA70KxpO2XVw==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/lorelei@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-Tkr2BV8OvrTUGpC8vES5OE2XduGkrrBe4FvTmDta0PWx1PiywPGZQw9PguU+H9PeN6Ny9+BBURrAc0a1uI2Hiw==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/micah@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-giiVyDNlzR7SwtK2Ibdz7E05syu35p6QZnwG2NMj1wBj1pCxV4up0vY5+gqr+7RY+qKGhwIbrMmF7r/bfru+aA==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/miniavs@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-w9ZG2ZKnu/oDZahyLL01UhDPuHGQc9JHRSMy80miN/ES3bVjsskqF8488b9yMXa4gvB7X+573oSHVUzZvcb2ug==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/notionists-neutral@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-JmwVfOM+oHM2gzAAMBx9ji2eNOpw9fE+ZhhrSfbfgnPFIOQk+TbNq9fesFMP/NB/i5ytQ5iyLG3CrsaYXNngSA==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/notionists@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-wvhtOtj5NmHUkLJV0idUjnERNtBV6o9iXvlzCpswnUFNsC0Cy9MBixJdawvdKHTJIP96ke/rWekNDK5W7FJgSA==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/open-peeps@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-33atYS4t9sYbbhX4KTEFmReSgYeH7/EKnaqv0XHO0L5AgagXxR+rL7NduGiEHJldY2HEZebEhWunsSFozEBNhQ==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/personas@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-QtWAwUWYis/hbwgJ25naFujb1GfLiUG35zy//WMWvQ2cnAKD20orl30xfi8lhzDWjDsZJfc+026voOA9SZ+gJg==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/pixel-art-neutral@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-8vem63o0lGt7s2Ua+QWEQbQqcTShv18VlWZFNHe5tTtueSotYXNQIOknNThlhtp8P+rmGda18o06CtYboc8nLg==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/pixel-art@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-djKHhuNvhh8ZYqyO5yXfLn5hqKrXNTQmajXhTCNh5pIQ7woA6azzauUJ8h4HyeC3Lg1uFl8GfmlXCdZaNtMrUw==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/rings@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-6RUtwf3f/QFIHYGH1xQXSKvREqR0gyB99EaHnzbjwMJLy6kqJL7C/ygLaSizVz4Wn+VjG985VT700X138rA5aQ==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/shapes@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-/SZ5nkk5g4PModlkLw41CJNYMnDgW74zu8LmO1gJRRcLj5a+k8tmdN2UfcDvtBfUmDGlKEhB6fxMTlznDkRrsg==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
+
+  /@dicebear/thumbs@7.0.5(@dicebear/core@7.0.5):
+    resolution:
+      {
+        integrity: sha512-+UowW3rH9WacYQP94qq4MU6Tuzgiux4aSkuytaBTAjFA87+FARf8b247wRBrSOQRnUCbjMRgQ/B7EFa4gLXYhg==,
+      }
+    engines: { node: '>=16.0.0' }
+    peerDependencies:
+      '@dicebear/core': ^7.0.0
+    dependencies:
+      '@dicebear/core': 7.0.5
+    dev: false
 
   /@discord-nestjs/common@5.2.10(@discord-nestjs/core@5.3.12)(@nestjs/common@10.3.1)(@nestjs/core@10.3.1)(discord.js@14.14.1)(reflect-metadata@0.1.14)(rxjs@7.8.1):
     resolution:
@@ -12099,7 +12518,6 @@ packages:
     dependencies:
       balanced-match: 1.0.2
       concat-map: 0.0.1
-    dev: true
 
   /brace-expansion@2.0.1:
     resolution:
@@ -13082,7 +13500,6 @@ packages:
       {
         integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==,
       }
-    dev: true
 
   /concat-stream@1.6.2:
     resolution:
@@ -16583,7 +17000,6 @@ packages:
       {
         integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==,
       }
-    dev: true
 
   /fsevents@2.3.2:
     resolution:
@@ -16890,7 +17306,6 @@ packages:
       minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
-    dev: true
 
   /global-dirs@0.1.1:
     resolution:
@@ -17683,7 +18098,6 @@ packages:
     dependencies:
       once: 1.4.0
       wrappy: 1.0.2
-    dev: true
 
   /inherits@2.0.3:
     resolution:
@@ -20818,7 +21232,6 @@ packages:
       }
     dependencies:
       brace-expansion: 1.1.11
-    dev: true
 
   /minimatch@5.1.6:
     resolution:
@@ -21769,7 +22182,6 @@ packages:
       }
     dependencies:
       wrappy: 1.0.2
-    dev: true
 
   /onetime@5.1.2:
     resolution:
@@ -22324,7 +22736,6 @@ packages:
         integrity: sha512-AVbw3UJ2e9bq64vSaS9Am0fje1Pa8pbGqTTsmXfaIiMpnr5DlDhfJOuLj9Sf95ZPVDAUerDfEk88MPmPe7UCQg==,
       }
     engines: { node: '>=0.10.0' }
-    dev: true
 
   /path-key@2.0.1:
     resolution:
@@ -24348,7 +24759,6 @@ packages:
     hasBin: true
     dependencies:
       glob: 7.2.3
-    dev: true
 
   /ripemd160@2.0.2:
     resolution:
@@ -26056,6 +26466,15 @@ packages:
       }
     dev: true
 
+  /tmp-promise@3.0.3:
+    resolution:
+      {
+        integrity: sha512-RwM7MoPojPxsOBYnyd2hy0bxtIlVrihNs9pj5SUvY8Zz1sQcQG2tG1hSr8PDxfgEB8RNKDhqbIlroIarSNDNsQ==,
+      }
+    dependencies:
+      tmp: 0.2.1
+    dev: false
+
   /tmp@0.0.33:
     resolution:
       {
@@ -26074,7 +26493,6 @@ packages:
     engines: { node: '>=8.17.0' }
     dependencies:
       rimraf: 3.0.2
-    dev: true
 
   /tmpl@1.0.5:
     resolution:
@@ -27661,7 +28079,6 @@ packages:
       {
         integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==,
       }
-    dev: true
 
   /write-file-atomic@3.0.3:
     resolution:

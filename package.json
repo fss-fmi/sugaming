@@ -7,6 +7,8 @@
   },
   "private": true,
   "dependencies": {
+    "@dicebear/collection": "^7.0.5",
+    "@dicebear/core": "^7.0.5",
     "@discord-nestjs/common": "^5.2.10",
     "@discord-nestjs/core": "^5.3.12",
     "@hookform/resolvers": "^3.3.4",
