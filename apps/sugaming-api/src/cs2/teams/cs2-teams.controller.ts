@@ -24,18 +24,34 @@ import {
 import { User } from '@prisma/client';
 import { Cs2TeamsService } from '@sugaming/sugaming-services/cs2/teams/cs2-teams.service';
 import { JwtAuthGuard } from '@sugaming/sugaming-services/auth/guards/jwt-auth.guard';
-import { Cs2TeamsPostDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-post.dto';
+import { Cs2TeamsBaseDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-base.dto';
 import { Cs2TeamsPostJoinRequestsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-post-join-requests.dto';
 import { Cs2TeamsPostJoinRequestsRespondRequestBodyDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-post-join-requests-respond-request-body.dto';
 import { Cs2TeamsPostJoinRequestsRespondParamsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-post-join-requests-respond-params.dto';
 import { Cs2TeamsPostJoinRequestsParamsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-post-join-requests-params.dto';
 import { Cs2TeamsGetJoinRequestsParamsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-get-join-requests-params.dto';
+import { Cs2TeamResponseBodyDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-team-response-body.dto';
 import { UserAuth } from '../../users/user-auth.decorator';
 
 @Controller('cs2/teams')
 @ApiTags('CS2 Teams API')
 export class Cs2TeamsController {
   constructor(private readonly cs2TeamsService: Cs2TeamsService) {}
+
+  @Get()
+  @Version(['1'])
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Get all CS2 teams',
+    description: 'Endpoint for getting all CS2 teams.',
+  })
+  @ApiOkResponse({
+    description: 'CS2 teams retrieved successfully.',
+    type: [Cs2TeamResponseBodyDto],
+  })
+  async getV1() {
+    return this.cs2TeamsService.getAll();
+  }
 
   @Post()
   @Version(['1'])
@@ -46,7 +62,7 @@ export class Cs2TeamsController {
     summary: 'Create a new CS2 team',
     description: 'Endpoint for creating new CS2 teams.',
   })
-  @ApiBody({ type: Cs2TeamsPostDto })
+  @ApiBody({ type: Cs2TeamsBaseDto })
   @ApiCreatedResponse({
     description: 'CS2 team created successfully.',
   })
@@ -64,7 +80,7 @@ export class Cs2TeamsController {
     },
   })
   async postV1(
-    @Body() createTeamDto: Cs2TeamsPostDto,
+    @Body() createTeamDto: Cs2TeamsBaseDto,
     @UserAuth() user: Omit<User, 'passwordHash'>,
   ) {
     return this.cs2TeamsService.create(createTeamDto, user.id);
