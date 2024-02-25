@@ -23,13 +23,15 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className="h-screen">
+      <body>
         {/* Enable production logging */}
         <AxiomWebVitals />
 
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <main>{children}</main>
+            <main className="flex h-screen items-center justify-center">
+              {children}
+            </main>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

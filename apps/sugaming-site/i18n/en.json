@@ -13,5 +13,11 @@
   "sign-up-page": {
     "title": "Join the club!",
     "description": "Sign up for the SUGAMING club by filling-out the following form."
+  },
+  "account-linked-page": {
+    "title-success": "Account linked successfully!",
+    "title-error": "An error occurred during the account linking!",
+    "description-success": "You can now go back to the previous page. You will be redirected in 5 seconds.",
+    "close": "Close"
   }
 }
