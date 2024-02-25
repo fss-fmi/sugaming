@@ -63,8 +63,7 @@ export default async function RootLayout({
 
               <NavbarUserControls user={user} className="" />
             </Navbar>
-
-            <OnboardingDialog isOpen={user && !user.hasCompletedOnboarding} />
+            <OnboardingDialog isOpen={user && !user.isOnboardingCompleted} />
             <main>{children}</main>
           </ThemeProvider>
         </NextIntlClientProvider>

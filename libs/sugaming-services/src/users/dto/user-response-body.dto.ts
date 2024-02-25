@@ -20,7 +20,7 @@ export class UserResponseBodyDto extends UserBaseDto {
   @IsBoolean({
     message: i18nValidationMessage('validation.isBoolean'),
   })
-  hasCompletedOnboarding!: boolean;
+  isOnboardingCompleted!: boolean;
 
   @ApiProperty({
     description: 'User Discord account information.',
