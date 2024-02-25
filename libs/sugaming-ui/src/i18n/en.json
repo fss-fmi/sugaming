@@ -116,11 +116,13 @@
       },
       "discord-step": {
         "previous": "Previous",
+        "continue": "Continue",
         "skip": "Skip",
         "continue-with-discord": "Continue with Discord"
       },
       "steam-step": {
         "previous": "Previous",
+        "continue": "Continue",
         "skip": "Skip",
         "continue-with-steam": "Continue with Steam"
       },

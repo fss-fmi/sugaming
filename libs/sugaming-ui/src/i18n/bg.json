@@ -117,11 +117,13 @@
       "discord-step": {
         "previous": "Назад",
         "skip": "Пропусни",
+        "continue": "Продължи",
         "continue-with-discord": "Продължи с Discord"
       },
       "steam-step": {
         "previous": "Назад",
         "skip": "Пропусни",
+        "continue": "Продължи",
         "continue-with-steam": "Продължи с Steam"
       },
       "completed-step": {

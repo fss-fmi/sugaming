@@ -23,6 +23,16 @@ export class UserResponseBodyDto extends UserBaseDto {
   hasCompletedOnboarding!: boolean;
 
   @ApiProperty({
+    description: 'User Discord account information.',
+  })
+  discord!: object | undefined; // TODO: Add Discord type
+
+  @ApiProperty({
+    description: 'User Steam account information.',
+  })
+  steam!: object | undefined; // TODO: Add Steam type
+
+  @ApiProperty({
     description: 'User creation date',
   })
   @IsDateString(
