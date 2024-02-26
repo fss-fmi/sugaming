@@ -35,10 +35,11 @@ interface CustomizationOptions {
 }
 
 interface AvatarStepProps {
+  previousStep: () => void;
   nextStep: () => void;
 }
 
-export function AvatarStep({ nextStep }: AvatarStepProps) {
+export function AvatarStep({ previousStep, nextStep }: AvatarStepProps) {
   const [customization, setCustomization] = useState<CustomizationOptions>({
     mouth: 'smile',
     top: 'hat',
@@ -104,6 +105,9 @@ export function AvatarStep({ nextStep }: AvatarStepProps) {
       </div>
 
       <DialogFooter>
+        <Button onClick={previousStep} variant="secondary">
+          {t('previous')}
+        </Button>
         <Button onClick={nextStep}>{t('continue')}</Button>
       </DialogFooter>
     </>

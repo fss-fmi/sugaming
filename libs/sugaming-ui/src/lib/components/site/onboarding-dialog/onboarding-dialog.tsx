@@ -3,24 +3,19 @@
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { completeOnboarding } from '@sugaming/sugaming-api-client/next';
+import { WelcomeStep } from './components/welcome-step';
 import { AvatarStep } from './components/avatar-step';
 import { DiscordStep } from './components/discord-step';
 import { SteamStep } from './components/steam-step';
 import { CompletedStep } from './components/completed-step';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  toast,
-} from '../../common/client';
+import { Dialog, DialogContent, toast } from '../../common/client';
 
 interface OnboardingDialogProps {
   isOpen: boolean;
 }
 
 enum OnboardingDialogSteps {
+  Welcome,
   Avatar,
   Discord,
   Steam,
@@ -29,7 +24,7 @@ enum OnboardingDialogSteps {
 
 export function OnboardingDialog({ isOpen }: OnboardingDialogProps) {
   const [open, setOpen] = useState(false);
-  const [step, setStep] = useState(OnboardingDialogSteps.Avatar);
+  const [step, setStep] = useState(OnboardingDialogSteps.Welcome);
 
   // This is required in order to avoid hydration errors.
   useEffect(() => {
@@ -58,9 +53,16 @@ export function OnboardingDialog({ isOpen }: OnboardingDialogProps) {
 
   const renderStep = () => {
     switch (step) {
+      case OnboardingDialogSteps.Welcome:
+        return (
+          <WelcomeStep nextStep={() => setStep(OnboardingDialogSteps.Avatar)} />
+        );
       case OnboardingDialogSteps.Avatar:
         return (
-          <AvatarStep nextStep={() => setStep(OnboardingDialogSteps.Discord)} />
+          <AvatarStep
+            previousStep={() => setStep(OnboardingDialogSteps.Welcome)}
+            nextStep={() => setStep(OnboardingDialogSteps.Discord)}
+          />
         );
       case OnboardingDialogSteps.Discord:
         return (
@@ -90,13 +92,7 @@ export function OnboardingDialog({ isOpen }: OnboardingDialogProps) {
 
   return (
     <Dialog open={open}>
-      <DialogContent className="max-w-2xl">
-        <DialogHeader>
-          <DialogTitle>{t('title')}</DialogTitle>
-          <DialogDescription>{t('description')}</DialogDescription>
-        </DialogHeader>
-        {renderStep()}
-      </DialogContent>
+      <DialogContent className="max-w-2xl">{renderStep()}</DialogContent>
     </Dialog>
   );
 }

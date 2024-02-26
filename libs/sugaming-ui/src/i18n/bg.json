@@ -109,9 +109,13 @@
       "invalid-email-format": "Невалиден формат на имейл адрес."
     },
     "onboarding-dialog": {
-      "title": "Добре дошли в SUGAMING!",
-      "description": "Радваме се, че сте тук! Нека завършим профила ви и да започнем.",
+      "welcome-step": {
+        "title": "Добре дошли в SUGAMING!",
+        "description": "Радваме се, че си тук! Нека завършим профила ти и да започваме.",
+        "continue": "Продължи"
+      },
       "avatar-step": {
+        "previous": "Назад",
         "continue": "Продължи"
       },
       "discord-step": {

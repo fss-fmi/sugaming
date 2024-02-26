@@ -109,9 +109,13 @@
       "invalid-email-format": "Invalid email address."
     },
     "onboarding-dialog": {
-      "title": "Welcome to SUGAMING!",
-      "description": "We are glad to have you here! Let's complete your profile and get you started.",
+      "welcome-step": {
+        "title": "Welcome to SUGAMING!",
+        "description": "We are glad to have you here! Let's complete your profile and get you started.",
+        "continue": "Continue"
+      },
       "avatar-step": {
+        "previous": "Previous",
         "continue": "Continue"
       },
       "discord-step": {
