@@ -11,6 +11,7 @@ import {
 import { exampleUser, exampleUser3 } from '../../users/users.mock';
 import { Cs2TeamsNameAlreadyExistsException } from './exceptions/cs2-teams-name-already-exists.exception';
 import { UsersService } from '../../users/users.service';
+import { getRedisToken } from '@songkeys/nestjs-redis';
 
 describe('Cs2TeamsService', () => {
   let service: Cs2TeamsService;
@@ -20,9 +21,21 @@ describe('Cs2TeamsService', () => {
     t: () => jest.fn(),
   });
 
+  const redisServiceMock = {
+    get: jest.fn(),
+    set: jest.fn(),
+    del: jest.fn(),
+    publish: jest.fn(),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [Cs2TeamsService, PrismaService, UsersService],
+      providers: [
+        { provide: getRedisToken('default'), useValue: redisServiceMock },
+        Cs2TeamsService,
+        PrismaService,
+        UsersService,
+      ],
     })
       .overrideProvider(PrismaService)
       .useValue(prismaServiceMock)
@@ -55,6 +68,7 @@ describe('Cs2TeamsService', () => {
       } = actual;
 
       expect(actualTeam).toEqual(expected);
+      expect(redisServiceMock.publish).toHaveBeenCalled();
     });
 
     it('should throw an BadRequestException when the team name is already taken', async () => {
