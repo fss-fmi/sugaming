@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { I18nContext } from 'nestjs-i18n';
 import { User } from '@prisma/client';
+import Redis from 'ioredis';
+import { InjectRedis } from '@songkeys/nestjs-redis';
 import { Cs2TeamsBaseDto } from './dto/cs2-teams-base.dto';
 import { PrismaService } from '../../prisma/prisma.service';
 import { Cs2TeamsNameAlreadyExistsException } from './exceptions/cs2-teams-name-already-exists.exception';
@@ -10,14 +12,15 @@ import { Cs2TeamsNoSuchTeamException } from './exceptions/cs2-teams-no-such-team
 import { Cs2TeamsAlreadyRequestedToJoinTeamException } from './exceptions/cs2-teams-already-requested-to-join-team.exception';
 import { Cs2TeamsNotCapitanException } from './exceptions/cs2-teams-not-capitan.exception';
 import { Cs2TeamsNoSuchJoinRequestException } from './exceptions/cs2-teams-no-such-join-request.exception';
-import { libConfig } from '../../config/lib.config';
 import { Cs2TeamsTeamIsFullException } from './exceptions/cs2-teams-team-is-full.exception';
+import { libConfig } from '../../config/lib.config';
 
 @Injectable()
 export class Cs2TeamsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly usersService: UsersService,
+    @InjectRedis() private readonly redis: Redis,
   ) {}
 
   async getById(id: number) {
@@ -87,7 +90,7 @@ export class Cs2TeamsService {
     }
 
     // Create the team
-    return this.prisma.cs2Team.create({
+    const createdTeam = await this.prisma.cs2Team.create({
       data: {
         name: createTeamDto.name,
         color: createTeamDto.color,
@@ -99,6 +102,13 @@ export class Cs2TeamsService {
         },
       },
     });
+
+    await this.redis.publish(
+      'cs2-teams:team-created',
+      JSON.stringify(createdTeam),
+    );
+
+    return createdTeam;
   }
 
   async getJoinRequests(teamId: number, user: Omit<User, 'passwordHash'>) {
