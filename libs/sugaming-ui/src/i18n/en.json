@@ -28,9 +28,9 @@
           "name": "Matches",
           "description": "All current and upcoming competitive matches."
         },
-        "ranking": {
-          "name": "Ranking",
-          "description": "Competitive ranking of all the Counter-Strike teams."
+        "teams": {
+          "name": "Teams",
+          "description": "List of all the Counter-Strike teams."
         }
       },
       "league": {
@@ -44,9 +44,9 @@
           "name": "Matches",
           "description": "All current and upcoming competitive matches."
         },
-        "ranking": {
-          "name": "Ranking",
-          "description": "Competitive ranking of all the League of Legends teams."
+        "teams": {
+          "name": "Teams",
+          "description": "List of all the League of Legends teams."
         }
       },
       "valorant": {
