@@ -16,6 +16,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '../../../common/client';
+import { Logo } from '../../server';
 
 interface NavbarLinksMobileProps {
   className: string;
@@ -45,7 +46,9 @@ export function NavbarLinksMobile({
       </Button>
       <SheetContent side="left" className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
         <SheetHeader>
-          <SheetTitle>SUGAMING</SheetTitle>
+          <SheetTitle>
+            <Logo />
+          </SheetTitle>
         </SheetHeader>
         <ScrollArea className="h-full pr-4">
           {links.map((link) =>
