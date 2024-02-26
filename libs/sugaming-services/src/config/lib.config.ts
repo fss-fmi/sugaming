@@ -13,14 +13,14 @@ export const libConfig = {
   user: {
     firstName: {
       minLength: 2,
-      maxLength: 50,
+      maxLength: 40,
       // Regex for cyrillic names with a first capital letter,
       // followed by lowercase letters and an optional hyphen and another name
       regex: /^[А-Я][а-я]+(?:-[А-Я][а-я]+)?$/,
     },
     lastName: {
       minLength: 2,
-      maxLength: 50,
+      maxLength: 40,
       // Regex for cyrillic names with a first capital letter,
       // followed by lowercase letters and an optional hyphen and another name
       regex: /^[А-Я][а-я]+(?:-[А-Я][а-я]+)?$/,
@@ -79,8 +79,9 @@ export const libConfig = {
       maxLength: 25,
     },
     members: {
-      min: 1,
+      min: 5,
       max: 5,
+      sofiaUniversityThreshold: 3,
     },
   },
   discord: {
