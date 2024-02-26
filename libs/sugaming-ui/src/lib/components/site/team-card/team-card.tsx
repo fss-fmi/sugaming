@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader } from '../../common/server';
 export function TeamCard({ team }: { team: ApiClient.Cs2TeamResponseBodyDto }) {
   return (
     <Card className="w-full transition hover:-translate-y-1 hover:shadow-lg cursor-pointer">
-      <CardHeader className="relative p-0 w-full aspect-[21/9] space-y-0 overflow-hidden rounded-t-md">
+      <CardHeader className="relative p-0 w-full aspect-[21/9] space-y-0 overflow-hidden rounded-t-xl">
         <div className="absolute inset-0 flex flex-col w-full h-full pt-6 bg-blue-900 overflow-ellipsis text-center text-white">
           <p className="text-3xl font-bold">{team.name.toUpperCase()}</p>
           <Logo className="mx-auto scale-50 -mt-1" />
