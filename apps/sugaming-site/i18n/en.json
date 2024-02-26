@@ -13,5 +13,10 @@
   "sign-up-page": {
     "title": "Join the club!",
     "description": "Sign up for the SUGAMING club by filling-out the following form."
+  },
+  "cs2-teams-page": {
+    "title": "Counter-Strike 2 Teams",
+    "verified-teams": "Verified Teams",
+    "unverified-teams": "Unverified Teams"
   }
 }
