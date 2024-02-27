@@ -63,6 +63,18 @@ export class UsersService {
     return user;
   }
 
+  async getAllUsers() {
+    // Get all users from the database
+    return this.prisma.user.findMany({
+      select: {
+        firstName: true,
+        lastName: true,
+        nickname: true,
+        universityMajor: true,
+      },
+    });
+  }
+
   async getByEmail(email: string) {
     // Get user information from the database
     const user = await this.prisma.user.findUnique({

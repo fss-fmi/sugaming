@@ -43,6 +43,21 @@ import { appConfig } from '../app/app.config';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @Get()
+  @Version(['1'])
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Get all users',
+    description: 'Endpoint for getting all users.',
+  })
+  @ApiOkResponse({
+    description: 'Users returned successfully.',
+    type: [UserResponseBodyDto], // TODO: Refactor to use correct DTO
+  })
+  getAllV1() {
+    return this.usersService.getAllUsers();
+  }
+
   @Post()
   @Version(['1'])
   @HttpCode(HttpStatus.CREATED)
