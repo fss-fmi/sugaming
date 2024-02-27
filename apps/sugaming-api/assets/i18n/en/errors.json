@@ -32,7 +32,8 @@
       "alreadyInTeam": "You are already a member of a team.",
       "alreadyRequestedToJoinTeam": "You have already requested to join this team.",
       "noJoinRequest": "No such requested to join this team exists.",
-      "teamIsFull": "The team is already full."
+      "teamIsFull": "The team is already full.",
+      "noSuchDiscordGuildRole": "No such Discord server role exists."
     }
   }
 }
