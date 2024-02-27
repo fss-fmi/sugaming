@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { I18nContext } from 'nestjs-i18n';
+import { getRedisToken } from '@songkeys/nestjs-redis';
 import { Cs2TeamsService } from './cs2-teams.service';
 import { PrismaService } from '../../prisma/prisma.service';
 import prismaServiceMock from '../../prisma/prisma.service.mock';
@@ -11,7 +12,6 @@ import {
 import { exampleUser, exampleUser3 } from '../../users/users.mock';
 import { Cs2TeamsNameAlreadyExistsException } from './exceptions/cs2-teams-name-already-exists.exception';
 import { UsersService } from '../../users/users.service';
-import { getRedisToken } from '@songkeys/nestjs-redis';
 
 describe('Cs2TeamsService', () => {
   let service: Cs2TeamsService;
