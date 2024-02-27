@@ -1,5 +1,7 @@
 export * from './accordion/accordion';
 export * from './avatar/avatar';
+export * from './command/command';
+export * from './dialog/dialog';
 export * from './form/form';
 export * from './image-input/image-input';
 export * from './input/input';
