@@ -37,6 +37,7 @@ export default async function RootLayout({
 
   const messages = await getMessages();
   const user = await getUser();
+
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className="h-screen">
@@ -60,7 +61,7 @@ export default async function RootLayout({
               <NavbarUserControls user={user} className="" />
             </Navbar>
 
-            <main className="p-4">{children}</main>
+            <main className="max-w-[88rem] m-auto px-4">{children}</main>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
