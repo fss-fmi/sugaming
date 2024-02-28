@@ -147,7 +147,7 @@ export class UsersController {
     return this.usersService.getUserCs2TeamInvites(user);
   }
 
-  @Post(':userId/cs2-team-invites')
+  @Post(':inviteeId/cs2-team-invites')
   @Version(['1'])
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.CREATED)
@@ -179,7 +179,7 @@ export class UsersController {
     description: 'The user to invite does not exist.',
   })
   postCs2TeamInviteV1(
-    @Param('id') inviteeId: string,
+    @Param('inviteeId') inviteeId: string,
     @UserAuth() user: Omit<User, 'passwordHash'>,
   ) {
     return this.usersService.createCs2TeamInvitation(user, inviteeId);
