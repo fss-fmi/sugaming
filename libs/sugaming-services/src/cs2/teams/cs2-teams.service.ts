@@ -259,7 +259,7 @@ export class Cs2TeamsService {
     return { message: i18n?.t('responses.cs2.teams.joinRequestAccepted') };
   }
 
-  async createRoleForCs2Team(
+  async createDiscordRoleForCs2Team(
     teamName: string,
     guild: Guild,
     category: CategoryChannel,
@@ -290,7 +290,7 @@ export class Cs2TeamsService {
     });
   }
 
-  async createCategoryForCs2Team(guild: Guild, teamName: string) {
+  async createDiscordCategoryForCs2Team(guild: Guild, teamName: string) {
     // Create a category for the team
     return guild.channels.create({
       name: `🐔 Отбор ${teamName} 🐔`,
@@ -298,7 +298,7 @@ export class Cs2TeamsService {
     });
   }
 
-  async createTeamChannels(
+  async createDiscordTeamChannels(
     name: string,
     guild: Guild,
     category: CategoryChannel,

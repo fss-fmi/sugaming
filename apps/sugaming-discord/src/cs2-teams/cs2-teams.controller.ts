@@ -17,18 +17,18 @@ export class Cs2TeamsController {
     // Get the first guild
     const guild = await this.discordClient.guilds.cache.first();
     // Create the team category and channels
-    const category = await this.cs2TeamsService.createCategoryForCs2Team(
+    const category = await this.cs2TeamsService.createDiscordCategoryForCs2Team(
       guild,
       createdTeam.name,
     );
 
-    await this.cs2TeamsService.createRoleForCs2Team(
+    await this.cs2TeamsService.createDiscordRoleForCs2Team(
       createdTeam.name,
       guild,
       category,
     );
 
-    await this.cs2TeamsService.createTeamChannels(
+    await this.cs2TeamsService.createDiscordTeamChannels(
       createdTeam.name,
       guild,
       category,
