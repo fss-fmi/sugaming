@@ -17,11 +17,13 @@ import {
 interface InviteButtonProps {
   userId: string;
   teamId: string;
+  completeSuccessfulInviteConfirmation: () => void;
 }
 
 export function InviteConfirmationDialog({
   userId,
   teamId,
+  completeSuccessfulInviteConfirmation,
 }: InviteButtonProps) {
   const { toast } = useToast();
   // const t = useTranslations('');
@@ -48,6 +50,7 @@ export function InviteConfirmationDialog({
         variant: 'default',
         title: 'User invited successfully',
       });
+      completeSuccessfulInviteConfirmation();
       return;
     }
 

@@ -97,8 +97,8 @@ export default async function CS2TeamPage() {
         <Suspense fallback={null}>
           <PlayerSearch
             teamId={team.id}
-            usersWithoutTeam={await getUsersWithoutATeamAndNoRequestAndInvites()}
-            usersWithTeam={await getUsersWithATeamAndNoRequestAndInvites()}
+            usersWithoutATeam={await getUsersWithoutATeamAndNoRequestAndInvites()}
+            usersWithATeam={await getUsersWithATeamAndNoRequestAndInvites()}
             usersRequestedToJoin={await getUsersRequestedToJoin()}
             usersAlreadyInvited={await getUsersAlreadyInvited()}
           >

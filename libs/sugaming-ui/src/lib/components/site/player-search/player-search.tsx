@@ -18,8 +18,8 @@ import {
 interface PlayerSearchProps {
   children: ReactNode;
   teamId: string;
-  usersWithoutTeam: ApiClient.UserResponseBodyDto[];
-  usersWithTeam: ApiClient.UserResponseBodyDto[];
+  usersWithoutATeam: ApiClient.UserResponseBodyDto[];
+  usersWithATeam: ApiClient.UserResponseBodyDto[];
   usersRequestedToJoin: ApiClient.UserResponseBodyDto[];
   usersAlreadyInvited: ApiClient.UserResponseBodyDto[];
 }
@@ -27,24 +27,59 @@ interface PlayerSearchProps {
 export function PlayerSearch({
   children,
   teamId,
-  usersWithoutTeam,
-  usersWithTeam,
+  usersWithoutATeam,
+  usersWithATeam,
   usersRequestedToJoin,
   usersAlreadyInvited,
 }: PlayerSearchProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [dialogs, setDialogs] = useState<JSX.Element[]>([]);
+  const [dialog, setDialog] = useState<JSX.Element | undefined>();
+  const [usersWithoutATeamState, setUsersWithoutATeamState] =
+    useState(usersWithoutATeam);
+  const [usersWithATeamState, setUsersWithATeamState] =
+    useState(usersWithATeam);
+  const [usersRequestedToJoinState, setUsersRequestedToJoinState] =
+    useState(usersRequestedToJoin);
+  const [usersAlreadyInvitedState, setUsersAlreadyInvitedState] =
+    useState(usersAlreadyInvited);
+
+  function completeSuccessfulInviteConfirmation(userId: string) {
+    setUsersAlreadyInvitedState([
+      [
+        ...usersWithoutATeamState,
+        ...usersWithATeamState,
+        ...usersRequestedToJoinState,
+      ].find((user) => user.id === userId),
+      ...usersAlreadyInvitedState,
+    ]);
+    setUsersWithoutATeamState(
+      usersWithoutATeamState.filter((user) => user.id !== userId),
+    );
+    setUsersWithATeamState(
+      usersWithATeamState.filter((user) => user.id !== userId),
+    );
+    setUsersRequestedToJoinState(
+      usersRequestedToJoinState.filter((user) => user.id !== userId),
+    );
+  }
 
   function openInviteConfirmation(userId: string) {
     // Close command dialog
     setIsOpen(false);
 
     // Open invite confirmation dialog
-    const dialog = (
-      <InviteConfirmationDialog key={userId} userId={userId} teamId={teamId} />
+    const currentDialog = (
+      <InviteConfirmationDialog
+        key={userId}
+        userId={userId}
+        teamId={teamId}
+        completeSuccessfulInviteConfirmation={() =>
+          completeSuccessfulInviteConfirmation(userId)
+        }
+      />
     );
     // TODO: remove dialog after closing
-    setDialogs([...dialogs, dialog]);
+    setDialog(currentDialog);
   }
 
   function commandItemProfile(user: ApiClient.UserResponseBodyDto) {
@@ -75,9 +110,9 @@ export function PlayerSearch({
         <CommandInput placeholder="Type a name to search..." />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
-          {usersRequestedToJoin.length > 0 && (
+          {usersRequestedToJoinState.length > 0 && (
             <CommandGroup heading="Requested to join">
-              {usersRequestedToJoin.map((user) => (
+              {usersRequestedToJoinState.map((user) => (
                 <CommandItem
                   key={user.id}
                   onSelect={() => openInviteConfirmation(user.id)}
@@ -88,9 +123,9 @@ export function PlayerSearch({
             </CommandGroup>
           )}
 
-          {usersWithoutTeam.length > 0 && (
+          {usersWithoutATeamState.length > 0 && (
             <CommandGroup heading="Without a team">
-              {usersWithoutTeam.map((user) => (
+              {usersWithoutATeamState.map((user) => (
                 <CommandItem
                   key={user.id}
                   onSelect={() => openInviteConfirmation(user.id)}
@@ -101,9 +136,9 @@ export function PlayerSearch({
             </CommandGroup>
           )}
 
-          {usersWithTeam.length > 0 && (
+          {usersWithATeamState.length > 0 && (
             <CommandGroup heading="Already in a team">
-              {usersWithTeam.map((user) => (
+              {usersWithATeamState.map((user) => (
                 <CommandItem
                   key={user.id}
                   onSelect={() => openInviteConfirmation(user.id)}
@@ -114,9 +149,9 @@ export function PlayerSearch({
             </CommandGroup>
           )}
 
-          {usersAlreadyInvited.length > 0 && (
+          {usersAlreadyInvitedState.length > 0 && (
             <CommandGroup heading="Already invited">
-              {usersAlreadyInvited.map((user) => (
+              {usersAlreadyInvitedState.map((user) => (
                 <CommandItem
                   key={user.id}
                   onSelect={() => openInviteConfirmation(user.id)}
@@ -130,7 +165,7 @@ export function PlayerSearch({
         </CommandList>
       </CommandDialog>
 
-      {dialogs}
+      {dialog}
     </>
   );
 }
