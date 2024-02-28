@@ -101,6 +101,35 @@ export class Cs2TeamsService {
     });
   }
 
+  async getInvitationsSent(teamId: number, user: Omit<User, 'passwordHash'>) {
+    // Validate that the user exists
+    await this.usersService.getByIdOrThrow(user.id);
+
+    // Validate that the team exists/the user is the captain of the team
+    const team = await this.getByIdOrThrow(teamId);
+
+    if (team.capitanId !== user.id) {
+      throw new Cs2TeamsNotCapitanException();
+    }
+
+    // Get the invitations
+    return this.prisma.cs2TeamInvitation.findMany({
+      where: {
+        teamId,
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            nickname: true,
+          },
+        },
+      },
+    });
+  }
+
   async getJoinRequests(teamId: number, user: Omit<User, 'passwordHash'>) {
     // Validate that the user exists
     await this.usersService.getByIdOrThrow(user.id);

@@ -29,7 +29,6 @@ import { Cs2TeamsPostJoinRequestsDto } from '@sugaming/sugaming-services/cs2/tea
 import { Cs2TeamsPostJoinRequestsRespondRequestBodyDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-post-join-requests-respond-request-body.dto';
 import { Cs2TeamsPostJoinRequestsRespondParamsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-post-join-requests-respond-params.dto';
 import { Cs2TeamsPostJoinRequestsParamsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-post-join-requests-params.dto';
-import { Cs2TeamsGetJoinRequestsParamsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-get-join-requests-params.dto';
 import { Cs2TeamResponseBodyDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-team-response-body.dto';
 import { UserAuth } from '../../users/user-auth.decorator';
 
@@ -86,7 +85,36 @@ export class Cs2TeamsController {
     return this.cs2TeamsService.create(createTeamDto, user.id);
   }
 
-  @Get(':teamId/join-requests')
+  @Get('current/invitations-sent')
+  @Version(['1'])
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Get all CS2 team invitations sent',
+    description:
+      'Endpoint for team captains to get all sent invitations from their team.',
+  })
+  @ApiOkResponse({
+    description: 'CS2 team invitations sent retrieved successfully.',
+  })
+  @ApiUnauthorizedResponse({ description: 'Invalid user credentials.' })
+  @ApiNotFoundResponse({
+    schema: {
+      anyOf: [
+        { description: 'The user no longer exists.' },
+        { description: 'The team specified does not exist.' },
+      ],
+    },
+  })
+  @ApiForbiddenResponse({
+    description: 'The user is not the captain of the team.',
+  })
+  async getInvitationsSentV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
+    return this.cs2TeamsService.getInvitationsSent(user.cs2TeamId, user);
+  }
+
+  @Get('current/join-requests')
   @Version(['1'])
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
@@ -110,11 +138,8 @@ export class Cs2TeamsController {
   @ApiForbiddenResponse({
     description: 'The user is not the captain of the team.',
   })
-  async getJoinRequestsV1(
-    @Param() params: Cs2TeamsGetJoinRequestsParamsDto,
-    @UserAuth() user: Omit<User, 'passwordHash'>,
-  ) {
-    return this.cs2TeamsService.getJoinRequests(params.teamId, user);
+  async getJoinRequestsV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
+    return this.cs2TeamsService.getJoinRequests(user.cs2TeamId, user);
   }
 
   @Post(':teamId/join-requests')
