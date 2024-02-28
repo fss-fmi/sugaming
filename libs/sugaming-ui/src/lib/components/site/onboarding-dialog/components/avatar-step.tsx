@@ -12,6 +12,7 @@ const options = {
   mouth: ['default', 'smile', 'sad', 'serious', 'screamOpen', 'tongue'],
   top: ['hat', 'turban', 'hijab', 'bigHair', 'bob', 'straight01'],
   accessories: [
+    'none',
     'eyepatch',
     'kurt',
     'prescription01',
@@ -99,7 +100,7 @@ function CustomizationOption({ category, label, onPrevious, onNext }) {
           justifyContent: 'space-between', // Equal space between items
         }}
       >
-        <Button onClick={() => onPrevious(category)}>
+        <Button variant="secondary" onClick={() => onPrevious(category)}>
           <FaArrowLeft />
         </Button>
         <h3 style={{ margin: '0 10px' }}>{label}</h3>
@@ -152,6 +153,8 @@ export function AvatarStep({ previousStep, nextStep }: AvatarStepProps) {
         [options[key][value]],
       ]),
     ),
+    accessoriesProbability: 100,
+    facialHairProbability: 100,
   });
 
   return (
