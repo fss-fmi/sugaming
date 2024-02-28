@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import { I18nContext } from 'nestjs-i18n';
 import { User } from '@prisma/client';
-import { Client } from 'discord.js';
+import { CategoryChannel, Client, Guild } from 'discord.js';
 import { UsersUniversityFacultyNumberAlreadyInUseException } from './exceptions/users-university-faculty-number-already-in-use.exception';
 import { UsersNoSuchDiscordGuildException } from './exceptions/users-no-such-discord-guild.exception';
 import { UsersNoSuchMemberOfDiscordGuildException } from './exceptions/users-no-such-member-of-discord-guild.exception';
