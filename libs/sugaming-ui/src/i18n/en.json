@@ -107,6 +107,14 @@
       "too-long": "The field should contain at most {length} symbols.",
       "regex-error": "The field does not match the requirements.",
       "invalid-email-format": "Invalid email address."
+    },
+    "users-search": {
+      "search-placeholder": "Type a name to search...",
+      "no-results": "No results found.",
+      "users-requested-to-join": "Requested to join",
+      "users-without-a-team": "Without a team",
+      "users-with-a-team": "With a team",
+      "users-already-invited": "Already invited"
     }
   }
 }

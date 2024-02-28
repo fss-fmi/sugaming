@@ -2,6 +2,7 @@
 
 import React, { ReactNode, useState } from 'react';
 import { ApiClient } from '@sugaming/sugaming-api-client/client';
+import { useTranslations } from 'next-intl';
 import { InviteConfirmationDialog } from './components/invite-confirmation-dialog';
 import {
   Avatar,
@@ -15,7 +16,7 @@ import {
   CommandList,
 } from '../../common/client';
 
-interface PlayerSearchProps {
+interface UsersSearchProps {
   children: ReactNode;
   teamId: string;
   usersWithoutATeam: ApiClient.UserResponseBodyDto[];
@@ -24,14 +25,15 @@ interface PlayerSearchProps {
   usersAlreadyInvited: ApiClient.UserResponseBodyDto[];
 }
 
-export function PlayerSearch({
+export function UsersSearch({
   children,
   teamId,
   usersWithoutATeam,
   usersWithATeam,
   usersRequestedToJoin,
   usersAlreadyInvited,
-}: PlayerSearchProps) {
+}: UsersSearchProps) {
+  const t = useTranslations('site.users-search');
   const [isOpen, setIsOpen] = useState(false);
   const [dialog, setDialog] = useState<JSX.Element | undefined>();
   const [usersWithoutATeamState, setUsersWithoutATeamState] =
@@ -107,11 +109,11 @@ export function PlayerSearch({
   return (
     <>
       <CommandDialog trigger={children} open={isOpen} onOpenChange={setIsOpen}>
-        <CommandInput placeholder="Type a name to search..." />
+        <CommandInput placeholder={t('search-placeholder')} />
         <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandEmpty>{t('no-results')}</CommandEmpty>
           {usersRequestedToJoinState.length > 0 && (
-            <CommandGroup heading="Requested to join">
+            <CommandGroup heading={t('users-requested-to-join')}>
               {usersRequestedToJoinState.map((user) => (
                 <CommandItem
                   key={user.id}
@@ -124,7 +126,7 @@ export function PlayerSearch({
           )}
 
           {usersWithoutATeamState.length > 0 && (
-            <CommandGroup heading="Without a team">
+            <CommandGroup heading={t('users-without-a-team')}>
               {usersWithoutATeamState.map((user) => (
                 <CommandItem
                   key={user.id}
@@ -137,7 +139,7 @@ export function PlayerSearch({
           )}
 
           {usersWithATeamState.length > 0 && (
-            <CommandGroup heading="Already in a team">
+            <CommandGroup heading={t('users-with-a-team')}>
               {usersWithATeamState.map((user) => (
                 <CommandItem
                   key={user.id}
@@ -150,7 +152,7 @@ export function PlayerSearch({
           )}
 
           {usersAlreadyInvitedState.length > 0 && (
-            <CommandGroup heading="Already invited">
+            <CommandGroup heading={t('users-already-invited')}>
               {usersAlreadyInvitedState.map((user) => (
                 <CommandItem
                   key={user.id}

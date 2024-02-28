@@ -107,6 +107,14 @@
       "too-long": "Полето трябва да има най-много {length} символа.",
       "regex-error": "Полето не отговаря на изискванията.",
       "invalid-email-format": "Невалиден формат на имейл адрес."
+    },
+    "users-search": {
+      "search-placeholder": "Въведете име за търсене...",
+      "no-results": "Няма намерени резултати.",
+      "users-requested-to-join": "Хора, поискали да се присъединят към отбора",
+      "users-without-a-team": "Хора без отбор",
+      "users-with-a-team": "Хора с отбор",
+      "users-already-invited": "Хора, които вече са поканени"
     }
   }
 }

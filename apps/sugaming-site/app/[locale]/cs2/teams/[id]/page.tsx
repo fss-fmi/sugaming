@@ -10,7 +10,7 @@ import {
 import { FaArrowLeft, FaUserPlus } from 'react-icons/fa6';
 import Link from 'next/link';
 import { useLocale } from 'next-intl';
-import { PlayerSearch } from '@sugaming/sugaming-ui/lib/components/site/client';
+import { UsersSearch } from '@sugaming/sugaming-ui/lib/components/site/client';
 import React, { Suspense } from 'react';
 import { SiCounterstrike } from 'react-icons/si';
 import { getBearerToken } from '@sugaming/sugaming-api-client/next';
@@ -95,7 +95,7 @@ export default async function CS2TeamPage() {
           </Link>
         </Button>
         <Suspense fallback={null}>
-          <PlayerSearch
+          <UsersSearch
             teamId={team.id}
             usersWithoutATeam={await getUsersWithoutATeamAndNoRequestAndInvites()}
             usersWithATeam={await getUsersWithATeamAndNoRequestAndInvites()}
@@ -105,7 +105,7 @@ export default async function CS2TeamPage() {
             <Button className="absolute bottom-1 right-1 rounded-xl">
               <FaUserPlus className="h-4 w-4" />
             </Button>
-          </PlayerSearch>
+          </UsersSearch>
         </Suspense>
       </CardHeader>
       <CardContent className="p-3">
