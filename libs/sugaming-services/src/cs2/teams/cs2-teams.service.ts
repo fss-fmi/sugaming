@@ -342,4 +342,21 @@ export class Cs2TeamsService {
     // Assign the role to the member
     await member.roles.add(role);
   }
+
+  async removeRoleFromMember(memberId: string, guild: Guild, role: Role) {
+    // Get the member
+    const member = await guild.members.fetch(memberId);
+
+    // Check if the member already has another role
+    const existingRole = member.roles.cache.find(
+      (memberRole) => memberRole.name === role.name,
+    );
+
+    if (!existingRole) {
+      throw new Cs2TeamsNoSuchDiscordGuildRoleException();
+    }
+
+    // Remove the role from the member
+    await member.roles.remove(role);
+  }
 }

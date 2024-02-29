@@ -344,6 +344,42 @@ export class UsersService {
     return guildMember.roles.add(role);
   }
 
+  async removeDiscordServerRoleById(
+    discordClient: Client,
+    userId: string,
+    roleId: string,
+    guildId: string,
+  ) {
+    // Validate that the user exists
+    const user = await this.getByIdOrThrow(userId);
+
+    // Validate that the user has a discord account linked
+    if (!user.discord) {
+      throw new UsersNoDiscordAccountLinkedException();
+    }
+
+    // Get the discord guild
+    const guild = await discordClient.guilds.fetch(guildId);
+    if (!guild) {
+      throw new UsersNoSuchDiscordGuildException();
+    }
+
+    // Get the discord role
+    const role = await guild.roles.fetch(roleId);
+    if (!role) {
+      throw new UsersNoSuchDiscordGuildRoleException();
+    }
+
+    // Get the discord user
+    const discordUser = await discordClient.users.fetch(user.discord.discordId);
+
+    // Get the discord guild member
+    const guildMember = await guild.members.fetch(discordUser);
+
+    // Remove the role from the user
+    return guildMember.roles.remove(role);
+  }
+
   async verifyCredentials(email: string, password: string) {
     // Get user information (with password) from the database
     const user = await this.prisma.user.findUnique({
@@ -618,6 +654,19 @@ export class UsersService {
       throw new UsersCaptainCanNotLeaveException();
     }
 
+    // Get the user's discord account
+    const discordAccount = await this.prisma.discordAccount.findFirst({
+      where: {
+        userId: user.id,
+      },
+    });
+
+    // Notify the discord microservice
+    await this.redis.publish(
+      'users:team_left',
+      JSON.stringify({ discordAccount }),
+    );
+
     // Remove the user from the team
     await this.prisma.cs2Team.update({
       where: {
@@ -631,46 +680,6 @@ export class UsersService {
         },
       },
     });
-
-    // Notify the discord microservice
-    await this.redis.publish('users:team_left', JSON.stringify(user));
-  }
-
-  // Remove the role from the user
-  async removeDiscordServerRoleById(
-    discordClient: Client,
-    userId: string,
-    roleId: string,
-    guildId: string,
-  ) {
-    // Validate that the user exists
-    const user = await this.getByIdOrThrow(userId);
-
-    // Validate that the user has a discord account linked
-    if (!user.discord) {
-      throw new UsersNoDiscordAccountLinkedException();
-    }
-
-    // Get the discord guild
-    const guild = await discordClient.guilds.fetch(guildId);
-    if (!guild) {
-      throw new UsersNoSuchDiscordGuildException();
-    }
-
-    // Get the discord role
-    const role = await guild.roles.fetch(roleId);
-    if (!role) {
-      throw new UsersNoSuchDiscordGuildRoleException();
-    }
-
-    // Get the discord user
-    const discordUser = await discordClient.users.fetch(user.discord.discordId);
-
-    // Get the discord guild member
-    const guildMember = await guild.members.fetch(discordUser);
-
-    // Remove the role from the user
-    return guildMember.roles.remove(role);
   }
 }
 
