@@ -9,8 +9,31 @@ import { Button } from '../../../common/server';
 import { DialogFooter } from '../../../common/client';
 
 const options = {
-  mouth: ['default', 'smile', 'sad', 'serious', 'screamOpen', 'tongue'],
-  top: ['hat', 'turban', 'hijab', 'bigHair', 'bob', 'straight01'],
+  mouth: [
+    'default',
+    'smile',
+    'sad',
+    'serious',
+    'screamOpen',
+    'tongue',
+    'eating',
+  ],
+  top: [
+    'dreads01',
+    'curvy',
+    'frizzle',
+    'shaggy',
+    'bun',
+    'frida',
+    'turban',
+    'hijab',
+    'bigHair',
+    'bob',
+    'straight01',
+    'straight02',
+    'winterHat04',
+    'theCaesarAndSidePart',
+  ],
   accessories: [
     'none',
     'eyepatch',
@@ -35,9 +58,9 @@ const options = {
   ],
   accessoryColor: ['black', 'blue', 'gray', 'green'],
   eyes: [
+    'default',
     'closed',
     'cry',
-    'default',
     'eyeRoll',
     'happy',
     'hearts',
@@ -64,11 +87,60 @@ const options = {
     'upDownNatural',
   ],
   facialHair: [
+    'none',
     'beardLight',
     'beardMajestic',
     'beardMedium',
     'moustacheFancy',
     'moustacheMagnum',
+  ],
+  skinColor: [
+    'edb98a',
+    '614335',
+    'ae5d29',
+    'd08b5b',
+    'f8d25c',
+    'fd9841',
+    'ffdbb4',
+  ],
+  facialHairColor: [
+    '2c1b18',
+    '4a312c',
+    '724133',
+    'a55728',
+    'b58143',
+    'c93305',
+    'd6b370',
+    'e8e1e1',
+    'ecdcbf',
+    'f59797',
+  ],
+  clothesColor: [
+    '3c4f5c',
+    '65c9ff',
+    '262e33',
+    '5199e4',
+    '25557c',
+    '929598',
+    'a7ffc4',
+    'b1e2ff',
+    'e6e6e6',
+    'ff5c5c',
+    'ff488e',
+    'ffafb9',
+    'ffffb1',
+    'ffffff',
+  ],
+  clothing: [
+    'blazerAndShirt',
+    'blazerAndSweater',
+    'collarAndSweater',
+    'graphicShirt',
+    'hoodie',
+    'overall',
+    'shirtCrewNeck',
+    'shirtScoopNeck',
+    'shirtVNeck',
   ],
 };
 
@@ -81,6 +153,10 @@ interface CustomizationOptions {
   eyes: number;
   eyebrows: number;
   facialHair: number;
+  skinColor: number;
+  facialHairColor: number;
+  clothesColor: number;
+  clothing: number;
 }
 
 interface AvatarStepProps {
@@ -97,7 +173,7 @@ function CustomizationOption({ category, label, onPrevious, onNext }) {
         style={{
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between', // Equal space between items
+          justifyContent: 'space-between',
         }}
       >
         <Button variant="secondary" onClick={() => onPrevious(category)}>
@@ -123,6 +199,10 @@ export function AvatarStep({ previousStep, nextStep }: AvatarStepProps) {
     eyes: 0,
     eyebrows: 0,
     facialHair: 0,
+    skinColor: 0,
+    facialHairColor: 0,
+    clothesColor: 0,
+    clothing: 0,
   });
 
   const handleNextOption = (category: keyof CustomizationOptions) => {
@@ -158,57 +238,106 @@ export function AvatarStep({ previousStep, nextStep }: AvatarStepProps) {
   });
 
   return (
-    <>
+    <div
+      style={{
+        paddingLeft: '50px',
+        paddingRight: '50px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+      }}
+    >
       <div className="character-customization">
-        <h2>Character Customization</h2>
-        <CustomizationOption
-          category="eyebrows"
-          label="Eyebrows"
-          onPrevious={handleGoToPreviousOption}
-          onNext={handleNextOption}
-        />
-        <CustomizationOption
-          category="accessories"
-          label="Accessories person"
-          onPrevious={handleGoToPreviousOption}
-          onNext={handleNextOption}
-        />
-        <CustomizationOption
-          category="eyes"
-          label="Eyes"
-          onPrevious={handleGoToPreviousOption}
-          onNext={handleNextOption}
-        />
-        <CustomizationOption
-          category="accessoryColor"
-          label="Accessory Color"
-          onPrevious={handleGoToPreviousOption}
-          onNext={handleNextOption}
-        />
-        <CustomizationOption
-          category="hairColor"
-          label="Hair Color"
-          onPrevious={handleGoToPreviousOption}
-          onNext={handleNextOption}
-        />
-        <CustomizationOption
-          category="mouth"
-          label="Mouth"
-          onPrevious={handleGoToPreviousOption}
-          onNext={handleNextOption}
-        />
-        <CustomizationOption
-          category="top"
-          label="Top"
-          onPrevious={handleGoToPreviousOption}
-          onNext={handleNextOption}
-        />
-        <CustomizationOption
-          category="facialHair"
-          label="Facial Hair"
-          onPrevious={handleGoToPreviousOption}
-          onNext={handleNextOption}
-        />
+        <h2 style={{ textAlign: 'center', paddingBottom: '20px' }}>
+          Character Customization
+        </h2>
+        <div
+          className="columns"
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
+          <div className="column">
+            <CustomizationOption
+              category="eyebrows"
+              label="Eyebrows"
+              onPrevious={handleGoToPreviousOption}
+              onNext={handleNextOption}
+            />
+            <CustomizationOption
+              category="accessories"
+              label="Accessories"
+              onPrevious={handleGoToPreviousOption}
+              onNext={handleNextOption}
+            />
+            <CustomizationOption
+              category="accessoryColor"
+              label="Accessory Color"
+              onPrevious={handleGoToPreviousOption}
+              onNext={handleNextOption}
+            />
+            <CustomizationOption
+              category="eyes"
+              label="Eyes"
+              onPrevious={handleGoToPreviousOption}
+              onNext={handleNextOption}
+            />
+            <CustomizationOption
+              category="top"
+              label="Top/Hair"
+              onPrevious={handleGoToPreviousOption}
+              onNext={handleNextOption}
+            />
+            <CustomizationOption
+              category="hairColor"
+              label="Hair Color"
+              onPrevious={handleGoToPreviousOption}
+              onNext={handleNextOption}
+            />
+          </div>
+
+          <div className="column">
+            <CustomizationOption
+              category="mouth"
+              label="Mouth"
+              onPrevious={handleGoToPreviousOption}
+              onNext={handleNextOption}
+            />
+
+            <CustomizationOption
+              category="facialHair"
+              label="Facial Hair"
+              onPrevious={handleGoToPreviousOption}
+              onNext={handleNextOption}
+            />
+            <CustomizationOption
+              category="facialHairColor"
+              label="Facial Hair Color"
+              onPrevious={handleGoToPreviousOption}
+              onNext={handleNextOption}
+            />
+            <CustomizationOption
+              category="skinColor"
+              label="Skin Color"
+              onPrevious={handleGoToPreviousOption}
+              onNext={handleNextOption}
+            />
+            <CustomizationOption
+              category="clothing"
+              label="Clothes"
+              onPrevious={handleGoToPreviousOption}
+              onNext={handleNextOption}
+            />
+            <CustomizationOption
+              category="clothesColor"
+              label="Clothes Color"
+              onPrevious={handleGoToPreviousOption}
+              onNext={handleNextOption}
+            />
+          </div>
+        </div>
 
         <div
           className="avatar-preview"
@@ -216,20 +345,26 @@ export function AvatarStep({ previousStep, nextStep }: AvatarStepProps) {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            position: 'relative', // Ensure parent has position set
-            zIndex: 0, // Set lower z-index for the avatar-preview
           }}
         >
-          <img src={avatar.toDataUriSync()} alt="" width="100" height="100" />
+          <img src={avatar.toDataUriSync()} alt="" width="150" height="150" />
         </div>
       </div>
 
-      <DialogFooter>
-        <Button onClick={previousStep} variant="secondary">
-          {t('previous')}
-        </Button>
-        <Button onClick={nextStep}>{t('continue')}</Button>
-      </DialogFooter>
-    </>
+      <div>
+        <DialogFooter
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            paddingTop: '15px',
+          }}
+        >
+          <Button onClick={previousStep} variant="secondary">
+            {t('previous')}
+          </Button>
+          <Button onClick={nextStep}>{t('continue')}</Button>
+        </DialogFooter>
+      </div>
+    </div>
   );
 }
