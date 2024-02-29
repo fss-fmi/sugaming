@@ -1,17 +1,35 @@
 import { ApiClient } from '@sugaming/sugaming-api-client/client';
-import { TeamCard } from '@sugaming/sugaming-ui/lib/components/site/server';
+import {
+  LoginButtons,
+  TeamCard,
+} from '@sugaming/sugaming-ui/lib/components/site/server';
 import { isCs2TeamVerified } from '@sugaming/sugaming-services/config/utils.config';
 import { GoUnverified, GoVerified } from 'react-icons/go';
 import { getTranslations } from 'next-intl/server';
+import { getUser } from '@sugaming/sugaming-api-client/next';
+import { Card } from '@sugaming/sugaming-ui/lib/components/common/card/components/card';
 
 export default async function CS2TeamsPage() {
   const t = await getTranslations('cs2-teams-page');
   const teams = await ApiClient.Cs2TeamsApiService.cs2TeamsControllerGetV1({});
+  const user = await getUser();
   return (
     <>
       <h1 className="text-2xl sm:text-4xl md:text-6xl font-black uppercase my-4 truncate text-clip">
         {t('title')}
       </h1>
+
+      {!user && (
+        <Card className="flex flex-col md:flex-row items-center p-4">
+          <div className="md:mr-auto">
+            <h1 className="text-lg sm:text-xl md:text-2xl font-semibold">
+              {t('want-to-be-a-part-of-a-team')}
+            </h1>
+            <span>{t('create-an-account-or-login')}</span>
+          </div>
+          <LoginButtons className="md:ml-auto mt-2 md:mt-0" />
+        </Card>
+      )}
 
       <div className="flex items-center">
         <GoVerified className="w-8 h-8 mr-2" />
