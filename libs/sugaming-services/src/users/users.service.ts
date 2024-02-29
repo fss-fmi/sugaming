@@ -2,7 +2,9 @@ import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import { I18nContext } from 'nestjs-i18n';
 import { User } from '@prisma/client';
-import { CategoryChannel, Client, Guild } from 'discord.js';
+import { Client } from 'discord.js';
+import Redis from 'ioredis';
+import { InjectRedis } from '@songkeys/nestjs-redis';
 import { UsersUniversityFacultyNumberAlreadyInUseException } from './exceptions/users-university-faculty-number-already-in-use.exception';
 import { UsersNoSuchDiscordGuildException } from './exceptions/users-no-such-discord-guild.exception';
 import { UsersNoSuchMemberOfDiscordGuildException } from './exceptions/users-no-such-member-of-discord-guild.exception';
@@ -26,10 +28,15 @@ import { libConfig } from '../config/lib.config';
 import { UsersNoDiscordAccountLinkedException } from './exceptions/users-no-discord-account-linked.exception';
 import { UsersNoSuchDiscordGuildRoleException } from './exceptions/users-no-such-discord-guild-role.exception';
 import { UsersPhoneAlreadyInUseException } from './exceptions/users-phone-already-in-use.exception';
+import { Cs2TeamsUserNotInTeamException } from '../cs2/teams/exceptions/cs2-teams-user-not-in-team.exception';
+import { UsersCaptainCanNotLeaveException } from './exceptions/users-captain-can-not-leave.exception';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    @InjectRedis() private readonly redis: Redis,
+  ) {}
 
   async getById(id: string) {
     // Get user information from the database
@@ -589,6 +596,81 @@ export class UsersService {
     // Remove the password hash and return the user
     const { passwordHash, ...userWithoutPassword } = newUser;
     return userWithoutPassword;
+  }
+
+  async leave(user: Omit<User, 'passwordHash'>) {
+    // Validate that the user exists
+    await this.getByIdOrThrow(user.id);
+
+    // Check if the user is part of a CS2 team
+    const team = await this.prisma.cs2Team.findFirst({
+      where: {
+        members: { some: { id: user.id } },
+      },
+    });
+
+    if (!team) {
+      throw new Cs2TeamsUserNotInTeamException();
+    }
+
+    // Throw an exception if the captain is trying to leave
+    if (team.capitanId === user.id) {
+      throw new UsersCaptainCanNotLeaveException();
+    }
+
+    // Remove the user from the team
+    await this.prisma.cs2Team.update({
+      where: {
+        id: team.id,
+      },
+      data: {
+        members: {
+          disconnect: {
+            id: user.id,
+          },
+        },
+      },
+    });
+
+    // Notify the discord microservice
+    await this.redis.publish('users:team_left', JSON.stringify(user));
+  }
+
+  // Remove the role from the user
+  async removeDiscordServerRoleById(
+    discordClient: Client,
+    userId: string,
+    roleId: string,
+    guildId: string,
+  ) {
+    // Validate that the user exists
+    const user = await this.getByIdOrThrow(userId);
+
+    // Validate that the user has a discord account linked
+    if (!user.discord) {
+      throw new UsersNoDiscordAccountLinkedException();
+    }
+
+    // Get the discord guild
+    const guild = await discordClient.guilds.fetch(guildId);
+    if (!guild) {
+      throw new UsersNoSuchDiscordGuildException();
+    }
+
+    // Get the discord role
+    const role = await guild.roles.fetch(roleId);
+    if (!role) {
+      throw new UsersNoSuchDiscordGuildRoleException();
+    }
+
+    // Get the discord user
+    const discordUser = await discordClient.users.fetch(user.discord.discordId);
+
+    // Get the discord guild member
+    const guildMember = await guild.members.fetch(discordUser);
+
+    // Remove the role from the user
+    return guildMember.roles.remove(role);
   }
 }
 

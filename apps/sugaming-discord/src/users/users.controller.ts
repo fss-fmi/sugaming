@@ -44,4 +44,15 @@ export class UsersController {
       appConfig.discord.guildId,
     );
   }
+
+  @MessagePattern('users:team_left')
+  async handleCs2TeamsTeamLeftEvent(@Payload() userId: string) {
+    // Remove the role from the user
+    await this.usersService.removeDiscordServerRoleById(
+      this.discordClient,
+      userId,
+      appConfig.discord.guildVerifiedRoleId,
+      appConfig.discord.guildId,
+    );
+  }
 }
