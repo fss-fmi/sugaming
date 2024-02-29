@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDateString, IsNotEmpty } from 'class-validator';
 import { i18nValidationMessage } from 'nestjs-i18n';
-// TODO: fix
+// TODO: Fix circular dependency
 // eslint-disable-next-line import/no-cycle
 import { UserResponseBodyDto } from '../../../users/dto/user-response-body.dto';
 import { Cs2TeamsBaseDto } from './cs2-teams-base.dto';
@@ -17,9 +17,9 @@ export class Cs2TeamResponseBodyDto extends Cs2TeamsBaseDto {
 
   @ApiProperty({
     description: 'Team members.',
-    type: [UserResponseBodyDto],
+    type: UserResponseBodyDto,
   })
-  members!: [UserResponseBodyDto]; // TODO: Adjust type
+  members!: UserResponseBodyDto; // TODO: Adjust type
 
   @ApiProperty({
     description: 'Team creation date',

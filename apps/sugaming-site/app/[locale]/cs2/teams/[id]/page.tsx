@@ -9,17 +9,27 @@ import {
 } from '@sugaming/sugaming-ui/lib/components/common/server';
 import { FaArrowLeft, FaUserPlus } from 'react-icons/fa6';
 import Link from 'next/link';
-import { useLocale } from 'next-intl';
 import { UsersSearch } from '@sugaming/sugaming-ui/lib/components/site/client';
 import React, { Suspense } from 'react';
 import { SiCounterstrike } from 'react-icons/si';
 import { getBearerToken } from '@sugaming/sugaming-api-client/next';
+import { useLocale } from 'next-intl';
 
-export default async function CS2TeamPage() {
+interface CS2TeamPageProps {
+  params: { id: string };
+}
+
+export default async function CS2TeamPage({ params }: CS2TeamPageProps) {
   const t = await getTranslations('cs2-team-page');
   const locale = useLocale();
-  const teams = await ApiClient.Cs2TeamsApiService.cs2TeamsControllerGetV1({});
-  const team = teams[0]; // TODO: Refactor to get team by id
+
+  const team = await ApiClient.Cs2TeamsApiService.cs2TeamsControllerGetTeamV1({
+    teamId: params.id,
+  });
+
+  if (!team) {
+    return null;
+  }
 
   // TODO: this is requested for each subcategory, refactor to get all users once
   async function getUsersOutsideOfThisTeam() {
@@ -114,6 +124,13 @@ export default async function CS2TeamPage() {
           <h1 className="text-xl sm:text-2xl md:text-3xl font-black uppercase my-2 truncate text-clip">
             {team.name}
           </h1>
+        </div>
+        <div className="h-80">
+          <div className="p-4">
+            <h2 className="text-md sm:text-lg md:text-xl font-semibold">
+              Matches
+            </h2>
+          </div>
         </div>
       </CardContent>
     </Card>

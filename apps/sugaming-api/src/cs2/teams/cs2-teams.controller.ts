@@ -85,6 +85,22 @@ export class Cs2TeamsController {
     return this.cs2TeamsService.create(createTeamDto, user.id);
   }
 
+  @Get(':teamId')
+  @Version(['1'])
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Get a specific CS2 team',
+    description: 'Endpoint for getting a specific CS2 team by id.',
+  })
+  @ApiOkResponse({
+    description: 'CS2 team retrieved successfully.',
+    type: Cs2TeamResponseBodyDto,
+  })
+  @ApiNotFoundResponse({ description: 'The team specified does not exist.' })
+  async getTeamV1(@Param('teamId') teamId: string) {
+    return this.cs2TeamsService.getById(parseInt(teamId, 10)); // TODO: better way to handle this
+  }
+
   @Get('current/invitations-sent')
   @Version(['1'])
   @UseGuards(JwtAuthGuard)
