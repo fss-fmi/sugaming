@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { I18nContext } from 'nestjs-i18n';
+import { User } from '@prisma/client';
 import Redis from 'ioredis';
 import { InjectRedis } from '@songkeys/nestjs-redis';
 import { CategoryChannel, ChannelType, Guild, Role } from 'discord.js';
@@ -15,6 +16,7 @@ import { Cs2TeamsNoSuchJoinRequestException } from './exceptions/cs2-teams-no-su
 import { Cs2TeamsTeamIsFullException } from './exceptions/cs2-teams-team-is-full.exception';
 import { libConfig } from '../../config/lib.config';
 import { Cs2TeamsNoSuchDiscordGuildRoleException } from './exceptions/cs2-teams-no-discord-guild-role.exception';
+import { Cs2TeamsAlreadyHasRoleException } from './exceptions/cs2-teams-already-has-role.exception';
 
 @Injectable()
 export class Cs2TeamsService {
@@ -287,6 +289,8 @@ export class Cs2TeamsService {
     await category.permissionOverwrites.create(newRole, {
       ViewChannel: true,
     });
+
+    return newRole;
   }
 
   async createDiscordCategoryForCs2Team(guild: Guild, teamName: string) {
@@ -320,5 +324,22 @@ export class Cs2TeamsService {
       type: ChannelType.GuildVoice,
       parent: category,
     });
+  }
+
+  async assignRoleToMember(memberId: string, guild: Guild, role: Role) {
+    // Get the member
+    const member = await guild.members.fetch(memberId);
+
+    // Check if the member already has another role
+    const existingRole = member.roles.cache.find(
+      (memberRole) => memberRole.name === role.name,
+    );
+
+    if (existingRole) {
+      throw new Cs2TeamsAlreadyHasRoleException();
+    }
+
+    // Assign the role to the member
+    await member.roles.add(role);
   }
 }

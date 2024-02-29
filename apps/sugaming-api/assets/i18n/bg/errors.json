@@ -35,7 +35,8 @@
       "noJoinRequest": "Не съществува такава заявка за присъединяване към отбора.",
       "teamIsFull": "Отборът няма свободни места.",
       "userNotInTeam": "Потребителят не е член на отбора.",
-      "noSuchDiscordGuildRole": "Не съществува такава Discord сървърна роля."
+      "noSuchDiscordGuildRole": "Не съществува такава Discord сървърна роля.",
+      "alreadyHasRole": "Потребителят вече има роля."
     }
   }
 }

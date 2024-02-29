@@ -22,7 +22,7 @@ export class Cs2TeamsController {
       createdTeam.name,
     );
 
-    await this.cs2TeamsService.createDiscordRoleForCs2Team(
+    const role = await this.cs2TeamsService.createDiscordRoleForCs2Team(
       createdTeam.name,
       guild,
       category,
@@ -32,6 +32,12 @@ export class Cs2TeamsController {
       createdTeam.name,
       guild,
       category,
+    );
+
+    await this.cs2TeamsService.assignRoleToMember(
+      createdTeam.capitanId,
+      guild,
+      role,
     );
   }
 }
