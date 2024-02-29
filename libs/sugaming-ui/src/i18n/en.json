@@ -59,8 +59,10 @@
       "preferences-popover": {
         "get-started": "Get started",
         "theme": "Theme"
-      },
-      "login": "Log in",
+      }
+    },
+    "login-buttons": {
+      "login": "Login",
       "signup": "Sign up"
     },
     "login-form": {

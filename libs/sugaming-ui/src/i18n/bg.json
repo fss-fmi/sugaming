@@ -59,7 +59,9 @@
       "preferences-popover": {
         "get-started": "Начало",
         "theme": "Тема"
-      },
+      }
+    },
+    "login-buttons": {
       "login": "Вход",
       "signup": "Регистрация"
     },

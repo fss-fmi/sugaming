@@ -2,8 +2,7 @@
 
 import React from 'react';
 import { GearIcon, PersonIcon } from '@radix-ui/react-icons';
-import Link from 'next/link';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { ApiClient } from '@sugaming/sugaming-api-client/client';
 import { cn } from '../../../utils';
 import { Button, Label, ThemeSwitcher } from '../../common/server';
@@ -15,6 +14,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '../../common/client';
+import { LoginButtons } from '../server';
 
 interface NavbarUserControlsProps {
   user: ApiClient.UserResponseBodyDto | undefined;
@@ -55,7 +55,7 @@ export function NavbarUserControls({
             <Label className="block xl:hidden">
               {t('preferences-popover.get-started')}
               <div className="flex w-full justify-center p-2">
-                <LoginButtons t={t} />
+                <LoginButtons />
               </div>
             </Label>
           )}
@@ -72,24 +72,9 @@ export function NavbarUserControls({
       {/* Login/Registration buttons */}
       {!user && (
         <div className="hidden xl:block">
-          <LoginButtons t={t} />
+          <LoginButtons />
         </div>
       )}
-    </div>
-  );
-}
-
-function LoginButtons({ t }: { t: (key: string) => string }) {
-  const locale = useLocale();
-
-  return (
-    <div className="flex gap-x-1 w-full">
-      <Button className="w-full xl:w-auto" variant="outline" asChild>
-        <Link href={`/${locale}/login`}>{t('login')}</Link>
-      </Button>
-      <Button className="w-full xl:w-auto" variant="default" asChild>
-        <Link href={`/${locale}/signup`}>{t('signup')}</Link>
-      </Button>
     </div>
   );
 }
