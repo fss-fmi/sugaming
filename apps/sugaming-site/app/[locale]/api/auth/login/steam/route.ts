@@ -1,6 +1,5 @@
 import { useLocale } from 'next-intl';
-// import { loginSteam } from '@sugaming/sugaming-api-client/next';
-import { loginSteam } from '@sugaming/sugaming-api-client/next';
+import { getUser, loginSteam } from '@sugaming/sugaming-api-client/next';
 import { redirect, RedirectType } from 'next/navigation';
 
 export async function GET(request: Request) {
@@ -18,6 +17,7 @@ export async function GET(request: Request) {
 
   const locale = useLocale();
 
+  const preLoginUser = await getUser();
   const response = await loginSteam(
     openidNs,
     openidMode,
@@ -30,11 +30,19 @@ export async function GET(request: Request) {
     openidSigned,
     openidSig,
   );
-  if (response?.error) {
+
+  // If the user was already logged in, redirect to account linking page
+  if (preLoginUser) {
     return redirect(
-      `/${locale}/login?error=${response.error}`,
+      `/${locale}/account-linked?type=steam${response && response?.error ? `&error=${response.error}` : ''}`,
       RedirectType.replace,
     );
   }
-  return redirect(`/${locale}/login`, RedirectType.replace);
+
+  // Otherwise, redirect to the login page
+  // If the user is logged in successfully, the login page will redirect to the home page
+  return redirect(
+    `/${locale}/login${response && response?.error ? `?error=${response.error}` : ''}`,
+    RedirectType.replace,
+  );
 }

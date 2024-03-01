@@ -590,6 +590,39 @@ export class UsersService {
     const { passwordHash, ...userWithoutPassword } = newUser;
     return userWithoutPassword;
   }
+
+  async completeOnboarding(user: Omit<User, 'passwordHash'>) {
+    // Validate that the user exists
+    await this.getByIdOrThrow(user.id);
+
+    // Update the user
+    return this.prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        isOnboardingCompleted: true,
+      },
+    });
+  }
+
+  async updateAvatar(
+    user: Omit<User, 'passwordHash'>,
+    avatar: Express.Multer.File,
+  ) {
+    // Validate that the user exists
+    await this.getByIdOrThrow(user.id);
+
+    // Update the user avatar
+    return this.prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        avatarUrl: `${libConfig.apiBase}/api/v1/users/avatars/${avatar.filename}`,
+      },
+    });
+  }
 }
 
 export default UsersService;

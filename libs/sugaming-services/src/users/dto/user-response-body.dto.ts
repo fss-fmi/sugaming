@@ -1,4 +1,4 @@
-import { IsDateString, IsNotEmpty } from 'class-validator';
+import { IsBoolean, IsDateString, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { i18nValidationMessage } from 'nestjs-i18n';
 import { UserBaseDto } from './user-base.dto';
@@ -12,6 +12,30 @@ export class UserResponseBodyDto extends UserBaseDto {
     message: i18nValidationMessage('validation.isNotEmpty'),
   })
   id!: string;
+
+  @ApiProperty({
+    description: 'Has user completed onboarding.',
+    example: true,
+  })
+  @IsBoolean({
+    message: i18nValidationMessage('validation.isBoolean'),
+  })
+  isOnboardingCompleted!: boolean;
+
+  @ApiProperty({
+    description: 'User Discord account information.',
+  })
+  discord!: object | undefined; // TODO: Add Discord type
+
+  @ApiProperty({
+    description: 'User Steam account information.',
+  })
+  steam!: object | undefined; // TODO: Add Steam type
+
+  @ApiProperty({
+    description: 'User avatar URL.',
+  })
+  avatarUrl?: string;
 
   @ApiProperty({
     description: 'User creation date',

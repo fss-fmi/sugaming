@@ -2,6 +2,7 @@ import { UniversityDegree, UniversityYear } from '@prisma/client';
 import * as process from 'process';
 
 export const libConfig = {
+  apiBase: process.env['API_BASE'] || 'http://localhost:3000',
   jwtAccessToken: {
     secret: process.env['JWT_SECRET'] || 'secret',
     signOptions: { expiresIn: '1h' },

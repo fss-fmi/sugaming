@@ -34,10 +34,7 @@ export function NavbarUserControls({
         <PopoverTrigger asChild>
           {user ? (
             <Avatar className="cursor-pointer">
-              <AvatarImage
-                src="https://github.com/fss-fmi.png"
-                alt={`@${user.nickname}`}
-              />
+              <AvatarImage src={user.avatarUrl} alt={user.nickname} />
               <AvatarFallback>
                 {user.firstName[0]}
                 {user.lastName[0]}

@@ -18,5 +18,11 @@
     "title": "Counter-Strike 2 Teams",
     "verified-teams": "Verified Teams",
     "unverified-teams": "Unverified Teams"
+  },
+  "account-linked-page": {
+    "title-success": "Account linked successfully!",
+    "title-error": "An error occurred during the account linking!",
+    "description-success": "You can now go back to the previous page. You will be redirected in 5 seconds.",
+    "close": "Close"
   }
 }
