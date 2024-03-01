@@ -115,6 +115,20 @@
         "continue": "Продължи"
       },
       "avatar-step": {
+        "title": "Избор на аватар",
+        "description": "Избери аватар, който ще се показва на профила ти.",
+        "skin-tone": "Кожа",
+        "eyes": "Очи",
+        "eyebrows": "Вежди",
+        "mouth": "Уста",
+        "facial-hair": "Брада/Мустаци",
+        "facial-hair-color": "Цвят на брадата",
+        "top": "Коса/Шапка",
+        "hair-color": "Цвят на косата",
+        "clothing": "Дрехи",
+        "clothes-color": "Цвят на дрехите",
+        "accessory": "Аксесоар",
+        "accessory-color": "Цвят на аксесоара",
         "previous": "Назад",
         "continue": "Продължи"
       },

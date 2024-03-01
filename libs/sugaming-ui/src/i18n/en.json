@@ -115,6 +115,20 @@
         "continue": "Continue"
       },
       "avatar-step": {
+        "title": "Avatar Selection",
+        "description": "Choose your avatar and customize it to your liking.",
+        "skin-tone": "Skin Tone",
+        "eyes": "Eyes",
+        "eyebrows": "Eyebrows",
+        "mouth": "Mouth",
+        "facial-hair": "Facial Hair",
+        "facial-hair-color": "Facial Hair Color",
+        "top": "Hair/Hat",
+        "hair-color": "Hair Color",
+        "clothing": "Clothing",
+        "clothes-color": "Clothes Color",
+        "accessory": "Accessory",
+        "accessory-color": "Accessory Color",
         "previous": "Previous",
         "continue": "Continue"
       },
