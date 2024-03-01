@@ -20,7 +20,7 @@ async function VerifiedTeamsCards() {
 async function UnverifiedTeamsCards() {
   const teams = await ApiClient.Cs2TeamsApiService.cs2TeamsControllerGetV1({});
   return teams
-    .filter((team) => isCs2TeamVerified(team))
+    .filter((team) => !isCs2TeamVerified(team))
     .map((team) => <TeamCard key={team.id} team={team} />);
 }
 
