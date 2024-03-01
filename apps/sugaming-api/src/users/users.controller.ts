@@ -7,6 +7,7 @@ import {
   Param,
   Patch,
   Post,
+  UploadedFile,
   UploadedFiles,
   UseGuards,
   UseInterceptors,
@@ -32,7 +33,7 @@ import { JwtAuthGuard } from '@sugaming/sugaming-services/auth/guards/jwt-auth.g
 import { UserResponseBodyDto } from '@sugaming/sugaming-services/users/dto/user-response-body.dto';
 import { UsersPostCurrentCs2TeamInvitesRespondRequestBodyDto } from '@sugaming/sugaming-services/users/dto/users-post-current-cs2-team-invites-respond-request-body.dto';
 import { UsersPostCurrentCs2TeamInvitesRespondParamsDto } from '@sugaming/sugaming-services/users/dto/users-post-current-cs2-team-invites-respond-params.dto';
-import { FilesInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import libConfig from '@sugaming/sugaming-services/config/lib.config';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
@@ -132,6 +133,42 @@ export class UsersController {
     return this.usersService.completeOnboarding(user);
   }
 
+  @Patch('current/avatar')
+  @Version(['1'])
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @UseInterceptors(
+    FileInterceptor('avatar', {
+      storage: diskStorage({
+        destination: `${appConfig.multer.destination}/avatars`,
+        filename: (req, file, cb) => {
+          const extension = extname(file.originalname);
+          const randomName = Array(32)
+            .fill(null)
+            .map(() => Math.round(Math.random() * 16).toString(16))
+            .join('');
+          cb(null, `${randomName}${extension}`);
+        },
+      }),
+    }),
+  )
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Update user avatar',
+    description: 'Endpoint for updating the user avatar.',
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiOkResponse({
+    description: 'User avatar updated successfully.',
+  })
+  async patchCurrentAvatarV1(
+    @UserAuth() user: Omit<User, 'passwordHash'>,
+    @UploadedFile() avatar: Express.Multer.File,
+  ) {
+    return this.usersService.updateAvatar(user, avatar);
+  }
+
+  @ApiUnauthorizedResponse({ description: 'Invalid authentication token.' })
   @Get('current/cs2-team-invites')
   @Version(['1'])
   @UseGuards(JwtAuthGuard)

@@ -30,6 +30,9 @@ model User {
   universityFacultyNumber String                 @unique @map("university_faculty_number")
   universityProofImages   UniversityProofImage[]
 
+  // Avatar
+  avatarUrl String? @map("avatar_url")
+
   // Onboarding
   isOnboardingCompleted Boolean @default(false) @map("is_onboarding_completed")
 
