@@ -113,7 +113,8 @@
         "title": "Welcome to SUGAMING!",
         "description": "We are glad to have you here! Let's complete your profile and get you started.",
         "continue": "Continue",
-        "try-again": "Please, try again. If the problem persists, contact us."
+        "try-again": "Please, try again. If the problem persists, contact us.",
+        "error-occurred": "An error occurred."
       },
       "avatar-step": {
         "title": "Avatar Selection",
