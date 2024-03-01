@@ -98,6 +98,12 @@ export function SignUpForm() {
       passwordConfirmation: z.string(),
 
       // University tab of the form
+      university: z.enum(
+        Object.values(libConfig.user.university.enum) as [string, ...string[]],
+        {
+          required_error: t('is-required'),
+        },
+      ),
       universityMajor: z
         .string({
           required_error: t('is-required'),
@@ -252,7 +258,7 @@ export function SignUpForm() {
   return (
     <>
       <Toaster />
-      <Tabs className="h-full" defaultValue="personal">
+      <Tabs className="h-full" defaultValue="university">
         <Form {...form}>
           <form className="h-full" onSubmit={form.handleSubmit(onSubmit)}>
             <TabsContent className="h-full" value="personal">
@@ -284,7 +290,7 @@ export function SignUpForm() {
             <TabsContent className="h-full" value="university">
               <ScrollArea className="h-5/6">
                 <div className="flex h-[50vh]">
-                  <div className="grid w-full m-auto grid-flow-col grid-cols-1 lg:grid-cols-2 grid-rows-[repeat(5,_min-content)] lg:grid-rows-[repeat(3,_min-content)] gap-x-8 gap-y-4 p-4">
+                  <div className="grid w-full m-auto grid-flow-col grid-cols-1 lg:grid-cols-2 grid-rows-[repeat(6,_min-content)] lg:grid-rows-[repeat(4,_min-content)] gap-x-8 gap-y-4 p-4">
                     <UniversityInformationFields form={form} />
                   </div>
                 </div>

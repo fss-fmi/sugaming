@@ -2,6 +2,7 @@
 
 import { UseFormReturn } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
+import libConfig from '@sugaming/sugaming-services/config/lib.config';
 import {
   FormControl,
   FormDescription,
@@ -29,6 +30,33 @@ export function UniversityInformationFields({
 
   return (
     <>
+      <FormField
+        control={form.control}
+        name="university"
+        render={({ field }) => (
+          <FormItem className="lg:col-span-2">
+            <FormLabel>{t('university')}</FormLabel>
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue
+                    placeholder={libConfig.user.university.enum[0]}
+                  />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent position="item-aligned">
+                {libConfig.user.university.enum.map((university) => (
+                  <SelectItem key={university} value={university}>
+                    {university}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
       <FormField
         control={form.control}
         name="universityMajor"
@@ -122,7 +150,7 @@ export function UniversityInformationFields({
         control={form.control}
         name="universityProofImages"
         render={({ field }) => (
-          <FormItem className="lg:col-start-1 lg:col-span-2 lg:row-start-3">
+          <FormItem className="lg:col-start-1 lg:col-span-2 lg:row-start-4">
             <FormLabel>{t('university-proof-images')}</FormLabel>
             <FormControl>
               <ImageInput {...field} />
