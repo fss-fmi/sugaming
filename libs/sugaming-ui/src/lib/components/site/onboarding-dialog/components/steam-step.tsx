@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { FaSteamSymbol } from 'react-icons/fa6';
+import { FaCheck, FaSteam, FaSteamSymbol } from 'react-icons/fa6';
 import React, { useEffect, useState } from 'react';
 import { getUser } from '@sugaming/sugaming-api-client/next';
 import { DialogFooter } from '../../../common/client';
@@ -37,8 +37,17 @@ export function SteamStep({ previousStep, nextStep }: SteamStepProps) {
 
   return (
     <>
-      Steam
-      <DialogFooter>
+      <div className="flex flex-col items-center text-center w-full">
+        {isSteamAccountLinked ? (
+          <FaCheck className="w-52 h-52" />
+        ) : (
+          <FaSteam className="w-52 h-52" />
+        )}
+        <h1 className="text-lg font-semibold">{t('title')}</h1>
+        <p>{t('description')}</p>
+      </div>
+
+      <DialogFooter className="flex mt-2 gap-y-1 sm:gap-y-0 content-center">
         <Button onClick={previousStep} variant="secondary">
           {t('previous')}
         </Button>

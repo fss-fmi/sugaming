@@ -178,18 +178,15 @@ function CustomizationOption({
   onNext,
 }: CustomizationOptionProps) {
   return (
-    <div>
-      <div className="flex items-center justify-between">
-        <Button variant="secondary" onClick={() => onPrevious(category)}>
-          <FaArrowLeft />
-        </Button>
+    <div className="flex items-center justify-between my-1">
+      <Button variant="secondary" onClick={() => onPrevious(category)}>
+        <FaArrowLeft />
+      </Button>
 
-        <span className="mx-4 my-0">{label}</span>
-        <Button onClick={() => onNext(category)}>
-          <FaArrowRight />
-        </Button>
-      </div>
-      <br />
+      <span className="mx-4 my-0">{label}</span>
+      <Button variant="secondary" onClick={() => onNext(category)}>
+        <FaArrowRight />
+      </Button>
     </div>
   );
 }
@@ -243,12 +240,15 @@ export function AvatarStep({ previousStep, nextStep }: AvatarStepProps) {
 
   return (
     <div className="px-12 flex flex-col justify-center">
-      <div className="avatar-preview flex justify-center items-center">
+      <div className="flex justify-center items-center">
         <img src={avatar.toDataUriSync()} alt="" width="150" height="150" />
       </div>
-      <div className="character-customization">
-        <h2 className="text-center pb-5">{t('title')}</h2>
-        <ScrollArea className="h-96 px-2">
+      <div>
+        <div className="flex flex-col items-center text-center w-full">
+          <h1 className="text-lg font-semibold">{t('title')}</h1>
+          <p>{t('description')}</p>
+        </div>
+        <ScrollArea className="h-72 px-2 mt-2 text-center">
           <div className="flex flex-col sm:flex-row justify-between">
             <div className="flex flex-col">
               <CustomizationOption
@@ -331,7 +331,7 @@ export function AvatarStep({ previousStep, nextStep }: AvatarStepProps) {
         </ScrollArea>
       </div>
 
-      <DialogFooter className="flex content-center">
+      <DialogFooter className="flex mt-2 gap-y-1 sm:gap-y-0 content-center">
         <Button onClick={previousStep} variant="secondary">
           {t('previous')}
         </Button>

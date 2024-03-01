@@ -133,20 +133,26 @@
         "continue": "Continue"
       },
       "discord-step": {
+        "title": "Discord Account",
+        "description": "Connect your Discord account to SUGAMING in order to join or Discord server.",
         "previous": "Previous",
         "continue": "Continue",
         "skip": "Skip",
         "continue-with-discord": "Continue with Discord"
       },
       "steam-step": {
+        "title": "Steam Account",
+        "description": "Connect your Steam account to SUGAMING in order to be able to participate in Counter-Strike tournaments and matches.",
         "previous": "Previous",
         "continue": "Continue",
         "skip": "Skip",
         "continue-with-steam": "Continue with Steam"
       },
       "completed-step": {
+        "title": "We're all set!",
+        "description": "You are now ready to start your journey with SUGAMING. Let's go!",
         "previous": "Previous",
-        "lets-start": "Let's go!",
+        "lets-go": "Let's go!",
         "try-again": "Please, try again. If the problem persists, contact us."
       }
     }

@@ -14,7 +14,7 @@ export function WelcomeStep({ nextStep }: WelcomeStepProps) {
   return (
     <>
       <div className="flex flex-col items-center text-center w-full">
-        <div className="w-36 h-36 bg-blue-900" />
+        <div className="w-52 h-52 bg-blue-900" />
         <h1 className="text-lg font-semibold">{t('title')}</h1>
         <p>{t('description')}</p>
       </div>

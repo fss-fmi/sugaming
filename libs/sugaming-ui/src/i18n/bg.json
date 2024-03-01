@@ -133,20 +133,26 @@
         "continue": "Продължи"
       },
       "discord-step": {
+        "title": "Discord акаунт",
+        "description": "Свържи своя Discord акаунт с SUGAMING, за да се присъединиш към нашия Discord сървър.",
         "previous": "Назад",
         "skip": "Пропусни",
         "continue": "Продължи",
         "continue-with-discord": "Продължи с Discord"
       },
       "steam-step": {
+        "title": "Steam акаунт",
+        "description": "Свържи своя Steam акаунт с SUGAMING, за да можеш да участваш в Counter-Strike турнири и мачове.",
         "previous": "Назад",
         "skip": "Пропусни",
         "continue": "Продължи",
         "continue-with-steam": "Продължи с Steam"
       },
       "completed-step": {
+        "title": "Готови сме!",
+        "description": "Добре дошли в SUGAMING! Ти вече си част от нашия клуб.",
         "previous": "Назад",
-        "lets-start": "Да започваме!",
+        "lets-go": "Да започваме!",
         "try-again": "Моля, опитайте отново. Ако проблемът продължава, свържете се с нас."
       }
     }
