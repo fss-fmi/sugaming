@@ -161,7 +161,7 @@ interface CustomizationOptions {
 
 interface AvatarStepProps {
   previousStep: () => void;
-  nextStep: () => void;
+  nextStep: (avatar: File) => void;
 }
 
 interface CustomizationOptionProps {
@@ -189,6 +189,31 @@ function CustomizationOption({
       </Button>
     </div>
   );
+}
+
+function dataURLtoFile(dataURL: string) {
+  const arr = dataURL.split(',');
+  const mime = arr[0].match(/:(.*?);/)[1];
+  let bstr = '';
+
+  if (arr[0].indexOf('base64') !== -1) {
+    // If it's a Base64-encoded data URL
+    bstr = atob(arr[1]);
+  } else {
+    // If it's a URL-encoded data URL
+    bstr = decodeURIComponent(arr[1]);
+  }
+
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+
+  for (; n >= 0; n -= 1) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+
+  const file = new File([u8arr], 'avatar.svg', { type: mime });
+  console.log(file);
+  return file;
 }
 
 export function AvatarStep({ previousStep, nextStep }: AvatarStepProps) {
@@ -335,7 +360,9 @@ export function AvatarStep({ previousStep, nextStep }: AvatarStepProps) {
         <Button onClick={previousStep} variant="secondary">
           {t('previous')}
         </Button>
-        <Button onClick={nextStep}>{t('continue')}</Button>
+        <Button onClick={() => nextStep(dataURLtoFile(avatar.toDataUriSync()))}>
+          {t('continue')}
+        </Button>
       </DialogFooter>
     </div>
   );

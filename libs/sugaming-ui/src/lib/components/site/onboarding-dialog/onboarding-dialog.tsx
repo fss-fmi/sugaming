@@ -1,14 +1,18 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useTranslations } from 'next-intl';
-import { completeOnboarding } from '@sugaming/sugaming-api-client/next';
+import { useLocale, useTranslations } from 'next-intl';
+import {
+  completeOnboarding,
+  getBearerToken,
+} from '@sugaming/sugaming-api-client/next';
+import { useRouter } from 'next/navigation';
 import { WelcomeStep } from './components/welcome-step';
 import { AvatarStep } from './components/avatar-step';
 import { DiscordStep } from './components/discord-step';
 import { SteamStep } from './components/steam-step';
 import { CompletedStep } from './components/completed-step';
-import { Dialog, DialogContent, toast } from '../../common/client';
+import { Dialog, DialogContent, toast, Toaster } from '../../common/client';
 
 interface OnboardingDialogProps {
   isOpen: boolean;
@@ -23,6 +27,8 @@ enum OnboardingDialogSteps {
 }
 
 export function OnboardingDialog({ isOpen }: OnboardingDialogProps) {
+  const locale = useLocale();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(OnboardingDialogSteps.Welcome);
 
@@ -49,6 +55,45 @@ export function OnboardingDialog({ isOpen }: OnboardingDialogProps) {
     }
   }
 
+  async function setAvatar(avatar: File) {
+    const formData = new FormData();
+    console.log(avatar);
+    formData.append('avatar', avatar);
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE}/api/v1/users/current/avatar`,
+        {
+          method: 'PATCH',
+          body: formData,
+          headers: {
+            'Accept-Language': locale,
+            Authorization: await getBearerToken(),
+          },
+        },
+      );
+      const json = await response.json();
+
+      if (response.ok) {
+        // Handle success
+        setStep(OnboardingDialogSteps.Discord);
+      } else {
+        // Handle errors
+        toast({
+          variant: 'destructive',
+          title: json.message || t('error-occurred'),
+          description: t('try-again'),
+        });
+      }
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: t('error-occurred'),
+        description: t('try-again'),
+      });
+    }
+  }
+
   const t = useTranslations('site.onboarding-dialog');
 
   const renderStep = () => {
@@ -61,7 +106,7 @@ export function OnboardingDialog({ isOpen }: OnboardingDialogProps) {
         return (
           <AvatarStep
             previousStep={() => setStep(OnboardingDialogSteps.Welcome)}
-            nextStep={() => setStep(OnboardingDialogSteps.Discord)}
+            nextStep={(avatar) => setAvatar(avatar)}
           />
         );
       case OnboardingDialogSteps.Discord:
@@ -91,8 +136,11 @@ export function OnboardingDialog({ isOpen }: OnboardingDialogProps) {
   };
 
   return (
-    <Dialog open={open}>
-      <DialogContent className="max-w-2xl">{renderStep()}</DialogContent>
-    </Dialog>
+    <>
+      <Toaster />
+      <Dialog open={open}>
+        <DialogContent className="max-w-2xl">{renderStep()}</DialogContent>
+      </Dialog>
+    </>
   );
 }
