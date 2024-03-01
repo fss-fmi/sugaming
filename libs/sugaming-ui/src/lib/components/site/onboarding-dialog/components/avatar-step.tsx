@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { avataaars } from '@dicebear/collection';
 import { createAvatar } from '@dicebear/core';
 import { Button } from '../../../common/server';
-import { DialogFooter } from '../../../common/client';
+import { DialogFooter, ScrollArea } from '../../../common/client';
 
 const options = {
   mouth: [
@@ -100,8 +100,8 @@ const options = {
     'ae5d29',
     'd08b5b',
     'f8d25c',
-    'fd9841',
     'ffdbb4',
+    'fd9841',
   ],
   facialHairColor: [
     '2c1b18',
@@ -164,22 +164,27 @@ interface AvatarStepProps {
   nextStep: () => void;
 }
 
-// eslint-disable-next-line react/prop-types
-function CustomizationOption({ category, label, onPrevious, onNext }) {
+interface CustomizationOptionProps {
+  category: keyof CustomizationOptions;
+  label: string;
+  onPrevious: (category: keyof CustomizationOptions) => void;
+  onNext: (category: keyof CustomizationOptions) => void;
+}
+
+function CustomizationOption({
+  category,
+  label,
+  onPrevious,
+  onNext,
+}: CustomizationOptionProps) {
   return (
     <div>
-      <div
-        className="options"
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
+      <div className="flex items-center justify-between">
         <Button variant="secondary" onClick={() => onPrevious(category)}>
           <FaArrowLeft />
         </Button>
-        <h3 style={{ margin: '0 10px' }}>{label}</h3>
+
+        <span className="mx-4 my-0">{label}</span>
         <Button onClick={() => onNext(category)}>
           <FaArrowRight />
         </Button>
@@ -212,8 +217,6 @@ export function AvatarStep({ previousStep, nextStep }: AvatarStepProps) {
         ? 0
         : currentOptionIndex + 1;
     setCustomization({ ...customization, [category]: nextOptionIndex });
-    console.log(currentOptionIndex);
-    console.log(category);
   };
 
   const handleGoToPreviousOption = (category: keyof CustomizationOptions) => {
@@ -227,6 +230,7 @@ export function AvatarStep({ previousStep, nextStep }: AvatarStepProps) {
 
   const t = useTranslations('site.onboarding-dialog.avatar-step');
   const avatar = createAvatar(avataaars, {
+    seed: Math.random().toString(36).substring(7),
     ...Object.fromEntries(
       Object.entries(customization).map(([key, value]) => [
         key,
@@ -238,133 +242,101 @@ export function AvatarStep({ previousStep, nextStep }: AvatarStepProps) {
   });
 
   return (
-    <div
-      style={{
-        paddingLeft: '50px',
-        paddingRight: '50px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-      }}
-    >
+    <div className="px-12 flex flex-col justify-center">
+      <div className="avatar-preview flex justify-center items-center">
+        <img src={avatar.toDataUriSync()} alt="" width="150" height="150" />
+      </div>
       <div className="character-customization">
-        <h2 style={{ textAlign: 'center', paddingBottom: '20px' }}>
-          Character Customization
-        </h2>
-        <div
-          className="columns"
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}
-        >
-          <div className="column">
-            <CustomizationOption
-              category="eyebrows"
-              label="Eyebrows"
-              onPrevious={handleGoToPreviousOption}
-              onNext={handleNextOption}
-            />
-            <CustomizationOption
-              category="accessories"
-              label="Accessories"
-              onPrevious={handleGoToPreviousOption}
-              onNext={handleNextOption}
-            />
-            <CustomizationOption
-              category="accessoryColor"
-              label="Accessory Color"
-              onPrevious={handleGoToPreviousOption}
-              onNext={handleNextOption}
-            />
-            <CustomizationOption
-              category="eyes"
-              label="Eyes"
-              onPrevious={handleGoToPreviousOption}
-              onNext={handleNextOption}
-            />
-            <CustomizationOption
-              category="top"
-              label="Top/Hair"
-              onPrevious={handleGoToPreviousOption}
-              onNext={handleNextOption}
-            />
-            <CustomizationOption
-              category="hairColor"
-              label="Hair Color"
-              onPrevious={handleGoToPreviousOption}
-              onNext={handleNextOption}
-            />
+        <h2 className="text-center pb-5">{t('title')}</h2>
+        <ScrollArea className="h-96 px-2">
+          <div className="flex flex-col sm:flex-row justify-between">
+            <div className="flex flex-col">
+              <CustomizationOption
+                category="skinColor"
+                label={t('skin-tone')}
+                onPrevious={handleGoToPreviousOption}
+                onNext={handleNextOption}
+              />
+              <CustomizationOption
+                category="eyes"
+                label={t('eyes')}
+                onPrevious={handleGoToPreviousOption}
+                onNext={handleNextOption}
+              />
+              <CustomizationOption
+                category="eyebrows"
+                label={t('eyebrows')}
+                onPrevious={handleGoToPreviousOption}
+                onNext={handleNextOption}
+              />
+              <CustomizationOption
+                category="mouth"
+                label={t('mouth')}
+                onPrevious={handleGoToPreviousOption}
+                onNext={handleNextOption}
+              />
+              <CustomizationOption
+                category="facialHair"
+                label={t('facial-hair')}
+                onPrevious={handleGoToPreviousOption}
+                onNext={handleNextOption}
+              />
+              <CustomizationOption
+                category="facialHairColor"
+                label={t('facial-hair-color')}
+                onPrevious={handleGoToPreviousOption}
+                onNext={handleNextOption}
+              />
+            </div>
+
+            <div className="flex flex-col">
+              <CustomizationOption
+                category="top"
+                label={t('top')}
+                onPrevious={handleGoToPreviousOption}
+                onNext={handleNextOption}
+              />
+              <CustomizationOption
+                category="hairColor"
+                label={t('hair-color')}
+                onPrevious={handleGoToPreviousOption}
+                onNext={handleNextOption}
+              />
+              <CustomizationOption
+                category="clothing"
+                label={t('clothing')}
+                onPrevious={handleGoToPreviousOption}
+                onNext={handleNextOption}
+              />
+              <CustomizationOption
+                category="clothesColor"
+                label={t('clothes-color')}
+                onPrevious={handleGoToPreviousOption}
+                onNext={handleNextOption}
+              />
+              <CustomizationOption
+                category="accessories"
+                label={t('accessory')}
+                onPrevious={handleGoToPreviousOption}
+                onNext={handleNextOption}
+              />
+              <CustomizationOption
+                category="accessoryColor"
+                label={t('accessory-color')}
+                onPrevious={handleGoToPreviousOption}
+                onNext={handleNextOption}
+              />
+            </div>
           </div>
-
-          <div className="column">
-            <CustomizationOption
-              category="mouth"
-              label="Mouth"
-              onPrevious={handleGoToPreviousOption}
-              onNext={handleNextOption}
-            />
-
-            <CustomizationOption
-              category="facialHair"
-              label="Facial Hair"
-              onPrevious={handleGoToPreviousOption}
-              onNext={handleNextOption}
-            />
-            <CustomizationOption
-              category="facialHairColor"
-              label="Facial Hair Color"
-              onPrevious={handleGoToPreviousOption}
-              onNext={handleNextOption}
-            />
-            <CustomizationOption
-              category="skinColor"
-              label="Skin Color"
-              onPrevious={handleGoToPreviousOption}
-              onNext={handleNextOption}
-            />
-            <CustomizationOption
-              category="clothing"
-              label="Clothes"
-              onPrevious={handleGoToPreviousOption}
-              onNext={handleNextOption}
-            />
-            <CustomizationOption
-              category="clothesColor"
-              label="Clothes Color"
-              onPrevious={handleGoToPreviousOption}
-              onNext={handleNextOption}
-            />
-          </div>
-        </div>
-
-        <div
-          className="avatar-preview"
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <img src={avatar.toDataUriSync()} alt="" width="150" height="150" />
-        </div>
+        </ScrollArea>
       </div>
 
-      <div>
-        <DialogFooter
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            paddingTop: '15px',
-          }}
-        >
-          <Button onClick={previousStep} variant="secondary">
-            {t('previous')}
-          </Button>
-          <Button onClick={nextStep}>{t('continue')}</Button>
-        </DialogFooter>
-      </div>
+      <DialogFooter className="flex content-center">
+        <Button onClick={previousStep} variant="secondary">
+          {t('previous')}
+        </Button>
+        <Button onClick={nextStep}>{t('continue')}</Button>
+      </DialogFooter>
     </div>
   );
 }
