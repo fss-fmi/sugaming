@@ -3,7 +3,8 @@ import { I18nContext } from 'nestjs-i18n';
 import { User } from '@prisma/client';
 import Redis from 'ioredis';
 import { InjectRedis } from '@songkeys/nestjs-redis';
-import { CategoryChannel, ChannelType, Guild, Role } from 'discord.js';
+import { CategoryChannel, ChannelType, Client, Guild, Role } from 'discord.js';
+import { UsersNoDiscordAccountLinkedException } from '@sugaming/sugaming-services/users/exceptions/users-no-discord-account-linked.exception';
 import { Cs2TeamsBaseDto } from './dto/cs2-teams-base.dto';
 import { PrismaService } from '../../prisma/prisma.service';
 import { Cs2TeamsNameAlreadyExistsException } from './exceptions/cs2-teams-name-already-exists.exception';
@@ -326,37 +327,51 @@ export class Cs2TeamsService {
     });
   }
 
-  async assignRoleToMember(memberId: string, guild: Guild, role: Role) {
-    // Get the member
-    const member = await guild.members.fetch(memberId);
+  async assignRoleToMember(
+    discordClient: Client,
+    memberId: string,
+    guild: Guild,
+    role: Role,
+  ) {
+    // Validate that the user exists
+    const user = await this.usersService.getByIdOrThrow(memberId);
 
-    // Check if the member already has another role
-    const existingRole = member.roles.cache.find(
-      (memberRole) => memberRole.name === role.name,
-    );
-
-    if (existingRole) {
-      throw new Cs2TeamsAlreadyHasRoleException();
+    // Validate that the user has a discord account linked
+    if (!user.discord) {
+      throw new UsersNoDiscordAccountLinkedException();
     }
 
-    // Assign the role to the member
-    await member.roles.add(role);
+    // Get the discord user
+    const discordUser = await discordClient.users.fetch(user.discord.discordId);
+
+    // Get the discord guild member
+    const guildMember = await guild.members.fetch(discordUser);
+
+    // Add the role to the user
+    return guildMember.roles.add(role);
   }
 
-  async removeRoleFromMember(memberId: string, guild: Guild, role: Role) {
-    // Get the member
-    const member = await guild.members.fetch(memberId);
+  async removeRoleFromMember(
+    discordClient: Client,
+    memberId: string,
+    guild: Guild,
+    role: Role,
+  ) {
+    // Validate that the user exists
+    const user = await this.usersService.getByIdOrThrow(memberId);
 
-    // Check if the member already has another role
-    const existingRole = member.roles.cache.find(
-      (memberRole) => memberRole.name === role.name,
-    );
-
-    if (!existingRole) {
-      throw new Cs2TeamsNoSuchDiscordGuildRoleException();
+    // Validate that the user has a discord account linked
+    if (!user.discord) {
+      throw new UsersNoDiscordAccountLinkedException();
     }
 
-    // Remove the role from the member
-    await member.roles.remove(role);
+    // Get the discord user
+    const discordUser = await discordClient.users.fetch(user.discord.discordId);
+
+    // Get the discord guild member
+    const guildMember = await guild.members.fetch(discordUser);
+
+    // Add the role to the user
+    return guildMember.roles.remove(role);
   }
 }

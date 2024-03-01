@@ -35,6 +35,7 @@ export class Cs2TeamsController {
     );
 
     await this.cs2TeamsService.assignRoleToMember(
+      this.discordClient,
       createdTeam.capitanId,
       guild,
       role,
