@@ -4,6 +4,7 @@ import { redirect, RedirectType } from 'next/navigation';
 import Link from 'next/link';
 import { Card } from '@sugaming/sugaming-ui/lib/components/common/server';
 import { getTranslations } from 'next-intl/server';
+import { Logo } from '@sugaming/sugaming-ui/lib/components/site/server';
 
 interface LoginPageProps {
   searchParams?: { [key: string]: string | string[] | undefined };
@@ -21,7 +22,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
     <Card className="mx-auto mt-10 grid h-5/6 w-5/6 md:w-2/3 flex-col items-center justify-center xl:grid-cols-2 xl:px-0 overflow-hidden">
       <div className="hidden xl:flex h-full flex-col p-10 text-white bg-zinc-900">
         <div className="relative z-20 flex items-center text-lg font-medium">
-          SUGAMING
+          <Logo />
         </div>
 
         <div className="relative z-20 mt-auto">

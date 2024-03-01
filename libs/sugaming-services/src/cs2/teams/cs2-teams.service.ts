@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { I18nContext } from 'nestjs-i18n';
 import { User } from '@prisma/client';
-import { Cs2TeamsPostDto } from './dto/cs2-teams-post.dto';
+import Redis from 'ioredis';
+import { InjectRedis } from '@songkeys/nestjs-redis';
+import { CategoryChannel, ChannelType, Guild } from 'discord.js';
+import { Cs2TeamsBaseDto } from './dto/cs2-teams-base.dto';
 import { PrismaService } from '../../prisma/prisma.service';
 import { Cs2TeamsNameAlreadyExistsException } from './exceptions/cs2-teams-name-already-exists.exception';
 import { Cs2TeamsAlreadyInTeamException } from './exceptions/cs2-teams-already-in-team.exception';
@@ -10,14 +13,16 @@ import { Cs2TeamsNoSuchTeamException } from './exceptions/cs2-teams-no-such-team
 import { Cs2TeamsAlreadyRequestedToJoinTeamException } from './exceptions/cs2-teams-already-requested-to-join-team.exception';
 import { Cs2TeamsNotCapitanException } from './exceptions/cs2-teams-not-capitan.exception';
 import { Cs2TeamsNoSuchJoinRequestException } from './exceptions/cs2-teams-no-such-join-request.exception';
-import { libConfig } from '../../config/lib.config';
 import { Cs2TeamsTeamIsFullException } from './exceptions/cs2-teams-team-is-full.exception';
+import { libConfig } from '../../config/lib.config';
+import { Cs2TeamsNoSuchDiscordGuildRoleException } from './exceptions/cs2-teams-no-discord-guild-role.exception';
 
 @Injectable()
 export class Cs2TeamsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly usersService: UsersService,
+    @InjectRedis() private readonly redis: Redis,
   ) {}
 
   async getById(id: number) {
@@ -48,7 +53,22 @@ export class Cs2TeamsService {
     return team;
   }
 
-  async create(createTeamDto: Cs2TeamsPostDto, capitanId: string) {
+  getAll() {
+    return this.prisma.cs2Team.findMany({
+      include: {
+        members: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            nickname: true,
+          },
+        },
+      },
+    });
+  }
+
+  async create(createTeamDto: Cs2TeamsBaseDto, capitanId: string) {
     // Check if team name is already taken
     const teamNameExists = await this.prisma.cs2Team.findFirst({
       where: {
@@ -72,7 +92,7 @@ export class Cs2TeamsService {
     }
 
     // Create the team
-    return this.prisma.cs2Team.create({
+    const createdTeam = await this.prisma.cs2Team.create({
       data: {
         name: createTeamDto.name,
         color: createTeamDto.color,
@@ -84,6 +104,13 @@ export class Cs2TeamsService {
         },
       },
     });
+
+    await this.redis.publish(
+      'cs2-teams:team-created',
+      JSON.stringify(createdTeam),
+    );
+
+    return createdTeam;
   }
 
   async getJoinRequests(teamId: number, user: Omit<User, 'passwordHash'>) {
@@ -230,5 +257,69 @@ export class Cs2TeamsService {
     });
 
     return { message: i18n?.t('responses.cs2.teams.joinRequestAccepted') };
+  }
+
+  async createDiscordRoleForCs2Team(
+    teamName: string,
+    guild: Guild,
+    category: CategoryChannel,
+  ) {
+    // Create a role for the team
+    const newRole = await guild.roles.create({
+      name: `🐔 Отбор ${teamName} 🐔`,
+      color: 'Orange',
+    });
+
+    // Find the @everyone role
+    const everyone = guild.roles.cache.find(
+      (role) => role.name === '@everyone',
+    );
+
+    if (!everyone) {
+      throw new Cs2TeamsNoSuchDiscordGuildRoleException();
+    }
+
+    // Set for @everyone role to not be able to view the category
+    await category.permissionOverwrites.create(everyone, {
+      ViewChannel: false,
+    });
+
+    // Set the new role to be able to view the category
+    await category.permissionOverwrites.create(newRole, {
+      ViewChannel: true,
+    });
+  }
+
+  async createDiscordCategoryForCs2Team(guild: Guild, teamName: string) {
+    // Create a category for the team
+    return guild.channels.create({
+      name: `🐔 Отбор ${teamName} 🐔`,
+      type: ChannelType.GuildCategory,
+    });
+  }
+
+  async createDiscordTeamChannels(
+    name: string,
+    guild: Guild,
+    category: CategoryChannel,
+  ) {
+    // Create a text channel for the team
+    const textChannel = await guild.channels.create({
+      name: `💬︱Отбор-${name}`,
+      type: ChannelType.GuildText,
+      parent: category,
+    });
+
+    // Send a welcome message to the text channel
+    await textChannel.send(
+      `Welcome to the ${name} team! Please make sure to read the rules and have fun!`,
+    );
+
+    // Create a voice channel for the team
+    await guild.channels.create({
+      name: `🔊︱Отбор-${name}`,
+      type: ChannelType.GuildVoice,
+      parent: category,
+    });
   }
 }

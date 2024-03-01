@@ -28,9 +28,9 @@
           "name": "Мачове",
           "description": "Всички настоящи и бъдещи съревнователни мачове."
         },
-        "ranking": {
-          "name": "Ранглиста",
-          "description": "Ранглиста на всички Counter-Strike отбори."
+        "teams": {
+          "name": "Отбори",
+          "description": "Списък с всички Counter-Strike отбори."
         }
       },
       "league": {
@@ -44,9 +44,9 @@
           "name": "Мачове",
           "description": "Всички настоящи и бъдещи съревнователни мачове."
         },
-        "ranking": {
-          "name": "Ранглиста",
-          "description": "Ранглиста на всички League of Legends отбори."
+        "teams": {
+          "name": "Отбори",
+          "description": "Списък на всички League of Legends отбори."
         }
       },
       "valorant": {

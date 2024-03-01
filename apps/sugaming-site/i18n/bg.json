@@ -14,6 +14,11 @@
     "title": "Регистрация",
     "description": "Стани част от SUGAMING клуба, като попълниш следния формуляр."
   },
+  "cs2-teams-page": {
+    "title": "Counter-Strike 2 Отбори",
+    "verified-teams": "Потвърдени отбори",
+    "unverified-teams": "Непотвърдени отбори"
+  },
   "account-linked-page": {
     "title-success": "Акаунтът е свързан успешно!",
     "title-error": "Възникна грешка по време на свързването на акаунта!",

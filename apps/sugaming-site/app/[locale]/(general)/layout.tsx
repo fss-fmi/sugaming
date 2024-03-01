@@ -13,8 +13,8 @@ import {
 import { getUser } from '@sugaming/sugaming-api-client/next';
 import { getMessages } from 'next-intl/server';
 import Link from 'next/link';
-import { SquareIcon } from '@radix-ui/react-icons';
 import { AxiomWebVitals } from 'next-axiom';
+import { Logo } from '@sugaming/sugaming-ui/lib/components/site/server';
 import { OnboardingDialog } from '@sugaming/sugaming-ui/lib/components/site/onboarding-dialog/onboarding-dialog';
 import { locales } from '../../i18n';
 
@@ -50,10 +50,7 @@ export default async function RootLayout({
               <NavbarLinks className="block xl:hidden" variant="mobile" />
 
               <Link href={`/${locale}`}>
-                <span className="font-bold capitalize">
-                  <SquareIcon className="inline h-8" />
-                  SUGAMING
-                </span>
+                <Logo />
               </Link>
 
               <NavbarLinks
@@ -63,8 +60,10 @@ export default async function RootLayout({
 
               <NavbarUserControls user={user} className="" />
             </Navbar>
+
             <OnboardingDialog isOpen={user && !user.isOnboardingCompleted} />
-            <main>{children}</main>
+
+            <main className="p-4">{children}</main>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
