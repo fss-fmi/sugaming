@@ -667,19 +667,41 @@ export class UsersService {
       JSON.stringify({ discordAccount }),
     );
 
-    // Remove the user from the team
-    await this.prisma.cs2Team.update({
+    // Get the team with the members
+    const teamWithMembers = await this.prisma.cs2Team.findUnique({
       where: {
         id: team.id,
       },
-      data: {
-        members: {
-          disconnect: {
-            id: user.id,
-          },
-        },
+      include: {
+        members: true,
       },
     });
+
+    if (!teamWithMembers) {
+      throw new UsersNoSuchTeamException();
+    }
+
+    // Remove the user from the team or delete the team if the user is the only member
+    if (teamWithMembers.members.length === 1) {
+      await this.prisma.cs2Team.delete({
+        where: {
+          id: team.id,
+        },
+      });
+    } else {
+      await this.prisma.cs2Team.update({
+        where: {
+          id: team.id,
+        },
+        data: {
+          members: {
+            disconnect: {
+              id: user.id,
+            },
+          },
+        },
+      });
+    }
   }
 }
 
