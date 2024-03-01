@@ -33,6 +33,11 @@ export class UserResponseBodyDto extends UserBaseDto {
   steam!: object | undefined; // TODO: Add Steam type
 
   @ApiProperty({
+    description: 'User avatar URL.',
+  })
+  avatarUrl?: string;
+
+  @ApiProperty({
     description: 'User creation date',
   })
   @IsDateString(

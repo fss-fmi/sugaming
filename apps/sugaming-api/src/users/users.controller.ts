@@ -7,6 +7,7 @@ import {
   Param,
   Patch,
   Post,
+  Res,
   UploadedFile,
   UploadedFiles,
   UseGuards,
@@ -131,6 +132,26 @@ export class UsersController {
   @ApiUnauthorizedResponse({ description: 'Invalid authentication token.' })
   patchCurrentOnboardingV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
     return this.usersService.completeOnboarding(user);
+  }
+
+  @Get('avatars/:filename')
+  @Version(['1'])
+  @HttpCode(HttpStatus.OK)
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Get user avatar file',
+    description: 'Endpoint for getting the user avatar file.',
+  })
+  @ApiOkResponse({
+    description: 'User avatar returned successfully.',
+  })
+  @ApiNotFoundResponse({
+    description: 'The image does not exist.',
+  })
+  getAvatarFileV1(@Param('filename') filename: string, @Res() res) {
+    return res.sendFile(filename, {
+      root: `${appConfig.multer.destination}/avatars`,
+    });
   }
 
   @Patch('current/avatar')
