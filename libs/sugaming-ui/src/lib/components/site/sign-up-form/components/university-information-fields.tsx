@@ -39,9 +39,7 @@ export function UniversityInformationFields({
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue
-                    placeholder={libConfig.user.university.enum[0]}
-                  />
+                  <SelectValue />
                 </SelectTrigger>
               </FormControl>
               <SelectContent position="item-aligned">
