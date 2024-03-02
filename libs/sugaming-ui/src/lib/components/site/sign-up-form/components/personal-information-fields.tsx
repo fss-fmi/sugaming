@@ -1,6 +1,6 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { UseFormReturn } from 'react-hook-form';
 import Link from 'next/link';
 import {
@@ -23,6 +23,7 @@ export function PersonalInformationFields({
   form,
 }: PersonalInformationFieldsProps) {
   const t = useTranslations('site.sign-up-form');
+  const locale = useLocale();
 
   return (
     <>
@@ -147,7 +148,7 @@ export function PersonalInformationFields({
               <FormDescription className="text-center text-sm text-muted-foreground">
                 {t('please-read-the')}{' '}
                 <Link
-                  href="/regulations"
+                  href={`/${locale}/regulations`}
                   className="underline underline-offset-4 hover:text-primary"
                 >
                   {t('club-regulations')}
