@@ -96,6 +96,9 @@ export function SignUpForm() {
         )
         .regex(libConfig.user.password.regex, t('regex-error')),
       passwordConfirmation: z.string(),
+      termsAndConditions: z.boolean({
+        required_error: t('is-required'),
+      }),
 
       // University tab of the form
       university: z.enum(
@@ -174,6 +177,10 @@ export function SignUpForm() {
     .refine((data) => data.password === data.passwordConfirmation, {
       message: t('passwords-dont-match'),
       path: ['passwordConfirmation'],
+    })
+    .refine((data) => data.termsAndConditions, {
+      message: t('isRequired'),
+      path: ['termsAndConditions'],
     });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -217,7 +224,11 @@ export function SignUpForm() {
     });
 
     Object.keys(data).forEach((key) => {
-      if (key !== 'universityProofImages' && key !== 'passwordConfirmation') {
+      if (
+        key !== 'universityProofImages' &&
+        key !== 'passwordConfirmation' &&
+        key !== 'termsAndConditions'
+      ) {
         formData.append(key, data[key]);
       }
     });
@@ -258,7 +269,7 @@ export function SignUpForm() {
   return (
     <>
       <Toaster />
-      <Tabs className="h-full" defaultValue="university">
+      <Tabs className="h-full" defaultValue="personal">
         <Form {...form}>
           <form className="h-full" onSubmit={form.handleSubmit(onSubmit)}>
             <TabsContent className="h-full" value="personal">

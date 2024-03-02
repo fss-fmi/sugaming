@@ -2,7 +2,9 @@
 
 import { useTranslations } from 'next-intl';
 import { UseFormReturn } from 'react-hook-form';
+import Link from 'next/link';
 import {
+  Checkbox,
   FormControl,
   FormDescription,
   FormField,
@@ -74,35 +76,33 @@ export function PersonalInformationFields({
           </FormItem>
         )}
       />
-      <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('email')}</FormLabel>
-              <FormControl>
-                <Input placeholder="gosho@example.com" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+      <FormField
+        control={form.control}
+        name="email"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>{t('email')}</FormLabel>
+            <FormControl>
+              <Input placeholder="gosho@example.com" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
 
-        <FormField
-          control={form.control}
-          name="phone"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('phone')}</FormLabel>
-              <FormControl>
-                <Input placeholder="+359 888 888 888" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      </div>
+      <FormField
+        control={form.control}
+        name="phone"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>{t('phone')}</FormLabel>
+            <FormControl>
+              <Input placeholder="+359 888 888 888" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
       <FormField
         control={form.control}
         name="password"
@@ -127,6 +127,34 @@ export function PersonalInformationFields({
               <Input type="password" placeholder="••••••••" {...field} />
             </FormControl>
             <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        control={form.control}
+        name="termsAndConditions"
+        render={({ field }) => (
+          <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
+            <FormControl>
+              <Checkbox
+                checked={field.value}
+                onCheckedChange={field.onChange}
+              />
+            </FormControl>
+            <div className="space-y-1 leading-none">
+              <FormLabel>{t('accept-club-regulations')}</FormLabel>
+              <FormDescription className="text-center text-sm text-muted-foreground">
+                {t('please-read-the')}{' '}
+                <Link
+                  href="/regulations"
+                  className="underline underline-offset-4 hover:text-primary"
+                >
+                  {t('club-regulations')}
+                </Link>{' '}
+                {t('before-signing-up')}.
+              </FormDescription>
+            </div>
           </FormItem>
         )}
       />
