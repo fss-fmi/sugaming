@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@sugaming/sugaming-ui/lib/components/common/server';
+import { SponsorsShowcase } from '@sugaming/sugaming-ui/lib/components/site/sponsors-showcase/sponsors-showcase';
 
 export default function Index() {
   const t = useTranslations('Index');
@@ -30,6 +31,8 @@ export default function Index() {
           <p>Card Footer</p>
         </CardFooter>
       </Card>
+
+      <SponsorsShowcase />
     </>
   );
 }
