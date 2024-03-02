@@ -13,6 +13,7 @@ import { UsersModule } from '../users/users.module';
 import { AuthModule } from '../auth/auth.module';
 import { Cs2TeamsModule } from '../cs2/teams/cs2-teams.module';
 import { appConfig } from './app.config';
+import { SponsorsModule } from '../sponsors/sponsors.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { appConfig } from './app.config';
     UsersModule,
     AuthModule,
     Cs2TeamsModule,
+    SponsorsModule,
   ],
   controllers: [],
   providers: [],

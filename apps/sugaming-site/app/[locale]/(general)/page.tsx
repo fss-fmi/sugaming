@@ -11,8 +11,9 @@ import {
   CardTitle,
 } from '@sugaming/sugaming-ui/lib/components/common/server';
 import { SponsorsShowcase } from '@sugaming/sugaming-ui/lib/components/site/sponsors-showcase/sponsors-showcase';
+import { ApiClient } from '@sugaming/sugaming-api-client/client';
 
-export default function Index() {
+export default async function Index() {
   const t = useTranslations('Index');
 
   return (
@@ -32,7 +33,11 @@ export default function Index() {
         </CardFooter>
       </Card>
 
-      <SponsorsShowcase />
+      <SponsorsShowcase
+        sponsors={await ApiClient.SponsorsApiService.sponsorsControllerGetV1(
+          {},
+        )}
+      />
     </>
   );
 }
