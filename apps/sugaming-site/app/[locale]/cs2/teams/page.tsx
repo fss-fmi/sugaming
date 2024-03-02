@@ -7,8 +7,13 @@ import { isCs2TeamVerified } from '@sugaming/sugaming-services/config/utils.conf
 import { GoUnverified, GoVerified } from 'react-icons/go';
 import { getTranslations } from 'next-intl/server';
 import { getUser } from '@sugaming/sugaming-api-client/next';
-import { Card } from '@sugaming/sugaming-ui/lib/components/common/card/components/card';
-import { Button } from '@sugaming/sugaming-ui/lib/components/common/button/button';
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+  Button,
+} from '@sugaming/sugaming-ui/lib/components/common/server';
+import { FaUserTie } from 'react-icons/fa6';
 
 export default async function CS2TeamsPage() {
   const t = await getTranslations('cs2-teams-page');
@@ -20,30 +25,36 @@ export default async function CS2TeamsPage() {
         {t('title')}
       </h1>
 
-      {!user && (
-        <Card className="flex flex-col md:flex-row items-center p-4">
-          <div className="md:mr-auto">
-            <h1 className="text-lg sm:text-xl md:text-2xl font-semibold">
-              {t('want-to-be-a-part-of-a-team')}
-            </h1>
-            <span>{t('create-an-account-or-login')}</span>
+      {user && (
+        <Alert className="md:flex">
+          <FaUserTie className="h-4 w-4" />
+
+          <div className="w-fit">
+            <AlertTitle>{t('want-to-be-a-part-of-a-team')}</AlertTitle>
+            <AlertDescription>
+              {t('create-an-account-or-login')}
+            </AlertDescription>
           </div>
+
           <LoginButtons className="md:ml-auto mt-2 md:mt-0" />
-        </Card>
+        </Alert>
       )}
 
-      {user && (
-        <Card className="flex flex-col md:flex-row items-center p-4">
-          <div className="md:mr-auto">
-            <h1 className="text-lg sm:text-xl md:text-2xl font-semibold">
-              {t('want-to-be-a-part-of-a-team')}
-            </h1>
-            <span>{t('create-a-team-or-join-an-existing-one')}</span>
+      {!user && (
+        <Alert className="md:flex">
+          <FaUserTie className="h-4 w-4" />
+
+          <div className="w-fit">
+            <AlertTitle>{t('want-to-be-a-part-of-a-team')}</AlertTitle>
+            <AlertDescription>
+              {t('create-a-team-or-join-an-existing-one')}
+            </AlertDescription>
           </div>
+
           <div className="md:ml-auto mt-2 md:mt-0">
             <Button>{t('create-a-team')}</Button>
           </div>
-        </Card>
+        </Alert>
       )}
 
       <div className="flex items-center">
