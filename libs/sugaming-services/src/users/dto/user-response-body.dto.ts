@@ -14,6 +14,14 @@ export class UserResponseBodyDto extends UserBaseDto {
   id!: string;
 
   @ApiProperty({
+    description: 'User CS2 id team.',
+  })
+  @IsNotEmpty({
+    message: i18nValidationMessage('validation.isNotEmpty'),
+  })
+  cs2TeamId!: number;
+
+  @ApiProperty({
     description: 'User creation date',
   })
   @IsDateString(
