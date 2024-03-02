@@ -52,6 +52,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
             {t('by-signing-in-you-agree-to-our')}{' '}
             <Link
               href={`/${locale}/regulations`}
+              target="_blank"
               className="underline underline-offset-4 hover:text-primary"
             >
               {t('club-regulations')}

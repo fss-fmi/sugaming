@@ -149,6 +149,7 @@ export function PersonalInformationFields({
                 {t('please-read-the')}{' '}
                 <Link
                   href={`/${locale}/regulations`}
+                  target="_blank"
                   className="underline underline-offset-4 hover:text-primary"
                 >
                   {t('club-regulations')}
