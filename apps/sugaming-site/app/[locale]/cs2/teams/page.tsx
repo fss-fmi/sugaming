@@ -14,6 +14,7 @@ import {
   Button,
 } from '@sugaming/sugaming-ui/lib/components/common/server';
 import { FaUserTie } from 'react-icons/fa6';
+import { CreateTeamDialog } from '@sugaming/sugaming-ui/lib/components/site/client';
 
 export default async function CS2TeamsPage() {
   const t = await getTranslations('cs2-teams-page');
@@ -52,7 +53,9 @@ export default async function CS2TeamsPage() {
           </div>
 
           <div className="md:ml-auto mt-2 md:mt-0">
-            <Button>{t('create-a-team')}</Button>
+            <CreateTeamDialog>
+              <Button>{t('create-a-team')}</Button>
+            </CreateTeamDialog>
           </div>
         </Alert>
       )}

@@ -109,6 +109,17 @@
       "too-long": "The field should contain at most {length} symbols.",
       "regex-error": "The field does not match the requirements.",
       "invalid-email-format": "Invalid email address."
+    },
+    "create-team-dialog": {
+      "name": "Name",
+      "name-placeholder": "Example name",
+      "color": "Color",
+      "submit": "Submit",
+      "error-occurred": "An error occurred.",
+      "try-again": "Please, try again.",
+      "is-required": "This field is required.",
+      "too-short": "The field should contain at least {length} symbols.",
+      "too-long": "The field should contain at most {length} symbols."
     }
   }
 }
