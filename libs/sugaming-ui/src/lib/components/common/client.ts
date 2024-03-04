@@ -8,6 +8,7 @@ export * from './hover-card/hover-card';
 export * from './navigation-menu/navigation-menu';
 export * from './password-checklist/password-checklist';
 export * from './popover/popover';
+export * from './radio-group/radio-group';
 export * from './select/select';
 export * from './scroll-area/scroll-area';
 export * from './sheet/sheet';
