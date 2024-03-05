@@ -6,9 +6,7 @@
     "title": "Welcome back!",
     "description": "Log back in your account using your email and password or with a linked third-party account.",
     "by-signing-in-you-agree-to-our": "By signing in, you agree to our",
-    "terms-of-service": "Terms of service",
-    "and": "and",
-    "privacy-policy": "Privacy Policy"
+    "club-regulations": "Club Regulations"
   },
   "sign-up-page": {
     "title": "Join the club!",
@@ -17,6 +15,16 @@
   "cs2-teams-page": {
     "title": "Counter-Strike 2 Teams",
     "verified-teams": "Verified Teams",
-    "unverified-teams": "Unverified Teams"
+    "unverified-teams": "Unverified Teams",
+    "want-to-be-a-part-of-a-team": "Want to be a part of a team?",
+    "create-an-account-or-login": "Create an account or login to create or join a team!",
+    "create-a-team-or-join-an-existing-one": "Create a team or join an existing one!",
+    "create-a-team": "Create a team"
+  },
+  "account-linked-page": {
+    "title-success": "Account linked successfully!",
+    "title-error": "An error occurred during the account linking!",
+    "description-success": "You can now go back to the previous page. You will be redirected in 5 seconds.",
+    "close": "Close"
   }
 }

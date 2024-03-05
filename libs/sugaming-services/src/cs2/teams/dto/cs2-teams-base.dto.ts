@@ -31,6 +31,7 @@ export class Cs2TeamsBaseDto {
 
   @ApiProperty({
     description: 'Team color.',
+    type: 'string',
   })
   @IsNotEmpty({
     message: i18nValidationMessage('validation.required'),

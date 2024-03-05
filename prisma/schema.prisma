@@ -24,11 +24,18 @@ model User {
   nickname  String @unique
 
   // University information
+  university              String
   universityMajor         String                 @map("university_major")
   universityDegree        UniversityDegree       @map("university_degree")
   universityYear          UniversityYear         @map("university_year")
   universityFacultyNumber String                 @unique @map("university_faculty_number")
   universityProofImages   UniversityProofImage[]
+
+  // Avatar
+  avatarUrl String? @map("avatar_url")
+
+  // Onboarding
+  isOnboardingCompleted Boolean @default(false) @map("is_onboarding_completed")
 
   // External accounts information
   discord DiscordAccount?

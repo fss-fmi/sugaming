@@ -1,4 +1,4 @@
-import '../global.css';
+import '../../global.css';
 import '@sugaming/sugaming-ui/global.css';
 
 import React from 'react';
@@ -15,7 +15,8 @@ import { getMessages } from 'next-intl/server';
 import Link from 'next/link';
 import { AxiomWebVitals } from 'next-axiom';
 import { Logo } from '@sugaming/sugaming-ui/lib/components/site/server';
-import { locales } from '../i18n';
+import { OnboardingDialog } from '@sugaming/sugaming-ui/lib/components/site/onboarding-dialog/onboarding-dialog';
+import { locales } from '../../i18n';
 
 export { useReportWebVitals } from 'next-axiom';
 
@@ -60,6 +61,8 @@ export default async function RootLayout({
 
               <NavbarUserControls user={user} className="" />
             </Navbar>
+
+            <OnboardingDialog isOpen={user && !user.isOnboardingCompleted} />
 
             <main className="max-w-[88rem] m-auto px-4">{children}</main>
           </ThemeProvider>

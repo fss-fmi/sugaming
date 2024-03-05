@@ -96,8 +96,17 @@ export function SignUpForm() {
         )
         .regex(libConfig.user.password.regex, t('regex-error')),
       passwordConfirmation: z.string(),
+      termsAndConditions: z.boolean({
+        required_error: t('is-required'),
+      }),
 
       // University tab of the form
+      university: z.enum(
+        Object.values(libConfig.user.university.enum) as [string, ...string[]],
+        {
+          required_error: t('is-required'),
+        },
+      ),
       universityMajor: z
         .string({
           required_error: t('is-required'),
@@ -168,6 +177,10 @@ export function SignUpForm() {
     .refine((data) => data.password === data.passwordConfirmation, {
       message: t('passwords-dont-match'),
       path: ['passwordConfirmation'],
+    })
+    .refine((data) => data.termsAndConditions, {
+      message: t('isRequired'),
+      path: ['termsAndConditions'],
     });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -211,7 +224,11 @@ export function SignUpForm() {
     });
 
     Object.keys(data).forEach((key) => {
-      if (key !== 'universityProofImages' && key !== 'passwordConfirmation') {
+      if (
+        key !== 'universityProofImages' &&
+        key !== 'passwordConfirmation' &&
+        key !== 'termsAndConditions'
+      ) {
         formData.append(key, data[key]);
       }
     });
@@ -284,7 +301,7 @@ export function SignUpForm() {
             <TabsContent className="h-full" value="university">
               <ScrollArea className="h-5/6">
                 <div className="flex h-[50vh]">
-                  <div className="grid w-full m-auto grid-flow-col grid-cols-1 lg:grid-cols-2 grid-rows-[repeat(5,_min-content)] lg:grid-rows-[repeat(3,_min-content)] gap-x-8 gap-y-4 p-4">
+                  <div className="grid w-full m-auto grid-flow-col grid-cols-1 lg:grid-cols-2 grid-rows-[repeat(6,_min-content)] lg:grid-rows-[repeat(4,_min-content)] gap-x-8 gap-y-4 p-4">
                     <UniversityInformationFields form={form} />
                   </div>
                 </div>

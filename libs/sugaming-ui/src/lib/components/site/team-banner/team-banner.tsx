@@ -11,7 +11,10 @@ interface TeamBannerProps {
 export function TeamBanner({ team }: TeamBannerProps) {
   return (
     <>
-      <div className="absolute inset-0 flex flex-col w-full h-full pt-5 bg-blue-900 overflow-ellipsis items-center text-center text-white">
+      <div
+        className="absolute inset-0 flex flex-col w-full h-full pt-5 overflow-ellipsis items-center text-center text-white"
+        style={{ backgroundColor: team.color }}
+      >
         <span className="w-fit px-2 py-1 text-3xl font-bold bg-white text-black dark:bg-black dark:text-white">
           {team.name.toUpperCase()}
         </span>
@@ -20,11 +23,11 @@ export function TeamBanner({ team }: TeamBannerProps) {
       <div
         className="absolute inset-0 w-full h-full grid justify-center items-end"
         style={{
-          padding: `0px ${5 + (libConfig.cs2Team.members.max - team.members.length) * 10}%`,
+          padding: `0px ${2 + (libConfig.cs2Team.members.max - team.members.length) * 9.75}%`,
           gridTemplateColumns: `repeat(${team.members.length}, 1fr)`,
         }}
       >
-        {team.members.map((member) => (
+        {team.members.map((member: ApiClient.UserResponseBodyDto) => (
           <TeamMemberAvatar member={member} key={member.id} />
         ))}
       </div>
