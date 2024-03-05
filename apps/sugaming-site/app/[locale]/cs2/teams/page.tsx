@@ -13,7 +13,7 @@ import {
   AlertTitle,
   Button,
 } from '@sugaming/sugaming-ui/lib/components/common/server';
-import { FaUserTie } from 'react-icons/fa6';
+import { FaUsers, FaUserTie } from 'react-icons/fa6';
 import { CreateTeamDialog } from '@sugaming/sugaming-ui/lib/components/site/client';
 
 export default async function CS2TeamsPage() {
@@ -26,7 +26,7 @@ export default async function CS2TeamsPage() {
         {t('title')}
       </h1>
 
-      {user && (
+      {!user && (
         <Alert className="md:flex">
           <FaUserTie className="h-4 w-4" />
 
@@ -41,9 +41,9 @@ export default async function CS2TeamsPage() {
         </Alert>
       )}
 
-      {!user && (
+      {user && !user.cs2TeamId && (
         <Alert className="md:flex">
-          <FaUserTie className="h-4 w-4" />
+          <FaUsers className="h-4 w-4" />
 
           <div className="w-fit">
             <AlertTitle>{t('want-to-be-a-part-of-a-team')}</AlertTitle>
