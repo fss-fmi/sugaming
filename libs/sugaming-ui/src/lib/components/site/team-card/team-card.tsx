@@ -12,7 +12,10 @@ export function TeamCard({ team }: { team: ApiClient.Cs2TeamResponseBodyDto }) {
     <Link href={`/cs2-teams/${team.id}`}>
       <Card className="w-full transition hover:-translate-y-1 hover:shadow-lg">
         <CardHeader className="relative p-0 w-full aspect-[21/9] space-y-0 overflow-hidden rounded-t-xl">
-          <div className="absolute inset-0 flex flex-col w-full h-full pt-6 bg-blue-900 overflow-ellipsis text-center text-white">
+          <div
+            className="absolute inset-0 flex flex-col w-full h-full pt-6 overflow-ellipsis text-center text-white"
+            style={{ backgroundColor: team.color }}
+          >
             <p className="text-3xl font-bold">{team.name.toUpperCase()}</p>
             <Logo className="mx-auto scale-50 -mt-1" />
           </div>

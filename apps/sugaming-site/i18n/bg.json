@@ -15,7 +15,11 @@
   "cs2-teams-page": {
     "title": "Counter-Strike 2 Отбори",
     "verified-teams": "Потвърдени отбори",
-    "unverified-teams": "Непотвърдени отбори"
+    "unverified-teams": "Непотвърдени отбори",
+    "want-to-be-a-part-of-a-team": "Искаш да си част от отбор?",
+    "create-an-account-or-login": "Създай акаунт или влез в профила си, за да се присъединиш към отбор или да създадеш нов.",
+    "create-a-team-or-join-an-existing-one": "Създай отбор или се присъедини към вече съществуващ такъв.",
+    "create-a-team": "Създай отбор"
   },
   "account-linked-page": {
     "title-success": "Акаунтът е свързан успешно!",

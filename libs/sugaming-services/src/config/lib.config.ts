@@ -1,4 +1,4 @@
-import { UniversityDegree, UniversityYear } from '@prisma/client';
+import { Color, UniversityDegree, UniversityYear } from '@prisma/client';
 import * as process from 'process';
 
 const universities = [
@@ -134,6 +134,9 @@ export const libConfig = {
     name: {
       minLength: 3,
       maxLength: 25,
+    },
+    color: {
+      enum: Color,
     },
     members: {
       min: 5,

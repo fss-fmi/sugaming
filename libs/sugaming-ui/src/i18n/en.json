@@ -59,8 +59,10 @@
       "preferences-popover": {
         "get-started": "Get started",
         "theme": "Theme"
-      },
-      "login": "Log in",
+      }
+    },
+    "login-buttons": {
+      "login": "Login",
       "signup": "Sign up"
     },
     "login-form": {
@@ -162,6 +164,17 @@
         "lets-go": "Let's go!",
         "try-again": "Please, try again. If the problem persists, contact us."
       }
+    },
+    "create-team-dialog": {
+      "name": "Name",
+      "name-placeholder": "Example name",
+      "color": "Color",
+      "submit": "Submit",
+      "error-occurred": "An error occurred.",
+      "try-again": "Please, try again.",
+      "is-required": "This field is required.",
+      "too-short": "The field should contain at least {length} symbols.",
+      "too-long": "The field should contain at most {length} symbols."
     }
   }
 }

@@ -1,14 +1,24 @@
-import { TeamCard } from '@sugaming/sugaming-ui/lib/components/site/server';
+import { ApiClient } from '@sugaming/sugaming-api-client/client';
+import {
+  LoginButtons,
+  TeamCard,
+} from '@sugaming/sugaming-ui/lib/components/site/server';
 import { isCs2TeamVerified } from '@sugaming/sugaming-services/config/utils.config';
 import { GoUnverified, GoVerified } from 'react-icons/go';
 import { getTranslations } from 'next-intl/server';
-import { Suspense } from 'react';
-import { ApiClient } from '@sugaming/sugaming-api-client/client';
+import { getUser } from '@sugaming/sugaming-api-client/next';
 import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+  Button,
   Card,
   CardHeader,
   Skeleton,
 } from '@sugaming/sugaming-ui/lib/components/common/server';
+import { FaUsers, FaUserTie } from 'react-icons/fa6';
+import { CreateTeamDialog } from '@sugaming/sugaming-ui/lib/components/site/client';
+import { Suspense } from 'react';
 
 async function VerifiedTeamsCards() {
   const teams = await ApiClient.Cs2TeamsApiService.cs2TeamsControllerGetV1({});
@@ -44,11 +54,47 @@ function FallbackCards() {
 
 export default async function CS2TeamsPage() {
   const t = await getTranslations('cs2-teams-page');
+  const user = await getUser();
+
   return (
     <>
       <h1 className="text-2xl sm:text-4xl md:text-6xl font-black uppercase my-4 truncate text-clip">
         {t('title')}
       </h1>
+
+      {!user && (
+        <Alert className="md:flex">
+          <FaUserTie className="h-4 w-4" />
+
+          <div className="w-fit">
+            <AlertTitle>{t('want-to-be-a-part-of-a-team')}</AlertTitle>
+            <AlertDescription>
+              {t('create-an-account-or-login')}
+            </AlertDescription>
+          </div>
+
+          <LoginButtons className="md:ml-auto mt-2 md:mt-0" />
+        </Alert>
+      )}
+
+      {user && !user.cs2TeamId && (
+        <Alert className="md:flex">
+          <FaUsers className="h-4 w-4" />
+
+          <div className="w-fit">
+            <AlertTitle>{t('want-to-be-a-part-of-a-team')}</AlertTitle>
+            <AlertDescription>
+              {t('create-a-team-or-join-an-existing-one')}
+            </AlertDescription>
+          </div>
+
+          <div className="md:ml-auto mt-2 md:mt-0">
+            <CreateTeamDialog>
+              <Button>{t('create-a-team')}</Button>
+            </CreateTeamDialog>
+          </div>
+        </Alert>
+      )}
 
       <div className="flex items-center">
         <GoVerified className="w-8 h-8 mr-2" />
