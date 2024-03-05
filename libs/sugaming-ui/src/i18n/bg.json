@@ -182,7 +182,16 @@
       "users-requested-to-join": "Хора, поискали да се присъединят към отбора",
       "users-without-a-team": "Хора без отбор",
       "users-with-a-team": "Хора с отбор",
-      "users-already-invited": "Хора, които вече са поканени"
+      "users-already-invited": "Хора, които вече са поканени",
+      "invite-confirmation-dialog": {
+        "title": "Потвърждение на поканата",
+        "description": "Сигурни ли сте, че искате да поканите {name} да се присъедини към отбора ви?",
+        "cancel": "Отказ",
+        "invite": "Покани",
+        "invite-sent": "Поканата е изпратена.",
+        "error-occurred": "Възникна грешка.",
+        "try-again": "Моля, опитайте отново."
+      }
     }
   }
 }

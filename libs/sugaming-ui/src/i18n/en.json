@@ -182,7 +182,16 @@
       "users-requested-to-join": "Requested to join",
       "users-without-a-team": "Without a team",
       "users-with-a-team": "With a team",
-      "users-already-invited": "Already invited"
+      "users-already-invited": "Already invited",
+      "invite-confirmation-dialog": {
+        "title": "Invite Confirmation",
+        "description": "Are you sure you want to invite {name} to join your team?",
+        "cancel": "Cancel",
+        "invite": "Invite",
+        "invite-sent": "Invite sent.",
+        "error-occurred": "An error occurred.",
+        "try-again": "Please, try again."
+      }
     }
   }
 }
