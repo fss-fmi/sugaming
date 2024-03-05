@@ -86,6 +86,11 @@
       "password": "Парола",
       "password-confirmation": "Потвърждение на паролата",
       "passwords-dont-match": "Паролите не съвпадат.",
+      "accept-club-regulations": "Приемам правилата на клуба.",
+      "please-read-the": "Моля, прочетете",
+      "club-regulations": "правилата на клуба",
+      "before-signing-up": "преди да се регистрирате",
+      "university": "Университет",
       "university-major": "Специалност",
       "university-degree": "Степен",
       "university-degree-bachelor": "Бакалавър",
@@ -109,6 +114,56 @@
       "too-long": "Полето трябва да има най-много {length} символа.",
       "regex-error": "Полето не отговаря на изискванията.",
       "invalid-email-format": "Невалиден формат на имейл адрес."
+    },
+    "onboarding-dialog": {
+      "welcome-step": {
+        "title": "Добре дошли в SUGAMING!",
+        "description": "Радваме се, че си тук! Нека завършим профила ти и да започваме.",
+        "continue": "Продължи",
+        "try-again": "Моля, опитайте отново. Ако проблемът продължава, свържете се с нас.",
+        "error-occurred": "Възникна грешка."
+      },
+      "avatar-step": {
+        "title": "Избор на аватар",
+        "description": "Избери аватар, който ще се показва на профила ти.",
+        "skin-tone": "Кожа",
+        "eyes": "Очи",
+        "eyebrows": "Вежди",
+        "mouth": "Уста",
+        "facial-hair": "Брада/Мустаци",
+        "facial-hair-color": "Цвят на брадата",
+        "top": "Коса/Шапка",
+        "hair-color": "Цвят на косата",
+        "clothing": "Дрехи",
+        "clothes-color": "Цвят на дрехите",
+        "accessory": "Аксесоар",
+        "accessory-color": "Цвят на аксесоара",
+        "previous": "Назад",
+        "continue": "Продължи"
+      },
+      "discord-step": {
+        "title": "Discord акаунт",
+        "description": "Свържи своя Discord акаунт с SUGAMING, за да се присъединиш към нашия Discord сървър.",
+        "previous": "Назад",
+        "skip": "Пропусни",
+        "continue": "Продължи",
+        "continue-with-discord": "Продължи с Discord"
+      },
+      "steam-step": {
+        "title": "Steam акаунт",
+        "description": "Свържи своя Steam акаунт с SUGAMING, за да можеш да участваш в Counter-Strike турнири и мачове.",
+        "previous": "Назад",
+        "skip": "Пропусни",
+        "continue": "Продължи",
+        "continue-with-steam": "Продължи с Steam"
+      },
+      "completed-step": {
+        "title": "Готови сме!",
+        "description": "Добре дошли в SUGAMING! Ти вече си част от нашия клуб.",
+        "previous": "Назад",
+        "lets-go": "Да започваме!",
+        "try-again": "Моля, опитайте отново. Ако проблемът продължава, свържете се с нас."
+      }
     },
     "create-team-dialog": {
       "name": "Име",

@@ -86,6 +86,11 @@
       "password": "Password",
       "password-confirmation": "Password Confirmation",
       "passwords-dont-match": "Passwords don't match.",
+      "accept-club-regulations": "I accept the club regulations.",
+      "please-read-the": "Please, read the",
+      "club-regulations": "club regulations",
+      "before-signing-up": "before signing up",
+      "university": "University",
       "university-major": "University Major",
       "university-degree": "University Degree",
       "university-degree-bachelor": "Bachelor",
@@ -109,6 +114,56 @@
       "too-long": "The field should contain at most {length} symbols.",
       "regex-error": "The field does not match the requirements.",
       "invalid-email-format": "Invalid email address."
+    },
+    "onboarding-dialog": {
+      "welcome-step": {
+        "title": "Welcome to SUGAMING!",
+        "description": "We are glad to have you here! Let's complete your profile and get you started.",
+        "continue": "Continue",
+        "try-again": "Please, try again. If the problem persists, contact us.",
+        "error-occurred": "An error occurred."
+      },
+      "avatar-step": {
+        "title": "Avatar Selection",
+        "description": "Choose your avatar and customize it to your liking.",
+        "skin-tone": "Skin Tone",
+        "eyes": "Eyes",
+        "eyebrows": "Eyebrows",
+        "mouth": "Mouth",
+        "facial-hair": "Facial Hair",
+        "facial-hair-color": "Facial Hair Color",
+        "top": "Hair/Hat",
+        "hair-color": "Hair Color",
+        "clothing": "Clothing",
+        "clothes-color": "Clothes Color",
+        "accessory": "Accessory",
+        "accessory-color": "Accessory Color",
+        "previous": "Previous",
+        "continue": "Continue"
+      },
+      "discord-step": {
+        "title": "Discord Account",
+        "description": "Connect your Discord account to SUGAMING in order to join or Discord server.",
+        "previous": "Previous",
+        "continue": "Continue",
+        "skip": "Skip",
+        "continue-with-discord": "Continue with Discord"
+      },
+      "steam-step": {
+        "title": "Steam Account",
+        "description": "Connect your Steam account to SUGAMING in order to be able to participate in Counter-Strike tournaments and matches.",
+        "previous": "Previous",
+        "continue": "Continue",
+        "skip": "Skip",
+        "continue-with-steam": "Continue with Steam"
+      },
+      "completed-step": {
+        "title": "We're all set!",
+        "description": "You are now ready to start your journey with SUGAMING. Let's go!",
+        "previous": "Previous",
+        "lets-go": "Let's go!",
+        "try-again": "Please, try again. If the problem persists, contact us."
+      }
     },
     "create-team-dialog": {
       "name": "Name",

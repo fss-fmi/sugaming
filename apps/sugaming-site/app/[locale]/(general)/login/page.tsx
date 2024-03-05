@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Card } from '@sugaming/sugaming-ui/lib/components/common/server';
 import { getTranslations } from 'next-intl/server';
 import { Logo } from '@sugaming/sugaming-ui/lib/components/site/server';
+import { useLocale } from 'next-intl';
 
 interface LoginPageProps {
   searchParams?: { [key: string]: string | string[] | undefined };
@@ -17,6 +18,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
 
   const t = await getTranslations('login-page');
   const error = searchParams?.error as string | undefined;
+  const locale = useLocale();
 
   return (
     <Card className="mx-auto mt-10 grid h-5/6 w-5/6 md:w-2/3 flex-col items-center justify-center xl:grid-cols-2 xl:px-0 overflow-hidden">
@@ -49,17 +51,11 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
           <p className="px-4 text-center text-sm text-muted-foreground">
             {t('by-signing-in-you-agree-to-our')}{' '}
             <Link
-              href="/"
+              href={`/${locale}/regulations`}
+              target="_blank"
               className="underline underline-offset-4 hover:text-primary"
             >
-              {t('terms-of-service')}
-            </Link>{' '}
-            {t('and')}{' '}
-            <Link
-              href="/"
-              className="underline underline-offset-4 hover:text-primary"
-            >
-              {t('privacy-policy')}
+              {t('club-regulations')}
             </Link>
             .
           </p>
