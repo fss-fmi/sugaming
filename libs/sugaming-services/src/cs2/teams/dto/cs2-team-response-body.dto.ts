@@ -22,6 +22,11 @@ export class Cs2TeamResponseBodyDto extends Cs2TeamsBaseDto {
   members!: UserResponseBodyDto; // TODO: Adjust type
 
   @ApiProperty({
+    description: 'Team capitan id.',
+  })
+  capitanId!: string;
+
+  @ApiProperty({
     description: 'Team creation date',
   })
   @IsDateString(

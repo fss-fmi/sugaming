@@ -12,7 +12,7 @@ import Link from 'next/link';
 import { UsersSearch } from '@sugaming/sugaming-ui/lib/components/site/client';
 import React, { Suspense } from 'react';
 import { SiCounterstrike } from 'react-icons/si';
-import { getBearerToken } from '@sugaming/sugaming-api-client/next';
+import { getBearerToken, getUser } from '@sugaming/sugaming-api-client/next';
 import { useLocale } from 'next-intl';
 
 interface CS2TeamPageProps {
@@ -22,6 +22,7 @@ interface CS2TeamPageProps {
 export default async function CS2TeamPage({ params }: CS2TeamPageProps) {
   const t = await getTranslations('cs2-team-page');
   const locale = useLocale();
+  const user = await getUser();
 
   const team = await ApiClient.Cs2TeamsApiService.cs2TeamsControllerGetTeamV1({
     teamId: params.id,
@@ -34,7 +35,7 @@ export default async function CS2TeamPage({ params }: CS2TeamPageProps) {
   // TODO: this is requested for each subcategory, refactor to get all users once
   async function getUsersOutsideOfThisTeam() {
     const users = await ApiClient.UsersApiService.usersControllerGetAllV1({});
-    return users.filter((user) => user.cs2Team?.id !== team.id);
+    return users.filter((currentUser) => currentUser.cs2Team?.id !== team.id);
   }
 
   async function getTeamInvitesSentUserIds() {
@@ -61,9 +62,9 @@ export default async function CS2TeamPage({ params }: CS2TeamPageProps) {
     const requestsUserIds = await getTeamJoinRequestsUserIds();
 
     return users
-      .filter((user) => !user.cs2Team)
-      .filter((user) => !invitesUserIds.includes(user.id))
-      .filter((user) => !requestsUserIds.includes(user.id));
+      .filter((currentUser) => !currentUser.cs2Team)
+      .filter((currentUser) => !invitesUserIds.includes(currentUser.id))
+      .filter((currentUser) => !requestsUserIds.includes(currentUser.id));
   }
 
   async function getUsersWithATeamAndNoRequestAndInvites() {
@@ -72,29 +73,33 @@ export default async function CS2TeamPage({ params }: CS2TeamPageProps) {
     const requestsUserIds = await getTeamJoinRequestsUserIds();
 
     return users
-      .filter((user) => user.cs2Team)
-      .filter((user) => !invitesUserIds.includes(user.id))
-      .filter((user) => !requestsUserIds.includes(user.id));
+      .filter((currentUser) => currentUser.cs2Team)
+      .filter((currentUser) => !invitesUserIds.includes(currentUser.id))
+      .filter((currentUser) => !requestsUserIds.includes(currentUser.id));
   }
 
   async function getUsersRequestedToJoin() {
     const users = await getUsersOutsideOfThisTeam();
     const requestsUserIds = await getTeamJoinRequestsUserIds();
 
-    return users.filter((user) => requestsUserIds.includes(user.id));
+    return users.filter((currentUser) =>
+      requestsUserIds.includes(currentUser.id),
+    );
   }
 
   async function getUsersAlreadyInvited() {
     const users = await getUsersOutsideOfThisTeam();
     const invitesUserIds = await getTeamInvitesSentUserIds();
 
-    return users.filter((user) => invitesUserIds.includes(user.id));
+    return users.filter((currentUser) =>
+      invitesUserIds.includes(currentUser.id),
+    );
   }
 
   return (
     <Card className="w-full mt-12">
       <CardHeader className="relative p-0 w-full aspect-[12/3] space-y-0 overflow-hidden rounded-t-xl">
-        <TeamBanner team={team} />
+        <TeamBanner team={team} enableTeamCapitanControls />
         <Button
           variant="outline"
           className="absolute top-1 left-1 rounded-xl"
@@ -104,19 +109,21 @@ export default async function CS2TeamPage({ params }: CS2TeamPageProps) {
             <FaArrowLeft className="h-4 w-4" />
           </Link>
         </Button>
-        <Suspense fallback={null}>
-          <UsersSearch
-            teamId={team.id}
-            usersWithoutATeam={await getUsersWithoutATeamAndNoRequestAndInvites()}
-            usersWithATeam={await getUsersWithATeamAndNoRequestAndInvites()}
-            usersRequestedToJoin={await getUsersRequestedToJoin()}
-            usersAlreadyInvited={await getUsersAlreadyInvited()}
-          >
-            <Button className="absolute bottom-1 right-1 rounded-xl">
-              <FaUserPlus className="h-4 w-4" />
-            </Button>
-          </UsersSearch>
-        </Suspense>
+        {user && user.id === team.capitanId && (
+          <Suspense fallback={null}>
+            <UsersSearch
+              teamId={team.id}
+              usersWithoutATeam={await getUsersWithoutATeamAndNoRequestAndInvites()}
+              usersWithATeam={await getUsersWithATeamAndNoRequestAndInvites()}
+              usersRequestedToJoin={await getUsersRequestedToJoin()}
+              usersAlreadyInvited={await getUsersAlreadyInvited()}
+            >
+              <Button className="absolute bottom-1 right-1 rounded-xl">
+                <FaUserPlus className="h-4 w-4" />
+              </Button>
+            </UsersSearch>
+          </Suspense>
+        )}
       </CardHeader>
       <CardContent className="p-3">
         <div className="flex items-center">

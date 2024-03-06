@@ -6,9 +6,14 @@ import { TeamMemberAvatar } from '../team-member-avatar/team-member-avatar';
 
 interface TeamBannerProps {
   team: ApiClient.Cs2TeamResponseBodyDto;
+  // eslint-disable-next-line react/require-default-props
+  enableTeamCapitanControls?: boolean;
 }
 
-export function TeamBanner({ team }: TeamBannerProps) {
+export function TeamBanner({
+  team,
+  enableTeamCapitanControls = false,
+}: TeamBannerProps) {
   return (
     <>
       <div
@@ -28,7 +33,11 @@ export function TeamBanner({ team }: TeamBannerProps) {
         }}
       >
         {team.members.map((member: ApiClient.UserResponseBodyDto) => (
-          <TeamMemberAvatar member={member} key={member.id} />
+          <TeamMemberAvatar
+            key={member.id}
+            member={member}
+            enableTeamCapitanControls={enableTeamCapitanControls}
+          />
         ))}
       </div>
     </>
