@@ -376,7 +376,7 @@ export class Cs2TeamsService {
       throw new Cs2TeamsNoSuchTeamException(); // TODO: Replace with proper exception
     }
 
-    // Validate that the user is the captain of the team or they are removing themselves
+    // Validate that the user is the captain of the team, or they are removing themselves
     if (team.capitanId !== user.id && userId !== user.id) {
       throw new Cs2TeamsNotCapitanException();
     }

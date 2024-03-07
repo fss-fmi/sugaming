@@ -14,6 +14,8 @@ import React, { Suspense } from 'react';
 import { SiCounterstrike } from 'react-icons/si';
 import { getBearerToken, getUser } from '@sugaming/sugaming-api-client/next';
 import { useLocale } from 'next-intl';
+import { FaSignOutAlt } from 'react-icons/fa';
+import { LeaveTeamDialog } from '@sugaming/sugaming-ui/lib/components/site/leave-team-dialog/leave-team-dialog';
 
 interface CS2TeamPageProps {
   params: { id: string };
@@ -99,7 +101,10 @@ export default async function CS2TeamPage({ params }: CS2TeamPageProps) {
   return (
     <Card className="w-full mt-12">
       <CardHeader className="relative p-0 w-full aspect-[12/3] space-y-0 overflow-hidden rounded-t-xl">
-        <TeamBanner team={team} enableTeamCapitanControls />
+        <TeamBanner
+          team={team}
+          enableTeamCapitanControls={user?.id === team.capitanId}
+        />
         <Button
           variant="outline"
           className="absolute top-1 left-1 rounded-xl"
@@ -109,21 +114,6 @@ export default async function CS2TeamPage({ params }: CS2TeamPageProps) {
             <FaArrowLeft className="h-4 w-4" />
           </Link>
         </Button>
-        {user && user.id === team.capitanId && (
-          <Suspense fallback={null}>
-            <UsersSearch
-              teamId={team.id}
-              usersWithoutATeam={await getUsersWithoutATeamAndNoRequestAndInvites()}
-              usersWithATeam={await getUsersWithATeamAndNoRequestAndInvites()}
-              usersRequestedToJoin={await getUsersRequestedToJoin()}
-              usersAlreadyInvited={await getUsersAlreadyInvited()}
-            >
-              <Button className="absolute bottom-1 right-1 rounded-xl">
-                <FaUserPlus className="h-4 w-4" />
-              </Button>
-            </UsersSearch>
-          </Suspense>
-        )}
       </CardHeader>
       <CardContent className="p-3">
         <div className="flex items-center">
@@ -131,6 +121,31 @@ export default async function CS2TeamPage({ params }: CS2TeamPageProps) {
           <h1 className="text-xl sm:text-2xl md:text-3xl font-black uppercase my-2 truncate text-clip">
             {team.name}
           </h1>
+          <div className="ml-auto flex flex-row gap-2">
+            {user && user.cs2TeamId === team.id && (
+              <LeaveTeamDialog team={team} user={user}>
+                <Button variant="outline">
+                  <FaSignOutAlt className="h-4 w-4" />
+                </Button>
+              </LeaveTeamDialog>
+            )}
+
+            {user && user.id === team.capitanId && (
+              <Suspense fallback={null}>
+                <UsersSearch
+                  teamId={team.id}
+                  usersWithoutATeam={await getUsersWithoutATeamAndNoRequestAndInvites()}
+                  usersWithATeam={await getUsersWithATeamAndNoRequestAndInvites()}
+                  usersRequestedToJoin={await getUsersRequestedToJoin()}
+                  usersAlreadyInvited={await getUsersAlreadyInvited()}
+                >
+                  <Button>
+                    <FaUserPlus className="h-4 w-4" />
+                  </Button>
+                </UsersSearch>
+              </Suspense>
+            )}
+          </div>
         </div>
         <div className="h-80">
           <div className="p-4">

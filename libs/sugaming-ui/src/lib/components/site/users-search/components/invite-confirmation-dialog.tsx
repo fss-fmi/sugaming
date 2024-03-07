@@ -19,7 +19,7 @@ import {
 
 interface InviteButtonProps {
   user: ApiClient.UserResponseBodyDto;
-  teamId: string;
+  teamId: number;
   completeSuccessfulInviteConfirmation: () => void;
 }
 

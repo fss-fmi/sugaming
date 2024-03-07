@@ -202,7 +202,7 @@ export async function removeMemberRequest(
 ) {
   try {
     return await ApiClient.Cs2TeamsApiService.cs2TeamsControllerDeleteMemberV1({
-      teamId: team.id,
+      teamId: `${team.id}`,
       userId: user.id,
       authorization: await getBearerToken(),
     });

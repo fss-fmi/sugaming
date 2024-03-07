@@ -18,7 +18,7 @@ import {
 
 interface UsersSearchProps {
   children: ReactNode;
-  teamId: string;
+  teamId: number;
   usersWithoutATeam: ApiClient.UserResponseBodyDto[];
   usersWithATeam: ApiClient.UserResponseBodyDto[];
   usersRequestedToJoin: ApiClient.UserResponseBodyDto[];

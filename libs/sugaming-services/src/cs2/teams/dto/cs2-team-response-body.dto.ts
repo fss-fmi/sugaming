@@ -13,7 +13,7 @@ export class Cs2TeamResponseBodyDto extends Cs2TeamsBaseDto {
   @IsNotEmpty({
     message: i18nValidationMessage('validation.isNotEmpty'),
   })
-  id!: string;
+  id!: number;
 
   @ApiProperty({
     description: 'Team members.',
