@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { getBearerToken } from '@sugaming/sugaming-api-client/next';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { ApiClient } from '@sugaming/sugaming-api-client/client';
 import { Button } from '../../../common/server';
 import {
@@ -30,6 +30,7 @@ export function InviteConfirmationDialog({
 }: InviteButtonProps) {
   const { toast } = useToast();
   const t = useTranslations('site.users-search.invite-confirmation-dialog');
+  const locale = useLocale();
   const [isOpen, setIsOpen] = useState(true);
 
   async function inviteUser() {
@@ -40,6 +41,7 @@ export function InviteConfirmationDialog({
         headers: {
           'Content-Type': 'application/json',
           Authorization: await getBearerToken(),
+          'Accept-Language': locale,
         },
         body: JSON.stringify({ id: teamId }),
       },
@@ -51,7 +53,7 @@ export function InviteConfirmationDialog({
     if (response.ok) {
       toast({
         variant: 'default',
-        title: t('invite-successful'),
+        title: t('invite-sent'),
       });
       completeSuccessfulInviteConfirmation();
       return;
