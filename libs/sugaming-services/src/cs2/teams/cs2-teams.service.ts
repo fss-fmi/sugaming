@@ -353,4 +353,51 @@ export class Cs2TeamsService {
       parent: category,
     });
   }
+
+  async removeMember(
+    teamId: number,
+    userId: string,
+    user: Omit<User, 'passwordHash'>,
+  ) {
+    // Validate that the user exists
+    await this.usersService.getByIdOrThrow(user.id);
+
+    // Validate that the team exists
+    const team = await this.getByIdOrThrow(teamId);
+
+    // Validate that the user is the captain of the team
+    if (team.capitanId !== user.id) {
+      throw new Cs2TeamsNotCapitanException();
+    }
+
+    // Validate that the user is not removing themselves
+    if (userId === user.id) {
+      throw new Cs2TeamsNotCapitanException(); // TODO: Replace with proper exception
+    }
+
+    // Validate that the user exists
+    await this.usersService.getByIdOrThrow(userId);
+
+    // Validate that the user is part of the team
+    const userIsPartOfTeam = team.members.some(
+      (member) => member.id === userId,
+    );
+    if (!userIsPartOfTeam) {
+      throw new Cs2TeamsNoSuchTeamException();
+    }
+
+    // Remove the user from the team
+    await this.prisma.cs2Team.update({
+      where: {
+        id: teamId,
+      },
+      data: {
+        members: {
+          disconnect: {
+            id: userId,
+          },
+        },
+      },
+    });
+  }
 }

@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -229,6 +230,42 @@ export class Cs2TeamsController {
       requestBody.response,
       params.teamId,
       params.requestId,
+      user,
+    );
+  }
+
+  @Delete(':teamId/members/:userId')
+  @Version(['1'])
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Remove a user from a CS2 team',
+    description: 'Endpoint for team captains to remove a user from their team.',
+  })
+  @ApiOkResponse({
+    description: 'User removed from the team successfully.',
+  })
+  @ApiUnauthorizedResponse({ description: 'Invalid user credentials.' })
+  @ApiNotFoundResponse({
+    schema: {
+      anyOf: [
+        { description: 'The user no longer exists.' },
+        { description: 'The team specified does not exist.' },
+      ],
+    },
+  })
+  @ApiForbiddenResponse({
+    description: 'The user is not the captain of the team.',
+  })
+  async deleteMemberV1(
+    @Param('teamId') teamId: string,
+    @Param('userId') userId: string,
+    @UserAuth() user: Omit<User, 'passwordHash'>,
+  ) {
+    return this.cs2TeamsService.removeMember(
+      parseInt(teamId, 10),
+      userId,
       user,
     );
   }
