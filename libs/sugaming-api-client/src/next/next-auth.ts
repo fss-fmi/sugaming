@@ -195,3 +195,22 @@ function setTokens(
     expires: refreshTokenExp ? refreshTokenExp * 1000 : undefined,
   });
 }
+
+export async function removeMemberRequest(
+  team: ApiClient.Cs2TeamResponseBodyDto,
+  user: ApiClient.UserResponseBodyDto,
+) {
+  try {
+    return await ApiClient.Cs2TeamsApiService.cs2TeamsControllerDeleteMemberV1({
+      teamId: team.id,
+      userId: user.id,
+      authorization: await getBearerToken(),
+    });
+  } catch (error) {
+    if (error instanceof ApiClient.ApiError) {
+      return { error: error.body.message };
+    }
+  }
+
+  return null;
+}

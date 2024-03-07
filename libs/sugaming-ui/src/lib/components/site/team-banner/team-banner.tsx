@@ -35,6 +35,7 @@ export function TeamBanner({
         {team.members.map((member: ApiClient.UserResponseBodyDto) => (
           <TeamMemberAvatar
             key={member.id}
+            team={team}
             member={member}
             enableTeamCapitanControls={enableTeamCapitanControls}
           />

@@ -17,9 +17,9 @@ export class Cs2TeamResponseBodyDto extends Cs2TeamsBaseDto {
 
   @ApiProperty({
     description: 'Team members.',
-    type: UserResponseBodyDto,
+    type: [UserResponseBodyDto],
   })
-  members!: UserResponseBodyDto; // TODO: Adjust type
+  members!: [UserResponseBodyDto]; // TODO: Adjust type
 
   @ApiProperty({
     description: 'Team capitan id.',
