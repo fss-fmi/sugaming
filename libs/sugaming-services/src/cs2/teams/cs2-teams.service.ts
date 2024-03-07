@@ -365,16 +365,6 @@ export class Cs2TeamsService {
     // Validate that the team exists
     const team = await this.getByIdOrThrow(teamId);
 
-    // Validate that the user is the captain of the team
-    if (team.capitanId !== user.id) {
-      throw new Cs2TeamsNotCapitanException();
-    }
-
-    // Validate that the user is not removing themselves
-    if (userId === user.id) {
-      throw new Cs2TeamsNotCapitanException(); // TODO: Replace with proper exception
-    }
-
     // Validate that the user exists
     await this.usersService.getByIdOrThrow(userId);
 
@@ -383,7 +373,17 @@ export class Cs2TeamsService {
       (member) => member.id === userId,
     );
     if (!userIsPartOfTeam) {
-      throw new Cs2TeamsNoSuchTeamException();
+      throw new Cs2TeamsNoSuchTeamException(); // TODO: Replace with proper exception
+    }
+
+    // Validate that the user is the captain of the team or they are removing themselves
+    if (team.capitanId !== user.id && userId !== user.id) {
+      throw new Cs2TeamsNotCapitanException();
+    }
+
+    // Validate that the capitan is not removing themselves
+    if (team.capitanId === user.id && userId === user.id) {
+      throw new Cs2TeamsNotCapitanException(); // TODO: Replace with proper exception
     }
 
     // Remove the user from the team
