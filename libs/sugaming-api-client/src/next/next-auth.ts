@@ -6,6 +6,8 @@ import { ResponseCookies } from 'next/dist/compiled/@edge-runtime/cookies';
 import { unstable_noStore as noStore } from 'next/cache';
 import { useLocale } from 'next-intl';
 import { ApiClient } from '../client';
+import { UsersPostCurrentCs2TeamInvitesRespondRequestBodyDto } from '../client/src';
+import TeamInviteResponse = UsersPostCurrentCs2TeamInvitesRespondRequestBodyDto.response;
 
 export async function login(email: string, password: string) {
   try {
@@ -36,6 +38,7 @@ export async function loginDiscord(code: string) {
       await ApiClient.AuthApiService.authControllerPostLoginDiscordV1({
         code,
         authorization: await getBearerToken(),
+        acceptLanguage: useLocale(),
       });
 
     const { accessToken, refreshToken } = response;
@@ -97,6 +100,21 @@ export async function signUp(formData: FormData) {
       'Accept-Language': useLocale(),
     },
   });
+}
+
+export async function completeOnboarding() {
+  try {
+    await ApiClient.UsersApiService.usersControllerPatchCurrentOnboardingV1({
+      authorization: await getBearerToken(),
+      acceptLanguage: useLocale(),
+    });
+  } catch (error) {
+    if (error instanceof ApiClient.ApiError) {
+      return { error: error.body.message };
+    }
+  }
+
+  return null;
 }
 
 export async function getRefreshedTokens() {
@@ -178,4 +196,46 @@ function setTokens(
   cookieStore.set('refresh_token', refreshToken, {
     expires: refreshTokenExp ? refreshTokenExp * 1000 : undefined,
   });
+}
+
+export async function removeMemberRequest(
+  team: ApiClient.Cs2TeamResponseBodyDto,
+  user: ApiClient.UserResponseBodyDto,
+) {
+  try {
+    return await ApiClient.Cs2TeamsApiService.cs2TeamsControllerDeleteMemberV1({
+      teamId: `${team.id}`,
+      userId: user.id,
+      authorization: await getBearerToken(),
+    });
+  } catch (error) {
+    if (error instanceof ApiClient.ApiError) {
+      return { error: error.body.message };
+    }
+  }
+
+  return null;
+}
+
+export async function respondToTeamInvite(
+  inviteId: string,
+  requestResponse: TeamInviteResponse,
+) {
+  try {
+    return await ApiClient.UsersApiService.usersControllerPostCurrentCs2TeamInvitesRespondV1(
+      {
+        requestBody: {
+          response: requestResponse,
+        },
+        inviteId,
+        authorization: await getBearerToken(),
+      },
+    );
+  } catch (error) {
+    if (error instanceof ApiClient.ApiError) {
+      return { error: error.body.message };
+    }
+  }
+
+  return null;
 }

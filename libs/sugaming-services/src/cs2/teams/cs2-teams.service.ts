@@ -4,7 +4,7 @@ import { User } from '@prisma/client';
 import Redis from 'ioredis';
 import { InjectRedis } from '@songkeys/nestjs-redis';
 import { CategoryChannel, ChannelType, Client, Guild, Role } from 'discord.js';
-import { UsersNoDiscordAccountLinkedException } from '@sugaming/sugaming-services/users/exceptions/users-no-discord-account-linked.exception';
+import { UsersNoDiscordAccountLinkedException } from './exceptions/users-no-discord-account-linked.exception';
 import { Cs2TeamsBaseDto } from './dto/cs2-teams-base.dto';
 import { PrismaService } from '../../prisma/prisma.service';
 import { Cs2TeamsNameAlreadyExistsException } from './exceptions/cs2-teams-name-already-exists.exception';
@@ -17,7 +17,6 @@ import { Cs2TeamsNoSuchJoinRequestException } from './exceptions/cs2-teams-no-su
 import { Cs2TeamsTeamIsFullException } from './exceptions/cs2-teams-team-is-full.exception';
 import { libConfig } from '../../config/lib.config';
 import { Cs2TeamsNoSuchDiscordGuildRoleException } from './exceptions/cs2-teams-no-discord-guild-role.exception';
-import { Cs2TeamsAlreadyHasRoleException } from './exceptions/cs2-teams-already-has-role.exception';
 
 @Injectable()
 export class Cs2TeamsService {
@@ -39,6 +38,7 @@ export class Cs2TeamsService {
             firstName: true,
             lastName: true,
             nickname: true,
+            avatarUrl: true,
           },
         },
       },
@@ -64,6 +64,7 @@ export class Cs2TeamsService {
             firstName: true,
             lastName: true,
             nickname: true,
+            avatarUrl: true,
           },
         },
       },
@@ -113,6 +114,35 @@ export class Cs2TeamsService {
     );
 
     return createdTeam;
+  }
+
+  async getInvitationsSent(teamId: number, user: Omit<User, 'passwordHash'>) {
+    // Validate that the user exists
+    await this.usersService.getByIdOrThrow(user.id);
+
+    // Validate that the team exists/the user is the captain of the team
+    const team = await this.getByIdOrThrow(teamId);
+
+    if (team.capitanId !== user.id) {
+      throw new Cs2TeamsNotCapitanException();
+    }
+
+    // Get the invitations
+    return this.prisma.cs2TeamInvitation.findMany({
+      where: {
+        teamId,
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            nickname: true,
+          },
+        },
+      },
+    });
   }
 
   async getJoinRequests(teamId: number, user: Omit<User, 'passwordHash'>) {
@@ -373,5 +403,52 @@ export class Cs2TeamsService {
 
     // Add the role to the user
     return guildMember.roles.remove(role);
+  }
+
+  async removeMember(
+    teamId: number,
+    userId: string,
+    user: Omit<User, 'passwordHash'>,
+  ) {
+    // Validate that the user exists
+    await this.usersService.getByIdOrThrow(user.id);
+
+    // Validate that the team exists
+    const team = await this.getByIdOrThrow(teamId);
+
+    // Validate that the user exists
+    await this.usersService.getByIdOrThrow(userId);
+
+    // Validate that the user is part of the team
+    const userIsPartOfTeam = team.members.some(
+      (member) => member.id === userId,
+    );
+    if (!userIsPartOfTeam) {
+      throw new Cs2TeamsNoSuchTeamException(); // TODO: Replace with proper exception
+    }
+
+    // Validate that the user is the captain of the team, or they are removing themselves
+    if (team.capitanId !== user.id && userId !== user.id) {
+      throw new Cs2TeamsNotCapitanException();
+    }
+
+    // Validate that the capitan is not removing themselves
+    if (team.capitanId === user.id && userId === user.id) {
+      throw new Cs2TeamsNotCapitanException(); // TODO: Replace with proper exception
+    }
+
+    // Remove the user from the team
+    await this.prisma.cs2Team.update({
+      where: {
+        id: teamId,
+      },
+      data: {
+        members: {
+          disconnect: {
+            id: userId,
+          },
+        },
+      },
+    });
   }
 }

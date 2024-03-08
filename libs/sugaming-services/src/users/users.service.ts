@@ -70,6 +70,15 @@ export class UsersService {
     return user;
   }
 
+  async getAllUsers() {
+    // Get all users from the database
+    return this.prisma.user.findMany({
+      include: {
+        cs2Team: true,
+      },
+    });
+  }
+
   async getByEmail(email: string) {
     // Get user information from the database
     const user = await this.prisma.user.findUnique({
@@ -632,6 +641,39 @@ export class UsersService {
     // Remove the password hash and return the user
     const { passwordHash, ...userWithoutPassword } = newUser;
     return userWithoutPassword;
+  }
+
+  async completeOnboarding(user: Omit<User, 'passwordHash'>) {
+    // Validate that the user exists
+    await this.getByIdOrThrow(user.id);
+
+    // Update the user
+    return this.prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        isOnboardingCompleted: true,
+      },
+    });
+  }
+
+  async updateAvatar(
+    user: Omit<User, 'passwordHash'>,
+    avatar: Express.Multer.File,
+  ) {
+    // Validate that the user exists
+    await this.getByIdOrThrow(user.id);
+
+    // Update the user avatar
+    return this.prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        avatarUrl: `${libConfig.apiBase}/api/v1/users/avatars/${avatar.filename}`,
+      },
+    });
   }
 
   async leave(user: Omit<User, 'passwordHash'>) {

@@ -59,7 +59,9 @@
       "preferences-popover": {
         "get-started": "Начало",
         "theme": "Тема"
-      },
+      }
+    },
+    "login-buttons": {
       "login": "Вход",
       "signup": "Регистрация"
     },
@@ -84,6 +86,11 @@
       "password": "Парола",
       "password-confirmation": "Потвърждение на паролата",
       "passwords-dont-match": "Паролите не съвпадат.",
+      "accept-club-regulations": "Приемам правилата на клуба.",
+      "please-read-the": "Моля, прочетете",
+      "club-regulations": "правилата на клуба",
+      "before-signing-up": "преди да се регистрирате",
+      "university": "Университет",
       "university-major": "Специалност",
       "university-degree": "Степен",
       "university-degree-bachelor": "Бакалавър",
@@ -107,6 +114,112 @@
       "too-long": "Полето трябва да има най-много {length} символа.",
       "regex-error": "Полето не отговаря на изискванията.",
       "invalid-email-format": "Невалиден формат на имейл адрес."
+    },
+    "onboarding-dialog": {
+      "welcome-step": {
+        "title": "Добре дошли в SUGAMING!",
+        "description": "Радваме се, че си тук! Нека завършим профила ти и да започваме.",
+        "continue": "Продължи",
+        "try-again": "Моля, опитайте отново. Ако проблемът продължава, свържете се с нас.",
+        "error-occurred": "Възникна грешка."
+      },
+      "avatar-step": {
+        "title": "Избор на аватар",
+        "description": "Избери аватар, който ще се показва на профила ти.",
+        "skin-tone": "Кожа",
+        "eyes": "Очи",
+        "eyebrows": "Вежди",
+        "mouth": "Уста",
+        "facial-hair": "Брада/Мустаци",
+        "facial-hair-color": "Цвят на брадата",
+        "top": "Коса/Шапка",
+        "hair-color": "Цвят на косата",
+        "clothing": "Дрехи",
+        "clothes-color": "Цвят на дрехите",
+        "accessory": "Аксесоар",
+        "accessory-color": "Цвят на аксесоара",
+        "previous": "Назад",
+        "continue": "Продължи"
+      },
+      "discord-step": {
+        "title": "Discord акаунт",
+        "description": "Свържи своя Discord акаунт с SUGAMING, за да се присъединиш към нашия Discord сървър.",
+        "previous": "Назад",
+        "skip": "Пропусни",
+        "continue": "Продължи",
+        "continue-with-discord": "Продължи с Discord"
+      },
+      "steam-step": {
+        "title": "Steam акаунт",
+        "description": "Свържи своя Steam акаунт с SUGAMING, за да можеш да участваш в Counter-Strike турнири и мачове.",
+        "previous": "Назад",
+        "skip": "Пропусни",
+        "continue": "Продължи",
+        "continue-with-steam": "Продължи с Steam"
+      },
+      "completed-step": {
+        "title": "Готови сме!",
+        "description": "Добре дошли в SUGAMING! Ти вече си част от нашия клуб.",
+        "previous": "Назад",
+        "lets-go": "Да започваме!",
+        "try-again": "Моля, опитайте отново. Ако проблемът продължава, свържете се с нас."
+      }
+    },
+    "create-team-dialog": {
+      "name": "Име",
+      "name-placeholder": "Примерно име",
+      "color": "Цвят",
+      "submit": "Създай",
+      "error-occurred": "Възникна грешка.",
+      "try-again": "Моля, опитайте отново.",
+      "is-required": "Полето е задължително.",
+      "too-short": "Полето трябва да има поне {length} символа.",
+      "too-long": "Полето трябва да има най-много {length} символа."
+    },
+    "users-search": {
+      "search-placeholder": "Въведете име за търсене...",
+      "no-results": "Няма намерени резултати.",
+      "users-requested-to-join": "Хора, поискали да се присъединят към отбора",
+      "users-without-a-team": "Хора без отбор",
+      "users-with-a-team": "Хора с отбор",
+      "users-already-invited": "Хора, които вече са поканени",
+      "invite-confirmation-dialog": {
+        "title": "Потвърждение на поканата",
+        "description": "Сигурни ли сте, че искате да поканите {name} да се присъедини към отбора ви?",
+        "cancel": "Отказ",
+        "invite": "Покани",
+        "invite-sent": "Поканата е изпратена.",
+        "error-occurred": "Възникна грешка.",
+        "try-again": "Моля, опитайте отново. Ако проблемът продължава, свържете се с нас."
+      }
+    },
+    "leave-team-dialog": {
+      "title": "Напускане на отбор",
+      "description": "Сигурни ли сте, че искате да напуснете отбора?",
+      "cancel": "Отказ",
+      "leave": "Напусни",
+      "left-team": "Напуснахте отбора.",
+      "error-occurred": "Възникна грешка.",
+      "try-again": "Моля, опитайте отново. Ако проблемът продъжава, свържете се с нас."
+    },
+    "team-member-avatar": {
+      "try-again": "Моля, опитайте отново. Ако проблемът продъжава, свържете се с нас."
+    },
+    "notifications-popover": {
+      "no-notifications": "Няма известия.",
+      "invites": "Покани",
+      "join-requests": "Заявки за присъединяване",
+      "invite-item": {
+        "you-have-been-invited": "Бяхте поканен да се присъедините към отбор {teamName}.",
+        "accepted": "Поканата е приета успешно.",
+        "declined": "Поканата е отхвърлена успешно.",
+        "error-occurred": "Възникна грешка.",
+        "try-again": "Моля, опитайте отново. Ако проблемът продължава, свържете се с нас."
+      }
+    },
+    "sponsors-showcase": {
+      "with-the-support-of": "С подкрепата на",
+      "our-sponsors": "Нашите спонсори"
     }
   }
 }
