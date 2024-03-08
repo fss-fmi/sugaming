@@ -33,7 +33,6 @@ import { UsersService } from '@sugaming/sugaming-services/users/users.service';
 import { JwtAuthGuard } from '@sugaming/sugaming-services/auth/guards/jwt-auth.guard';
 import { UserResponseBodyDto } from '@sugaming/sugaming-services/users/dto/user-response-body.dto';
 import { UsersPostCurrentCs2TeamInvitesRespondRequestBodyDto } from '@sugaming/sugaming-services/users/dto/users-post-current-cs2-team-invites-respond-request-body.dto';
-import { UsersPostCurrentCs2TeamInvitesRespondParamsDto } from '@sugaming/sugaming-services/users/dto/users-post-current-cs2-team-invites-respond-params.dto';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import libConfig from '@sugaming/sugaming-services/config/lib.config';
 import { diskStorage } from 'multer';
@@ -45,6 +44,21 @@ import { appConfig } from '../app/app.config';
 @ApiTags('Users API')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
+
+  @Get()
+  @Version(['1'])
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Get all users',
+    description: 'Endpoint for getting all users.',
+  })
+  @ApiOkResponse({
+    description: 'Users returned successfully.',
+    type: [UserResponseBodyDto], // TODO: Refactor to use correct DTO
+  })
+  getAllV1() {
+    return this.usersService.getAllUsers();
+  }
 
   @Post()
   @Version(['1'])
@@ -210,7 +224,7 @@ export class UsersController {
     return this.usersService.getUserCs2TeamInvites(user);
   }
 
-  @Post(':userId/cs2-team-invites')
+  @Post(':inviteeId/cs2-team-invites')
   @Version(['1'])
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.CREATED)
@@ -242,7 +256,7 @@ export class UsersController {
     description: 'The user to invite does not exist.',
   })
   postCs2TeamInviteV1(
-    @Param('id') inviteeId: string,
+    @Param('inviteeId') inviteeId: string,
     @UserAuth() user: Omit<User, 'passwordHash'>,
   ) {
     return this.usersService.createCs2TeamInvitation(user, inviteeId);
@@ -278,13 +292,14 @@ export class UsersController {
     description: 'The user is already part of a team.',
   })
   async postCurrentCs2TeamInvitesRespondV1(
-    @Param() params: UsersPostCurrentCs2TeamInvitesRespondParamsDto,
+    // @Param() params: UsersPostCurrentCs2TeamInvitesRespondParamsDto,
+    @Param('inviteId') inviteId: string,
     @UserAuth() user: Omit<User, 'passwordHash'>,
     @Body() requestBody: UsersPostCurrentCs2TeamInvitesRespondRequestBodyDto,
   ) {
     return this.usersService.respondToCs2TeamInvite(
       requestBody.response,
-      params.inviteId,
+      parseInt(inviteId, 10),
       user,
     );
   }

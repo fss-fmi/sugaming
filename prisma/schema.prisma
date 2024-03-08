@@ -24,6 +24,7 @@ model User {
   nickname  String @unique
 
   // University information
+  university              String
   universityMajor         String                 @map("university_major")
   universityDegree        UniversityDegree       @map("university_degree")
   universityYear          UniversityYear         @map("university_year")

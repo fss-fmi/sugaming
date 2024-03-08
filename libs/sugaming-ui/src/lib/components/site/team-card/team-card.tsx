@@ -1,32 +1,18 @@
 import { ApiClient } from '@sugaming/sugaming-api-client/client';
-import libConfig from '@sugaming/sugaming-services/config/lib.config';
 import React from 'react';
 import { SiCounterstrike } from 'react-icons/si';
 import Link from 'next/link';
-import { Logo } from '../logo/logo';
-import { TeamMemberAvatar } from '../team-member-avatar/team-member-avatar';
+import { useLocale } from 'next-intl';
+import { TeamBanner } from '../team-banner/team-banner';
 import { Card, CardContent, CardHeader } from '../../common/server';
 
 export function TeamCard({ team }: { team: ApiClient.Cs2TeamResponseBodyDto }) {
+  const locale = useLocale();
   return (
-    <Link href={`/cs2-teams/${team.id}`}>
+    <Link href={`/${locale}/cs2/teams/${team.id}`}>
       <Card className="w-full transition hover:-translate-y-1 hover:shadow-lg">
         <CardHeader className="relative p-0 w-full aspect-[21/9] space-y-0 overflow-hidden rounded-t-xl">
-          <div className="absolute inset-0 flex flex-col w-full h-full pt-6 bg-blue-900 overflow-ellipsis text-center text-white">
-            <p className="text-3xl font-bold">{team.name.toUpperCase()}</p>
-            <Logo className="mx-auto scale-50 -mt-1" />
-          </div>
-          <div
-            className="absolute inset-0 w-full h-full grid justify-center items-end"
-            style={{
-              padding: `0px ${(libConfig.cs2Team.members.max - team.members.length) * 10}%`,
-              gridTemplateColumns: `repeat(${team.members.length}, 1fr)`,
-            }}
-          >
-            {team.members.map((member) => (
-              <TeamMemberAvatar member={member} key={member.id} />
-            ))}
-          </div>
+          <TeamBanner team={team} />
         </CardHeader>
         <CardContent className="p-3">
           <div className="flex items-center">

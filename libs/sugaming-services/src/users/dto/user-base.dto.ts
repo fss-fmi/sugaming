@@ -88,6 +88,19 @@ export class UserBaseDto {
   phone!: string;
 
   @ApiProperty({
+    description: 'User university.',
+  })
+  @IsNotEmpty({
+    message: i18nValidationMessage('validation.isNotEmpty'),
+  })
+  @IsEnum(libConfig.user.university.enum, {
+    message: i18nValidationMessage('validation.isEnum', {
+      enum: Object.values(libConfig.user.university.enum).join(', '),
+    }),
+  })
+  university!: string;
+
+  @ApiProperty({
     description: 'User university major.',
     example: 'Компютърни науки',
   })

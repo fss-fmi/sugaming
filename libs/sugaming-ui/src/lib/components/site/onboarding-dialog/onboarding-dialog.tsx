@@ -6,7 +6,6 @@ import {
   completeOnboarding,
   getBearerToken,
 } from '@sugaming/sugaming-api-client/next';
-import { useRouter } from 'next/navigation';
 import { WelcomeStep } from './components/welcome-step';
 import { AvatarStep } from './components/avatar-step';
 import { DiscordStep } from './components/discord-step';
@@ -28,7 +27,6 @@ enum OnboardingDialogSteps {
 
 export function OnboardingDialog({ isOpen }: OnboardingDialogProps) {
   const locale = useLocale();
-  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(OnboardingDialogSteps.Welcome);
 
