@@ -1,6 +1,9 @@
 import { IsBoolean, IsDateString, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { i18nValidationMessage } from 'nestjs-i18n';
+// TODO:fix
+// eslint-disable-next-line import/no-cycle
+import { Cs2TeamResponseBodyDto } from '../../cs2/teams/dto/cs2-team-response-body.dto';
 import { UserBaseDto } from './user-base.dto';
 
 export class UserResponseBodyDto extends UserBaseDto {
@@ -44,6 +47,12 @@ export class UserResponseBodyDto extends UserBaseDto {
     message: i18nValidationMessage('validation.isNotEmpty'),
   })
   cs2TeamId!: number;
+
+  @ApiProperty({
+    description: 'User Counter-Strike 2 team.',
+    type: Cs2TeamResponseBodyDto,
+  })
+  cs2Team!: Cs2TeamResponseBodyDto;
 
   @ApiProperty({
     description: 'User creation date',

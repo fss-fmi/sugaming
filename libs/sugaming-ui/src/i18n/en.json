@@ -175,6 +175,47 @@
       "is-required": "This field is required.",
       "too-short": "The field should contain at least {length} symbols.",
       "too-long": "The field should contain at most {length} symbols."
+    },
+    "users-search": {
+      "search-placeholder": "Type a name to search...",
+      "no-results": "No results found.",
+      "users-requested-to-join": "Requested to join",
+      "users-without-a-team": "Without a team",
+      "users-with-a-team": "With a team",
+      "users-already-invited": "Already invited",
+      "invite-confirmation-dialog": {
+        "title": "Invite Confirmation",
+        "description": "Are you sure you want to invite {name} to join your team?",
+        "cancel": "Cancel",
+        "invite": "Invite",
+        "invite-sent": "Invite sent.",
+        "error-occurred": "An error occurred.",
+        "try-again": "Please, try again."
+      }
+    },
+    "leave-team-dialog": {
+      "title": "Leave team",
+      "description": "Are you sure you want to leave the team?",
+      "cancel": "Cancel",
+      "leave": "Leave",
+      "left-team": "You have left the team.",
+      "error-occurred": "An error occurred.",
+      "try-again": "Please, try again."
+    },
+    "team-member-avatar": {
+      "try-again": "Please, try again. If the problem persists, contact us."
+    },
+    "notifications-popover": {
+      "no-notifications": "No notifications",
+      "invites": "Invites",
+      "join-requests": "Join Requests",
+      "invite-item": {
+        "you-have-been-invited": "You have been invited to join the team {teamName}.",
+        "accepted": "The invite has been accepted successfully.",
+        "declined": "The invite has been declined successfully.",
+        "error-occurred": "An error occurred.",
+        "try-again": "Please, try again. If the problem persists, contact us."
+      }
     }
   }
 }

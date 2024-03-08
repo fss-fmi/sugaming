@@ -98,7 +98,7 @@ export function CreateTeamDialog({ children }: CreateTeamDialogProps) {
         description: t('try-again'),
       });
     } else {
-      router.push(`/${locale}/teams/${response.id}`);
+      router.push(`/${locale}/cs2/teams/${response.id}`);
     }
   }
 
