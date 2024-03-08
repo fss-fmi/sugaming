@@ -201,6 +201,12 @@
       "left-team": "Напуснахте отбора.",
       "error-occurred": "Възникна грешка.",
       "try-again": "Моля, опитайте отново."
+    },
+    "notifications-popover": {
+      "no-notifications": "Няма известия.",
+      "invites": "Покани",
+      "you-have-been-invited": "Бяхте поканен да се присъедините към отбор {teamName}.",
+      "join-requests": "Заявки за присъединяване"
     }
   }
 }

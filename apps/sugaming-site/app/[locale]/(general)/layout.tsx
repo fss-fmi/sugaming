@@ -9,13 +9,14 @@ import { Navbar } from '@sugaming/sugaming-ui/lib/components/common/server';
 import {
   NavbarLinks,
   NavbarUserControls,
+  NotificationsPopover,
+  OnboardingDialog,
 } from '@sugaming/sugaming-ui/lib/components/site/client';
 import { getUser } from '@sugaming/sugaming-api-client/next';
 import { getMessages } from 'next-intl/server';
 import Link from 'next/link';
 import { AxiomWebVitals } from 'next-axiom';
 import { Logo } from '@sugaming/sugaming-ui/lib/components/site/server';
-import { OnboardingDialog } from '@sugaming/sugaming-ui/lib/components/site/onboarding-dialog/onboarding-dialog';
 import { locales } from '../../i18n';
 
 export { useReportWebVitals } from 'next-axiom';
@@ -59,7 +60,10 @@ export default async function RootLayout({
                 variant="desktop"
               />
 
-              <NavbarUserControls user={user} className="" />
+              <div className="flex flex-row gap-2">
+                {user && <NotificationsPopover user={user} />}
+                <NavbarUserControls user={user} className="" />
+              </div>
             </Navbar>
 
             <OnboardingDialog isOpen={user && !user.isOnboardingCompleted} />

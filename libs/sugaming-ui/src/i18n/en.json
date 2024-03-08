@@ -201,6 +201,12 @@
       "left-team": "You have left the team.",
       "error-occurred": "An error occurred.",
       "try-again": "Please, try again."
+    },
+    "notifications-popover": {
+      "no-notifications": "No notifications",
+      "invites": "Invites",
+      "you-have-been-invited": "You have been invited to join the team {teamName}.",
+      "join-requests": "Join Requests"
     }
   }
 }
