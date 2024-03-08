@@ -33,7 +33,6 @@ import { UsersService } from '@sugaming/sugaming-services/users/users.service';
 import { JwtAuthGuard } from '@sugaming/sugaming-services/auth/guards/jwt-auth.guard';
 import { UserResponseBodyDto } from '@sugaming/sugaming-services/users/dto/user-response-body.dto';
 import { UsersPostCurrentCs2TeamInvitesRespondRequestBodyDto } from '@sugaming/sugaming-services/users/dto/users-post-current-cs2-team-invites-respond-request-body.dto';
-import { UsersPostCurrentCs2TeamInvitesRespondParamsDto } from '@sugaming/sugaming-services/users/dto/users-post-current-cs2-team-invites-respond-params.dto';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import libConfig from '@sugaming/sugaming-services/config/lib.config';
 import { diskStorage } from 'multer';
@@ -293,13 +292,14 @@ export class UsersController {
     description: 'The user is already part of a team.',
   })
   async postCurrentCs2TeamInvitesRespondV1(
-    @Param() params: UsersPostCurrentCs2TeamInvitesRespondParamsDto,
+    // @Param() params: UsersPostCurrentCs2TeamInvitesRespondParamsDto,
+    @Param('inviteId') inviteId: string,
     @UserAuth() user: Omit<User, 'passwordHash'>,
     @Body() requestBody: UsersPostCurrentCs2TeamInvitesRespondRequestBodyDto,
   ) {
     return this.usersService.respondToCs2TeamInvite(
       requestBody.response,
-      params.inviteId,
+      parseInt(inviteId, 10),
       user,
     );
   }

@@ -1,10 +1,11 @@
 'use client';
 
 import { ApiClient } from '@sugaming/sugaming-api-client/client';
-import { FaBell, FaCheck, FaEnvelope, FaX } from 'react-icons/fa6';
+import { FaBell } from 'react-icons/fa6';
 import { useLocale, useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { getBearerToken } from '@sugaming/sugaming-api-client/next';
+import { InviteItem } from './components/invite-item';
 import { Button, Card } from '../../common/server';
 import { Popover, PopoverContent, PopoverTrigger } from '../../common/client';
 
@@ -81,25 +82,7 @@ export function NotificationsPopover({ user }: NotificationsPopoverProps) {
           <div>
             <h2 className="font-bold">{t('invites')}</h2>
             {invites.map((invite) => (
-              <Card
-                key={invite.id}
-                className="flex flex-row items-center gap-x-1 p-2"
-              >
-                <div>
-                  <FaEnvelope className="w-6 h-6 m-2" />
-                </div>
-                <p>
-                  {t('you-have-been-invited', { teamName: invite.team.name })}
-                </p>
-                <div className="flex flex-row gap-x-1 ml-auto">
-                  <Button variant="ghost">
-                    <FaX className="w-4 h-4" />
-                  </Button>
-                  <Button variant="ghost">
-                    <FaCheck className="w-4 h-4" />
-                  </Button>
-                </div>
-              </Card>
+              <InviteItem key={invite.id} invite={invite} />
             ))}
           </div>
         )}

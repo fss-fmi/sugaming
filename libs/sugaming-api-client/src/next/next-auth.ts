@@ -6,6 +6,8 @@ import { ResponseCookies } from 'next/dist/compiled/@edge-runtime/cookies';
 import { unstable_noStore as noStore } from 'next/cache';
 import { useLocale } from 'next-intl';
 import { ApiClient } from '../client';
+import { UsersPostCurrentCs2TeamInvitesRespondRequestBodyDto } from '../client/src';
+import TeamInviteResponse = UsersPostCurrentCs2TeamInvitesRespondRequestBodyDto.response;
 
 export async function login(email: string, password: string) {
   try {
@@ -206,6 +208,29 @@ export async function removeMemberRequest(
       userId: user.id,
       authorization: await getBearerToken(),
     });
+  } catch (error) {
+    if (error instanceof ApiClient.ApiError) {
+      return { error: error.body.message };
+    }
+  }
+
+  return null;
+}
+
+export async function respondToTeamInvite(
+  inviteId: string,
+  requestResponse: TeamInviteResponse,
+) {
+  try {
+    return await ApiClient.UsersApiService.usersControllerPostCurrentCs2TeamInvitesRespondV1(
+      {
+        requestBody: {
+          response: requestResponse,
+        },
+        inviteId,
+        authorization: await getBearerToken(),
+      },
+    );
   } catch (error) {
     if (error instanceof ApiClient.ApiError) {
       return { error: error.body.message };
