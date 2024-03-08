@@ -1,4 +1,3 @@
-import { getTranslations } from 'next-intl/server';
 import { ApiClient } from '@sugaming/sugaming-api-client/client';
 import { TeamBanner } from '@sugaming/sugaming-ui/lib/components/site/team-banner/team-banner';
 import {
@@ -22,7 +21,6 @@ interface CS2TeamPageProps {
 }
 
 export default async function CS2TeamPage({ params }: CS2TeamPageProps) {
-  const t = await getTranslations('cs2-team-page');
   const locale = useLocale();
   const user = await getUser();
 
