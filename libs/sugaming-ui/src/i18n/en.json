@@ -216,6 +216,10 @@
         "error-occurred": "An error occurred.",
         "try-again": "Please, try again. If the problem persists, contact us."
       }
+    },
+    "sponsors-showcase": {
+      "with-the-support-of": "With the support of",
+      "our-sponsors": "Our sponsors"
     }
   }
 }

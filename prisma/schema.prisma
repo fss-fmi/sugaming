@@ -175,6 +175,18 @@ model Cs2TeamRequest {
   @@map("cs2_team_requests")
 }
 
+model Sponsor {
+  id          Int      @id @default(autoincrement())
+  name        String
+  color       String
+  description String
+  logo        String
+  website     String
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  @@map("sponsors")
+}
+
 enum Color {
   RED
   ORANGE
