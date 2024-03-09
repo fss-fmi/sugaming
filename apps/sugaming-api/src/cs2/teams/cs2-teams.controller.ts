@@ -31,6 +31,7 @@ import { Cs2TeamsPostJoinRequestsRespondRequestBodyDto } from '@sugaming/sugamin
 import { Cs2TeamsPostJoinRequestsRespondParamsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-post-join-requests-respond-params.dto';
 import { Cs2TeamsPostJoinRequestsParamsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-post-join-requests-params.dto';
 import { Cs2TeamResponseBodyDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-team-response-body.dto';
+import { TeamMemberMembershipState } from 'discord.js';
 import { UserAuth } from '../../users/user-auth.decorator';
 
 @Controller('cs2/teams')

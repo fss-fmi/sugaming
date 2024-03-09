@@ -203,7 +203,6 @@ export class UsersController {
     return this.usersService.updateAvatar(user, avatar);
   }
 
-  @ApiUnauthorizedResponse({ description: 'Invalid authentication token.' })
   @Get('current/cs2-team-invites')
   @Version(['1'])
   @UseGuards(JwtAuthGuard)
@@ -303,6 +302,8 @@ export class UsersController {
       user,
     );
   }
+
+  // TODO: Move team member removal here
 }
 
 export default UsersController;

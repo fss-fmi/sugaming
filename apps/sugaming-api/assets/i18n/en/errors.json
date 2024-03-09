@@ -33,7 +33,10 @@
       "alreadyRequestedToJoinTeam": "You have already requested to join this team.",
       "noJoinRequest": "No such requested to join this team exists.",
       "teamIsFull": "The team is already full.",
-      "noSuchDiscordGuildRole": "No such Discord server role exists."
+      "userNotInTeam": "The user is not a member of the team.",
+      "noSuchDiscordGuildRole": "No such Discord server role exists.",
+      "alreadyHasRole": "The user already has the role.",
+      "captainCanNotLeave": "The captain cannot leave the team."
     }
   }
 }

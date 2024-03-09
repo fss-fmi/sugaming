@@ -33,7 +33,10 @@
       "alreadyRequestedToJoinTeam": "Вече сте изпратили заявка за присъединяване в този отбор.",
       "noJoinRequest": "Не съществува такава заявка за присъединяване към отбора.",
       "teamIsFull": "Отборът няма свободни места.",
-      "noSuchDiscordGuildRole": "Не съществува такава Discord сървърна роля."
+      "userNotInTeam": "Потребителят не е член на отбора.",
+      "noSuchDiscordGuildRole": "Не съществува такава Discord сървърна роля.",
+      "alreadyHasRole": "Потребителят вече има роля.",
+      "captainCanNotLeave": "Капитанът не може да напусне отбора."
     }
   }
 }

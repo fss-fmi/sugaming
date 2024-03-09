@@ -11,7 +11,7 @@ export class SponsorResponseBodyDto extends SponsorBaseDto {
   @IsNotEmpty({
     message: i18nValidationMessage('validation.isNotEmpty'),
   })
-  id!: 1;
+  id!: number;
 
   @ApiProperty({
     description: 'Sponsor creation date',
