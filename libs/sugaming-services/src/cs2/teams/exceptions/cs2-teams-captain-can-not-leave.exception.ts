@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { I18nContext } from 'nestjs-i18n';
 
-export class UsersCaptainCanNotLeaveException extends HttpException {
+export class Cs2TeamsCaptainCanNotLeaveException extends HttpException {
   constructor() {
     const i18n = I18nContext.current();
     if (!i18n) {

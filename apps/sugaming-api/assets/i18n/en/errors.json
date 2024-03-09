@@ -22,8 +22,7 @@
     "emailAlreadyInUse": "The email is already in use.",
     "nicknameAlreadyInUse": "The nickname is already in use.",
     "phoneAlreadyInUse": "The phone number is already in use.",
-    "universityFacultyNumberAlreadyInUse": "The university faculty number is already in use.",
-    "captainCanNotLeave": "The captain cannot leave the team."
+    "universityFacultyNumberAlreadyInUse": "The university faculty number is already in use."
   },
   "cs2": {
     "teams": {
@@ -36,7 +35,8 @@
       "teamIsFull": "The team is already full.",
       "userNotInTeam": "The user is not a member of the team.",
       "noSuchDiscordGuildRole": "No such Discord server role exists.",
-      "alreadyHasRole": "The user already has the role."
+      "alreadyHasRole": "The user already has the role.",
+      "captainCanNotLeave": "The captain cannot leave the team."
     }
   }
 }

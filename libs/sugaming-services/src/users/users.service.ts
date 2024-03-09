@@ -28,8 +28,6 @@ import { libConfig } from '../config/lib.config';
 import { UsersNoDiscordAccountLinkedException } from './exceptions/users-no-discord-account-linked.exception';
 import { UsersNoSuchDiscordGuildRoleException } from './exceptions/users-no-such-discord-guild-role.exception';
 import { UsersPhoneAlreadyInUseException } from './exceptions/users-phone-already-in-use.exception';
-import { Cs2TeamsUserNotInTeamException } from '../cs2/teams/exceptions/cs2-teams-user-not-in-team.exception';
-import { UsersCaptainCanNotLeaveException } from './exceptions/users-captain-can-not-leave.exception';
 
 @Injectable()
 export class UsersService {
@@ -674,76 +672,6 @@ export class UsersService {
         avatarUrl: `${libConfig.apiBase}/api/v1/users/avatars/${avatar.filename}`,
       },
     });
-  }
-
-  async leave(user: Omit<User, 'passwordHash'>) {
-    // Validate that the user exists
-    await this.getByIdOrThrow(user.id);
-
-    // Check if the user is part of a CS2 team
-    const team = await this.prisma.cs2Team.findFirst({
-      where: {
-        members: { some: { id: user.id } },
-      },
-    });
-
-    if (!team) {
-      throw new Cs2TeamsUserNotInTeamException();
-    }
-
-    // Throw an exception if the captain is trying to leave
-    if (team.capitanId === user.id) {
-      throw new UsersCaptainCanNotLeaveException();
-    }
-
-    // Get the user's discord account
-    const discordAccount = await this.prisma.discordAccount.findFirst({
-      where: {
-        userId: user.id,
-      },
-    });
-
-    // Notify the discord microservice
-    await this.redis.publish(
-      'users:team_left',
-      JSON.stringify({ discordAccount }),
-    );
-
-    // Get the team with the members
-    const teamWithMembers = await this.prisma.cs2Team.findUnique({
-      where: {
-        id: team.id,
-      },
-      include: {
-        members: true,
-      },
-    });
-
-    if (!teamWithMembers) {
-      throw new UsersNoSuchTeamException();
-    }
-
-    // Remove the user from the team or delete the team if the user is the only member
-    if (teamWithMembers.members.length === 1) {
-      await this.prisma.cs2Team.delete({
-        where: {
-          id: team.id,
-        },
-      });
-    } else {
-      await this.prisma.cs2Team.update({
-        where: {
-          id: team.id,
-        },
-        data: {
-          members: {
-            disconnect: {
-              id: user.id,
-            },
-          },
-        },
-      });
-    }
   }
 }
 

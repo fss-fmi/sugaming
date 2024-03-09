@@ -9,7 +9,6 @@ import {
   Post,
   Res,
   UploadedFile,
-  Delete,
   UploadedFiles,
   UseGuards,
   UseInterceptors,
@@ -304,33 +303,7 @@ export class UsersController {
     );
   }
 
-  @Delete('/current/cs2/team/')
-  @Version(['1'])
-  @UseGuards(JwtAuthGuard)
-  @HttpCode(HttpStatus.OK)
-  @ApiBearerAuth()
-  @ApiOperation({
-    summary: 'Leave a CS2 team',
-    description: 'Endpoint for users to leave a specific team.',
-  })
-  @ApiOkResponse({
-    description: 'CS2 team left successfully.',
-  })
-  @ApiUnauthorizedResponse({ description: 'Invalid user credentials.' })
-  @ApiNotFoundResponse({
-    schema: {
-      anyOf: [
-        { description: 'The user no longer exists.' },
-        { description: 'The team specified does not exist.' },
-      ],
-    },
-  })
-  @ApiConflictResponse({
-    description: 'The user is not part of the specified team.',
-  })
-  async postLeaveTeamV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
-    return this.usersService.leave(user);
-  }
+  // TODO: Move team member removal here
 }
 
 export default UsersController;

@@ -4,7 +4,9 @@ import { User } from '@prisma/client';
 import Redis from 'ioredis';
 import { InjectRedis } from '@songkeys/nestjs-redis';
 import { CategoryChannel, ChannelType, Client, Guild, Role } from 'discord.js';
-import { UsersNoDiscordAccountLinkedException } from './exceptions/users-no-discord-account-linked.exception';
+import { Cs2TeamsUserNotInTeamException } from './exceptions/cs2-teams-user-not-in-team.exception';
+import { Cs2TeamsCaptainCanNotLeaveException } from './exceptions/cs2-teams-captain-can-not-leave.exception';
+import { UsersNoDiscordAccountLinkedException } from '../../users/exceptions/users-no-discord-account-linked.exception';
 import { Cs2TeamsBaseDto } from './dto/cs2-teams-base.dto';
 import { PrismaService } from '../../prisma/prisma.service';
 import { Cs2TeamsNameAlreadyExistsException } from './exceptions/cs2-teams-name-already-exists.exception';
@@ -417,28 +419,48 @@ export class Cs2TeamsService {
     const team = await this.getByIdOrThrow(teamId);
 
     // Validate that the user exists
-    await this.usersService.getByIdOrThrow(userId);
+    const userToRemove = await this.usersService.getByIdOrThrow(userId);
 
     // Validate that the user is part of the team
     const userIsPartOfTeam = team.members.some(
       (member) => member.id === userId,
     );
     if (!userIsPartOfTeam) {
-      throw new Cs2TeamsNoSuchTeamException(); // TODO: Replace with proper exception
+      throw new Cs2TeamsUserNotInTeamException();
     }
 
     // Validate that the user is the captain of the team, or they are removing themselves
     if (team.capitanId !== user.id && userId !== user.id) {
-      throw new Cs2TeamsNotCapitanException();
+      throw new Cs2TeamsCaptainCanNotLeaveException();
     }
 
-    // Validate that the capitan is not removing themselves
-    if (team.capitanId === user.id && userId === user.id) {
+    // Validate that the capitan is not removing themselves if there are other members
+    if (
+      team.capitanId === user.id &&
+      userId === user.id &&
+      team.members.length > 1
+    ) {
       throw new Cs2TeamsNotCapitanException(); // TODO: Replace with proper exception
     }
 
-    // Remove the user from the team
-    await this.prisma.cs2Team.update({
+    // Notify the discord microservice
+    await this.redis.publish(
+      'users:team_left',
+      JSON.stringify({ discordAccount: userToRemove.discord?.discordId }),
+    );
+
+    // Remove the team if the capitan is leaving
+    if (team.members.length === 1) {
+      // Remove the team
+      return this.prisma.cs2Team.delete({
+        where: {
+          id: teamId,
+        },
+      });
+    }
+
+    // Otherwise, only remove the user from the team
+    return this.prisma.cs2Team.update({
       where: {
         id: teamId,
       },
