@@ -28,10 +28,10 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { User } from '@prisma/client';
-import { UserRequestBodyDto } from '@sugaming/sugaming-services/users/dto/user-request-body.dto';
+import { UserCreateRequestDto } from '@sugaming/sugaming-services/users/dto/user-create-request.dto';
 import { UsersService } from '@sugaming/sugaming-services/users/users.service';
 import { JwtAuthGuard } from '@sugaming/sugaming-services/auth/guards/jwt-auth.guard';
-import { UserResponseBodyDto } from '@sugaming/sugaming-services/users/dto/user-response-body.dto';
+import { UserResponseDto } from '@sugaming/sugaming-services/users/dto/user-response.dto';
 import { UsersPostCurrentCs2TeamInvitesRespondRequestBodyDto } from '@sugaming/sugaming-services/users/dto/users-post-current-cs2-team-invites-respond-request-body.dto';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import libConfig from '@sugaming/sugaming-services/config/lib.config';
@@ -54,7 +54,7 @@ export class UsersController {
   })
   @ApiOkResponse({
     description: 'Users returned successfully.',
-    type: [UserResponseBodyDto], // TODO: Refactor to use correct DTO
+    type: [UserResponseDto], // TODO: Refactor to use correct DTO
   })
   getAllV1() {
     return this.usersService.getAllUsers();
@@ -88,7 +88,7 @@ export class UsersController {
     description: 'Endpoint for registering a new user.',
   })
   @ApiConsumes('multipart/form-data')
-  @ApiBody({ type: UserRequestBodyDto })
+  @ApiBody({ type: UserCreateRequestDto })
   @ApiCreatedResponse({
     description: 'User registered successfully.',
   })
@@ -105,7 +105,7 @@ export class UsersController {
     },
   })
   async postUsersV1(
-    @Body() user: UserRequestBodyDto,
+    @Body() user: UserCreateRequestDto,
     @UploadedFiles() universityProofImages: Array<Express.Multer.File>,
   ) {
     return this.usersService.registerUser(user, universityProofImages);
@@ -122,7 +122,7 @@ export class UsersController {
   })
   @ApiOkResponse({
     description: 'The user is authenticated and user information is returned.',
-    type: UserResponseBodyDto,
+    type: UserResponseDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid authentication token.' })
   getCurrentV1(@UserAuth() user: Omit<User, 'passwordHash'>) {

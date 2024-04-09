@@ -3,7 +3,7 @@ import { IsDateString, IsNotEmpty } from 'class-validator';
 import { i18nValidationMessage } from 'nestjs-i18n';
 // TODO: Fix circular dependency
 // eslint-disable-next-line import/no-cycle
-import { UserResponseBodyDto } from '../../../users/dto/user-response-body.dto';
+import { UserResponseDto } from '../../../users/dto/user-response.dto';
 import { Cs2TeamsBaseDto } from './cs2-teams-base.dto';
 
 export class Cs2TeamResponseBodyDto extends Cs2TeamsBaseDto {
@@ -17,9 +17,9 @@ export class Cs2TeamResponseBodyDto extends Cs2TeamsBaseDto {
 
   @ApiProperty({
     description: 'Team members.',
-    type: UserResponseBodyDto,
+    type: UserResponseDto,
   })
-  members!: UserResponseBodyDto; // TODO: Adjust type
+  members!: UserResponseDto; // TODO: Adjust type
 
   @ApiProperty({
     description: 'Team capitan id.',

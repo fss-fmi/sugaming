@@ -31,14 +31,16 @@ export class Cs2TeamsBaseDto {
 
   @ApiProperty({
     description: 'Team color.',
+    example: 'RED',
     type: 'string',
+    enum: Object.values(libConfig.cs2Team.color.enum),
   })
   @IsNotEmpty({
     message: i18nValidationMessage('validation.required'),
   })
   @IsEnum(Color, {
     message: i18nValidationMessage('validation.isEnum', {
-      enum: Object.values(Color).join(', '),
+      enum: Object.values(libConfig.cs2Team.color.enum).join(', '),
     }),
   })
   color!: Color;

@@ -4,7 +4,7 @@ import { i18nValidationMessage } from 'nestjs-i18n';
 import { libConfig } from '../../config/lib.config';
 import { UserBaseDto } from './user-base.dto';
 
-export class UserRequestBodyDto extends UserBaseDto {
+export class UserCreateRequestDto extends UserBaseDto {
   @ApiProperty({
     description: 'User password',
     example: 'ExamplePassword123!@#',
@@ -21,4 +21,4 @@ export class UserRequestBodyDto extends UserBaseDto {
   password!: string;
 }
 
-export default UserRequestBodyDto;
+export default UserCreateRequestDto;

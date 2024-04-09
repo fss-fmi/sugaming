@@ -21,7 +21,7 @@ import { UsersNicknameAlreadyInUseException } from './exceptions/users-nickname-
 import { UsersTeamIsFullException } from './exceptions/users-team-is-full.exception';
 import { UsersDiscordAccountAlreadyLinkedException } from './exceptions/users-discord-account-already-linked.exception';
 import { UsersSteamAccountAlreadyLinkedException } from './exceptions/users-steam-account-already-linked.exception';
-import { UserRequestBodyDto } from './dto/user-request-body.dto';
+import { UserCreateRequestDto } from './dto/user-create-request.dto';
 import { libConfig } from '../config/lib.config';
 import { UsersNoDiscordAccountLinkedException } from './exceptions/users-no-discord-account-linked.exception';
 import { UsersNoSuchDiscordGuildRoleException } from './exceptions/users-no-such-discord-guild-role.exception';
@@ -568,7 +568,7 @@ export class UsersService {
   }
 
   async registerUser(
-    userToBeCreated: UserRequestBodyDto,
+    userToBeCreated: UserCreateRequestDto,
     universityProofImages: Array<Express.Multer.File>,
   ) {
     // Check if the email is already in use
