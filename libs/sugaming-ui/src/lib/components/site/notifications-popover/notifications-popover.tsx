@@ -10,7 +10,7 @@ import { Button, Card } from '../../common/server';
 import { Popover, PopoverContent, PopoverTrigger } from '../../common/client';
 
 interface NotificationsPopoverProps {
-  user: ApiClient.UserResponseBodyDto;
+  user: ApiClient.UserResponseDto;
 }
 export function NotificationsPopover({ user }: NotificationsPopoverProps) {
   const t = useTranslations('site.notifications-popover');
@@ -20,6 +20,8 @@ export function NotificationsPopover({ user }: NotificationsPopoverProps) {
 
   // Refresh invites and join requests every 5000 ms
   async function updateNotifications() {
+    if (!user) return;
+
     try {
       const currentInvites =
         await ApiClient.UsersApiService.usersControllerGetUserCs2TeamInvitesV1({
@@ -32,6 +34,7 @@ export function NotificationsPopover({ user }: NotificationsPopoverProps) {
     }
 
     try {
+      if (user.cs2Team?.capitanId !== user.id) return;
       const currentJoinRequests =
         await ApiClient.Cs2TeamsApiService.cs2TeamsControllerGetJoinRequestsV1({
           authorization: await getBearerToken(),

@@ -1,7 +1,4 @@
-'use client';
-
 import React from 'react';
-import { useTranslations } from 'next-intl';
 import {
   Card,
   CardContent,
@@ -10,11 +7,12 @@ import {
   CardHeader,
   CardTitle,
 } from '@sugaming/sugaming-ui/lib/components/common/server';
-import { SponsorsShowcase } from '@sugaming/sugaming-ui/lib/components/site/sponsors-showcase/sponsors-showcase';
 import { ApiClient } from '@sugaming/sugaming-api-client/client';
+import { getTranslations } from 'next-intl/server';
+import { SponsorsShowcase } from '@sugaming/sugaming-ui/lib/components/site/sponsors-showcase/sponsors-showcase';
 
 export default async function Index() {
-  const t = useTranslations('Index');
+  const t = await getTranslations('Index');
 
   return (
     <>
