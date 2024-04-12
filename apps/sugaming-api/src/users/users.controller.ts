@@ -27,8 +27,6 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { User } from '@prisma/client';
-import { UserCreateRequestDto } from '@sugaming/sugaming-services/users/dto/user-create-request.dto';
 import { UsersService } from '@sugaming/sugaming-services/users/users.service';
 import { JwtAuthGuard } from '@sugaming/sugaming-services/auth/guards/jwt-auth.guard';
 import { UserResponseDto } from '@sugaming/sugaming-services/users/dto/user-response.dto';
@@ -37,6 +35,7 @@ import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import libConfig from '@sugaming/sugaming-services/config/lib.config';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { UserCreateRequestDto } from '@sugaming/sugaming-services/users/dto/user-create-request.dto';
 import { UserAuth } from './user-auth.decorator';
 import { appConfig } from '../app/app.config';
 
@@ -125,7 +124,7 @@ export class UsersController {
     type: UserResponseDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid authentication token.' })
-  getCurrentV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
+  getCurrentV1(@UserAuth() user: UserResponseDto) {
     return user;
   }
 
@@ -144,7 +143,7 @@ export class UsersController {
       'The user is authenticated and onboarding is marked as complete.',
   })
   @ApiUnauthorizedResponse({ description: 'Invalid authentication token.' })
-  patchCurrentOnboardingV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
+  patchCurrentOnboardingV1(@UserAuth() user: UserResponseDto) {
     return this.usersService.completeOnboarding(user);
   }
 
@@ -197,7 +196,7 @@ export class UsersController {
     description: 'User avatar updated successfully.',
   })
   async patchCurrentAvatarV1(
-    @UserAuth() user: Omit<User, 'passwordHash'>,
+    @UserAuth() user: UserResponseDto,
     @UploadedFile() avatar: Express.Multer.File,
   ) {
     return this.usersService.updateAvatar(user, avatar);
@@ -219,7 +218,7 @@ export class UsersController {
   @ApiNotFoundResponse({
     description: 'The user does not exist.',
   })
-  getUserCs2TeamInvitesV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
+  getUserCs2TeamInvitesV1(@UserAuth() user: UserResponseDto) {
     return this.usersService.getUserCs2TeamInvites(user);
   }
 
@@ -256,7 +255,7 @@ export class UsersController {
   })
   postCs2TeamInviteV1(
     @Param('inviteeId') inviteeId: string,
-    @UserAuth() user: Omit<User, 'passwordHash'>,
+    @UserAuth() user: UserResponseDto,
   ) {
     return this.usersService.createCs2TeamInvitation(user, inviteeId);
   }
@@ -293,7 +292,7 @@ export class UsersController {
   async postCurrentCs2TeamInvitesRespondV1(
     // @Param() params: UsersPostCurrentCs2TeamInvitesRespondParamsDto,
     @Param('inviteId') inviteId: string,
-    @UserAuth() user: Omit<User, 'passwordHash'>,
+    @UserAuth() user: UserResponseDto,
     @Body() requestBody: UsersPostCurrentCs2TeamInvitesRespondRequestBodyDto,
   ) {
     return this.usersService.respondToCs2TeamInvite(

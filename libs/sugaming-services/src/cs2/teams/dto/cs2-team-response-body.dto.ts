@@ -10,9 +10,6 @@ export class Cs2TeamResponseBodyDto extends Cs2TeamsBaseDto {
   @ApiProperty({
     description: 'Team id.',
   })
-  @IsNotEmpty({
-    message: i18nValidationMessage('validation.isNotEmpty'),
-  })
   id!: number;
 
   @ApiProperty({
@@ -27,22 +24,12 @@ export class Cs2TeamResponseBodyDto extends Cs2TeamsBaseDto {
   capitanId!: string;
 
   @ApiProperty({
-    description: 'Team creation date',
+    description: 'Team creation date.',
   })
-  @IsDateString(
-    {},
-    {
-      message: i18nValidationMessage('validation.isDateString'),
-    },
-  )
   createdAt!: Date;
 
   @ApiProperty({
     description: 'Team last update date.',
   })
-  @IsDateString(
-    {},
-    { message: i18nValidationMessage('validation.isDateString') },
-  )
   updatedAt!: Date;
 }

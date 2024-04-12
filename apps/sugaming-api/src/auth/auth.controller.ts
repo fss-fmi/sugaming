@@ -18,7 +18,6 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { User } from '@prisma/client';
 import { AuthService } from '@sugaming/sugaming-services/auth/auth.service';
 import { CredentialsDto } from '@sugaming/sugaming-services/auth/dto/credentials.dto';
 import { LocalAuthGuard } from '@sugaming/sugaming-services/auth/guards/local-auth.guard';
@@ -29,6 +28,7 @@ import { JwtRefreshGuard } from '@sugaming/sugaming-services/auth/guards/jwt-ref
 import { DiscordLoginQueryDto } from '@sugaming/sugaming-services/auth/dto/discord-login-query.dto';
 import { SteamLoginQueryDto } from '@sugaming/sugaming-services/auth/dto/steam-login-query.dto';
 import SteamAuthGuard from '@sugaming/sugaming-services/auth/guards/steam-auth.guard';
+import UserResponseDto from '@sugaming/sugaming-services/users/dto/user-response.dto';
 import { UserAuth } from '../users/user-auth.decorator';
 
 @Controller({ path: 'auth' })
@@ -52,9 +52,7 @@ export class AuthController {
     type: LoginDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid user credentials.' })
-  async postLoginV1(
-    @UserAuth() user: Omit<User, 'passwordHash'>,
-  ): Promise<LoginDto> {
+  async postLoginV1(@UserAuth() user: UserResponseDto): Promise<LoginDto> {
     return this.authService.login(user);
   }
 
@@ -79,7 +77,7 @@ export class AuthController {
     description: 'Discord account already linked to an user.',
   })
   async postLoginDiscordV1(
-    @UserAuth() user: Omit<User, 'passwordHash'>,
+    @UserAuth() user: UserResponseDto,
     @Query() _: DiscordLoginQueryDto,
   ) {
     return this.authService.login(user);
@@ -106,7 +104,7 @@ export class AuthController {
     description: 'Steam account already linked to an user.',
   })
   async postLoginSteamV1(
-    @UserAuth() user: Omit<User, 'passwordHash'>,
+    @UserAuth() user: UserResponseDto,
     @Query() _: SteamLoginQueryDto,
   ) {
     return this.authService.login(user);
@@ -130,7 +128,7 @@ export class AuthController {
     type: LoginDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid refresh token.' })
-  async postRefreshV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
+  async postRefreshV1(@UserAuth() user: UserResponseDto) {
     return this.authService.login(user);
   }
 }

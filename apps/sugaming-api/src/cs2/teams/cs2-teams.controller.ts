@@ -22,7 +22,6 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { User } from '@prisma/client';
 import { Cs2TeamsService } from '@sugaming/sugaming-services/cs2/teams/cs2-teams.service';
 import { JwtAuthGuard } from '@sugaming/sugaming-services/auth/guards/jwt-auth.guard';
 import { Cs2TeamsBaseDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-base.dto';
@@ -31,7 +30,7 @@ import { Cs2TeamsPostJoinRequestsRespondRequestBodyDto } from '@sugaming/sugamin
 import { Cs2TeamsPostJoinRequestsRespondParamsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-post-join-requests-respond-params.dto';
 import { Cs2TeamsPostJoinRequestsParamsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-post-join-requests-params.dto';
 import { Cs2TeamResponseBodyDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-team-response-body.dto';
-import { TeamMemberMembershipState } from 'discord.js';
+import { UserResponseDto } from '@sugaming/sugaming-services/users/dto/user-response.dto';
 import { UserAuth } from '../../users/user-auth.decorator';
 
 @Controller('cs2/teams')
@@ -82,7 +81,7 @@ export class Cs2TeamsController {
   })
   async postV1(
     @Body() createTeamDto: Cs2TeamsBaseDto,
-    @UserAuth() user: Omit<User, 'passwordHash'>,
+    @UserAuth() user: UserResponseDto,
   ) {
     return this.cs2TeamsService.create(createTeamDto, user.id);
   }
@@ -128,7 +127,7 @@ export class Cs2TeamsController {
   @ApiForbiddenResponse({
     description: 'The user is not the captain of the team.',
   })
-  async getInvitationsSentV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
+  async getInvitationsSentV1(@UserAuth() user: UserResponseDto) {
     return this.cs2TeamsService.getInvitationsSent(user.cs2TeamId, user);
   }
 
@@ -156,7 +155,7 @@ export class Cs2TeamsController {
   @ApiForbiddenResponse({
     description: 'The user is not the captain of the team.',
   })
-  async getJoinRequestsV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
+  async getJoinRequestsV1(@UserAuth() user: UserResponseDto) {
     return this.cs2TeamsService.getJoinRequests(user.cs2TeamId, user);
   }
 
@@ -187,7 +186,7 @@ export class Cs2TeamsController {
   })
   async postJoinRequestV1(
     @Param() params: Cs2TeamsPostJoinRequestsParamsDto,
-    @UserAuth() user: Omit<User, 'passwordHash'>,
+    @UserAuth() user: UserResponseDto,
   ) {
     return this.cs2TeamsService.createJoinRequest(params.teamId, user);
   }
@@ -225,7 +224,7 @@ export class Cs2TeamsController {
   async postJoinRequestsRespondV1(
     @Param() params: Cs2TeamsPostJoinRequestsRespondParamsDto,
     @Body() requestBody: Cs2TeamsPostJoinRequestsRespondRequestBodyDto,
-    @UserAuth() user: Omit<User, 'passwordHash'>,
+    @UserAuth() user: UserResponseDto,
   ) {
     return this.cs2TeamsService.respondToJoinRequest(
       requestBody.response,
@@ -262,7 +261,7 @@ export class Cs2TeamsController {
   async deleteMemberV1(
     @Param('teamId') teamId: string,
     @Param('userId') userId: string,
-    @UserAuth() user: Omit<User, 'passwordHash'>,
+    @UserAuth() user: UserResponseDto,
   ) {
     return this.cs2TeamsService.removeMember(
       parseInt(teamId, 10),

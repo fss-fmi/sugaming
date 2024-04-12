@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { I18nContext } from 'nestjs-i18n';
-import { User } from '@prisma/client';
 import Redis from 'ioredis';
 import { InjectRedis } from '@songkeys/nestjs-redis';
 import { CategoryChannel, ChannelType, Client, Guild, Role } from 'discord.js';
+import { UserResponseDto } from '../../users/dto/user-response.dto';
 import { Cs2TeamsUserNotInTeamException } from './exceptions/cs2-teams-user-not-in-team.exception';
 import { Cs2TeamsCaptainCanNotLeaveException } from './exceptions/cs2-teams-captain-can-not-leave.exception';
 import { UsersNoDiscordAccountLinkedException } from '../../users/exceptions/users-no-discord-account-linked.exception';
@@ -118,7 +118,7 @@ export class Cs2TeamsService {
     return createdTeam;
   }
 
-  async getInvitationsSent(teamId: number, user: Omit<User, 'passwordHash'>) {
+  async getInvitationsSent(teamId: number, user: UserResponseDto) {
     // Validate that the user exists
     await this.usersService.getByIdOrThrow(user.id);
 
@@ -147,7 +147,7 @@ export class Cs2TeamsService {
     });
   }
 
-  async getJoinRequests(teamId: number, user: Omit<User, 'passwordHash'>) {
+  async getJoinRequests(teamId: number, user: UserResponseDto) {
     // Validate that the user exists
     await this.usersService.getByIdOrThrow(user.id);
 
@@ -176,7 +176,7 @@ export class Cs2TeamsService {
     });
   }
 
-  async createJoinRequest(teamId: number, user: Omit<User, 'passwordHash'>) {
+  async createJoinRequest(teamId: number, user: UserResponseDto) {
     // Validate that the user exists
     await this.usersService.getByIdOrThrow(user.id);
 
@@ -218,7 +218,7 @@ export class Cs2TeamsService {
     response: 'ACCEPT' | 'DECLINE',
     teamId: number,
     requestId: number,
-    user: Omit<User, 'passwordHash'>,
+    user: UserResponseDto,
   ) {
     // Validate that the user exists
     await this.usersService.getByIdOrThrow(user.id);
@@ -407,11 +407,7 @@ export class Cs2TeamsService {
     return guildMember.roles.remove(role);
   }
 
-  async removeMember(
-    teamId: number,
-    userId: string,
-    user: Omit<User, 'passwordHash'>,
-  ) {
+  async removeMember(teamId: number, userId: string, user: UserResponseDto) {
     // Validate that the user exists
     await this.usersService.getByIdOrThrow(user.id);
 
