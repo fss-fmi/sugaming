@@ -28,8 +28,8 @@ import { Cs2TeamBaseDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-te
 import { Cs2TeamJoinRequestRespondRequestBodyDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-team-join-request-respond-request-body.dto';
 import { Cs2TeamJoinRequestRespondParamsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-team-join-request-respond-params.dto';
 import { Cs2TeamJoinRequestParamsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-team-join-request-params.dto';
-import { Cs2TeamResponseDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-team-response.dto';
-import { UserResponseDto } from '@sugaming/sugaming-services/users/dto/user-response.dto';
+import { Cs2TeamDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-team.dto';
+import { UserDto } from '@sugaming/sugaming-services/users/dto/user.dto';
 import { Cs2TeamGetParamsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-team-get-params.dto';
 import { Cs2TeamInvitationResponseDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-team-invitation-response.dto';
 import { Cs2TeamJoinRequestResponseDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-team-join-request-response.dto';
@@ -50,9 +50,9 @@ export class Cs2TeamsController {
   })
   @ApiOkResponse({
     description: 'CS2 teams retrieved successfully.',
-    type: [Cs2TeamResponseDto],
+    type: [Cs2TeamDto],
   })
-  async getV1(): Promise<Cs2TeamResponseDto[]> {
+  async getV1(): Promise<Cs2TeamDto[]> {
     return this.cs2TeamsService.getAll();
   }
 
@@ -84,8 +84,8 @@ export class Cs2TeamsController {
   })
   async postV1(
     @Body() createTeamDto: Cs2TeamBaseDto,
-    @UserAuth() user: UserResponseDto,
-  ): Promise<Omit<Cs2TeamResponseDto, 'members'>> {
+    @UserAuth() user: UserDto,
+  ): Promise<Omit<Cs2TeamDto, 'members'>> {
     return this.cs2TeamsService.create(createTeamDto, user.id);
   }
 
@@ -98,12 +98,10 @@ export class Cs2TeamsController {
   })
   @ApiOkResponse({
     description: 'CS2 team retrieved successfully.',
-    type: Cs2TeamResponseDto,
+    type: Cs2TeamDto,
   })
   @ApiNotFoundResponse({ description: 'The team specified does not exist.' })
-  async getTeamV1(
-    @Param() params: Cs2TeamGetParamsDto,
-  ): Promise<Cs2TeamResponseDto> {
+  async getTeamV1(@Param() params: Cs2TeamGetParamsDto): Promise<Cs2TeamDto> {
     return this.cs2TeamsService.getById(params.teamId);
   }
 
@@ -135,7 +133,7 @@ export class Cs2TeamsController {
   })
   async getInvitationsSentV1(
     @Param() params: Cs2TeamGetParamsDto,
-    @UserAuth() user: UserResponseDto,
+    @UserAuth() user: UserDto,
   ): Promise<Cs2TeamInvitationResponseDto[]> {
     return this.cs2TeamsService.getInvitationsSent(params.teamId, user);
   }
@@ -167,7 +165,7 @@ export class Cs2TeamsController {
   })
   async getJoinRequestsV1(
     @Param() params: Cs2TeamGetParamsDto,
-    @UserAuth() user: UserResponseDto,
+    @UserAuth() user: UserDto,
   ): Promise<Cs2TeamJoinRequestResponseDto[]> {
     return this.cs2TeamsService.getJoinRequests(params.teamId, user);
   }
@@ -200,7 +198,7 @@ export class Cs2TeamsController {
   })
   async postJoinRequestV1(
     @Param() params: Cs2TeamJoinRequestParamsDto,
-    @UserAuth() user: UserResponseDto,
+    @UserAuth() user: UserDto,
   ): Promise<Omit<Cs2TeamJoinRequestResponseDto, 'user'>> {
     return this.cs2TeamsService.createJoinRequest(params.teamId, user);
   }
@@ -238,7 +236,7 @@ export class Cs2TeamsController {
   async postJoinRequestsRespondV1(
     @Param() params: Cs2TeamJoinRequestRespondParamsDto,
     @Body() requestBody: Cs2TeamJoinRequestRespondRequestBodyDto,
-    @UserAuth() user: UserResponseDto,
+    @UserAuth() user: UserDto,
   ): Promise<{ message: string }> {
     return this.cs2TeamsService.respondToJoinRequest(
       requestBody.response,
@@ -274,7 +272,7 @@ export class Cs2TeamsController {
   })
   async deleteMemberV1(
     @Param() params: Cs2TeamGetMemberParamsDto,
-    @UserAuth() user: UserResponseDto,
+    @UserAuth() user: UserDto,
   ) {
     return this.cs2TeamsService.removeMember(
       params.teamId,

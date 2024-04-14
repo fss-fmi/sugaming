@@ -1,9 +1,9 @@
-import { IsDateString, IsNotEmpty } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { i18nValidationMessage } from 'nestjs-i18n';
 import { SponsorBaseDto } from './sponsor-base.dto';
 
-export class SponsorResponseBodyDto extends SponsorBaseDto {
+export class SponsorDto extends SponsorBaseDto {
   @ApiProperty({
     description: 'Sponsor id.',
     example: 1,
@@ -24,4 +24,4 @@ export class SponsorResponseBodyDto extends SponsorBaseDto {
   updatedAt!: Date;
 }
 
-export default SponsorResponseBodyDto;
+export default SponsorDto;

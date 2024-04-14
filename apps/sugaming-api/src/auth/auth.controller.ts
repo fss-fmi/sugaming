@@ -28,7 +28,7 @@ import { JwtRefreshGuard } from '@sugaming/sugaming-services/auth/guards/jwt-ref
 import { DiscordLoginQueryDto } from '@sugaming/sugaming-services/auth/dto/discord-login-query.dto';
 import { SteamLoginQueryDto } from '@sugaming/sugaming-services/auth/dto/steam-login-query.dto';
 import SteamAuthGuard from '@sugaming/sugaming-services/auth/guards/steam-auth.guard';
-import UserResponseDto from '@sugaming/sugaming-services/users/dto/user-response.dto';
+import UserDto from '@sugaming/sugaming-services/users/dto/user.dto';
 import { UserAuth } from '../users/user-auth.decorator';
 
 @Controller({ path: 'auth' })
@@ -52,9 +52,7 @@ export class AuthController {
     type: LoginResponseDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid user credentials.' })
-  async postLoginV1(
-    @UserAuth() user: UserResponseDto,
-  ): Promise<LoginResponseDto> {
+  async postLoginV1(@UserAuth() user: UserDto): Promise<LoginResponseDto> {
     return this.authService.login(user);
   }
 
@@ -79,7 +77,7 @@ export class AuthController {
     description: 'Discord account already linked to an user.',
   })
   async postLoginDiscordV1(
-    @UserAuth() user: UserResponseDto,
+    @UserAuth() user: UserDto,
     @Query() _: DiscordLoginQueryDto,
   ): Promise<LoginResponseDto> {
     return this.authService.login(user);
@@ -106,7 +104,7 @@ export class AuthController {
     description: 'Steam account already linked to an user.',
   })
   async postLoginSteamV1(
-    @UserAuth() user: UserResponseDto,
+    @UserAuth() user: UserDto,
     @Query() _: SteamLoginQueryDto,
   ): Promise<LoginResponseDto> {
     return this.authService.login(user);
@@ -130,9 +128,7 @@ export class AuthController {
     type: LoginResponseDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid refresh token.' })
-  async postRefreshV1(
-    @UserAuth() user: UserResponseDto,
-  ): Promise<LoginResponseDto> {
+  async postRefreshV1(@UserAuth() user: UserDto): Promise<LoginResponseDto> {
     return this.authService.login(user);
   }
 }

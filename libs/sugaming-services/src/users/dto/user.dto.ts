@@ -2,12 +2,10 @@ import { IsBoolean, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { i18nValidationMessage } from 'nestjs-i18n';
 import { UserDiscordAccountDto } from './user-discord-account.dto';
-// TODO:fix
-// eslint-disable-next-line import/no-cycle
-import { Cs2TeamResponseDto } from '../../cs2/teams/dto/cs2-team-response.dto';
+import { Cs2TeamDto } from '../../cs2/teams/dto/cs2-team.dto';
 import { UserBaseDto } from './user-base.dto';
 
-export class UserResponseDto extends UserBaseDto {
+export class UserDto extends UserBaseDto {
   @ApiProperty({
     description: 'User id.',
     example: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
@@ -48,9 +46,9 @@ export class UserResponseDto extends UserBaseDto {
 
   @ApiProperty({
     description: 'User Counter-Strike 2 team.',
-    type: Cs2TeamResponseDto,
+    type: Cs2TeamDto,
   })
-  cs2Team!: Cs2TeamResponseDto;
+  cs2Team!: Cs2TeamDto;
 
   @ApiProperty({
     description: 'User creation date',
@@ -63,4 +61,4 @@ export class UserResponseDto extends UserBaseDto {
   updatedAt!: Date;
 }
 
-export default UserResponseDto;
+export default UserDto;

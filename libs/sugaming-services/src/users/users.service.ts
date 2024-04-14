@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import { I18nContext } from 'nestjs-i18n';
 import { Client } from 'discord.js';
-import { UserResponseDto } from './dto/user-response.dto';
+import { UserDto } from './dto/user.dto';
 import { UsersUniversityFacultyNumberAlreadyInUseException } from './exceptions/users-university-faculty-number-already-in-use.exception';
 import { UsersNoSuchDiscordGuildException } from './exceptions/users-no-such-discord-guild.exception';
 import { UsersNoSuchMemberOfDiscordGuildException } from './exceptions/users-no-such-member-of-discord-guild.exception';
@@ -399,7 +399,7 @@ export class UsersService {
     return bcrypt.compare(password, user.passwordHash);
   }
 
-  async getUserCs2TeamInvites(user: UserResponseDto) {
+  async getUserCs2TeamInvites(user: UserDto) {
     // Validate that the user exists
     await this.getByIdOrThrow(user.id);
 
@@ -428,7 +428,7 @@ export class UsersService {
     });
   }
 
-  async createCs2TeamInvitation(inviter: UserResponseDto, inviteeId: string) {
+  async createCs2TeamInvitation(inviter: UserDto, inviteeId: string) {
     // Check if the inviter is the same as the invitee
     if (inviter.id === inviteeId) {
       throw new UsersCannotInviteSelfException();
@@ -483,7 +483,7 @@ export class UsersService {
   async respondToCs2TeamInvite(
     response: 'ACCEPT' | 'DECLINE',
     inviteId: number,
-    user: UserResponseDto,
+    user: UserDto,
   ) {
     // Validate that the user exists
     await this.getByIdOrThrow(user.id);
@@ -633,7 +633,7 @@ export class UsersService {
     return userWithoutPassword;
   }
 
-  async completeOnboarding(user: UserResponseDto) {
+  async completeOnboarding(user: UserDto) {
     // Validate that the user exists
     await this.getByIdOrThrow(user.id);
 
@@ -648,7 +648,7 @@ export class UsersService {
     });
   }
 
-  async updateAvatar(user: UserResponseDto, avatar: Express.Multer.File) {
+  async updateAvatar(user: UserDto, avatar: Express.Multer.File) {
     // Validate that the user exists
     await this.getByIdOrThrow(user.id);
 
