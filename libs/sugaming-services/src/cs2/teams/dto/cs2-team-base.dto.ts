@@ -10,7 +10,7 @@ import { Color } from '@prisma/client';
 import { i18nValidationMessage } from 'nestjs-i18n';
 import { libConfig } from '../../../config/lib.config';
 
-export class Cs2TeamsBaseDto {
+export class Cs2TeamBaseDto {
   @ApiProperty({
     description: 'Team name.',
     example: 'Example Team Name',

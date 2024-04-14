@@ -7,7 +7,7 @@ import { UserResponseDto } from '../../users/dto/user-response.dto';
 import { Cs2TeamsUserNotInTeamException } from './exceptions/cs2-teams-user-not-in-team.exception';
 import { Cs2TeamsCaptainCanNotLeaveException } from './exceptions/cs2-teams-captain-can-not-leave.exception';
 import { UsersNoDiscordAccountLinkedException } from '../../users/exceptions/users-no-discord-account-linked.exception';
-import { Cs2TeamsBaseDto } from './dto/cs2-teams-base.dto';
+import { Cs2TeamBaseDto } from './dto/cs2-team-base.dto';
 import { PrismaService } from '../../prisma/prisma.service';
 import { Cs2TeamsNameAlreadyExistsException } from './exceptions/cs2-teams-name-already-exists.exception';
 import { Cs2TeamsAlreadyInTeamException } from './exceptions/cs2-teams-already-in-team.exception';
@@ -73,7 +73,7 @@ export class Cs2TeamsService {
     });
   }
 
-  async create(createTeamDto: Cs2TeamsBaseDto, capitanId: string) {
+  async create(createTeamDto: Cs2TeamBaseDto, capitanId: string) {
     // Check if team name is already taken
     const teamNameExists = await this.prisma.cs2Team.findFirst({
       where: {
@@ -141,6 +141,7 @@ export class Cs2TeamsService {
             firstName: true,
             lastName: true,
             nickname: true,
+            avatarUrl: true,
           },
         },
       },
@@ -170,6 +171,7 @@ export class Cs2TeamsService {
             firstName: true,
             lastName: true,
             nickname: true,
+            avatarUrl: true,
           },
         },
       },

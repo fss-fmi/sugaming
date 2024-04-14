@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum } from 'class-validator';
 import { i18nValidationMessage } from 'nestjs-i18n';
 
-export class Cs2TeamsPostJoinRequestsRespondRequestBodyDto {
+export class Cs2TeamJoinRequestRespondRequestBodyDto {
   @ApiProperty({
     description: 'The response to the join request.',
     enum: ['ACCEPT', 'DECLINE'],

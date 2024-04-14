@@ -4,7 +4,7 @@ import { i18nValidationMessage } from 'nestjs-i18n';
 import { UserDiscordAccountDto } from './user-discord-account.dto';
 // TODO:fix
 // eslint-disable-next-line import/no-cycle
-import { Cs2TeamResponseBodyDto } from '../../cs2/teams/dto/cs2-team-response-body.dto';
+import { Cs2TeamResponseDto } from '../../cs2/teams/dto/cs2-team-response.dto';
 import { UserBaseDto } from './user-base.dto';
 
 export class UserResponseDto extends UserBaseDto {
@@ -48,9 +48,9 @@ export class UserResponseDto extends UserBaseDto {
 
   @ApiProperty({
     description: 'User Counter-Strike 2 team.',
-    type: Cs2TeamResponseBodyDto,
+    type: Cs2TeamResponseDto,
   })
-  cs2Team!: Cs2TeamResponseBodyDto;
+  cs2Team!: Cs2TeamResponseDto;
 
   @ApiProperty({
     description: 'User creation date',

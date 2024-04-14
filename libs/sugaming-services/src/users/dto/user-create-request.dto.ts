@@ -6,7 +6,7 @@ import { UserBaseDto } from './user-base.dto';
 
 export class UserCreateRequestDto extends UserBaseDto {
   @ApiProperty({
-    description: 'User password',
+    description: 'User password.',
     example: 'ExamplePassword123!@#',
   })
   @IsString({

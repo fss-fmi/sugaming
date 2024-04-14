@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from '@prisma/client';
 
-export class LoginDto {
+export class LoginResponseDto {
   @ApiProperty({
     description: 'Current user information.',
   })
@@ -23,4 +23,4 @@ export class LoginDto {
   expiresIn!: number;
 }
 
-export default LoginDto;
+export default LoginResponseDto;

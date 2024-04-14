@@ -14,23 +14,13 @@ export class SponsorResponseBodyDto extends SponsorBaseDto {
   id!: number;
 
   @ApiProperty({
-    description: 'Sponsor creation date',
+    description: 'Sponsor creation date.',
   })
-  @IsDateString(
-    {},
-    {
-      message: i18nValidationMessage('validation.isDateString'),
-    },
-  )
   createdAt!: Date;
 
   @ApiProperty({
-    description: 'Sponsor last update date',
+    description: 'Sponsor last update date.',
   })
-  @IsDateString(
-    {},
-    { message: i18nValidationMessage('validation.isDateString') },
-  )
   updatedAt!: Date;
 }
 

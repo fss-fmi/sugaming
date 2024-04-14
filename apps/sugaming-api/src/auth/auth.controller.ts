@@ -21,7 +21,7 @@ import {
 import { AuthService } from '@sugaming/sugaming-services/auth/auth.service';
 import { CredentialsDto } from '@sugaming/sugaming-services/auth/dto/credentials.dto';
 import { LocalAuthGuard } from '@sugaming/sugaming-services/auth/guards/local-auth.guard';
-import { LoginDto } from '@sugaming/sugaming-services/auth/dto/login.dto';
+import { LoginResponseDto } from '@sugaming/sugaming-services/auth/dto/login-response.dto';
 import { OptionalJwtAuthGuard } from '@sugaming/sugaming-services/auth/guards/optional-jwt-auth.guard';
 import { DiscordAuthGuard } from '@sugaming/sugaming-services/auth/guards/discord-auth.guard';
 import { JwtRefreshGuard } from '@sugaming/sugaming-services/auth/guards/jwt-refresh.guard';
@@ -49,10 +49,12 @@ export class AuthController {
   @ApiOkResponse({
     description:
       'User logged in successfully and access token and information is returned.',
-    type: LoginDto,
+    type: LoginResponseDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid user credentials.' })
-  async postLoginV1(@UserAuth() user: UserResponseDto): Promise<LoginDto> {
+  async postLoginV1(
+    @UserAuth() user: UserResponseDto,
+  ): Promise<LoginResponseDto> {
     return this.authService.login(user);
   }
 
@@ -67,7 +69,7 @@ export class AuthController {
   @ApiOkResponse({
     description:
       'User logged in successfully / Account linked successfully and access token and information is returned.',
-    type: LoginDto,
+    type: LoginResponseDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid Discord token.' })
   @ApiNotFoundResponse({
@@ -79,7 +81,7 @@ export class AuthController {
   async postLoginDiscordV1(
     @UserAuth() user: UserResponseDto,
     @Query() _: DiscordLoginQueryDto,
-  ) {
+  ): Promise<LoginResponseDto> {
     return this.authService.login(user);
   }
 
@@ -94,7 +96,7 @@ export class AuthController {
   @ApiOkResponse({
     description:
       'User logged in successfully / Account linked successfully and access token and information is returned.',
-    type: LoginDto,
+    type: LoginResponseDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid Steam token.' })
   @ApiNotFoundResponse({
@@ -106,7 +108,7 @@ export class AuthController {
   async postLoginSteamV1(
     @UserAuth() user: UserResponseDto,
     @Query() _: SteamLoginQueryDto,
-  ) {
+  ): Promise<LoginResponseDto> {
     return this.authService.login(user);
   }
 
@@ -125,10 +127,12 @@ export class AuthController {
   })
   @ApiOkResponse({
     description: 'A new access token is generated and returned.',
-    type: LoginDto,
+    type: LoginResponseDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid refresh token.' })
-  async postRefreshV1(@UserAuth() user: UserResponseDto) {
+  async postRefreshV1(
+    @UserAuth() user: UserResponseDto,
+  ): Promise<LoginResponseDto> {
     return this.authService.login(user);
   }
 }
