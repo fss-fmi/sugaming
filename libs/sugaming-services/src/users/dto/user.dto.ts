@@ -1,6 +1,7 @@
 import { IsBoolean, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { i18nValidationMessage } from 'nestjs-i18n';
+import { UserSteamAccountDto } from './user-steam-account.dto';
 import { UserDiscordAccountDto } from './user-discord-account.dto';
 import { Cs2TeamDto } from '../../cs2/teams/dto/cs2-team.dto';
 import { UserBaseDto } from './user-base.dto';
@@ -32,7 +33,7 @@ export class UserDto extends UserBaseDto {
   @ApiProperty({
     description: 'User Steam account information.',
   })
-  steam!: object | undefined; // TODO: Add Steam type
+  steam!: UserSteamAccountDto | null;
 
   @ApiProperty({
     description: 'User avatar URL.',
