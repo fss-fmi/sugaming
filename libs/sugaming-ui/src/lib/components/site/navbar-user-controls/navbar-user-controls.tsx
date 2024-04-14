@@ -17,7 +17,7 @@ import {
 import { LoginButtons } from '../server';
 
 interface NavbarUserControlsProps {
-  user: ApiClient.UserResponseBodyDto | undefined;
+  user: ApiClient.UserDto | undefined;
   className: string;
 }
 

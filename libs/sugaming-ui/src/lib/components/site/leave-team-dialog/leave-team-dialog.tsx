@@ -3,7 +3,7 @@
 import { ApiClient } from '@sugaming/sugaming-api-client/client';
 import { removeMemberRequest } from '@sugaming/sugaming-api-client/next';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import {
   Dialog,
   DialogClose,
@@ -19,9 +19,9 @@ import {
 import { Button } from '../../common/server';
 
 interface LeaveTeamDialogProps {
-  team: ApiClient.Cs2TeamResponseBodyDto;
-  user: ApiClient.UserResponseBodyDto;
-  children: React.ReactNode;
+  team: ApiClient.Cs2TeamDto;
+  user: ApiClient.UserDto;
+  children: ReactNode;
 }
 
 export function LeaveTeamDialog({

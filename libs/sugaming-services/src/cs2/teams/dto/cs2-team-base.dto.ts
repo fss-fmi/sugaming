@@ -33,7 +33,6 @@ export class Cs2TeamBaseDto {
     description: 'Team color.',
     example: 'RED',
     type: 'string',
-    enum: Object.values(libConfig.cs2Team.color.enum),
   })
   @IsNotEmpty({
     message: i18nValidationMessage('validation.required'),

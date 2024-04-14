@@ -20,8 +20,8 @@ import {
 import { Button } from '../../common/server';
 
 interface TeamMemberAvatarProps {
-  team: ApiClient.Cs2TeamResponseBodyDto;
-  member: ApiClient.UserResponseBodyDto;
+  team: ApiClient.Cs2TeamDto;
+  member: ApiClient.Cs2TeamMemberDto;
   // eslint-disable-next-line react/require-default-props
   enableTeamCapitanControls?: boolean;
 }
@@ -32,7 +32,7 @@ export function TeamMemberAvatar({
   enableTeamCapitanControls,
 }: TeamMemberAvatarProps) {
   const t = useTranslations('site.team-member-avatar');
-  const [user, setUser] = useState<ApiClient.UserResponseBodyDto | undefined>();
+  const [user, setUser] = useState<ApiClient.UserDto | undefined>();
   const [exists, setExists] = useState<boolean>(true);
   useEffect(() => {
     getUser()
