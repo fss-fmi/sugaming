@@ -10,7 +10,7 @@ import { Color } from '@prisma/client';
 import { i18nValidationMessage } from 'nestjs-i18n';
 import { libConfig } from '../../../config/lib.config';
 
-export class Cs2TeamsBaseDto {
+export class Cs2TeamBaseDto {
   @ApiProperty({
     description: 'Team name.',
     example: 'Example Team Name',
@@ -31,6 +31,7 @@ export class Cs2TeamsBaseDto {
 
   @ApiProperty({
     description: 'Team color.',
+    example: 'RED',
     type: 'string',
   })
   @IsNotEmpty({
@@ -38,7 +39,7 @@ export class Cs2TeamsBaseDto {
   })
   @IsEnum(Color, {
     message: i18nValidationMessage('validation.isEnum', {
-      enum: Object.values(Color).join(', '),
+      enum: Object.values(libConfig.cs2Team.color.enum).join(', '),
     }),
   })
   color!: Color;

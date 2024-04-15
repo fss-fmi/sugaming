@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import { I18nContext } from 'nestjs-i18n';
-import { User } from '@prisma/client';
 import { Client } from 'discord.js';
+import { UserDto } from './dto/user.dto';
 import { UsersUniversityFacultyNumberAlreadyInUseException } from './exceptions/users-university-faculty-number-already-in-use.exception';
 import { UsersNoSuchDiscordGuildException } from './exceptions/users-no-such-discord-guild.exception';
 import { UsersNoSuchMemberOfDiscordGuildException } from './exceptions/users-no-such-member-of-discord-guild.exception';
@@ -21,7 +21,7 @@ import { UsersNicknameAlreadyInUseException } from './exceptions/users-nickname-
 import { UsersTeamIsFullException } from './exceptions/users-team-is-full.exception';
 import { UsersDiscordAccountAlreadyLinkedException } from './exceptions/users-discord-account-already-linked.exception';
 import { UsersSteamAccountAlreadyLinkedException } from './exceptions/users-steam-account-already-linked.exception';
-import { UserRequestBodyDto } from './dto/user-request-body.dto';
+import { UserCreateRequestDto } from './dto/user-create-request.dto';
 import { libConfig } from '../config/lib.config';
 import { UsersNoDiscordAccountLinkedException } from './exceptions/users-no-discord-account-linked.exception';
 import { UsersNoSuchDiscordGuildRoleException } from './exceptions/users-no-such-discord-guild-role.exception';
@@ -399,7 +399,7 @@ export class UsersService {
     return bcrypt.compare(password, user.passwordHash);
   }
 
-  async getUserCs2TeamInvites(user: Omit<User, 'passwordHash'>) {
+  async getUserCs2TeamInvites(user: UserDto) {
     // Validate that the user exists
     await this.getByIdOrThrow(user.id);
 
@@ -428,10 +428,7 @@ export class UsersService {
     });
   }
 
-  async createCs2TeamInvitation(
-    inviter: Omit<User, 'passwordHash'>,
-    inviteeId: string,
-  ) {
+  async createCs2TeamInvitation(inviter: UserDto, inviteeId: string) {
     // Check if the inviter is the same as the invitee
     if (inviter.id === inviteeId) {
       throw new UsersCannotInviteSelfException();
@@ -486,7 +483,7 @@ export class UsersService {
   async respondToCs2TeamInvite(
     response: 'ACCEPT' | 'DECLINE',
     inviteId: number,
-    user: Omit<User, 'passwordHash'>,
+    user: UserDto,
   ) {
     // Validate that the user exists
     await this.getByIdOrThrow(user.id);
@@ -568,7 +565,7 @@ export class UsersService {
   }
 
   async registerUser(
-    userToBeCreated: UserRequestBodyDto,
+    userToBeCreated: UserCreateRequestDto,
     universityProofImages: Array<Express.Multer.File>,
   ) {
     // Check if the email is already in use
@@ -636,7 +633,7 @@ export class UsersService {
     return userWithoutPassword;
   }
 
-  async completeOnboarding(user: Omit<User, 'passwordHash'>) {
+  async completeOnboarding(user: UserDto) {
     // Validate that the user exists
     await this.getByIdOrThrow(user.id);
 
@@ -651,10 +648,7 @@ export class UsersService {
     });
   }
 
-  async updateAvatar(
-    user: Omit<User, 'passwordHash'>,
-    avatar: Express.Multer.File,
-  ) {
+  async updateAvatar(user: UserDto, avatar: Express.Multer.File) {
     // Validate that the user exists
     await this.getByIdOrThrow(user.id);
 

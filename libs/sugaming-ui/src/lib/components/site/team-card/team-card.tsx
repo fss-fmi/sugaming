@@ -6,7 +6,7 @@ import { useLocale } from 'next-intl';
 import { TeamBanner } from '../team-banner/team-banner';
 import { Card, CardContent, CardHeader } from '../../common/server';
 
-export function TeamCard({ team }: { team: ApiClient.Cs2TeamResponseBodyDto }) {
+export function TeamCard({ team }: { team: ApiClient.Cs2TeamDto }) {
   const locale = useLocale();
   return (
     <Link href={`/${locale}/cs2/teams/${team.id}`}>

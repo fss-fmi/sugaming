@@ -22,16 +22,18 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { User } from '@prisma/client';
 import { Cs2TeamsService } from '@sugaming/sugaming-services/cs2/teams/cs2-teams.service';
 import { JwtAuthGuard } from '@sugaming/sugaming-services/auth/guards/jwt-auth.guard';
-import { Cs2TeamsBaseDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-base.dto';
-import { Cs2TeamsPostJoinRequestsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-post-join-requests.dto';
-import { Cs2TeamsPostJoinRequestsRespondRequestBodyDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-post-join-requests-respond-request-body.dto';
-import { Cs2TeamsPostJoinRequestsRespondParamsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-post-join-requests-respond-params.dto';
-import { Cs2TeamsPostJoinRequestsParamsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-teams-post-join-requests-params.dto';
-import { Cs2TeamResponseBodyDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-team-response-body.dto';
-import { TeamMemberMembershipState } from 'discord.js';
+import { Cs2TeamBaseDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-team-base.dto';
+import { Cs2TeamJoinRequestRespondRequestBodyDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-team-join-request-respond-request-body.dto';
+import { Cs2TeamJoinRequestRespondParamsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-team-join-request-respond-params.dto';
+import { Cs2TeamJoinRequestParamsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-team-join-request-params.dto';
+import { Cs2TeamDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-team.dto';
+import { UserDto } from '@sugaming/sugaming-services/users/dto/user.dto';
+import { Cs2TeamGetParamsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-team-get-params.dto';
+import { Cs2TeamInvitationResponseDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-team-invitation-response.dto';
+import { Cs2TeamJoinRequestResponseDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-team-join-request-response.dto';
+import { Cs2TeamGetMemberParamsDto } from '@sugaming/sugaming-services/cs2/teams/dto/cs2-team-get-member-params.dto';
 import { UserAuth } from '../../users/user-auth.decorator';
 
 @Controller('cs2/teams')
@@ -48,9 +50,9 @@ export class Cs2TeamsController {
   })
   @ApiOkResponse({
     description: 'CS2 teams retrieved successfully.',
-    type: [Cs2TeamResponseBodyDto],
+    type: [Cs2TeamDto],
   })
-  async getV1() {
+  async getV1(): Promise<Cs2TeamDto[]> {
     return this.cs2TeamsService.getAll();
   }
 
@@ -63,7 +65,7 @@ export class Cs2TeamsController {
     summary: 'Create a new CS2 team',
     description: 'Endpoint for creating new CS2 teams.',
   })
-  @ApiBody({ type: Cs2TeamsBaseDto })
+  @ApiBody({ type: Cs2TeamBaseDto })
   @ApiCreatedResponse({
     description: 'CS2 team created successfully.',
   })
@@ -81,9 +83,9 @@ export class Cs2TeamsController {
     },
   })
   async postV1(
-    @Body() createTeamDto: Cs2TeamsBaseDto,
-    @UserAuth() user: Omit<User, 'passwordHash'>,
-  ) {
+    @Body() createTeamDto: Cs2TeamBaseDto,
+    @UserAuth() user: UserDto,
+  ): Promise<Omit<Cs2TeamDto, 'members'>> {
     return this.cs2TeamsService.create(createTeamDto, user.id);
   }
 
@@ -96,14 +98,14 @@ export class Cs2TeamsController {
   })
   @ApiOkResponse({
     description: 'CS2 team retrieved successfully.',
-    type: Cs2TeamResponseBodyDto,
+    type: Cs2TeamDto,
   })
   @ApiNotFoundResponse({ description: 'The team specified does not exist.' })
-  async getTeamV1(@Param('teamId') teamId: string) {
-    return this.cs2TeamsService.getById(parseInt(teamId, 10)); // TODO: better way to handle this
+  async getTeamV1(@Param() params: Cs2TeamGetParamsDto): Promise<Cs2TeamDto> {
+    return this.cs2TeamsService.getById(params.teamId);
   }
 
-  @Get('current/invitations-sent')
+  @Get(':teamId/invitations-sent')
   @Version(['1'])
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
@@ -115,6 +117,7 @@ export class Cs2TeamsController {
   })
   @ApiOkResponse({
     description: 'CS2 team invitations sent retrieved successfully.',
+    type: [Cs2TeamInvitationResponseDto],
   })
   @ApiUnauthorizedResponse({ description: 'Invalid user credentials.' })
   @ApiNotFoundResponse({
@@ -128,11 +131,14 @@ export class Cs2TeamsController {
   @ApiForbiddenResponse({
     description: 'The user is not the captain of the team.',
   })
-  async getInvitationsSentV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
-    return this.cs2TeamsService.getInvitationsSent(user.cs2TeamId, user);
+  async getInvitationsSentV1(
+    @Param() params: Cs2TeamGetParamsDto,
+    @UserAuth() user: UserDto,
+  ): Promise<Cs2TeamInvitationResponseDto[]> {
+    return this.cs2TeamsService.getInvitationsSent(params.teamId, user);
   }
 
-  @Get('current/join-requests')
+  @Get(':teamId/join-requests')
   @Version(['1'])
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
@@ -143,6 +149,7 @@ export class Cs2TeamsController {
   })
   @ApiOkResponse({
     description: 'CS2 team join requests retrieved successfully.',
+    type: [Cs2TeamJoinRequestResponseDto],
   })
   @ApiUnauthorizedResponse({ description: 'Invalid user credentials.' })
   @ApiNotFoundResponse({
@@ -156,8 +163,11 @@ export class Cs2TeamsController {
   @ApiForbiddenResponse({
     description: 'The user is not the captain of the team.',
   })
-  async getJoinRequestsV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
-    return this.cs2TeamsService.getJoinRequests(user.cs2TeamId, user);
+  async getJoinRequestsV1(
+    @Param() params: Cs2TeamGetParamsDto,
+    @UserAuth() user: UserDto,
+  ): Promise<Cs2TeamJoinRequestResponseDto[]> {
+    return this.cs2TeamsService.getJoinRequests(params.teamId, user);
   }
 
   @Post(':teamId/join-requests')
@@ -169,9 +179,10 @@ export class Cs2TeamsController {
     summary: 'Create a new CS2 team join request',
     description: 'Endpoint for users to request to join a specific team.',
   })
-  @ApiBody({ type: Cs2TeamsPostJoinRequestsDto })
+  @ApiBody({ type: Cs2TeamJoinRequestResponseDto })
   @ApiCreatedResponse({
     description: 'CS2 team join request created successfully.',
+    type: Cs2TeamJoinRequestResponseDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid user credentials.' })
   @ApiNotFoundResponse({
@@ -186,9 +197,9 @@ export class Cs2TeamsController {
     description: 'The user is already part of the specified team.',
   })
   async postJoinRequestV1(
-    @Param() params: Cs2TeamsPostJoinRequestsParamsDto,
-    @UserAuth() user: Omit<User, 'passwordHash'>,
-  ) {
+    @Param() params: Cs2TeamJoinRequestParamsDto,
+    @UserAuth() user: UserDto,
+  ): Promise<Omit<Cs2TeamJoinRequestResponseDto, 'user'>> {
     return this.cs2TeamsService.createJoinRequest(params.teamId, user);
   }
 
@@ -202,7 +213,7 @@ export class Cs2TeamsController {
     description:
       'Endpoint for team captains to accept or decline join requests.',
   })
-  @ApiBody({ type: Cs2TeamsPostJoinRequestsRespondRequestBodyDto })
+  @ApiBody({ type: Cs2TeamJoinRequestRespondRequestBodyDto })
   @ApiOkResponse({
     description: 'CS2 team join request accepted or declined successfully.',
   })
@@ -223,10 +234,10 @@ export class Cs2TeamsController {
     description: 'The user, you are trying to add, is already part of a team.',
   })
   async postJoinRequestsRespondV1(
-    @Param() params: Cs2TeamsPostJoinRequestsRespondParamsDto,
-    @Body() requestBody: Cs2TeamsPostJoinRequestsRespondRequestBodyDto,
-    @UserAuth() user: Omit<User, 'passwordHash'>,
-  ) {
+    @Param() params: Cs2TeamJoinRequestRespondParamsDto,
+    @Body() requestBody: Cs2TeamJoinRequestRespondRequestBodyDto,
+    @UserAuth() user: UserDto,
+  ): Promise<{ message: string }> {
     return this.cs2TeamsService.respondToJoinRequest(
       requestBody.response,
       params.teamId,
@@ -235,7 +246,7 @@ export class Cs2TeamsController {
     );
   }
 
-  @Delete(':teamId/members/:userId')
+  @Delete(':teamId/members/:memberId')
   @Version(['1'])
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
@@ -260,13 +271,12 @@ export class Cs2TeamsController {
     description: 'The user is not the captain of the team.',
   })
   async deleteMemberV1(
-    @Param('teamId') teamId: string,
-    @Param('userId') userId: string,
-    @UserAuth() user: Omit<User, 'passwordHash'>,
+    @Param() params: Cs2TeamGetMemberParamsDto,
+    @UserAuth() user: UserDto,
   ) {
     return this.cs2TeamsService.removeMember(
-      parseInt(teamId, 10),
-      userId,
+      params.teamId,
+      params.memberId,
       user,
     );
   }

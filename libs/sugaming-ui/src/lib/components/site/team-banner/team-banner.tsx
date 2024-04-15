@@ -5,7 +5,7 @@ import { Logo } from '../logo/logo';
 import { TeamMemberAvatar } from '../team-member-avatar/team-member-avatar';
 
 interface TeamBannerProps {
-  team: ApiClient.Cs2TeamResponseBodyDto;
+  team: ApiClient.Cs2TeamDto;
   // eslint-disable-next-line react/require-default-props
   enableTeamCapitanControls?: boolean;
 }
@@ -32,7 +32,7 @@ export function TeamBanner({
           gridTemplateColumns: `repeat(${team.members.length}, 1fr)`,
         }}
       >
-        {team.members.map((member: ApiClient.UserResponseBodyDto) => (
+        {team.members.map((member: ApiClient.Cs2TeamMemberDto) => (
           <TeamMemberAvatar
             key={member.id}
             team={team}

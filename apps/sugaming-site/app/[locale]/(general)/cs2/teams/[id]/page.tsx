@@ -23,9 +23,10 @@ interface CS2TeamPageProps {
 export default async function CS2TeamPage({ params }: CS2TeamPageProps) {
   const locale = useLocale();
   const user = await getUser();
+  const teamId = parseInt(params.id, 10);
 
   const team = await ApiClient.Cs2TeamsApiService.cs2TeamsControllerGetTeamV1({
-    teamId: params.id,
+    teamId,
   });
 
   if (!team) {
@@ -42,6 +43,7 @@ export default async function CS2TeamPage({ params }: CS2TeamPageProps) {
     const invites =
       await ApiClient.Cs2TeamsApiService.cs2TeamsControllerGetInvitationsSentV1(
         {
+          teamId,
           authorization: await getBearerToken(),
         },
       );
@@ -51,6 +53,7 @@ export default async function CS2TeamPage({ params }: CS2TeamPageProps) {
   async function getTeamJoinRequestsUserIds() {
     const requests =
       await ApiClient.Cs2TeamsApiService.cs2TeamsControllerGetJoinRequestsV1({
+        teamId,
         authorization: await getBearerToken(),
       });
     return requests.map((request) => request.userId);

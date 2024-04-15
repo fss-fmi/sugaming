@@ -8,9 +8,25 @@ import {
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { i18nValidationMessage } from 'nestjs-i18n';
+import { User } from '@prisma/client';
 import { libConfig } from '../../config/lib.config';
 
-export class UserBaseDto {
+export class UserBaseDto
+  implements
+    Pick<
+      User,
+      | 'firstName'
+      | 'lastName'
+      | 'nickname'
+      | 'email'
+      | 'phone'
+      | 'university'
+      | 'universityMajor'
+      | 'universityDegree'
+      | 'universityYear'
+      | 'universityFacultyNumber'
+    >
+{
   @ApiProperty({
     description: "User's first name.",
     example: 'Гошо',
@@ -89,6 +105,7 @@ export class UserBaseDto {
 
   @ApiProperty({
     description: 'User university.',
+    example: 'Софийски университет "Св. Климент Охридски"',
   })
   @IsNotEmpty({
     message: i18nValidationMessage('validation.isNotEmpty'),
@@ -135,6 +152,7 @@ export class UserBaseDto {
   @ApiProperty({
     description: 'User university year.',
     example: 'FIRST',
+    enum: libConfig.user.universityYear.enum,
   })
   @IsNotEmpty({
     message: i18nValidationMessage('validation.isNotEmpty'),

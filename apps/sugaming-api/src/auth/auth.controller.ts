@@ -18,17 +18,17 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { User } from '@prisma/client';
 import { AuthService } from '@sugaming/sugaming-services/auth/auth.service';
 import { CredentialsDto } from '@sugaming/sugaming-services/auth/dto/credentials.dto';
 import { LocalAuthGuard } from '@sugaming/sugaming-services/auth/guards/local-auth.guard';
-import { LoginDto } from '@sugaming/sugaming-services/auth/dto/login.dto';
+import { LoginResponseDto } from '@sugaming/sugaming-services/auth/dto/login-response.dto';
 import { OptionalJwtAuthGuard } from '@sugaming/sugaming-services/auth/guards/optional-jwt-auth.guard';
 import { DiscordAuthGuard } from '@sugaming/sugaming-services/auth/guards/discord-auth.guard';
 import { JwtRefreshGuard } from '@sugaming/sugaming-services/auth/guards/jwt-refresh.guard';
 import { DiscordLoginQueryDto } from '@sugaming/sugaming-services/auth/dto/discord-login-query.dto';
 import { SteamLoginQueryDto } from '@sugaming/sugaming-services/auth/dto/steam-login-query.dto';
 import SteamAuthGuard from '@sugaming/sugaming-services/auth/guards/steam-auth.guard';
+import UserDto from '@sugaming/sugaming-services/users/dto/user.dto';
 import { UserAuth } from '../users/user-auth.decorator';
 
 @Controller({ path: 'auth' })
@@ -49,12 +49,10 @@ export class AuthController {
   @ApiOkResponse({
     description:
       'User logged in successfully and access token and information is returned.',
-    type: LoginDto,
+    type: LoginResponseDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid user credentials.' })
-  async postLoginV1(
-    @UserAuth() user: Omit<User, 'passwordHash'>,
-  ): Promise<LoginDto> {
+  async postLoginV1(@UserAuth() user: UserDto): Promise<LoginResponseDto> {
     return this.authService.login(user);
   }
 
@@ -69,7 +67,7 @@ export class AuthController {
   @ApiOkResponse({
     description:
       'User logged in successfully / Account linked successfully and access token and information is returned.',
-    type: LoginDto,
+    type: LoginResponseDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid Discord token.' })
   @ApiNotFoundResponse({
@@ -79,9 +77,9 @@ export class AuthController {
     description: 'Discord account already linked to an user.',
   })
   async postLoginDiscordV1(
-    @UserAuth() user: Omit<User, 'passwordHash'>,
+    @UserAuth() user: UserDto,
     @Query() _: DiscordLoginQueryDto,
-  ) {
+  ): Promise<LoginResponseDto> {
     return this.authService.login(user);
   }
 
@@ -96,7 +94,7 @@ export class AuthController {
   @ApiOkResponse({
     description:
       'User logged in successfully / Account linked successfully and access token and information is returned.',
-    type: LoginDto,
+    type: LoginResponseDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid Steam token.' })
   @ApiNotFoundResponse({
@@ -106,9 +104,9 @@ export class AuthController {
     description: 'Steam account already linked to an user.',
   })
   async postLoginSteamV1(
-    @UserAuth() user: Omit<User, 'passwordHash'>,
+    @UserAuth() user: UserDto,
     @Query() _: SteamLoginQueryDto,
-  ) {
+  ): Promise<LoginResponseDto> {
     return this.authService.login(user);
   }
 
@@ -127,10 +125,10 @@ export class AuthController {
   })
   @ApiOkResponse({
     description: 'A new access token is generated and returned.',
-    type: LoginDto,
+    type: LoginResponseDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid refresh token.' })
-  async postRefreshV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
+  async postRefreshV1(@UserAuth() user: UserDto): Promise<LoginResponseDto> {
     return this.authService.login(user);
   }
 }

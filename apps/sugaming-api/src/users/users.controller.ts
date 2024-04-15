@@ -27,16 +27,15 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { User } from '@prisma/client';
-import { UserRequestBodyDto } from '@sugaming/sugaming-services/users/dto/user-request-body.dto';
 import { UsersService } from '@sugaming/sugaming-services/users/users.service';
 import { JwtAuthGuard } from '@sugaming/sugaming-services/auth/guards/jwt-auth.guard';
-import { UserResponseBodyDto } from '@sugaming/sugaming-services/users/dto/user-response-body.dto';
+import { UserDto } from '@sugaming/sugaming-services/users/dto/user.dto';
 import { UsersPostCurrentCs2TeamInvitesRespondRequestBodyDto } from '@sugaming/sugaming-services/users/dto/users-post-current-cs2-team-invites-respond-request-body.dto';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import libConfig from '@sugaming/sugaming-services/config/lib.config';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { UserCreateRequestDto } from '@sugaming/sugaming-services/users/dto/user-create-request.dto';
 import { UserAuth } from './user-auth.decorator';
 import { appConfig } from '../app/app.config';
 
@@ -54,7 +53,7 @@ export class UsersController {
   })
   @ApiOkResponse({
     description: 'Users returned successfully.',
-    type: [UserResponseBodyDto], // TODO: Refactor to use correct DTO
+    type: [UserDto], // TODO: Refactor to use correct DTO
   })
   getAllV1() {
     return this.usersService.getAllUsers();
@@ -88,7 +87,7 @@ export class UsersController {
     description: 'Endpoint for registering a new user.',
   })
   @ApiConsumes('multipart/form-data')
-  @ApiBody({ type: UserRequestBodyDto })
+  @ApiBody({ type: UserCreateRequestDto })
   @ApiCreatedResponse({
     description: 'User registered successfully.',
   })
@@ -105,7 +104,7 @@ export class UsersController {
     },
   })
   async postUsersV1(
-    @Body() user: UserRequestBodyDto,
+    @Body() user: UserCreateRequestDto,
     @UploadedFiles() universityProofImages: Array<Express.Multer.File>,
   ) {
     return this.usersService.registerUser(user, universityProofImages);
@@ -122,10 +121,10 @@ export class UsersController {
   })
   @ApiOkResponse({
     description: 'The user is authenticated and user information is returned.',
-    type: UserResponseBodyDto,
+    type: UserDto,
   })
   @ApiUnauthorizedResponse({ description: 'Invalid authentication token.' })
-  getCurrentV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
+  getCurrentV1(@UserAuth() user: UserDto) {
     return user;
   }
 
@@ -144,7 +143,7 @@ export class UsersController {
       'The user is authenticated and onboarding is marked as complete.',
   })
   @ApiUnauthorizedResponse({ description: 'Invalid authentication token.' })
-  patchCurrentOnboardingV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
+  patchCurrentOnboardingV1(@UserAuth() user: UserDto) {
     return this.usersService.completeOnboarding(user);
   }
 
@@ -197,7 +196,7 @@ export class UsersController {
     description: 'User avatar updated successfully.',
   })
   async patchCurrentAvatarV1(
-    @UserAuth() user: Omit<User, 'passwordHash'>,
+    @UserAuth() user: UserDto,
     @UploadedFile() avatar: Express.Multer.File,
   ) {
     return this.usersService.updateAvatar(user, avatar);
@@ -219,7 +218,7 @@ export class UsersController {
   @ApiNotFoundResponse({
     description: 'The user does not exist.',
   })
-  getUserCs2TeamInvitesV1(@UserAuth() user: Omit<User, 'passwordHash'>) {
+  getUserCs2TeamInvitesV1(@UserAuth() user: UserDto) {
     return this.usersService.getUserCs2TeamInvites(user);
   }
 
@@ -256,7 +255,7 @@ export class UsersController {
   })
   postCs2TeamInviteV1(
     @Param('inviteeId') inviteeId: string,
-    @UserAuth() user: Omit<User, 'passwordHash'>,
+    @UserAuth() user: UserDto,
   ) {
     return this.usersService.createCs2TeamInvitation(user, inviteeId);
   }
@@ -293,7 +292,7 @@ export class UsersController {
   async postCurrentCs2TeamInvitesRespondV1(
     // @Param() params: UsersPostCurrentCs2TeamInvitesRespondParamsDto,
     @Param('inviteId') inviteId: string,
-    @UserAuth() user: Omit<User, 'passwordHash'>,
+    @UserAuth() user: UserDto,
     @Body() requestBody: UsersPostCurrentCs2TeamInvitesRespondRequestBodyDto,
   ) {
     return this.usersService.respondToCs2TeamInvite(

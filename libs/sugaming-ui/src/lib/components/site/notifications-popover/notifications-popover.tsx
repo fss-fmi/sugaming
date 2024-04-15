@@ -10,7 +10,7 @@ import { Button, Card } from '../../common/server';
 import { Popover, PopoverContent, PopoverTrigger } from '../../common/client';
 
 interface NotificationsPopoverProps {
-  user: ApiClient.UserResponseBodyDto;
+  user: ApiClient.UserDto;
 }
 export function NotificationsPopover({ user }: NotificationsPopoverProps) {
   const t = useTranslations('site.notifications-popover');
@@ -18,38 +18,46 @@ export function NotificationsPopover({ user }: NotificationsPopoverProps) {
   const [invites, setInvites] = useState([]);
   const [joinRequests, setJoinRequests] = useState([]);
 
-  // Refresh invites and join requests every 5000 ms
-  async function updateNotifications() {
-    try {
-      const currentInvites =
-        await ApiClient.UsersApiService.usersControllerGetUserCs2TeamInvitesV1({
-          authorization: await getBearerToken(),
-          acceptLanguage: locale,
-        });
-      setInvites(currentInvites);
-    } catch {
-      setInvites([]);
-    }
-
-    try {
-      const currentJoinRequests =
-        await ApiClient.Cs2TeamsApiService.cs2TeamsControllerGetJoinRequestsV1({
-          authorization: await getBearerToken(),
-          acceptLanguage: locale,
-        });
-      setJoinRequests(currentJoinRequests);
-    } catch {
-      setJoinRequests([]);
-    }
-  }
-
   useEffect(() => {
-    updateNotifications();
+    // Refresh invites and join requests every 5000 ms
+    async function updateNotifications() {
+      if (!user) return;
+
+      try {
+        const currentInvites =
+          await ApiClient.UsersApiService.usersControllerGetUserCs2TeamInvitesV1(
+            {
+              authorization: await getBearerToken(),
+              acceptLanguage: locale,
+            },
+          );
+        setInvites(currentInvites);
+      } catch {
+        setInvites([]);
+      }
+
+      try {
+        if (user.cs2Team?.capitanId !== user.id) return;
+        const currentJoinRequests =
+          await ApiClient.Cs2TeamsApiService.cs2TeamsControllerGetJoinRequestsV1(
+            {
+              teamId: user.cs2Team.id,
+              authorization: await getBearerToken(),
+              acceptLanguage: locale,
+            },
+          );
+        setJoinRequests(currentJoinRequests);
+      } catch {
+        setJoinRequests([]);
+      }
+    }
+
+    updateNotifications().then();
     const interval = setInterval(async () => {
-      updateNotifications();
+      await updateNotifications();
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [locale, user]);
 
   return (
     <Popover>

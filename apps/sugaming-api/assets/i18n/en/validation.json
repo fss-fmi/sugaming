@@ -6,6 +6,7 @@
   "isEmail": "The field '{property}' with value: '{value}', must be a valid email address.",
   "isDate": "The field '{property}' with value: '{value}', must be a valid date.",
   "isBoolean": "The field '{property}' with value: '{value}', must be a boolean.",
+  "isUUID": "The field '{property}' with value: '{value}', must be a valid UUID.",
   "minLength": "The field '{property}' with value: '{value}', must be at least {constraints.0} characters.",
   "maxLength": "The field '{property}' with value: '{value}', must be at most {constraints.0} characters.",
   "matches": "The field '{property}' with value: '{value}', must match the constraints."

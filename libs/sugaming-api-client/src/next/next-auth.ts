@@ -199,13 +199,13 @@ function setTokens(
 }
 
 export async function removeMemberRequest(
-  team: ApiClient.Cs2TeamResponseBodyDto,
-  user: ApiClient.UserResponseBodyDto,
+  team: ApiClient.Cs2TeamDto,
+  user: ApiClient.Cs2TeamMemberDto,
 ) {
   try {
     return await ApiClient.Cs2TeamsApiService.cs2TeamsControllerDeleteMemberV1({
-      teamId: `${team.id}`,
-      userId: user.id,
+      teamId: team.id,
+      memberId: user.id,
       authorization: await getBearerToken(),
     });
   } catch (error) {

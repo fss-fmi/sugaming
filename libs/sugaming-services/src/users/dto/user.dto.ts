@@ -1,12 +1,12 @@
-import { IsBoolean, IsDateString, IsNotEmpty } from 'class-validator';
+import { IsBoolean, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { i18nValidationMessage } from 'nestjs-i18n';
-// TODO:fix
-// eslint-disable-next-line import/no-cycle
-import { Cs2TeamResponseBodyDto } from '../../cs2/teams/dto/cs2-team-response-body.dto';
+import { UserSteamAccountDto } from './user-steam-account.dto';
+import { UserDiscordAccountDto } from './user-discord-account.dto';
+import { Cs2TeamDto } from '../../cs2/teams/dto/cs2-team.dto';
 import { UserBaseDto } from './user-base.dto';
 
-export class UserResponseBodyDto extends UserBaseDto {
+export class UserDto extends UserBaseDto {
   @ApiProperty({
     description: 'User id.',
     example: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
@@ -28,12 +28,12 @@ export class UserResponseBodyDto extends UserBaseDto {
   @ApiProperty({
     description: 'User Discord account information.',
   })
-  discord!: object | undefined; // TODO: Add Discord type
+  discord!: UserDiscordAccountDto | null;
 
   @ApiProperty({
     description: 'User Steam account information.',
   })
-  steam!: object | undefined; // TODO: Add Steam type
+  steam!: UserSteamAccountDto | null;
 
   @ApiProperty({
     description: 'User avatar URL.',
@@ -43,36 +43,23 @@ export class UserResponseBodyDto extends UserBaseDto {
   @ApiProperty({
     description: 'User CS2 id team.',
   })
-  @IsNotEmpty({
-    message: i18nValidationMessage('validation.isNotEmpty'),
-  })
   cs2TeamId!: number;
 
   @ApiProperty({
     description: 'User Counter-Strike 2 team.',
-    type: Cs2TeamResponseBodyDto,
+    type: Cs2TeamDto,
   })
-  cs2Team!: Cs2TeamResponseBodyDto;
+  cs2Team!: Cs2TeamDto;
 
   @ApiProperty({
     description: 'User creation date',
   })
-  @IsDateString(
-    {},
-    {
-      message: i18nValidationMessage('validation.isDateString'),
-    },
-  )
   createdAt!: Date;
 
   @ApiProperty({
     description: 'User last update date',
   })
-  @IsDateString(
-    {},
-    { message: i18nValidationMessage('validation.isDateString') },
-  )
   updatedAt!: Date;
 }
 
-export default UserResponseBodyDto;
+export default UserDto;

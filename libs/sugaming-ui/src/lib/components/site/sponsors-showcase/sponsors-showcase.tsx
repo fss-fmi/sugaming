@@ -16,7 +16,7 @@ import { Card } from '../../common/card/card';
 import { Button } from '../../common/server';
 
 interface SponsorsShowcaseProps {
-  sponsors: ApiClient.SponsorResponseBodyDto[];
+  sponsors: ApiClient.SponsorDto[];
 }
 
 export function SponsorsShowcase({ sponsors }: SponsorsShowcaseProps) {
