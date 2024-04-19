@@ -7,9 +7,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@sugaming/sugaming-ui/lib/components/common/server';
-import { ApiClient } from '@sugaming/sugaming-api-client/client';
 import { getTranslations } from 'next-intl/server';
-import { SponsorsShowcase } from '@sugaming/sugaming-ui/lib/components/site/sponsors-showcase/sponsors-showcase';
+import { SocialMediaButtons } from '@sugaming/sugaming-ui/lib/components/site/social-media-buttons/social-media-buttons';
 
 export default async function Index() {
   const t = await getTranslations('Index');
@@ -25,17 +24,12 @@ export default async function Index() {
         </CardHeader>
         <CardContent>
           <p>Card Content</p>
+          <SocialMediaButtons />
         </CardContent>
         <CardFooter>
           <p>Card Footer</p>
         </CardFooter>
       </Card>
-
-      <SponsorsShowcase
-        sponsors={await ApiClient.SponsorsApiService.sponsorsControllerGetV1(
-          {},
-        )}
-      />
     </>
   );
 }
