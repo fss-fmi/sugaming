@@ -7,6 +7,7 @@ import {
 } from 'react-icons/fa6';
 import Link from 'next/link';
 import React from 'react';
+import { cn } from '../../../utils';
 import { Button } from '../../common/server';
 
 export async function SocialMediaButtons() {
@@ -43,10 +44,14 @@ export async function SocialMediaButtons() {
     },
   ];
   return (
-    <div className="flex items-center">
+    <div className="flex flex-wrap justify-center gap-2">
       {socials.map((social) => (
-        <Button key={social.name} variant="link" asChild>
-          <Link href={social.link} target="_blank" className={social.className}>
+        <Button className="p-2" key={social.name} variant="link" asChild>
+          <Link
+            href={social.link}
+            target="_blank"
+            className={cn('transition-300', social.className)}
+          >
             {social.icon}
           </Link>
         </Button>
