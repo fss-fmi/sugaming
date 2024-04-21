@@ -2,6 +2,14 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.0.0](https://github.com/fss-fmi/sugaming/compare/v0.1.0...v1.0.0) (2024-04-21)
+
+### Features
+
+- **#40, #41:** Discord and Steam account linking ([#75](https://github.com/fss-fmi/sugaming/issues/75)) ([40ca5a7](https://github.com/fss-fmi/sugaming/commit/40ca5a7fc4f56ab8080a1fe5a21cf8c0e9506771)), closes [#40](https://github.com/fss-fmi/sugaming/issues/40) [#41](https://github.com/fss-fmi/sugaming/issues/41)
+- **#42:** UI library initialization + shadcn/ui setup ([#59](https://github.com/fss-fmi/sugaming/issues/59)) ([3834f6d](https://github.com/fss-fmi/sugaming/commit/3834f6d5f9af796c017b79d0e409a91989cc198a)), closes [#42](https://github.com/fss-fmi/sugaming/issues/42)
+- **#76:** Initialized `sugaming-discord` application ([#82](https://github.com/fss-fmi/sugaming/issues/82)) ([7430aef](https://github.com/fss-fmi/sugaming/commit/7430aef5ed5b8433fbb18857646f4a0f96701e16)), closes [#76](https://github.com/fss-fmi/sugaming/issues/76)
+
 ## [0.1.0](https://github.com/fss-fmi/sugaming/compare/v0.0.3...v0.1.0) (2023-11-18)
 
 ## [0.0.3](https://github.com/fss-fmi/sugaming/compare/v0.0.2...v0.0.3) (2023-10-16)
