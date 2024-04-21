@@ -55,7 +55,6 @@ export function OnboardingDialog({ isOpen }: OnboardingDialogProps) {
 
   async function setAvatar(avatar: File) {
     const formData = new FormData();
-    console.log(avatar);
     formData.append('avatar', avatar);
 
     try {

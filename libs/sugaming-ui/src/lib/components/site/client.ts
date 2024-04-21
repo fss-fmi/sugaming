@@ -1,3 +1,4 @@
+export * from './confetti/confetti';
 export * from './create-team-dialog/create-team-dialog';
 export * from './leave-team-dialog/leave-team-dialog';
 export * from './login-form/login-form';
