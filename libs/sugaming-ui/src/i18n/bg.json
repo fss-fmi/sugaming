@@ -220,6 +220,11 @@
     "sponsors-showcase": {
       "with-the-support-of": "С подкрепата на",
       "our-sponsors": "Нашите спонсори"
+    },
+    "hero-action-button": {
+      "join-us": "Присъедини се!",
+      "join-us-on-discord": "Присъедини се в Discord!",
+      "go-to-our-discord": "Ела в Discord сървъра!"
     }
   }
 }

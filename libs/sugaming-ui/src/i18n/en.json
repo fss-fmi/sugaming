@@ -220,6 +220,11 @@
     "sponsors-showcase": {
       "with-the-support-of": "With the support of",
       "our-sponsors": "Our sponsors"
+    },
+    "hero-action-button": {
+      "join-us": "Join us!",
+      "join-us-on-discord": "Join us on Discord!",
+      "go-to-our-discord": "Go to our Discord!"
     }
   }
 }

@@ -1,6 +1,7 @@
 {
-  "Index": {
-    "title": "Test title"
+  "home-page": {
+    "connecting-the-gaming-community": "Connecting the gaming community of Sofia University",
+    "also-find-us-on": "Also find us on"
   },
   "login-page": {
     "title": "Welcome back!",
