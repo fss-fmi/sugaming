@@ -17,6 +17,7 @@ import { getMessages } from 'next-intl/server';
 import Link from 'next/link';
 import { AxiomWebVitals } from 'next-axiom';
 import { Logo } from '@sugaming/sugaming-ui/lib/components/site/server';
+import { Background } from '@sugaming/sugaming-ui/lib/components/site/background/background';
 import { locales } from '../../i18n';
 
 export { useReportWebVitals } from 'next-axiom';
@@ -48,6 +49,7 @@ export default async function RootLayout({
 
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <Background />
             <Navbar>
               <NavbarLinks className="block xl:hidden" variant="mobile" />
 
