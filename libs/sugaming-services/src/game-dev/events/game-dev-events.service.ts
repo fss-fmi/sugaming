@@ -22,4 +22,40 @@ export class GameDevEventsService {
       },
     });
   }
+
+  async getByNameOrThrow(name: string) {
+    const event = await this.getByName(name);
+    if (!event) {
+      throw new Error('Event not found'); // TODO: Create custom exception
+    }
+    return event;
+  }
+
+  async joinEvent(eventName: string, userId: string) {
+    // Check if the user exists
+    await this.usersService.getByIdOrThrow(userId);
+
+    // Check if the event exists
+    const event = await this.getByNameOrThrow(eventName);
+
+    // Check if the user is already in the event
+    const userEvent = await this.prisma.gameDevEventParticipant.findFirst({
+      where: {
+        userId,
+        eventId: event.id,
+      },
+    });
+
+    if (userEvent) {
+      throw new Error('User is already in the event'); // TODO: Create custom exception
+    }
+
+    // Add the user to the event
+    await this.prisma.gameDevEventParticipant.create({
+      data: {
+        userId,
+        eventId: event.id,
+      },
+    });
+  }
 }
