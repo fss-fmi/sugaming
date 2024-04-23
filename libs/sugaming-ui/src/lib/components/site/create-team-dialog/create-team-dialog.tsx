@@ -72,7 +72,7 @@ export function CreateTeamDialog({ children }: CreateTeamDialogProps) {
 
   async function createTeam(requestBody: z.infer<typeof formSchema>) {
     try {
-      return await ApiClient.Cs2TeamsApiService.cs2TeamsControllerPostV1({
+      return ApiClient.Cs2TeamsApiService.cs2TeamsControllerPostV1({
         requestBody: {
           name: requestBody.name,
           color: requestBody.color,

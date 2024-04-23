@@ -14,6 +14,7 @@ import { AuthModule } from '../auth/auth.module';
 import { Cs2TeamsModule } from '../cs2/teams/cs2-teams.module';
 import { appConfig } from './app.config';
 import { SponsorsModule } from '../sponsors/sponsors.module';
+import { GameDevEventsModule } from '../game-dev/events/game-dev-events.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { SponsorsModule } from '../sponsors/sponsors.module';
     AuthModule,
     Cs2TeamsModule,
     SponsorsModule,
+    GameDevEventsModule,
   ],
   controllers: [],
   providers: [],
