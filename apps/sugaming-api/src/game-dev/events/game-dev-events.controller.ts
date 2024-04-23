@@ -5,6 +5,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  UseGuards,
   Version,
 } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -12,6 +13,8 @@ import { GameDevEventDto } from '@sugaming/sugaming-services/game-dev/events/dto
 import { GameDevEventGetParamsDto } from '@sugaming/sugaming-services/game-dev/events/dto/game-dev-event-get-params.dto';
 import { GameDevEventsService } from '@sugaming/sugaming-services/game-dev/events/game-dev-events.service';
 import { UserDto } from '@sugaming/sugaming-services/users/dto/user.dto';
+import JwtAuthGuard from '@sugaming/sugaming-services/auth/guards/jwt-auth.guard';
+import JwtStrategy from '@sugaming/sugaming-services/auth/strategies/jwt.strategy';
 import { UserAuth } from '../../users/user-auth.decorator';
 
 @Controller('game-dev/events')
@@ -38,6 +41,7 @@ export class GameDevEventsController {
 
   @Post(':eventName/join')
   @Version(['1'])
+  @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary: 'Join a Game Dev event.',

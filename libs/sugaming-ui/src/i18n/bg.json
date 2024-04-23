@@ -225,6 +225,15 @@
       "join-us": "Присъедини се!",
       "join-us-on-discord": "Присъедини се в Discord!",
       "go-to-our-discord": "Ела в Discord сървъра!"
+    },
+    "join-game-dev-event-confirmation-dialog": {
+      "join": "Присъедини се",
+      "title": "Присъедини се към {eventName}",
+      "description": "Сигурни ли сте, че искате да се присъедините към събитието?",
+      "cancel": "Отказ",
+      "joined-successfully": "Успешно се присъединихте към събитието.",
+      "error-occurred": "Възникна грешка.",
+      "try-again": "Моля, опитайте отново. Ако проблемът продължава, свържете се с нас."
     }
   }
 }
