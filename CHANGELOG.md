@@ -2,6 +2,12 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.1.1](https://github.com/fss-fmi/sugaming/compare/v1.1.0...v1.1.1) (2024-04-23)
+
+### Bug Fixes
+
+- hero-action-button component and container image conditions ([1afc84a](https://github.com/fss-fmi/sugaming/commit/1afc84a27bb8c4a9c6e0436b686138f4717b884c))
+
 ## [1.1.0](https://github.com/fss-fmi/sugaming/compare/v1.0.1...v1.1.0) (2024-04-23)
 
 ### Features
