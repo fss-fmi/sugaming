@@ -2,6 +2,12 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.1.0](https://github.com/fss-fmi/sugaming/compare/v1.0.1...v1.1.0) (2024-04-23)
+
+### Features
+
+- **#128:** Game dev events endpoints + Game Jam 2024 ([#139](https://github.com/fss-fmi/sugaming/issues/139)) ([b2638b9](https://github.com/fss-fmi/sugaming/commit/b2638b9968899453fad45107e838310d9eb8af81)), closes [#128](https://github.com/fss-fmi/sugaming/issues/128)
+
 ## [1.0.1](https://github.com/fss-fmi/sugaming/compare/v1.0.0...v1.0.1) (2024-04-21)
 
 ### Bug Fixes

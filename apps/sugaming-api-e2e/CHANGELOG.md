@@ -2,6 +2,8 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.1.0](https://github.com/fss-fmi/sugaming/compare/v1.0.1...v1.1.0) (2024-04-23)
+
 ## [1.0.1](https://github.com/fss-fmi/sugaming/compare/v1.0.0...v1.0.1) (2024-04-21)
 
 ## [1.0.0](https://github.com/fss-fmi/sugaming/compare/v0.1.0...v1.0.0) (2024-04-21)
