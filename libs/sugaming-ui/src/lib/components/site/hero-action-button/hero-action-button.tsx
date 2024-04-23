@@ -54,19 +54,21 @@ export async function HeroActionButton() {
   }
 
   return (
-    <Button asChild>
-      <Link
-        href={`https://discord.com/channels/${process.env.DISCORD_GUILD_ID}`}
-      >
-        <FaDiscord className="w-6 h-6 mr-2" />
-        {t('go-to-our-discord')}
-      </Link>
+    <>
+      <Button asChild>
+        <Link
+          href={`https://discord.com/channels/${process.env.DISCORD_GUILD_ID}`}
+        >
+          <FaDiscord className="w-6 h-6 mr-2" />
+          {t('go-to-our-discord')}
+        </Link>
+      </Button>
       <Button asChild>
         <Link href={`/${locale}/game-dev/events/sugaming-game-jam-2024`}>
           <IoSparkles className="w-6 h-6 mr-2" />
           SUGAMING Game Jam 2024
         </Link>
       </Button>
-    </Button>
+    </>
   );
 }
