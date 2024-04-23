@@ -1,6 +1,7 @@
 {
-  "Index": {
-    "title": "Тест заглавие"
+  "home-page": {
+    "connecting-the-gaming-community": "Свързване на игровата общност на Софийски университет",
+    "also-find-us-on": "Намерете ни и в"
   },
   "login-page": {
     "title": "Радваме се да те видим отново!",

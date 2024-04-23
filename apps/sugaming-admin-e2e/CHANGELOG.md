@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.0.1](https://github.com/fss-fmi/sugaming/compare/v1.0.0...v1.0.1) (2024-04-21)
+
+## [1.0.0](https://github.com/fss-fmi/sugaming/compare/v0.1.0...v1.0.0) (2024-04-21)
+
+### Features
+
+- **#42:** UI library initialization + shadcn/ui setup ([#59](https://github.com/fss-fmi/sugaming/issues/59)) ([3834f6d](https://github.com/fss-fmi/sugaming/commit/3834f6d5f9af796c017b79d0e409a91989cc198a)), closes [#42](https://github.com/fss-fmi/sugaming/issues/42)
+- **#50:** Initialized i18n localization in Next.js applications ([#55](https://github.com/fss-fmi/sugaming/issues/55)) ([4b67234](https://github.com/fss-fmi/sugaming/commit/4b67234a805743746df967db536c008da429b250)), closes [#50](https://github.com/fss-fmi/sugaming/issues/50)
+
 ## [0.1.0](https://github.com/fss-fmi/sugaming/compare/v0.0.3...v0.1.0) (2023-11-18)
 
 ## [0.0.3](https://github.com/fss-fmi/sugaming/compare/v0.0.2...v0.0.3) (2023-10-16)

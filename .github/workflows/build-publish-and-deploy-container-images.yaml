@@ -138,7 +138,7 @@ jobs:
             CONTAINER_PORT="4000"
             API_DOMAIN="preview-api.sugaming.club"
             ENV_FILE=".env.preview"
-          elif [ "${{ github.ref }}" = "refs/tags/${{ github.ref }}" ]; then
+          elif [ "${{ github.ref }}" = refs/tags/v* ]; then
             IMAGE_TAG="latest"
             PUBLIC_IP="${{ env.PRODUCTION_PUBLIC_IP }}"
             SSH_USER="${{ env.PRODUCTION_SSH_USER }}"
