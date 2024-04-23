@@ -50,18 +50,24 @@ export default async function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <Background />
             <Navbar>
-              <NavbarLinks className="block xl:hidden" variant="mobile" />
+              <NavbarLinks
+                className="block xl:hidden place-self-start"
+                variant="mobile"
+              />
 
-              <Link href={`/${locale}`}>
+              <Link
+                href={`/${locale}`}
+                className="place-self-center xl:place-self-start"
+              >
                 <Logo />
               </Link>
 
               <NavbarLinks
-                className="hidden xl:flex justify-center"
+                className="hidden xl:flex justify-center place-self-center"
                 variant="desktop"
               />
 
-              <div className="flex flex-row gap-2">
+              <div className="flex flex-row align-middle gap-2 place-self-end">
                 {user && <NotificationsPopover user={user} />}
                 <NavbarUserControls user={user} className="" />
               </div>
