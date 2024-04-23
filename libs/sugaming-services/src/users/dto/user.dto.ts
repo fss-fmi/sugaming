@@ -1,6 +1,7 @@
 import { IsBoolean, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { i18nValidationMessage } from 'nestjs-i18n';
+import { GameDevEventDto } from '../../game-dev/events/dto/game-dev-event.dto';
 import { UserSteamAccountDto } from './user-steam-account.dto';
 import { UserDiscordAccountDto } from './user-discord-account.dto';
 import { Cs2TeamDto } from '../../cs2/teams/dto/cs2-team.dto';
@@ -50,6 +51,11 @@ export class UserDto extends UserBaseDto {
     type: Cs2TeamDto,
   })
   cs2Team!: Cs2TeamDto;
+
+  @ApiProperty({
+    description: 'User game dev events.',
+  })
+  gameDevEvents!: GameDevEventDto[]; // TODO: Correct
 
   @ApiProperty({
     description: 'User creation date',

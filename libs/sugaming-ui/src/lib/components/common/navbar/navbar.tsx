@@ -9,7 +9,7 @@ interface NavbarProps {
 
 export function Navbar({ children }: NavbarProps) {
   return (
-    <nav className="flex sticky bg-white dark:bg-zinc-950 top-0 p-2 justify-between items-center z-40">
+    <nav className="grid grid-cols-3 grid-flow-col sticky bg-white dark:bg-zinc-950 top-0 p-2 items-center z-40 w-full">
       {children}
     </nav>
   );

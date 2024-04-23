@@ -48,9 +48,14 @@ model User {
   cs2TeamInvitations Cs2TeamInvitation[] // The teams the user was invited to join
   cs2TeamRequests    Cs2TeamRequest[] // The teams the user requested to join
 
+  // GameDev events
+  gameDevEvents GameDevEventParticipant[]
+
   // Row timestamps
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
-  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+  createdAt      DateTime      @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt      DateTime      @updatedAt @map("updated_at") @db.Timestamptz()
+  GameDevEvent   GameDevEvent? @relation(fields: [gameDevEventId], references: [id])
+  gameDevEventId Int?
 
   @@map("users")
 }
@@ -185,6 +190,59 @@ model Sponsor {
   createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
 
   @@map("sponsors")
+}
+
+model GameDevEvent {
+  // Primary key
+  id Int @id @default(autoincrement())
+
+  // Event information
+  name        String @unique
+  description String
+  coverUrl    String @map("cover_url")
+  location    String
+
+  // Event dates
+  startDate DateTime @map("start_date") @db.Timestamptz()
+  endDate   DateTime @map("end_date") @db.Timestamptz()
+
+  // Facebook event
+  facebookEventUrl String? @unique @map("facebook_event_url")
+
+  // Participants
+  participants    User[]
+  maxParticipants Int    @map("max_participants")
+
+  // Row timestamps
+  createdAt                DateTime                  @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt                DateTime                  @updatedAt @map("updated_at") @db.Timestamptz()
+  GameDevEventParticipants GameDevEventParticipant[]
+
+  @@map("game_dev_events")
+}
+
+model GameDevEventParticipant {
+  // Primary key
+  id Int @id @default(autoincrement())
+
+  // Event relation
+  eventId Int          @map("game_dev_event_id")
+  event   GameDevEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  // User relation
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Game Jam fields
+  gameJamRole                  String?  @map("game_jam_role")
+  wantToParticipateInWorkshops Boolean? @map("want_to_participate_in_workshops")
+  technologyStack              String?  @map("technology_stack")
+
+  // Row timestamps
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+
+  @@map("game_dev_events_participants")
 }
 
 enum Color {

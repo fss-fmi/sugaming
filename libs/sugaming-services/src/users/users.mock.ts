@@ -19,6 +19,7 @@ export const exampleUserWithoutPassword = {
   isOnboardingCompleted: true,
   avatarUrl: 'https://example.com/avatar.jpg',
   cs2TeamId: 1,
+  gameDevEvents: [],
   createdAt: new Date(),
   updatedAt: new Date(),
 };
@@ -50,6 +51,7 @@ export const exampleUserWithoutPassword2 = {
   discord: null,
   steam: null,
   cs2Team: null,
+  gameDevEvents: [],
   isOnboardingCompleted: true,
   avatarUrl: 'https://example.com/avatar.jpg',
   cs2TeamId: 2,
@@ -87,6 +89,7 @@ export const exampleUserWithoutPassword3 = {
   isOnboardingCompleted: true,
   avatarUrl: 'https://example.com/avatar.jpg',
   cs2TeamId: null,
+  gameDevEvents: [],
   createdAt: new Date(),
   updatedAt: new Date(),
 };

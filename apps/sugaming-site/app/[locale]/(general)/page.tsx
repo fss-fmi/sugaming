@@ -28,7 +28,6 @@ const titleFont = Inter_Tight({
 
 export default async function HomePage() {
   const t = await getTranslations('home-page');
-  const user = await getUser();
 
   return (
     <Card className="flex mx-auto mt-10 h-5/6 w-5/6 md:w-2/3 flex-col items-center p-4 md:p-8 space-y-4">

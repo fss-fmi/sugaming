@@ -225,6 +225,15 @@
       "join-us": "Join us!",
       "join-us-on-discord": "Join us on Discord!",
       "go-to-our-discord": "Go to our Discord!"
+    },
+    "join-game-dev-event-confirmation-dialog": {
+      "join": "Join",
+      "title": "Join {eventName}",
+      "description": "Are you sure you want to join the event?",
+      "cancel": "Cancel",
+      "joined-successfully": "You have joined the event successfully.",
+      "error-occurred": "An error occurred.",
+      "try-again": "Please, try again."
     }
   }
 }

@@ -40,6 +40,7 @@ export class UsersService {
       include: {
         discord: true,
         steam: true,
+        gameDevEvents: true,
       },
     });
 
@@ -68,6 +69,7 @@ export class UsersService {
     return this.prisma.user.findMany({
       include: {
         cs2Team: true,
+        gameDevEvents: true,
       },
     });
   }
@@ -81,6 +83,7 @@ export class UsersService {
       include: {
         discord: true,
         steam: true,
+        gameDevEvents: true,
       },
     });
 
@@ -115,6 +118,7 @@ export class UsersService {
       include: {
         discord: true,
         steam: true,
+        gameDevEvents: true,
       },
     });
 
@@ -149,6 +153,7 @@ export class UsersService {
       include: {
         discord: true,
         steam: true,
+        gameDevEvents: true,
       },
     });
 
