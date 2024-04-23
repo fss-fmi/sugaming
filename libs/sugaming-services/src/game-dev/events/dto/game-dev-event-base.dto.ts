@@ -55,4 +55,10 @@ export class GameDevEventBaseDto
     example: 'https://www.facebook.com/events/1234567890/',
   })
   facebookEventUrl!: string | null;
+
+  @ApiProperty({
+    description: 'Event max participants.',
+    example: 40,
+  })
+  maxParticipants!: number;
 }

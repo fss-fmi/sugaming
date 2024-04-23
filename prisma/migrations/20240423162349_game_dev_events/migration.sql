@@ -11,6 +11,7 @@ CREATE TABLE "game_dev_events" (
     "start_date" TIMESTAMPTZ NOT NULL,
     "end_date" TIMESTAMPTZ NOT NULL,
     "facebook_event_url" TEXT,
+    "max_participants" INTEGER NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMPTZ NOT NULL,
 

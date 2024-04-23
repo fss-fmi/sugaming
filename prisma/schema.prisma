@@ -210,7 +210,8 @@ model GameDevEvent {
   facebookEventUrl String? @unique @map("facebook_event_url")
 
   // Participants
-  participants User[]
+  participants    User[]
+  maxParticipants Int    @map("max_participants")
 
   // Row timestamps
   createdAt                DateTime                  @default(now()) @map("created_at") @db.Timestamptz()
