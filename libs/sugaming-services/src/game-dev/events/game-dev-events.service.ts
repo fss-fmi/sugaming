@@ -13,8 +13,13 @@ export class GameDevEventsService {
   ) {}
 
   async getByName(name: string) {
-    return this.prisma.gameDevEvent.findUnique({
-      where: { name },
+    return this.prisma.gameDevEvent.findFirst({
+      where: {
+        name: {
+          equals: name.replace(/-/g, ' '),
+          mode: 'insensitive',
+        },
+      },
     });
   }
 }

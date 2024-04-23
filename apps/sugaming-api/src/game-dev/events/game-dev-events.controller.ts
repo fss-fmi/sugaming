@@ -16,7 +16,7 @@ import { GameDevEventsService } from '@sugaming/sugaming-services/game-dev/event
 export class GameDevEventsController {
   constructor(private readonly gameDevEventsService: GameDevEventsService) {}
 
-  @Get()
+  @Get(':eventName')
   @Version(['1'])
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
