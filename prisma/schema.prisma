@@ -49,12 +49,13 @@ model User {
   cs2TeamRequests    Cs2TeamRequest[] // The teams the user requested to join
 
   // GameDev events
-  GameDevEvents GameDevEvent[]
+  gameDevEvents GameDevEventParticipant[]
 
   // Row timestamps
-  createdAt                DateTime                   @default(now()) @map("created_at") @db.Timestamptz()
-  updatedAt                DateTime                   @updatedAt @map("updated_at") @db.Timestamptz()
-  GameDevEventParticipants GameDevEventParticipants[]
+  createdAt      DateTime      @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt      DateTime      @updatedAt @map("updated_at") @db.Timestamptz()
+  GameDevEvent   GameDevEvent? @relation(fields: [gameDevEventId], references: [id])
+  gameDevEventId Int?
 
   @@map("users")
 }
@@ -212,14 +213,14 @@ model GameDevEvent {
   participants User[]
 
   // Row timestamps
-  createdAt                DateTime                   @default(now()) @map("created_at") @db.Timestamptz()
-  updatedAt                DateTime                   @updatedAt @map("updated_at") @db.Timestamptz()
-  GameDevEventParticipants GameDevEventParticipants[]
+  createdAt                DateTime                  @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt                DateTime                  @updatedAt @map("updated_at") @db.Timestamptz()
+  GameDevEventParticipants GameDevEventParticipant[]
 
   @@map("game_dev_events")
 }
 
-model GameDevEventParticipants {
+model GameDevEventParticipant {
   // Primary key
   id Int @id @default(autoincrement())
 
@@ -240,7 +241,7 @@ model GameDevEventParticipants {
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
 
-  @@map("game_dev_event_participants")
+  @@map("game_dev_events_participants")
 }
 
 enum Color {
