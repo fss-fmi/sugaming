@@ -21,6 +21,20 @@ export async function generateMetadata() {
       template: `%s | ${t('title')}`,
       default: t('title'),
     },
+    icons: [
+      {
+        rel: 'icon',
+        type: 'image/x-icon',
+        url: '/favicon-dark.ico',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        url: '/favicon.ico',
+        media: '(prefers-color-scheme: dark)',
+      },
+    ],
   };
 }
 
