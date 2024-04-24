@@ -10,7 +10,7 @@ export async function NavbarLinks({ className, variant }: NavbarLinksProps) {
   const locale = await getLocale();
   const links = [
     {
-      title: 'SUGAMING Game Jam 2024',
+      title: 'SUGAMING GAME JAM 2024',
       href: `/${locale}/game-dev/events/sugaming-game-jam-2024`,
     },
   ];

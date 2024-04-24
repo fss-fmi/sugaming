@@ -22,7 +22,7 @@ export async function HeroActionButton() {
         <Button asChild>
           <Link href={`/${locale}/game-dev/events/sugaming-game-jam-2024`}>
             <IoSparkles className="w-6 h-6 mr-2" />
-            SUGAMING Game Jam 2024
+            SUGAMING GAME JAM 2024
           </Link>
         </Button>
       </>
@@ -46,7 +46,7 @@ export async function HeroActionButton() {
         <Button asChild>
           <Link href={`/${locale}/game-dev/events/sugaming-game-jam-2024`}>
             <IoSparkles className="w-6 h-6 mr-2" />
-            SUGAMING Game Jam 2024
+            SUGAMING GAME JAM 2024
           </Link>
         </Button>
       </>
@@ -66,7 +66,7 @@ export async function HeroActionButton() {
       <Button asChild>
         <Link href={`/${locale}/game-dev/events/sugaming-game-jam-2024`}>
           <IoSparkles className="w-6 h-6 mr-2" />
-          SUGAMING Game Jam 2024
+          SUGAMING GAME JAM 2024
         </Link>
       </Button>
     </>
