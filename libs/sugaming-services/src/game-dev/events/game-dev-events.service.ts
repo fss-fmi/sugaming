@@ -13,14 +13,34 @@ export class GameDevEventsService {
   ) {}
 
   async getByName(name: string) {
-    return this.prisma.gameDevEvent.findFirst({
+    const event = await this.prisma.gameDevEvent.findFirst({
       where: {
         name: {
           equals: name.replace(/-/g, ' '),
           mode: 'insensitive',
         },
       },
+      include: {
+        participants: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                nickname: true,
+                firstName: true,
+                lastName: true,
+                avatarUrl: true,
+              },
+            },
+          },
+        },
+      },
     });
+    const participants = event?.participants.map((p) => p.user);
+    return {
+      ...event,
+      participants,
+    };
   }
 
   async getByNameOrThrow(name: string) {

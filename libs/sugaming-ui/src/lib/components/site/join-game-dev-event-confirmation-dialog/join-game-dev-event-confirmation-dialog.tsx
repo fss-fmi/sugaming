@@ -36,6 +36,7 @@ export function JoinGameDevEventConfirmationDialog({
     const user = await getUser();
     if (!user) {
       window.location.href = `/${locale}/login`;
+      return;
     }
 
     try {
@@ -71,7 +72,7 @@ export function JoinGameDevEventConfirmationDialog({
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
-          {showButton && <Button>{t('join')}</Button>}
+          {showButton && <Button className="w-full">{t('join')}</Button>}
         </DialogTrigger>
         <DialogContent className="sm:max-w-[600px]">
           <DialogHeader>

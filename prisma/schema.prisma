@@ -52,10 +52,8 @@ model User {
   gameDevEvents GameDevEventParticipant[]
 
   // Row timestamps
-  createdAt      DateTime      @default(now()) @map("created_at") @db.Timestamptz()
-  updatedAt      DateTime      @updatedAt @map("updated_at") @db.Timestamptz()
-  GameDevEvent   GameDevEvent? @relation(fields: [gameDevEventId], references: [id])
-  gameDevEventId Int?
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
 
   @@map("users")
 }
@@ -210,13 +208,12 @@ model GameDevEvent {
   facebookEventUrl String? @unique @map("facebook_event_url")
 
   // Participants
-  participants    User[]
-  maxParticipants Int    @map("max_participants")
+  participants    GameDevEventParticipant[]
+  maxParticipants Int                       @map("max_participants")
 
   // Row timestamps
-  createdAt                DateTime                  @default(now()) @map("created_at") @db.Timestamptz()
-  updatedAt                DateTime                  @updatedAt @map("updated_at") @db.Timestamptz()
-  GameDevEventParticipants GameDevEventParticipant[]
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
 
   @@map("game_dev_events")
 }
