@@ -8,10 +8,13 @@ import { CardHeader } from '@sugaming/sugaming-ui/lib/components/common/card/com
 import { Skeleton } from '@sugaming/sugaming-ui/lib/components/common/skeleton/skeleton';
 import Image from 'next/image';
 import { JoinGameDevEventConfirmationDialog } from '@sugaming/sugaming-ui/lib/components/site/join-game-dev-event-confirmation-dialog/join-game-dev-event-confirmation-dialog';
-import { CardContent } from '@sugaming/sugaming-ui/lib/components/common/server';
 import { cn } from '@sugaming/sugaming-ui/lib/utils';
 import { Inter_Tight } from 'next/font/google';
 import { getUser } from '@sugaming/sugaming-api-client/next';
+import { Logo } from '@sugaming/sugaming-ui/lib/components/site/logo/logo';
+import { ScrollArea } from '@sugaming/sugaming-ui/lib/components/common/scroll-area/components/scroll-area';
+import { UserCard } from '@sugaming/sugaming-ui/lib/components/site/user-card/user-card';
+import { CardContent } from '@sugaming/sugaming-ui/lib/components/common/card/components/card-content';
 
 interface GameDevEventPageProps {
   params: { name: string };
@@ -34,51 +37,61 @@ export default async function GameDevEventPage({
       { eventName },
     );
 
-  async function GameJamParticipantsCards() {
-    const teams = await ApiClient.Cs2TeamsApiService.cs2TeamsControllerGetV1(
-      {},
-    );
-    return teams.map((team) => <TeamCard key={team.id} team={team} />);
-  }
-
   return (
-    <Card className="flex mx-auto mt-10 h-full w-full md:w-5/6 flex-col items-center p-4 md:p-8 space-y-4">
-      <CardContent className="flex flex-col gap-4 items-center">
+    <Card className="mx-auto mt-10 grid lg:grid-cols-2 w-full flex-col items-stretch overflow-hidden">
+      <div className="relative p-0 flex w-full h-full flex-col text-white bg-[#27183d] aspect-square">
         <Image
           src={event.coverUrl}
           alt={event.name}
           width={1920}
-          height={1080}
-          className="w-2/3"
+          height={1920}
+          className="absolute"
         />
 
+        <div className="absolute z-20 flex items-center text-lg font-medium top-5 left-5">
+          <Logo />
+        </div>
+
+        <div className="absolute z-20 mt-auto bottom-5 right-5">
+          <blockquote>
+            <p className="text-sm">{event.description}</p>
+            <p className="text-sm">📍 {event.location}</p>
+          </blockquote>
+        </div>
+      </div>
+
+      <div className="p-8 aspect-square grid grid-rows-[1fr_1fr_8fr_1fr] h-full">
         <h1
           className={cn(
             titleFont.className,
-            'text-xl sm:text-2xl md:text-4xl capitalize',
+            'text-xl sm:text-2xl md:text-4xl uppercase',
           )}
         >
           {event.name}
         </h1>
 
-        {/* TODO: Refactor the above */}
-        {user && user.gameDevEvents.length === 0 && (
+        <div className="flex items-center">
+          <GoVerified className="w-6 h-6 mr-2" />
+          <h2 className="text-md sm:text-xl md:text-2xl font-semibold my-4 truncate text-clip">
+            {t('participants')} ({event.participants.length}/
+            {event.maxParticipants})
+          </h2>
+        </div>
+
+        <ScrollArea className="pr-4">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 justify-evenly">
+            {event.participants.map((participant) => (
+              <Card className="p-1">
+                <UserCard key={participant.id} member={participant} />
+              </Card>
+            ))}
+          </div>
+        </ScrollArea>
+
+        {(!user || (user && user.gameDevEvents.length === 0)) && (
           <JoinGameDevEventConfirmationDialog eventName={event.name} />
         )}
-
-        {/* <div className="flex items-center"> */}
-        {/*  <GoVerified className="w-8 h-8 mr-2" /> */}
-        {/*  <h2 className="text-lg sm:text-2xl md:text-4xl font-semibold my-4 truncate text-clip"> */}
-        {/*    {t('participants')} */}
-        {/*  </h2> */}
-        {/* </div> */}
-
-        {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-evenly border-l-2 ml-4 pl-4 border-black dark:border-white"> */}
-        {/*  <Suspense fallback={<FallbackCards />}> */}
-        {/*    <GameJamParticipantsCards /> */}
-        {/*  </Suspense> */}
-        {/* </div> */}
-      </CardContent>
+      </div>
     </Card>
   );
 }

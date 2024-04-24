@@ -8,10 +8,8 @@ import {
   removeMemberRequest,
 } from '@sugaming/sugaming-api-client/next';
 import { useTranslations } from 'next-intl';
+import { UserCard } from '../user-card/user-card';
 import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
@@ -86,24 +84,7 @@ export function TeamMemberAvatar({
         className="w-fit min-w-64 max-w-96 z-40 cursor-default"
         side="top"
       >
-        <div className="flex justify-between space-x-4">
-          <Avatar>
-            <AvatarImage
-              src={member.avatarUrl}
-              alt={`${member.firstName} ${member.lastName}`}
-            />
-            <AvatarFallback>
-              {member.firstName[0]}
-              {member.lastName[0]}
-            </AvatarFallback>
-          </Avatar>
-          <div className="space-y-1 w-full">
-            <h4 className="text-sm font-semibold">{member.nickname}</h4>
-            <p className="text-sm">
-              {member.firstName} {member.lastName}
-            </p>
-          </div>
-        </div>
+        <UserCard member={member} />
       </HoverCardContent>
     </HoverCard>
   );
