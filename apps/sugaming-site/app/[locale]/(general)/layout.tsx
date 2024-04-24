@@ -15,10 +15,6 @@ import { getUser } from '@sugaming/sugaming-api-client/next';
 
 export { useReportWebVitals } from 'next-axiom';
 
-export const metadata = {
-  title: 'SUGAMING - Official gaming club of the Sofia University',
-};
-
 export default async function GeneralLayout({
   children,
   params: { locale },

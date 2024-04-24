@@ -20,6 +20,18 @@ interface GameDevEventPageProps {
   params: { name: string };
 }
 
+export async function generateMetadata({ params }: GameDevEventPageProps) {
+  const eventName = params.name;
+  const event =
+    await ApiClient.GameDevEventsApiService.gameDevEventsControllerGetGameDevEventV1(
+      { eventName },
+    );
+  return {
+    title: event.name,
+    description: event.description,
+  };
+}
+
 const titleFont = Inter_Tight({
   subsets: ['latin'],
   display: 'swap',

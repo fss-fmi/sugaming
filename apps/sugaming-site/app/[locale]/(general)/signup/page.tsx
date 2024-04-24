@@ -4,6 +4,14 @@ import { getTranslations } from 'next-intl/server';
 import { Card } from '@sugaming/sugaming-ui/lib/components/common/card/components/card';
 import { SignUpForm } from '@sugaming/sugaming-ui/lib/components/site/client';
 
+export async function generateMetadata() {
+  const t = await getTranslations('sign-up-page');
+  return {
+    title: t('title'),
+    description: t('description'),
+  };
+}
+
 export default async function SignUpPage() {
   if (await getUser()) {
     redirect('/', RedirectType.replace);

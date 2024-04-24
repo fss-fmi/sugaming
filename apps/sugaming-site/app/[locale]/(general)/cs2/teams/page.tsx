@@ -20,36 +20,12 @@ import { FaUsers, FaUserTie } from 'react-icons/fa6';
 import { CreateTeamDialog } from '@sugaming/sugaming-ui/lib/components/site/client';
 import { Suspense } from 'react';
 
-async function VerifiedTeamsCards() {
-  const teams = await ApiClient.Cs2TeamsApiService.cs2TeamsControllerGetV1({});
-  return teams
-    .filter((team) => isCs2TeamVerified(team))
-    .map((team) => <TeamCard key={team.id} team={team} />);
-}
-
-async function UnverifiedTeamsCards() {
-  const teams = await ApiClient.Cs2TeamsApiService.cs2TeamsControllerGetV1({});
-  return teams
-    .filter((team) => !isCs2TeamVerified(team))
-    .map((team) => <TeamCard key={team.id} team={team} />);
-}
-
-function FallbackCards() {
-  return Array(4)
-    .fill(0)
-    .map((_) => (
-      <Card
-        key={Math.random()}
-        className="w-full transition hover:-translate-y-1 hover:shadow-lg "
-      >
-        <CardHeader className="relative p-0 w-full aspect-[21/9] space-y-0 overflow-hidden rounded-t-xl">
-          <Skeleton className="w-full h-full" />
-        </CardHeader>
-        <div className="p-3">
-          <Skeleton className="w-1/2 h-6" />
-        </div>
-      </Card>
-    ));
+export async function generateMetadata() {
+  const t = await getTranslations('cs2-teams-page');
+  return {
+    title: t('title'),
+    description: t('description'),
+  };
 }
 
 export default async function CS2TeamsPage() {
@@ -123,4 +99,36 @@ export default async function CS2TeamsPage() {
       </div>
     </>
   );
+}
+
+async function VerifiedTeamsCards() {
+  const teams = await ApiClient.Cs2TeamsApiService.cs2TeamsControllerGetV1({});
+  return teams
+    .filter((team) => isCs2TeamVerified(team))
+    .map((team) => <TeamCard key={team.id} team={team} />);
+}
+
+async function UnverifiedTeamsCards() {
+  const teams = await ApiClient.Cs2TeamsApiService.cs2TeamsControllerGetV1({});
+  return teams
+    .filter((team) => !isCs2TeamVerified(team))
+    .map((team) => <TeamCard key={team.id} team={team} />);
+}
+
+function FallbackCards() {
+  return Array(4)
+    .fill(0)
+    .map((_) => (
+      <Card
+        key={Math.random()}
+        className="w-full transition hover:-translate-y-1 hover:shadow-lg "
+      >
+        <CardHeader className="relative p-0 w-full aspect-[21/9] space-y-0 overflow-hidden rounded-t-xl">
+          <Skeleton className="w-full h-full" />
+        </CardHeader>
+        <div className="p-3">
+          <Skeleton className="w-1/2 h-6" />
+        </div>
+      </Card>
+    ));
 }
