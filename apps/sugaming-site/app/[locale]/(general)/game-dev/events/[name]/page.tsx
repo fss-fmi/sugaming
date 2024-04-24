@@ -29,6 +29,9 @@ export async function generateMetadata({ params }: GameDevEventPageProps) {
   return {
     title: event.name,
     description: event.description,
+    openGraph: {
+      images: [event.coverUrl],
+    },
   };
 }
 
