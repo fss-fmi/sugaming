@@ -6,8 +6,8 @@ import { notFound } from 'next/navigation';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import { ThemeProvider } from '@sugaming/sugaming-ui/lib/providers/theme-provider';
 import { AxiomWebVitals } from 'next-axiom';
-import { SpeedInsights } from '@vercel/speed-insights/dist/next/index';
-import { Analytics } from '@vercel/analytics/dist/next/index';
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/next';
 import { locales } from '../i18n';
 
 export const metadata = {
