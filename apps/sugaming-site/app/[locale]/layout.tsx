@@ -21,6 +21,10 @@ export async function generateMetadata() {
       template: `%s | ${t('title')}`,
       default: t('title'),
     },
+    description: t('description'),
+    openGraph: {
+      images: ['/assets/icons/sugaming-logo-with-text.png'],
+    },
     icons: [
       {
         rel: 'icon',
