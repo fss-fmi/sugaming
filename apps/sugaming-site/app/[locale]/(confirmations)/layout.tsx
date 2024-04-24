@@ -10,33 +10,14 @@ import { ThemeProvider } from '@sugaming/sugaming-ui/lib/providers/theme-provide
 import { Background } from '@sugaming/sugaming-ui/lib/components/site/background/background';
 import { locales } from '../../i18n';
 
-export default async function RootLayout({
+export default async function ConfirmationsLayout({
   children,
-  params: { locale },
 }: {
   children: React.ReactNode;
-  params: { locale: string };
 }) {
-  if (!locales.includes(locale)) {
-    notFound();
-  }
-  const messages = await getMessages();
-
   return (
-    <html lang={locale} suppressHydrationWarning>
-      <body>
-        {/* Enable production logging */}
-        <AxiomWebVitals />
-
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <Background />
-            <main className="flex h-screen items-center justify-center">
-              {children}
-            </main>
-          </ThemeProvider>
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <main className="flex h-screen items-center justify-center">
+      {children}
+    </main>
   );
 }
