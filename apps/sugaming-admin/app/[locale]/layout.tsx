@@ -5,6 +5,9 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import { ThemeProvider } from '@sugaming/sugaming-ui/lib/providers/theme-provider';
+import { AxiomWebVitals } from 'next-axiom';
+import { SpeedInsights } from '@vercel/speed-insights/dist/next/index';
+import { Analytics } from '@vercel/analytics/dist/next/index';
 import { locales } from '../i18n';
 
 export const metadata = {
@@ -25,14 +28,19 @@ export default function RootLayout({
 
   const messages = useMessages();
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
-      <html lang={locale}>
-        <body>
+    <html lang={locale}>
+      <body>
+        {/* Enable production logging and insights */}
+        <AxiomWebVitals />
+        <SpeedInsights />
+        <Analytics />
+
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
           </ThemeProvider>
-        </body>
-      </html>
-    </NextIntlClientProvider>
+        </NextIntlClientProvider>
+      </body>
+    </html>
   );
 }

@@ -8,6 +8,8 @@ import { ThemeProvider } from '@sugaming/sugaming-ui/lib/providers/theme-provide
 import { getMessages } from 'next-intl/server';
 import { AxiomWebVitals } from 'next-axiom';
 import { Background } from '@sugaming/sugaming-ui/lib/components/site/background/background';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { locales } from '../i18n';
 
 export { useReportWebVitals } from 'next-axiom';
@@ -32,8 +34,10 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className="h-screen">
-        {/* Enable production logging */}
+        {/* Enable production logging and insights */}
         <AxiomWebVitals />
+        <SpeedInsights />
+        <Analytics />
 
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
