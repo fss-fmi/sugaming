@@ -7,6 +7,14 @@ import { getTranslations } from 'next-intl/server';
 import { Logo } from '@sugaming/sugaming-ui/lib/components/site/server';
 import { useLocale } from 'next-intl';
 
+export async function generateMetadata() {
+  const t = await getTranslations('login-page');
+  return {
+    title: t('title'),
+    description: t('description'),
+  };
+}
+
 interface LoginPageProps {
   searchParams?: { [key: string]: string | string[] | undefined };
 }
@@ -29,9 +37,6 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
 
         <div className="relative z-20 mt-auto">
           <blockquote className="space-y-2">
-            <p className="text-lg">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-            </p>
             <footer className="text-sm">SUGAMING</footer>
           </blockquote>
         </div>
@@ -41,7 +46,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
         <div className="mx-auto flex w-full flex-col justify-center space-y-4 sm:w-[350px]">
           <div className="flex flex-col space-y-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">
-              {t('title')}
+              {t('heading')}
             </h1>
             <p className="text-sm text-muted-foreground">{t('description')}</p>
           </div>

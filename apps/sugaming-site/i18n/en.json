@@ -1,10 +1,15 @@
 {
+  "root-layout": {
+    "title": "SUGAMING - Official gaming club of the Sofia University",
+    "description": "We are SUGAMING - the official gaming club of Sofia University. Our club consists of 2 parts - Game Development and Gaming Tournaments, with the idea being that video game enthusiasts can enjoy both, building an active community."
+  },
   "home-page": {
     "connecting-the-gaming-community": "Connecting the gaming community of Sofia University",
     "also-find-us-on": "Also find us on"
   },
   "login-page": {
-    "title": "Welcome back!",
+    "title": "Sign in",
+    "heading": "Welcome back!",
     "description": "Log back in your account using your email and password or with a linked third-party account.",
     "by-signing-in-you-agree-to-our": "By signing in, you agree to our",
     "club-regulations": "Club Regulations"
