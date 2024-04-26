@@ -2,6 +2,12 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.1.4](https://github.com/fss-fmi/sugaming/compare/v1.1.3...v1.1.4) (2024-04-26)
+
+### Features
+
+- **#118:** add regulations page and related components ([#144](https://github.com/fss-fmi/sugaming/issues/144)) ([60ab0ac](https://github.com/fss-fmi/sugaming/commit/60ab0ac8e5f1707617624bbe4535a89f133dd844)), closes [#118](https://github.com/fss-fmi/sugaming/issues/118)
+
 ## [1.1.3](https://github.com/fss-fmi/sugaming/compare/v1.1.2...v1.1.3) (2024-04-24)
 
 ## [1.1.2](https://github.com/fss-fmi/sugaming/compare/v1.1.1...v1.1.2) (2024-04-24)

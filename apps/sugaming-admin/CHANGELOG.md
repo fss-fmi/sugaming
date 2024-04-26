@@ -2,6 +2,12 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.1.4](https://github.com/fss-fmi/sugaming/compare/v1.1.3...v1.1.4) (2024-04-26)
+
+### Features
+
+- **#141:** Enable Vercel speed insights and web analytics ([#142](https://github.com/fss-fmi/sugaming/issues/142)) ([997a7b2](https://github.com/fss-fmi/sugaming/commit/997a7b2766b44f00f1ba56b626cef355f39fe799)), closes [#141](https://github.com/fss-fmi/sugaming/issues/141)
+
 ## [1.1.3](https://github.com/fss-fmi/sugaming/compare/v1.1.2...v1.1.3) (2024-04-24)
 
 ## [1.1.2](https://github.com/fss-fmi/sugaming/compare/v1.1.1...v1.1.2) (2024-04-24)

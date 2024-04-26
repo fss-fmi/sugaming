@@ -2,6 +2,14 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.1.4](https://github.com/fss-fmi/sugaming/compare/v1.1.3...v1.1.4) (2024-04-26)
+
+### Features
+
+- **#118:** add regulations page and related components ([#144](https://github.com/fss-fmi/sugaming/issues/144)) ([60ab0ac](https://github.com/fss-fmi/sugaming/commit/60ab0ac8e5f1707617624bbe4535a89f133dd844)), closes [#118](https://github.com/fss-fmi/sugaming/issues/118)
+- **#141:** Enable Vercel speed insights and web analytics ([#142](https://github.com/fss-fmi/sugaming/issues/142)) ([997a7b2](https://github.com/fss-fmi/sugaming/commit/997a7b2766b44f00f1ba56b626cef355f39fe799)), closes [#141](https://github.com/fss-fmi/sugaming/issues/141)
+- **#93:** Update favicons and metadata ([#143](https://github.com/fss-fmi/sugaming/issues/143)) ([be713f9](https://github.com/fss-fmi/sugaming/commit/be713f9886f92c96de090125d7d89590e38a6055)), closes [#93](https://github.com/fss-fmi/sugaming/issues/93)
+
 ## [1.1.3](https://github.com/fss-fmi/sugaming/compare/v1.1.2...v1.1.3) (2024-04-24)
 
 ### Features
