@@ -18,6 +18,10 @@
     "title": "Регистрация",
     "description": "Стани част от SUGAMING клуба, като попълниш следния формуляр."
   },
+  "regulations-page": {
+    "title": "Регламент",
+    "description": "Правила на SUGAMING клуба."
+  },
   "cs2-teams-page": {
     "title": "Counter-Strike 2 Отбори",
     "description": "Списък на всички отбори, които участват в нашите Counter-Strike 2 турнири.",

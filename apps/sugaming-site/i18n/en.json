@@ -18,6 +18,10 @@
     "title": "Join the club!",
     "description": "Sign up for the SUGAMING club by filling-out the following form."
   },
+  "regulations-page": {
+    "title": "Regulations",
+    "description": "Rules and Terms of Service of the SUGAMING gaming club."
+  },
   "cs2-teams-page": {
     "title": "Counter-Strike 2 Teams",
     "verified-teams": "Verified Teams",
