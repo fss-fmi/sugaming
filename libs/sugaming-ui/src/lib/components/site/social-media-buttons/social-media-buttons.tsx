@@ -53,6 +53,7 @@ export async function SocialMediaButtons() {
             className={cn('transition-300', social.className)}
           >
             {social.icon}
+            <span className="sr-only">{social.name}</span>
           </Link>
         </Button>
       ))}
