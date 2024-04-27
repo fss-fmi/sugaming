@@ -10,7 +10,7 @@ import {
   OnboardingDialog,
 } from '@sugaming/sugaming-ui/lib/components/site/client';
 import Link from 'next/link';
-import { Logo } from '@sugaming/sugaming-ui/lib/components/site/server';
+import { Logo, Footer } from '@sugaming/sugaming-ui/lib/components/site/server';
 import { getUser } from '@sugaming/sugaming-api-client/next';
 
 export { useReportWebVitals } from 'next-axiom';
@@ -53,6 +53,8 @@ export default async function GeneralLayout({
       <OnboardingDialog isOpen={user && !user.isOnboardingCompleted} />
 
       <main className="max-w-[88rem] m-auto px-4">{children}</main>
+
+      <Footer />
     </>
   );
 }
