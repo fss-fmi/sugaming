@@ -35,7 +35,7 @@ export function JoinGameDevEventConfirmationDialog({
   async function joinEvent() {
     const user = await getUser();
     if (!user) {
-      window.location.href = `/${locale}/login`;
+      window.location.href = `/${locale}/signup`;
       return;
     }
 
