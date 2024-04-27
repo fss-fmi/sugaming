@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.1.5](https://github.com/fss-fmi/sugaming/compare/v1.1.4...v1.1.5) (2024-04-27)
+
+### Features
+
+- **#145:** Footer ([#146](https://github.com/fss-fmi/sugaming/issues/146)) ([eefdf2e](https://github.com/fss-fmi/sugaming/commit/eefdf2e636da53d949ad2cad57430791e64ae2fc)), closes [#145](https://github.com/fss-fmi/sugaming/issues/145)
+- **#147:** UX improvments for ease-of-use ([#149](https://github.com/fss-fmi/sugaming/issues/149)) ([ac93e12](https://github.com/fss-fmi/sugaming/commit/ac93e1230dfc208a5913c5722109ec38e5f6fc2a)), closes [#147](https://github.com/fss-fmi/sugaming/issues/147)
+
 ## [1.1.4](https://github.com/fss-fmi/sugaming/compare/v1.1.3...v1.1.4) (2024-04-26)
 
 ### Features
