@@ -57,7 +57,7 @@ export async function HeroActionButton() {
     <>
       <Button asChild>
         <Link
-          href={`https://discord.com/channels/${process.env.DISCORD_GUILD_ID}`}
+          href={`https://discord.com/channels/${process.env.DISCORD_GUILD_ID}/@home`}
         >
           <FaDiscord className="w-6 h-6 mr-2" />
           {t('go-to-our-discord')}
