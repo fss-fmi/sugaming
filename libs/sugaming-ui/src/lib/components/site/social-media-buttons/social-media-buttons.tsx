@@ -27,7 +27,7 @@ export async function SocialMediaButtons() {
     {
       name: 'Threads',
       icon: <FaThreads className="w-8 h-8" />,
-      link: 'https://www.threads.com/SUGAMING.club',
+      link: 'https://www.threads.net/SUGAMING.club',
       className: 'hover:text-gray-500 focus:text-gray-500',
     },
     {
@@ -53,6 +53,7 @@ export async function SocialMediaButtons() {
             className={cn('transition-300', social.className)}
           >
             {social.icon}
+            <span className="sr-only">{social.name}</span>
           </Link>
         </Button>
       ))}
