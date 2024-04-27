@@ -83,7 +83,7 @@ export default async function GameDevEventPage({
           <Logo />
         </div>
 
-        <div className="absolute z-20 mt-auto bottom-5 right-5">
+        <div className="absolute z-20 mt-auto bottom-5 right-0 px-5 text-end">
           <blockquote>
             <p className="text-sm">📍 {event.location}</p>
             <p className="text-sm">
