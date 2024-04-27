@@ -83,7 +83,7 @@ export const libConfig = {
       minLength: 2,
       maxLength: 20,
       // Regex for nicknames, containing latin letters, numbers, dashes, and spaces
-      regex: /^[a-zA-Z0-9\s-]+$/,
+      regex: /^[a-zA-Z0-9\s_!?@$*()+=~-]+$/,
     },
     phone: {
       minLength: 10,
