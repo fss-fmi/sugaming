@@ -8,6 +8,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { FaSignInAlt } from 'react-icons/fa';
 import libConfig from '@sugaming/sugaming-services/config/lib.config';
 import { useRouter } from 'next/navigation';
+import { login } from '@sugaming/sugaming-api-client/next';
 import { PersonalInformationFields } from './components/personal-information-fields';
 import { UniversityInformationFields } from './components/university-information-fields';
 import { Button } from '../../common/server';
@@ -248,6 +249,7 @@ export function SignUpForm() {
 
       if (response.ok) {
         // Handle success
+        login(data.email, data.password);
         router.push(`/${locale}/login`);
       } else {
         // Handle errors
