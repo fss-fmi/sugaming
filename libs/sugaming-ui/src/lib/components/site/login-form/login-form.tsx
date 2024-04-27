@@ -60,6 +60,7 @@ export function LoginForm({ error }: LoginFormProps) {
   }
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsLoading(true);
     const response = await login(values.email, values.password);
 
     if (response?.error) {
@@ -69,6 +70,7 @@ export function LoginForm({ error }: LoginFormProps) {
         description: t('try-again'),
       });
     }
+    setIsLoading(false);
   }
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -107,8 +109,13 @@ export function LoginForm({ error }: LoginFormProps) {
             )}
           />
 
-          <Button type="submit" className="w-full">
-            <FaSignInAlt className="mr-2 h-4 w-4" /> {t('submit')}
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {isLoading ? (
+              <CgSpinnerAlt className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              <FaSignInAlt className="mr-2 h-4 w-4" />
+            )}
+            {t('submit')}
           </Button>
         </form>
       </Form>
@@ -139,24 +146,16 @@ export function LoginForm({ error }: LoginFormProps) {
         <Link
           href={`${process.env.NEXT_PUBLIC_API_BASE}/api/v1/auth/login/discord`}
         >
-          {isLoading ? (
-            <CgSpinnerAlt className="mr-2 h-4 w-4 animate-spin" />
-          ) : (
-            <FaDiscord className="mr-2 h-4 w-4" />
-          )}
+          <FaDiscord className="mr-2 h-4 w-4" />
           Discord
         </Link>
       </Button>
 
       <Button variant="outline" type="button" disabled={isLoading} asChild>
         <Link
-          href={`${process.env.NEXT_PUBLIC_API_BASE}/api/v1/auth/login/discord`}
+          href={`${process.env.NEXT_PUBLIC_API_BASE}/api/v1/auth/login/steam`}
         >
-          {isLoading ? (
-            <CgSpinnerAlt className="mr-2 h-4 w-4 animate-spin" />
-          ) : (
-            <FaSteamSymbol className="mr-2 h-4 w-4" />
-          )}
+          <FaSteamSymbol className="mr-2 h-4 w-4" />
           Steam
         </Link>
       </Button>
