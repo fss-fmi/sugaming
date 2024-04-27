@@ -162,6 +162,33 @@ jobs:
           echo API_DOMAIN="$API_DOMAIN" >> $GITHUB_ENV
           echo ENV_FILE="$ENV_FILE" >> $GITHUB_ENV
 
+      - name: Clear previous deployment images
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ env.PUBLIC_IP }}
+          username: ${{ env.SSH_USER }}
+          password: ${{ env.SSH_PASSWORD }}
+          script: |
+            # Get IDs of all containers starting with "sugaming-"
+            container_ids=$(docker ps -aq --filter "name=sugaming-*" --format "{{.ID}}")
+
+            # Sort containers by creation date in descending order
+            sorted_container_ids=$(echo "$container_ids" | xargs -I {} docker inspect --format='{{.Id}} {{.Created}}' {} | sort -k 2 -r | awk '{print $1}')
+
+            # Extract the IDs of the 10 most recently created containers
+            excluded_container_ids=$(echo "$sorted_container_ids" | head -n 10)
+
+            # Stop containers except for the 5 most recently created ones
+            for container_id in $container_ids; do
+              if ! echo "$excluded_container_ids" | grep -q "$container_id"; then
+                echo "Stopping container: $container_id"
+                docker stop "$container_id"
+              fi
+            done
+
+            # Prune stopped containers, images, and networks
+            docker system prune -a -f
+
       - name: Deploy container image
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -183,9 +210,9 @@ jobs:
 
             # if running sugaming_discord container, don't expose the port
             if [ "${{ matrix.IMAGE_NAME }}" = "sugaming-discord" ]; then
-              docker run -d --name ${{ matrix.IMAGE_NAME }}-${{ env.IMAGE_TAG }} --env-file ${{ env.ENV_FILE }} --net deployment ghcr.io/fss-fmi/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+              docker run -d --name ${{ matrix.IMAGE_NAME }}-${{ env.IMAGE_TAG }} --env-file ${{ env.ENV_FILE }}  --net deployment ghcr.io/fss-fmi/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
             else
-              docker run -d --name ${{ matrix.IMAGE_NAME }}-${{ env.IMAGE_TAG }} --env-file ${{ env.ENV_FILE }} -p ${{ env.CONTAINER_PORT }}:3000 --net deployment ghcr.io/fss-fmi/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+              docker run -d --name ${{ matrix.IMAGE_NAME }}-${{ env.IMAGE_TAG }} --env-file ${{ env.ENV_FILE }} -p ${{ env.CONTAINER_PORT }}:3000 -v ./uploads:/usr/src/app/uploads --net deployment ghcr.io/fss-fmi/${{ matrix.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
             fi
 
       - name: Add reverse proxy configuration for API containers
