@@ -51,6 +51,22 @@ export default async function GameDevEventPage({
     await ApiClient.GameDevEventsApiService.gameDevEventsControllerGetGameDevEventV1(
       { eventName },
     );
+  const eventStartDate = new Date(event.startDate);
+  const eventStartDateFormated = eventStartDate.toLocaleString('bg-BG', {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+  });
+  const eventEndDate = new Date(event.endDate);
+  const eventEndDateFormated = eventEndDate.toLocaleString('bg-BG', {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+  });
 
   return (
     <Card className="mx-auto mt-10 grid lg:grid-cols-2 w-full flex-col items-stretch overflow-hidden">
@@ -67,10 +83,12 @@ export default async function GameDevEventPage({
           <Logo />
         </div>
 
-        <div className="absolute z-20 mt-auto bottom-5 right-5">
+        <div className="absolute z-20 mt-auto bottom-5 right-0 px-5 text-end">
           <blockquote>
-            <p className="text-sm">{event.description}</p>
             <p className="text-sm">📍 {event.location}</p>
+            <p className="text-sm">
+              🕐 {eventStartDateFormated} - {eventEndDateFormated}
+            </p>
           </blockquote>
         </div>
       </div>
@@ -109,22 +127,4 @@ export default async function GameDevEventPage({
       </div>
     </Card>
   );
-}
-
-function FallbackCards() {
-  return Array(4)
-    .fill(0)
-    .map((_) => (
-      <Card
-        key={Math.random()}
-        className="w-full transition hover:-translate-y-1 hover:shadow-lg "
-      >
-        <CardHeader className="relative p-0 w-full aspect-[21/9] space-y-0 overflow-hidden rounded-t-xl">
-          <Skeleton className="w-full h-full" />
-        </CardHeader>
-        <div className="p-3">
-          <Skeleton className="w-1/2 h-6" />
-        </div>
-      </Card>
-    ));
 }

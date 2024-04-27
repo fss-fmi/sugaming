@@ -8,6 +8,9 @@ import { useLocale, useTranslations } from 'next-intl';
 import { FaSignInAlt } from 'react-icons/fa';
 import libConfig from '@sugaming/sugaming-services/config/lib.config';
 import { useRouter } from 'next/navigation';
+import { login } from '@sugaming/sugaming-api-client/next';
+import { useState } from 'react';
+import { CgSpinnerAlt } from 'react-icons/cg';
 import { PersonalInformationFields } from './components/personal-information-fields';
 import { UniversityInformationFields } from './components/university-information-fields';
 import { Button } from '../../common/server';
@@ -27,6 +30,7 @@ export function SignUpForm() {
   const locale = useLocale();
   const { toast } = useToast();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const formSchema = z
     .object({
@@ -218,6 +222,7 @@ export function SignUpForm() {
     return haveAllFieldsBeenTouched && !hasErrors;
   }
   async function onSubmit(data: z.infer<typeof formSchema>) {
+    setIsLoading(true);
     const formData = new FormData();
     data.universityProofImages.forEach((image) => {
       formData.append('universityProofImages', image.file);
@@ -248,6 +253,7 @@ export function SignUpForm() {
 
       if (response.ok) {
         // Handle success
+        login(data.email, data.password);
         router.push(`/${locale}/login`);
       } else {
         // Handle errors
@@ -264,6 +270,7 @@ export function SignUpForm() {
         description: t('try-again'),
       });
     }
+    setIsLoading(false);
   }
 
   return (
@@ -314,8 +321,13 @@ export function SignUpForm() {
                   </TabsList>
                 </Button>
 
-                <Button type="submit">
-                  <FaSignInAlt className="mr-2 h-4 w-4" /> {t('submit')}
+                <Button type="submit" disabled={isLoading}>
+                  {isLoading ? (
+                    <CgSpinnerAlt className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <FaSignInAlt className="mr-2 h-4 w-4" />
+                  )}
+                  {t('submit')}
                 </Button>
               </div>
             </TabsContent>
