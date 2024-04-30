@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Cs2TeamInvitation, Cs2TeamRequest } from '@prisma/client';
-import { Cs2TeamMemberDto } from './cs2-team-member.dto';
+import { UserPublicDto } from '../../../users/dto/user-public.dto';
 
 export class Cs2TeamJoinRequestResponseDto implements Cs2TeamRequest {
   @ApiProperty({
@@ -23,9 +23,9 @@ export class Cs2TeamJoinRequestResponseDto implements Cs2TeamRequest {
 
   @ApiProperty({
     description: 'Requester user model.',
-    type: Cs2TeamMemberDto,
+    type: UserPublicDto,
   })
-  user!: Cs2TeamMemberDto;
+  user!: UserPublicDto;
 
   @ApiProperty({
     description: 'Invitation creation date.',

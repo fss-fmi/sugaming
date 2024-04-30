@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Cs2TeamMemberDto } from './cs2-team-member.dto';
+import { UserPublicDto } from '../../../users/dto/user-public.dto';
 import { Cs2TeamBaseDto } from './cs2-team-base.dto';
 
 export class Cs2TeamDto extends Cs2TeamBaseDto {
@@ -10,9 +10,9 @@ export class Cs2TeamDto extends Cs2TeamBaseDto {
 
   @ApiProperty({
     description: 'Team members.',
-    type: [Cs2TeamMemberDto],
+    type: [UserPublicDto],
   })
-  members!: Cs2TeamMemberDto[];
+  members!: UserPublicDto[];
 
   @ApiProperty({
     description: 'Team capitan id.',

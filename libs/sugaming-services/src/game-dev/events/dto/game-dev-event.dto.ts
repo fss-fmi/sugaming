@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Cs2TeamMemberDto } from '../../../cs2/teams/dto/cs2-team-member.dto';
+import { UserPublicDto } from '../../../users/dto/user-public.dto';
 import { GameDevEventBaseDto } from './game-dev-event-base.dto';
 
 export class GameDevEventDto extends GameDevEventBaseDto {
@@ -11,9 +11,9 @@ export class GameDevEventDto extends GameDevEventBaseDto {
 
   @ApiProperty({
     description: 'Event participants.',
-    type: [Cs2TeamMemberDto],
+    type: [UserPublicDto],
   })
-  participants!: Cs2TeamMemberDto[]; // TODO: Fix this
+  participants!: UserPublicDto[]; // TODO: Fix this
 
   @ApiProperty({
     description: 'Event creation date.',
