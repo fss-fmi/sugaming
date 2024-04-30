@@ -6,6 +6,7 @@ import { Card } from '@sugaming/sugaming-ui/lib/components/common/server';
 import { getTranslations } from 'next-intl/server';
 import { Logo } from '@sugaming/sugaming-ui/lib/components/site/server';
 import { useLocale } from 'next-intl';
+import { VideoPlayer } from '@sugaming/sugaming-ui/lib/components/site/video-player/video-player';
 
 export async function generateMetadata() {
   const t = await getTranslations('login-page');
@@ -29,20 +30,15 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   const locale = useLocale();
 
   return (
-    <Card className="mx-auto mt-10 grid h-5/6 w-5/6 md:w-2/3 flex-col items-center justify-center xl:grid-cols-2 xl:px-0 overflow-hidden">
-      <div className="hidden xl:flex h-full flex-col p-10 text-white bg-zinc-900">
-        <div className="relative z-20 flex items-center text-lg font-medium">
-          <Logo />
-        </div>
-
-        <div className="relative z-20 mt-auto">
-          <blockquote className="space-y-2">
-            <footer className="text-sm">SUGAMING</footer>
-          </blockquote>
-        </div>
+    <Card className="mx-auto mt-10 grid h-5/6 w-full flex-col items-center justify-center xl:grid-cols-5 xl:px-0 overflow-hidden">
+      <div className="hidden xl:flex h-full flex-col text-white bg-zinc-900 xl:col-span-3">
+        <VideoPlayer
+          url="https://www.youtube.com/watch?v=JG2paQToCq8"
+          className="relative w-full h-full object-cover"
+        />
       </div>
 
-      <div className="p-8">
+      <div className="p-8 xl:col-span-2">
         <div className="mx-auto flex w-full flex-col justify-center space-y-4 sm:w-[350px]">
           <div className="flex flex-col space-y-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">
