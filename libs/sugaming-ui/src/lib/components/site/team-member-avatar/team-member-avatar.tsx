@@ -19,7 +19,7 @@ import { Button } from '../../common/server';
 
 interface TeamMemberAvatarProps {
   team: ApiClient.Cs2TeamDto;
-  member: ApiClient.Cs2TeamMemberDto;
+  member: ApiClient.UserPublicDto;
   // eslint-disable-next-line react/require-default-props
   enableTeamCapitanControls?: boolean;
 }

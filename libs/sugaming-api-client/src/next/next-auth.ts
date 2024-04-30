@@ -200,7 +200,7 @@ function setTokens(
 
 export async function removeMemberRequest(
   team: ApiClient.Cs2TeamDto,
-  user: ApiClient.Cs2TeamMemberDto,
+  user: ApiClient.UserPublicDto,
 ) {
   try {
     return await ApiClient.Cs2TeamsApiService.cs2TeamsControllerDeleteMemberV1({
