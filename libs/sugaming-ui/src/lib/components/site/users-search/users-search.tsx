@@ -19,10 +19,10 @@ import {
 interface UsersSearchProps {
   children: ReactNode;
   teamId: number;
-  usersWithoutATeam: ApiClient.UserDto[];
-  usersWithATeam: ApiClient.UserDto[];
-  usersRequestedToJoin: ApiClient.UserDto[];
-  usersAlreadyInvited: ApiClient.UserDto[];
+  usersWithoutATeam: ApiClient.UserPublicDto[];
+  usersWithATeam: ApiClient.UserPublicDto[];
+  usersRequestedToJoin: ApiClient.UserPublicDto[];
+  usersAlreadyInvited: ApiClient.UserPublicDto[];
 }
 
 export function UsersSearch({
@@ -65,7 +65,7 @@ export function UsersSearch({
     );
   }
 
-  function openInviteConfirmation(user: ApiClient.UserDto) {
+  function openInviteConfirmation(user: ApiClient.UserPublicDto) {
     // Close command dialog
     setIsOpen(false);
 
@@ -84,7 +84,7 @@ export function UsersSearch({
     setDialog(currentDialog);
   }
 
-  function commandItemProfile(user: ApiClient.UserDto) {
+  function commandItemProfile(user: ApiClient.UserPublicDto) {
     return (
       <>
         <div className="mr-2">

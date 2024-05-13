@@ -74,6 +74,7 @@ export class UsersService {
         lastName: true,
         nickname: true,
         avatarUrl: true,
+        cs2TeamId: true,
       },
     });
   }

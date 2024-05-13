@@ -13,8 +13,6 @@ import Link from 'next/link';
 import { Logo, Footer } from '@sugaming/sugaming-ui/lib/components/site/server';
 import { getUser } from '@sugaming/sugaming-api-client/next';
 
-export { useReportWebVitals } from 'next-axiom';
-
 export default async function GeneralLayout({
   children,
   params: { locale },
