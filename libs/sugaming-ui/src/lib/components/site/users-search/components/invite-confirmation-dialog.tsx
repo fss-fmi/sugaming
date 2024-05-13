@@ -18,7 +18,7 @@ import {
 } from '../../../common/client';
 
 interface InviteButtonProps {
-  user: ApiClient.UserDto;
+  user: ApiClient.UserPublicDto;
   teamId: number;
   completeSuccessfulInviteConfirmation: () => void;
 }

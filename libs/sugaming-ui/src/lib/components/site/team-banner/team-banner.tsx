@@ -32,7 +32,7 @@ export function TeamBanner({
           gridTemplateColumns: `repeat(${team.members.length}, 1fr)`,
         }}
       >
-        {team.members.map((member: ApiClient.Cs2TeamMemberDto) => (
+        {team.members.map((member: ApiClient.UserPublicDto) => (
           <TeamMemberAvatar
             key={member.id}
             team={team}

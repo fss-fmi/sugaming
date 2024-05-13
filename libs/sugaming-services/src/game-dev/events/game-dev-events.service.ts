@@ -30,6 +30,7 @@ export class GameDevEventsService {
                 firstName: true,
                 lastName: true,
                 avatarUrl: true,
+                cs2TeamId: true,
               },
             },
           },

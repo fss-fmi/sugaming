@@ -4,7 +4,7 @@ import { ApiClient } from '@sugaming/sugaming-api-client/client';
 import { Avatar, AvatarFallback, AvatarImage } from '../../common/client';
 
 interface UserCardProps {
-  member: ApiClient.Cs2TeamMemberDto;
+  member: ApiClient.UserPublicDto;
 }
 
 export function UserCard({ member }: UserCardProps) {

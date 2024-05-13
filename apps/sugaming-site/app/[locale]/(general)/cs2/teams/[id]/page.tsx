@@ -36,7 +36,7 @@ export default async function CS2TeamPage({ params }: CS2TeamPageProps) {
   // TODO: this is requested for each subcategory, refactor to get all users once
   async function getUsersOutsideOfThisTeam() {
     const users = await ApiClient.UsersApiService.usersControllerGetAllV1({});
-    return users.filter((currentUser) => currentUser.cs2Team?.id !== team.id);
+    return users.filter((currentUser) => currentUser.cs2TeamId !== team.id);
   }
 
   async function getTeamInvitesSentUserIds() {
@@ -65,7 +65,7 @@ export default async function CS2TeamPage({ params }: CS2TeamPageProps) {
     const requestsUserIds = await getTeamJoinRequestsUserIds();
 
     return users
-      .filter((currentUser) => !currentUser.cs2Team)
+      .filter((currentUser) => !currentUser.cs2TeamId)
       .filter((currentUser) => !invitesUserIds.includes(currentUser.id))
       .filter((currentUser) => !requestsUserIds.includes(currentUser.id));
   }
@@ -76,7 +76,7 @@ export default async function CS2TeamPage({ params }: CS2TeamPageProps) {
     const requestsUserIds = await getTeamJoinRequestsUserIds();
 
     return users
-      .filter((currentUser) => currentUser.cs2Team)
+      .filter((currentUser) => currentUser.cs2TeamId)
       .filter((currentUser) => !invitesUserIds.includes(currentUser.id))
       .filter((currentUser) => !requestsUserIds.includes(currentUser.id));
   }

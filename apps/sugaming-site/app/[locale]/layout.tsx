@@ -12,8 +12,6 @@ import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { locales } from '../i18n';
 
-export { useReportWebVitals } from 'next-axiom';
-
 export async function generateMetadata() {
   const t = await getTranslations('root-layout');
   return {

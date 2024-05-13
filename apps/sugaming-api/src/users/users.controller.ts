@@ -36,6 +36,7 @@ import libConfig from '@sugaming/sugaming-services/config/lib.config';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { UserCreateRequestDto } from '@sugaming/sugaming-services/users/dto/user-create-request.dto';
+import { UserPublicDto } from '@sugaming/sugaming-services/users/dto/user-public.dto';
 import { UserAuth } from './user-auth.decorator';
 import { appConfig } from '../app/app.config';
 
@@ -53,9 +54,9 @@ export class UsersController {
   })
   @ApiOkResponse({
     description: 'Users returned successfully.',
-    type: [UserDto], // TODO: Refactor to use correct DTO
+    type: [UserPublicDto],
   })
-  getAllV1() {
+  getAllV1(): Promise<UserPublicDto[]> {
     return this.usersService.getAllUsers();
   }
 

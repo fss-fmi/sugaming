@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class Cs2TeamMemberDto {
+export class UserPublicDto {
   @ApiProperty({
     description: 'User id.',
     example: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
@@ -30,4 +30,10 @@ export class Cs2TeamMemberDto {
     example: 'https://api.sugaming.club/api/v1/users/avatars/example.svg',
   })
   avatarUrl!: string;
+
+  @ApiProperty({
+    description: 'User CS2 team ID.',
+    example: 1,
+  })
+  cs2TeamId!: number;
 }
