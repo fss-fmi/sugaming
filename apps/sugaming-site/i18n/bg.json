@@ -33,8 +33,18 @@
     "create-a-team": "Създай отбор"
   },
   "cs2-team-page": {
-    "title": "🐔 Отбор {teamName}",
+    "title": "{teamName} CS2 Team",
     "description": "Информация за отбора {teamName}."
+  },
+  "cs2-tournament-page": {
+    "overview": "Начало",
+    "matches": "Mачове",
+    "gallery": "Галерия",
+    "bracket": "Класиране",
+    "participants": "Участници",
+    "dates": "Дати",
+    "teams": "Отбори",
+    "location": "Място"
   },
   "account-linked-page": {
     "title-success": "Акаунтът е свързан успешно!",

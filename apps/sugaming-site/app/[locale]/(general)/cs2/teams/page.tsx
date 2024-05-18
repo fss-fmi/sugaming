@@ -40,7 +40,7 @@ export default async function CS2TeamsPage() {
 
       {!user && (
         <Alert className="md:flex">
-          <FaUserTie className="h-4 w-4" />
+          <FaUserTie className="h-6 w-6" />
 
           <div className="w-fit">
             <AlertTitle>{t('want-to-be-a-part-of-a-team')}</AlertTitle>
@@ -55,7 +55,7 @@ export default async function CS2TeamsPage() {
 
       {user && !user.cs2TeamId && (
         <Alert className="md:flex">
-          <FaUsers className="h-4 w-4" />
+          <FaUsers className="h-6 w-6" />
 
           <div className="w-fit">
             <AlertTitle>{t('want-to-be-a-part-of-a-team')}</AlertTitle>

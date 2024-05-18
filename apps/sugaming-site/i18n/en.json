@@ -31,6 +31,20 @@
     "create-a-team-or-join-an-existing-one": "Create a team or join an existing one!",
     "create-a-team": "Create a team"
   },
+  "cs2-team-page": {
+    "title": "{teamName} (CS2 Team)",
+    "description": "Information for team {teamName}."
+  },
+  "cs2-tournament-page": {
+    "overview": "Overview",
+    "matches": "Matches",
+    "gallery": "Gallery",
+    "bracket": "Bracket",
+    "participants": "Participants",
+    "dates": "Dates",
+    "teams": "Teams",
+    "location": "Location"
+  },
   "account-linked-page": {
     "title-success": "Account linked successfully!",
     "title-error": "An error occurred during the account linking!",
