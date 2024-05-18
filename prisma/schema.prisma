@@ -135,6 +135,13 @@ model Cs2Team {
   // Team requests (invitations, send to teams, from players, asking them to join)
   teamRequests Cs2TeamRequest[]
 
+  // Team matches
+  matches1 Cs2Match[] @relation("Cs2Team1Matches")
+  matches2 Cs2Match[] @relation("Cs2Team2Matches")
+
+  // Team tournaments
+  Cs2Tournaments Cs2Tournament[]
+
   // Row timestamps
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
@@ -176,6 +183,67 @@ model Cs2TeamRequest {
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
 
   @@map("cs2_team_requests")
+}
+
+model Cs2Match {
+  // Primary key
+  id Int @id @default(autoincrement())
+
+  // Match teams information
+  team1Id Int?     @map("team1_id")
+  team1   Cs2Team? @relation("Cs2Team1Matches", fields: [team1Id], references: [id], onDelete: Cascade)
+
+  team2Id Int?     @map("team2_id")
+  team2   Cs2Team? @relation("Cs2Team2Matches", fields: [team2Id], references: [id], onDelete: Cascade)
+
+  // Match next/previous matches
+  winnerNextMatchId     Int?       @map("winner_next_match_id")
+  winnerNextMatch       Cs2Match?  @relation("Cs2MatchWinnerNextMatch", fields: [winnerNextMatchId], references: [id], onDelete: SetNull)
+  previousWinnerMatches Cs2Match[] @relation("Cs2MatchWinnerNextMatch")
+
+  loserNextMatchId     Int?       @map("loser_next_match_id")
+  loserNextMatch       Cs2Match?  @relation("Cs2MatchLoserNextMatch", fields: [loserNextMatchId], references: [id], onDelete: SetNull)
+  previousLoserMatches Cs2Match[] @relation("Cs2MatchLoserNextMatch")
+
+  // Match date
+  matchDate DateTime @map("match_date") @db.Timestamptz
+
+  // Tournament relation
+  tournamentId Int           @map("cs2_tournament_id")
+  tournament   Cs2Tournament @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+
+  // Row timestamps
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+
+  @@map("cs2_matches")
+}
+
+model Cs2Tournament {
+  // Primary key
+  id Int @id @default(autoincrement())
+
+  // Tournament information
+  name        String @unique
+  description String
+  coverUrl    String @map("cover_url")
+  location    String
+
+  // Tournament dates
+  startDate DateTime @map("start_date") @db.Timestamptz()
+  endDate   DateTime @map("end_date") @db.Timestamptz()
+
+  // Participants
+  teams    Cs2Team[]
+  maxTeams Int       @map("max_teams")
+
+  // Matches
+  matches Cs2Match[]
+
+  // Row timestamps
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+
+  @@map("cs2_tournaments")
 }
 
 model Sponsor {
