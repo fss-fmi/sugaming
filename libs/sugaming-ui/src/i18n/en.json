@@ -226,6 +226,11 @@
       "join-us-on-discord": "Join us on Discord!",
       "go-to-our-discord": "Go to our Discord!"
     },
+    "tournament-bracket": {
+      "quarter-finals": "Quarter-finals",
+      "semi-finals": "Semi-finals",
+      "final": "Grand final"
+    },
     "join-game-dev-event-confirmation-dialog": {
       "join": "Join",
       "title": "Join {eventName}",

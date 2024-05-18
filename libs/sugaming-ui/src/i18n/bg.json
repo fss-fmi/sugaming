@@ -226,6 +226,11 @@
       "join-us-on-discord": "Присъедини се в Discord!",
       "go-to-our-discord": "Ела в Discord сървъра!"
     },
+    "tournament-bracket": {
+      "quarter-finals": "Четвъртфинали",
+      "semi-finals": "Полуфинали",
+      "final": "Финал"
+    },
     "join-game-dev-event-confirmation-dialog": {
       "join": "Присъедини се",
       "title": "Присъедини се към {eventName}",
