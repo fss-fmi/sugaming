@@ -15,6 +15,8 @@ import { Cs2TeamsModule } from '../cs2/teams/cs2-teams.module';
 import { appConfig } from './app.config';
 import { SponsorsModule } from '../sponsors/sponsors.module';
 import { GameDevEventsModule } from '../game-dev/events/game-dev-events.module';
+import { Cs2MatchesModule } from '../cs2/matches/cs2-matches.module';
+import { Cs2TournamentsModule } from '../cs2/tournaments/cs2-tournaments.module';
 
 @Module({
   imports: [
@@ -38,6 +40,8 @@ import { GameDevEventsModule } from '../game-dev/events/game-dev-events.module';
     UsersModule,
     AuthModule,
     Cs2TeamsModule,
+    Cs2TournamentsModule,
+    Cs2MatchesModule,
     SponsorsModule,
     GameDevEventsModule,
   ],
