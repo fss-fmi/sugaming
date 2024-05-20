@@ -2,7 +2,6 @@ import { ApiClient } from '@sugaming/sugaming-api-client/client';
 import { getTranslations } from 'next-intl/server';
 import { getUser } from '@sugaming/sugaming-api-client/next';
 import { Card } from '@sugaming/sugaming-ui/lib/components/common/card/components/card';
-import Image from 'next/image';
 import React from 'react';
 import { TournamentBracket } from '@sugaming/sugaming-ui/lib/components/site/tournament-bracket/tournament-bracket';
 import {
@@ -18,6 +17,7 @@ import { Accordion } from '@sugaming/sugaming-ui/lib/components/common/accordion
 import { Alert } from '@sugaming/sugaming-ui/lib/components/common/alert/alert';
 import { LoginButtons } from '@sugaming/sugaming-ui/lib/components/site/login-buttons/login-buttons';
 import { SiCounterstrike } from 'react-icons/si';
+import { notFound } from 'next/navigation';
 
 interface Cs2TournamentPageProps {
   params: { name: string };
@@ -45,27 +45,31 @@ export default async function Cs2TournamentPage({
   const user = await getUser();
   const tournamentName = params.name;
   const tournament =
-    await ApiClient.GameDevEventsApiService.gameDevEventsControllerGetGameDevEventV1(
-      { eventName: tournamentName },
+    await ApiClient.Cs2TournamentsApiService.cs2TournamentsControllerGetCs2TournamentV1(
+      { tournamentName },
     );
+
+  if (!tournament) {
+    notFound();
+  }
+
   const tournamentStartDate = new Date(tournament.startDate);
   const tournamentEndDate = new Date(tournament.endDate);
 
   return (
     <Card className="mx-auto mt-10 flex w-full flex-col items-stretch overflow-hidden">
-      <Image
+      <img
         src={tournament.coverUrl}
         alt={tournament.name}
         width={1920}
         height={640}
-        className="aspect-[21/4] w-full object-cover"
+        className="aspect-[21/5] w-full object-cover"
       />
 
       <Tabs defaultValue="overview" className="w-full">
         <TabsList className="grid w-full grid-cols-3 rounded-none">
           <TabsTrigger value="overview">{t('overview')} </TabsTrigger>
           <TabsTrigger value="matches">{t('matches')}</TabsTrigger>
-          <TabsTrigger value="gallery">{t('gallery')}</TabsTrigger>
         </TabsList>
 
         <div className="p-2 md:p-4">
@@ -92,7 +96,7 @@ export default async function Cs2TournamentPage({
 
                 <div>
                   <p className="uppercase">{t('teams')}</p>
-                  <p className="font-bold">{tournament.maxParticipants}</p>
+                  <p className="font-bold">{tournament.maxTeams}</p>
                 </div>
 
                 <div>
@@ -127,10 +131,6 @@ export default async function Cs2TournamentPage({
 
           <TabsContent value="matches" className="flex flex-col gap-y-4">
             Matches
-          </TabsContent>
-
-          <TabsContent value="gallery" className="flex flex-col gap-y-4">
-            Gallery
           </TabsContent>
         </div>
       </Tabs>

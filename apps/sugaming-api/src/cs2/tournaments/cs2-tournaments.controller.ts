@@ -16,7 +16,7 @@ import { Cs2TournamentGetParamsDto } from '@sugaming/sugaming-services/cs2/tourn
 export class Cs2TournamentsController {
   constructor(private readonly cs2TournamentsService: Cs2TournamentsService) {}
 
-  @Get(':eventName')
+  @Get(':tournamentName')
   @Version(['1'])
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
@@ -27,7 +27,7 @@ export class Cs2TournamentsController {
     description: 'CS2 Tournament information.',
     type: Cs2TournamentDto,
   })
-  async getGameDevEventV1(
+  async getCs2TournamentV1(
     @Param() params: Cs2TournamentGetParamsDto,
   ): Promise<Cs2TournamentDto> {
     return this.cs2TournamentsService.getByName(params.tournamentName);
