@@ -18,7 +18,7 @@ export function TeamBanner({
     <>
       <div
         className="absolute inset-0 flex flex-col w-full h-full pt-5 overflow-ellipsis items-center text-center text-white"
-        style={{ backgroundColor: team.color }}
+        style={{ backgroundColor: libConfig.cs2Team.color.mapping[team.color] }}
       >
         <span className="w-fit px-2 py-1 text-3xl font-bold bg-white text-black dark:bg-black dark:text-white">
           {team.name.toUpperCase()}

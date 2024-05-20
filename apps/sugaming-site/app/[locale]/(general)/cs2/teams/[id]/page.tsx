@@ -148,13 +148,6 @@ export default async function CS2TeamPage({ params }: CS2TeamPageProps) {
             )}
           </div>
         </div>
-        <div className="h-80">
-          <div className="p-4">
-            <h2 className="text-md sm:text-lg md:text-xl font-semibold">
-              Matches
-            </h2>
-          </div>
-        </div>
       </CardContent>
     </Card>
   );

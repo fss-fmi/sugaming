@@ -111,7 +111,10 @@ export function CreateTeamDialog({ children }: CreateTeamDialogProps) {
           {/* Banner */}
           <div
             className="flex flex-col w-full h-32 mt-4 overflow-ellipsis justify-center items-center text-center text-white"
-            style={{ backgroundColor: form.watch('color') }}
+            style={{
+              backgroundColor:
+                libConfig.cs2Team.color.mapping[form.watch('color')],
+            }}
           >
             <span className="w-fit h-12 px-2 py-1 text-3xl font-bold bg-white text-black dark:bg-black dark:text-white">
               {form.watch('name')}
@@ -155,7 +158,10 @@ export function CreateTeamDialog({ children }: CreateTeamDialogProps) {
                             <FormControl>
                               <RadioGroupItem
                                 className="w-16 h-16"
-                                style={{ backgroundColor: color }}
+                                style={{
+                                  backgroundColor:
+                                    libConfig.cs2Team.color.mapping[color],
+                                }}
                                 value={color}
                               />
                             </FormControl>
