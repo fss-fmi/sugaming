@@ -116,7 +116,7 @@ export function CreateTeamDialog({ children }: CreateTeamDialogProps) {
                 libConfig.cs2Team.color.mapping[form.watch('color')],
             }}
           >
-            <span className="w-fit h-12 px-2 py-1 text-3xl font-bold bg-white text-black dark:bg-black dark:text-white">
+            <span className="w-fit h-12 px-2 py-1 text-3xl font-bold bg-white text-black dark:bg-black dark:text-white whitespace-nowrap">
               {form.watch('name')}
             </span>
             <Logo className="px-4 py-2 scale-50 -mt-3 bg-white text-black dark:bg-black dark:text-white" />
