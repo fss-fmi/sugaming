@@ -213,6 +213,7 @@ model Cs2Match {
   tournament   Cs2Tournament @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
 
   // Row timestamps
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
 
   @@map("cs2_matches")
