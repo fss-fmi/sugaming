@@ -1,3 +1,5 @@
+'use client';
+
 export * from './accordion/accordion';
 export * from './avatar/avatar';
 export * from './checkbox/checkbox';

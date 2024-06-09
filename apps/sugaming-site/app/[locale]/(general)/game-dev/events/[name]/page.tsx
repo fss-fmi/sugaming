@@ -1,11 +1,8 @@
-import { TeamCard } from '@sugaming/sugaming-ui/lib/components/site/team-card/team-card';
 import { ApiClient } from '@sugaming/sugaming-api-client/client';
 import { GoVerified } from 'react-icons/go';
-import React, { Suspense } from 'react';
+import React from 'react';
 import { getTranslations } from 'next-intl/server';
 import { Card } from '@sugaming/sugaming-ui/lib/components/common/card/components/card';
-import { CardHeader } from '@sugaming/sugaming-ui/lib/components/common/card/components/card-header';
-import { Skeleton } from '@sugaming/sugaming-ui/lib/components/common/skeleton/skeleton';
 import Image from 'next/image';
 import { JoinGameDevEventConfirmationDialog } from '@sugaming/sugaming-ui/lib/components/site/join-game-dev-event-confirmation-dialog/join-game-dev-event-confirmation-dialog';
 import { cn } from '@sugaming/sugaming-ui/lib/utils';
@@ -14,7 +11,6 @@ import { getUser } from '@sugaming/sugaming-api-client/next';
 import { Logo } from '@sugaming/sugaming-ui/lib/components/site/logo/logo';
 import { ScrollArea } from '@sugaming/sugaming-ui/lib/components/common/scroll-area/components/scroll-area';
 import { UserCard } from '@sugaming/sugaming-ui/lib/components/site/user-card/user-card';
-import { CardContent } from '@sugaming/sugaming-ui/lib/components/common/card/components/card-content';
 
 interface GameDevEventPageProps {
   params: { name: string };
